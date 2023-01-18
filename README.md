@@ -24,10 +24,10 @@
 </div>
 </details>
 
-<br/><br/>
+<br/>
 
 <details>
-<summary><b>ERD</b></summary>
+<summary><b>기술명세서 / REST API</b></summary>
 <div markdown="1">
 
 ### 기술명세서 / REST API
@@ -39,10 +39,6 @@ https://oval-tower-7d5.notion.site/fbbc328ff2b7432ba528e3244061f627
 
 **REST API**
 https://oval-tower-7d5.notion.site/REST-API-9e48f9d7d0be4bb2b6311894f7a6fa9b
-
-
-
-
 
 
 </div>
