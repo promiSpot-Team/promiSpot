@@ -4,49 +4,35 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.ssafy.promiSpot.*.model.entity.ScheduleEntity">
+<mapper namespace="com.ssafy.promispot.schedule.model.entity.ScheduleEntity">
 
 
-	<insert id="insert" parameterType="ScheduleEntity">
-		insert into 
+	<!-- 스케듈 생성  -->
+	<insert id="createSchedule" parameterType="ScheduleEntity">
+		insert into schedules
 		values(#{scheduleId}, #{promiseId}, #{placeId}, #{scheduleProcedure}, #{schedulePlaceIsFinish})	
 	</insert>
-
-
-	<insert id = "insert" parameterType="User">
-		insert into user 
-		values(#{id}, #{password}, #{name}, #{address}, #{phone}, #{email}, #{salt})
-			
-	</insert>
 	
-	<select id="select" resultType="User">
-		select *
-		from user		
+	<!-- 스케듈 하나 조회  -->
+	<select id="getSchedule" parameterType="int" resultType="ScheduleEntity"> 
+		select * from schedules where schedule_id = #{scheduleId}
 	</select>
 	
-	<select id="getUser" parameterType="String" resultType="User">
-		select *
-		from user
-		where id = #{id}
-	</select>
-	
-	<delete id="deleteUser" parameterType="String">
-		delete from user
-		where id = #{id}
-	</delete>
-	
-	<update id="update" parameterType="User">
-		update user
+	<!-- 스케듈 변경  -->
+	<update id="modifySchedule" parameterType="ScheduleEntity">
+		update schedules
 		<trim prefix="set" suffixOverrides=",">
-			<if test="password != null">password = #{password},</if>
-			<if test="name != null">name = #{name},</if>
-			<if test="address != null">address = #{address},</if>
-			<if test="phone != null">phone = #{phone},</if>
-			<if test="email != null">email = #{email},</if>
+			<if test="scheduleProcedure != null">schedule_procedure = #{scheduleProcedure},</if>
+			<if test="name != null">schedule_place_is_finish = #{schedulePlaceIsFinish},</if>
 		</trim>
-		where id = #{id}
+		where schedule_id = #{scheduleId}
 	</update>
 
+	<!-- 스케듈 삭제 -->
+	<delete id="removeSchedule" parameterType="int">
+		delete from schedules
+		where schedule_id = #{scheduleId}
+	</delete>
 
 
 </mapper>
