@@ -3,6 +3,56 @@
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.ssafy.promiSpot.*.model.entity.VoteEntity">
+
+	<!-- 약속 장소 후보 등록 -->
+	<insert id="insertCandidatePlace" parameterType="VoteEntity">
+		insert into votes (promise_id, place_id, member_seq, vote_rank, vote_cnt)
+		values(#{promiseId}, #{placeId}, #{memberSeq}, #{voteRank}, 0)
+	</insert>
+	
+	<!-- 약속 장소 후보 가져오기 -->
+	<select id="getCandidatePlace" parameterType="int" resultType="VoteEntity">
+		select v.vote_id, v.promise_id, v.place_id, v.memberSeq, v.vote_rank, vote_cnt
+		from votes v
+		where v.vote_id = #{voteId}
+	</select>
+	
+	<!-- 약속 장소 후보들 가져오기 - 하나의 약속에 속한 모든 장소 후보들 -->
+	<select id="getCandidatePlaceList" parameterType="int" resultType="VoteEntity">
+		select v.vote_id, v.promise_id, v.place_id, v.memberSeq, v.vote_rank, vote_cnt
+		from votes v
+		where v.promise_id = #{promiseId}
+		order by v.vote_id
+	</select>
+	
+	<!-- 약속 장소 후보 수정(투표/투표취소) -->
+	<update id="modifyCandidatePlace" parameterType="VoteEntity">
+		update votes
+		set vote_cnt = #{voteCnt}, vote_rank = #{voteRank}
+		where vote_id = #{voteId}
+	</update>
+	
+	
+	<!-- 약속 장소 후보 삭제 -->
+	<delete id="removeCandidatePlace" parameterType="int">
+		delete from votes
+		where vote_id = #{voteId}
+	</delete>
+	
+	<!-- 약속 장소 후보 랭크 가져오기 - 하나의 약속에 속한 모든 랭킹 계산후 가져옴 -->
+	<select id="getRankCandidatePlaceList" parameterType="int" resultType="VoteEntity">
+		select v.vote_id, v.promise_id, v.place_id, v.memberSeq, v.vote_rank, vote_cnt
+		from votes v
+		where v.promise_id = #{promiseId}
+		order by v.vote_rank DESC
+	</select>
+	
+	
+	<!-- 사용자가 '한 약속에서 이 장소'(=약속장소투표번호 voteId로 구분)를 투표한 건지 아닌지 조회 -->
+	<select id="isVoted" parameterType="int" resultType="VoteEntity">
+	</select>
+	
+
 <!--
 	<resultMap type="boardDto" id="article">
 		<result column="article_no" property="articleNo"/>
@@ -22,16 +72,6 @@
 		</selectKey>
 	</insert>
 
-	<sql id="search">
-		<if test="word != null and word != ''">
-			<if test="key == 'subject'">
-				and subject like concat('%', #{word}, '%')
-			</if>
-			<if test="key != 'subject'">
-				and ${key} like concat('%', #{word}, '%')
-			</if>
-		</if>
-	</sql>
 
 	<select id="listArticle" parameterType="map" resultMap="article">
 		select b.article_no, b.user_id, b.subject, b.hit, b.register_time, m.name
@@ -42,7 +82,7 @@
 		limit #{start}, #{spp}
 	</select>
 	
-		<select id="listArticleAsync" parameterType="map" resultMap="article">
+	<select id="listArticleAsync" parameterType="map" resultMap="article">
 		select b.article_no, b.user_id, b.subject, b.content, b.hit, b.register_time, m.name
 		from board b, user m 
 		where b.user_id = m.id
