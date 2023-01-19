@@ -27,7 +27,7 @@ public class ScheduleEntity {
 	int scheduleProcedure;
 	
 	
-	@ApiModelProperty(value = "장소번호")
+	@ApiModelProperty(value = "장소완료")
 	int schedulePlaceIsFinish;
 	
 	

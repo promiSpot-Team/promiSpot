@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ssafy.promispot.*.model.entity.MemberEntity">
+
+	<!-- 로그인 -->
+	<select id="loginMember" parameterType="MemberEntity" resultType="MemberEntity">
+		select member_seq, member_id, member_nick 
+		from members 
+		where member_id = #{memberId} and member_pass = #{memberPass}
+	</select>
+	
+	<!-- 회원가입 -->
+	<insert id="registMember" parameterType="MemberEntity">
+		insert into Members(member_id, member_pass, member_name, member_nick, member_email
+		, member_img_path, member_img_origin_name, member_img_server_name, member_address_is_agree)   
+		values(#{memberId}, #{memberPass}, #{memberName}, #{memberNick}, #{memberEmail}
+		, null, null, null, #{memberAddressIsAgree})
+	</insert>
+	
+	<!-- 회원정보수정 -->
+	<update id="modifyMember" parameterType="MemberEntity">
+		update members 
+		set member_nick = #{memberNick}, member_pass = #{memberPass}, member_img_path = #{memberImgPath}
+		, member_img_origin_name = #{memberImgOriginName}, member_img_server_name = #{memberImgServerName}
+		where member_seq = #{memberSeq} 
+	</update>
+	
+	<!-- 회원탈퇴 -->
+	<delete id="removeMember" parameterType="int">
+		delete from members 
+		where member_seq = #{memberSeq} 
+	</delete>
+	
+	<!-- 회원정보조회 -->
+	<select id="findMember" parameterType="int" resultType="MemberEntity">
+		select member_name, member_id, member_email, member_nick
+		, member_img_path, member_img_origin_name, member_img_server_name 
+		where member_seq = #{memberSeq} 
+	</select>
+	
+	<!-- 회원들 조회 -->
+	<select id="findMemberList" resultType="MemberEntity">
+	</select>
+
+</mapper>
