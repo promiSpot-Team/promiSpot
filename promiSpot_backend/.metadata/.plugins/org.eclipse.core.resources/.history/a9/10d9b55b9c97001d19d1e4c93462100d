@@ -1,0 +1,8 @@
+package com.ssafy.promispot.diary.model.entity;
+
+public class DiaryEntity {
+	
+	String name;
+	List<DiaryDetailEntity> diaryDetailEntity = new ArrayLiat<>();
+
+}
