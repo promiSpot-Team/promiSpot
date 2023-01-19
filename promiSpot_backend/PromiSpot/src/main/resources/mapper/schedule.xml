@@ -7,46 +7,6 @@
 <mapper namespace="com.ssafy.promiSpot.*.model.entity.ScheduleEntity">
 
 
-	<insert id="insert" parameterType="ScheduleEntity">
-		insert into 
-		values(#{scheduleId}, #{promiseId}, #{placeId}, #{scheduleProcedure}, #{schedulePlaceIsFinish})	
-	</insert>
-
-
-	<insert id = "insert" parameterType="User">
-		insert into user 
-		values(#{id}, #{password}, #{name}, #{address}, #{phone}, #{email}, #{salt})
-			
-	</insert>
-	
-	<select id="select" resultType="User">
-		select *
-		from user		
-	</select>
-	
-	<select id="getUser" parameterType="String" resultType="User">
-		select *
-		from user
-		where id = #{id}
-	</select>
-	
-	<delete id="deleteUser" parameterType="String">
-		delete from user
-		where id = #{id}
-	</delete>
-	
-	<update id="update" parameterType="User">
-		update user
-		<trim prefix="set" suffixOverrides=",">
-			<if test="password != null">password = #{password},</if>
-			<if test="name != null">name = #{name},</if>
-			<if test="address != null">address = #{address},</if>
-			<if test="phone != null">phone = #{phone},</if>
-			<if test="email != null">email = #{email},</if>
-		</trim>
-		where id = #{id}
-	</update>
-
 
 
 </mapper>

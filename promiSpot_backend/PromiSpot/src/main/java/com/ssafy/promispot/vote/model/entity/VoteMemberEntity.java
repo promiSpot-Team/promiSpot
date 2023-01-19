@@ -10,12 +10,14 @@ import io.swagger.annotations.ApiModelProperty;
 public class VoteMemberEntity {
 	@ApiModelProperty(value = "투표자번호")
 	private int voteMemberId;
-	@ApiModelProperty(value = "약속참여자번호")
-	private int promiseMemberId;
+	@ApiModelProperty(value = "약속번호")
+	private int promiseId;
 	@ApiModelProperty(value = "약속장소투표번호")
 	private int voteId;
 	@ApiModelProperty(value = "회원시퀀스")
 	private int memberSeq;
+	@ApiModelProperty(value = "장소번호")
+	private int priceId;
 	
 	public int getVoteMemberId() {
 		return voteMemberId;
@@ -23,11 +25,11 @@ public class VoteMemberEntity {
 	public void setVoteMemberId(int voteMemberId) {
 		this.voteMemberId = voteMemberId;
 	}
-	public int getPromiseMemberId() {
-		return promiseMemberId;
+	public int getPromiseId() {
+		return promiseId;
 	}
-	public void setPromiseMemberId(int promiseMemberId) {
-		this.promiseMemberId = promiseMemberId;
+	public void setPromiseId(int promiseId) {
+		this.promiseId = promiseId;
 	}
 	public int getVoteId() {
 		return voteId;
@@ -41,12 +43,21 @@ public class VoteMemberEntity {
 	public void setMemberSeq(int memberSeq) {
 		this.memberSeq = memberSeq;
 	}
+	public int getPriceId() {
+		return priceId;
+	}
+	public void setPriceId(int priceId) {
+		this.priceId = priceId;
+	}
 	@Override
 	public String toString() {
-		return "VoteMemberEntity [voteMemberId=" + voteMemberId + ", promiseMemberId=" + promiseMemberId + ", voteId="
-				+ voteId + ", memberSeq=" + memberSeq + "]";
+		return "VoteMemberEntity [voteMemberId=" + voteMemberId + ", promiseId=" + promiseId + ", voteId=" + voteId
+				+ ", memberSeq=" + memberSeq + ", priceId=" + priceId + "]";
 	}
 	
+	
+	
+
 	
 
 }
