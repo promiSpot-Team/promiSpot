@@ -16,7 +16,7 @@ public interface PromiseMapper {
 	public PromiseEntity getPromise(int promiseId) throws SQLException;
 	
 	// 약속 수정 
-	public int modiftPromise(PromiseEntity promiseEntity) throws SQLException;
+	public int modifyPromise(PromiseEntity promiseEntity) throws SQLException;
 	
 	// 약속 삭제
 	public int removePromise(int promiseId) throws SQLException;
