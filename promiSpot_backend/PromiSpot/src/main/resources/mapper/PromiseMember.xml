@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ssafy.promispot.promise.model.mapper.PromiseMemberMapper">
+
+
+	<!-- 약속 참여자 등록 -->
+	<insert id="registPromiseMember" parameterType="PromiseMemberEntity">
+		insert into promises_member(promise_title, promise_date, promise_vote_is_finish, promise_schedule_is_finish)
+		values(#{promiseTitle}, #{promiseDate}, #{promiseVoteIsFinish}, #{promiseScheduleIsFinish})	
+	</insert>
+
+
+
+	<!-- 약속 참여자 한 명 조회 -->
+
+	
+
+
+	<!-- 약속 참여자 전체 조회 -->
+	
+	
+	
+	<!-- 약속장 변경 -->
+
+
+
+	<!-- 약속 참여자 삭제 -->
+
+
+</mapper>
