@@ -5,7 +5,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.ssafy.promispot.place.model.entity.PlaceEntity">
+<mapper namespace="com.ssafy.promispot.place.model.mapper.PlaceMapper">
 
 
 	<!-- 장소 생성  -->
