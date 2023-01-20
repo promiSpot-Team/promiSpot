@@ -17,7 +17,7 @@ public class VoteMemberEntity {
 	@ApiModelProperty(value = "회원시퀀스")
 	private int memberSeq;
 	@ApiModelProperty(value = "장소번호")
-	private int priceId;
+	private String priceId;
 	
 	public int getVoteMemberId() {
 		return voteMemberId;
@@ -43,10 +43,10 @@ public class VoteMemberEntity {
 	public void setMemberSeq(int memberSeq) {
 		this.memberSeq = memberSeq;
 	}
-	public int getPriceId() {
+	public String getPriceId() {
 		return priceId;
 	}
-	public void setPriceId(int priceId) {
+	public void setPriceId(String priceId) {
 		this.priceId = priceId;
 	}
 	@Override

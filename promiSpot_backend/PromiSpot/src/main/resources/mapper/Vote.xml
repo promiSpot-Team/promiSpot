@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.ssafy.promispot.vote.model.entity.VoteEntity">
+<mapper namespace="com.ssafy.promispot.vote.model.mapper.VoteMapper">
 
 	<!-- 약속 장소 후보 등록 -->
 	<insert id="insertCandidatePlace" parameterType="voteEntity">
@@ -51,7 +51,7 @@
 	
 	<!-- 사용자가 한 약속에서 이 장소를 투표한 건지 아닌지 조회 
 	//resultType가 boolean인지 int인지 모르겠다
-	//exists문은 결과값이 있으면 1을 리턴, 없으면 0을 리턴.int memberSeq, int promiseId, int placeId
+	//exists문은 결과값이 있으면 1을 리턴, 없으면 0을 리턴.
 	-->
 	<select id="isVoted" parameterType="map" resultType="int">
 		select
@@ -68,78 +68,9 @@
 	</insert>
 	
 	<!-- 약속 장소 투표를 해제하면 투표자 테이블에서 삭제 -->
-		<delete id="removeVoter" parameterType="int">
+	<delete id="removeVoter" parameterType="map">
 		delete from voters_members
-		where vote_id = #
+		where member_seq = #{memberSeq} and promise_id = #{promiseId} and place_id = #{placeId}
 	</delete>
 
-<!--
-	<resultMap type="boardDto" id="article">
-		<result column="article_no" property="articleNo"/>
-		<result column="user_id" property="userId"/>
-		<result column="user_name" property="userName"/>
-		<result column="subject" property="subject"/>
-		<result column="content" property="content"/>
-		<result column="hit" property="hit"/>
-		<result column="register_time" property="registerTime"/>
-	</resultMap>
-	
-	<insert id="writeArticle" parameterType="boardDto">
-		insert into board (user_id, subject, content, hit, register_time)
-		values (#{userId}, #{subject}, #{content}, 0, now())
-		<selectKey resultType="int" keyProperty="articleNo" order="AFTER">
-			select last_insert_id()
-		</selectKey>
-	</insert>
-
-
-	<select id="listArticle" parameterType="map" resultMap="article">
-		select b.article_no, b.user_id, b.subject, b.hit, b.register_time, m.name
-		from board b, user m 
-		where b.user_id = m.id
-		<include refid="search"></include>
-		order by b.article_no desc
-		limit #{start}, #{spp}
-	</select>
-	
-	<select id="listArticleAsync" parameterType="map" resultMap="article">
-		select b.article_no, b.user_id, b.subject, b.content, b.hit, b.register_time, m.name
-		from board b, user m 
-		where b.user_id = m.id
-		<include refid="search"></include>
-		order by b.article_no desc
-	</select>
-	
-	<select id="getTotalArticleCount" parameterType="map" resultType="int">
-		select count(article_no)
-		from board
-		<where>
-			<include refid="search"></include>
-		</where>
-	</select>
-	
-	<select id="getArticle" parameterType="int" resultMap="article">
-		select b.article_no, b.user_id, b.subject, b.content, b.hit, b.register_time, m.name 
-		from board b, user m
-		where b.user_id = m.id
-		and b.article_no = #{articleNo}
-	</select>
-	
-	<update id="updateHit" parameterType="int">
-		update board
-		set hit = hit + 1
-		where article_no = #{articleNo}
-	</update>
-	
-	<update id="modifyArticle" parameterType="boardDto">
-		update board
-		set subject = #{subject}, content = #{content}
-		where article_no = #{articleNo}
-	</update>
-	
-	<delete id="deleteArticle" parameterType="int">
-		delete from board
-		where article_no = #{articleNo}
-	</delete>
--->
 </mapper>
