@@ -13,23 +13,23 @@
 	
 	<!-- 약속 장소 후보 가져오기 -->
 	<select id="getCandidatePlace" parameterType="int" resultType="voteEntity">
-		select v.vote_id, v.promise_id, v.place_id, v.memberSeq, v.vote_rank, vote_cnt
+		select v.vote_seq, v.promise_seq, v.place_id, v.member_seq, vote_cnt
 		from votes v
-		where v.vote_id = #{voteId}
+		where v.vote_seq = #{voteSeq}
 	</select>
 	
 	<!-- 약속 장소 후보들 가져오기 - 하나의 약속에 속한 모든 장소 후보들 -->
 	<select id="getCandidatePlaceList" parameterType="int" resultType="voteEntity">
-		select v.vote_id, v.promise_id, v.place_id, v.memberSeq, v.vote_rank, vote_cnt
+		select v.vote_seq, v.promise_seq, v.place_id, v.member_seq, vote_cnt
 		from votes v
-		where v.promise_id = #{promiseId}
-		order by v.vote_id
+		where v.promise_seq = #{promiseSeq}
+		order by v.vote_seq
 	</select>
 	
 	<!-- 약속 장소 후보 수정(투표/투표취소) -->
 	<update id="modifyCandidatePlace" parameterType="voteEntity">
 		update votes
-		set vote_cnt = #{voteCnt}, vote_rank = #{voteRank}
+		set vote_cnt = #{voteCnt}
 		where vote_id = #{voteId}
 	</update>
 	
@@ -37,16 +37,9 @@
 	<!-- 약속 장소 후보 삭제 -->
 	<delete id="removeCandidatePlace" parameterType="int">
 		delete from votes
-		where vote_id = #{voteId}
+		where vote_seq = #{voteSeq}
 	</delete>
 	
-	<!-- 약속 장소 후보 랭크 가져오기 - 하나의 약속에 속한 모든 랭킹 계산후 가져옴 -->
-	<select id="getRankCandidatePlaceList" parameterType="int" resultType="voteEntity">
-		select v.vote_id, v.promise_id, v.place_id, v.memberSeq, v.vote_rank, vote_cnt
-		from votes v
-		where v.promise_id = #{promiseId}
-		order by v.vote_rank DESC
-	</select>
 	
 	
 	<!-- 사용자가 한 약속에서 이 장소를 투표한 건지 아닌지 조회 
@@ -58,7 +51,7 @@
 		exists
 		(select 1
 		from voters_members vm
-		where vm.member_seq = #{memberSeq} and vm.promise_id = #{promiseId} and vm.place_id = #{placeId})
+		where vm.member_seq = #{memberSeq} and vm.vote_seq = #{voteSeq})
 	</select>
 	
 	<!-- 약속 장소 투표버튼 누르면 투표자 테이블에 추가 -->
@@ -70,7 +63,7 @@
 	<!-- 약속 장소 투표를 해제하면 투표자 테이블에서 삭제 -->
 	<delete id="removeVoter" parameterType="map">
 		delete from voters_members
-		where member_seq = #{memberSeq} and promise_id = #{promiseId} and place_id = #{placeId}
+		where member_seq = #{memberSeq} and vote_seq = #{voteSeq}
 	</delete>
 
 </mapper>

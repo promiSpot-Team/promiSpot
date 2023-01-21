@@ -10,7 +10,7 @@ import io.swagger.annotations.ApiModelProperty;
 public class VoteMemberEntity {
 	@ApiModelProperty(value = "회원일련번호")
 	private int memberSeq;
-	@ApiModelProperty(value = "약속번호")
+	@ApiModelProperty(value = "약속장소후보일련번호")
 	private int voteSeq;
 	
 	public int getMemberSeq() {

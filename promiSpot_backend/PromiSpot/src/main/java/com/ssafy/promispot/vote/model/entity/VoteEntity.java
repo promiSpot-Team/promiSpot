@@ -9,29 +9,27 @@ import io.swagger.annotations.ApiModelProperty;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class VoteEntity {
 	
-	@ApiModelProperty(value = "약속장소투표번호")
-	private int voteId;
-	@ApiModelProperty(value = "약속번호")
-	private int promiseId;
+	@ApiModelProperty(value = "약속장소후보일련번호")
+	private int voteSeq;
+	@ApiModelProperty(value = "약속일련번호")
+	private int promiseSeq;
 	@ApiModelProperty(value = "장소번호")
 	private String placeId;
-	@ApiModelProperty(value = "회원시퀀스")
+	@ApiModelProperty(value = "회원일렬번호")
 	private int memberSeq;
-	@ApiModelProperty(value = "등수")
-	private int voteRank;
 	@ApiModelProperty(value = "득표수")
 	private int voteCnt;
-	public int getVoteId() {
-		return voteId;
+	public int getVoteSeq() {
+		return voteSeq;
 	}
-	public void setVoteId(int voteId) {
-		this.voteId = voteId;
+	public void setVoteSeq(int voteSeq) {
+		this.voteSeq = voteSeq;
 	}
-	public int getPromiseId() {
-		return promiseId;
+	public int getPromiseSeq() {
+		return promiseSeq;
 	}
-	public void setPromiseId(int promiseId) {
-		this.promiseId = promiseId;
+	public void setPromiseSeq(int promiseSeq) {
+		this.promiseSeq = promiseSeq;
 	}
 	public String getPlaceId() {
 		return placeId;
@@ -45,23 +43,18 @@ public class VoteEntity {
 	public void setMemberSeq(int memberSeq) {
 		this.memberSeq = memberSeq;
 	}
-	public int getVoteRank() {
-		return voteRank;
-	}
-	public void setVoteRank(int voteRank) {
-		this.voteRank = voteRank;
-	}
 	public int getVoteCnt() {
 		return voteCnt;
 	}
 	public void setVoteCnt(int voteCnt) {
 		this.voteCnt = voteCnt;
 	}
-	
 	@Override
 	public String toString() {
-		return "VoteEntity [voteId=" + voteId + ", promiseId=" + promiseId + ", placeId=" + placeId + ", memberSeq="
-				+ memberSeq + ", voteRank=" + voteRank + ", voteCnt=" + voteCnt + "]";
+		return "VoteEntity [voteSeq=" + voteSeq + ", promiseSeq=" + promiseSeq + ", placeId=" + placeId + ", memberSeq="
+				+ memberSeq + ", voteCnt=" + voteCnt + "]";
 	}
+	
+	
 	
 }
