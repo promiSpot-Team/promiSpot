@@ -17,23 +17,24 @@ public interface PromiseMemberMapper {
 	
 	
 	// 약속 참여자 한 명 조회
-	public PromiseMemberEntity getPromiseMember(int promiseId, int memberSeq) throws SQLException;
+	public PromiseMemberEntity getPromiseMember(
+			@Param("promiseSeq") int promiseSeq, 
+			@Param("memberSeq") int memberSeq) throws SQLException;
 	
 	
 	// 약속 참여자 전체 조회
-	public List<PromiseMemberEntity> getPromiseMemberList(int promiseId) throws SQLException;
+	public List<PromiseMemberEntity> getPromiseMemberList(int promiseSeq) throws SQLException;
 	
 	
 	// 약속장 변경
 	public int modifyPromiseMemberLeader(
-			@Param("promiseId") int promiseId,
-			@Param("beforeMemberSeq") int beforeMemberSeq, 
-			@Param("afterMemberSeq") int afterMemberSeq) throws SQLException;
+			@Param("promiseSeq") int promiseSeq,
+			@Param("memeberSeq") int memberSeq) throws SQLException;
 	
 	
 	// 약속 참여자 삭제 
 	public int removePromiseMember(
-			@Param("promiseId") int promiseId,
+			@Param("promiseSeq") int promiseSeq,
 			@Param("memberSeq") int memberSeq) throws SQLException;
 	
 	

@@ -24,6 +24,7 @@
 		select * from places where place_id = #{placeId}
 	</select>
 	
+	
 	<!-- 장소 변경  -->
 	<update id="modifyPlace" parameterType="PlaceEntity">
 		update places

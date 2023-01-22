@@ -20,6 +20,7 @@
 		select * from promises where promise_id = #{promiseId}
 	</select>
 	
+	
 	<!-- 약속 변경  -->
 	<update id="modifyPromise" parameterType="PromiseEntity">
 		update promises
@@ -31,6 +32,7 @@
 		</trim>
 		where promise_id = #{promiseId}
 	</update>
+
 
 	<!-- 약속 삭제 -->
 	<delete id="removeSchedule" parameterType="int">
