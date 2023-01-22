@@ -55,7 +55,7 @@
 		select member_nick, member_id, member_img_path, member_img_origin_name, member_img_server_name 
 		from members m join friend_approval a 
 		on m.member_seq = a.member_seq 
-		where a.member_seq = #{memberSeq} or a.friend_request_member = #{memberSeq}
+		where a.member_seq = #{memberSeq}
 	</select>
 
 </mapper>
