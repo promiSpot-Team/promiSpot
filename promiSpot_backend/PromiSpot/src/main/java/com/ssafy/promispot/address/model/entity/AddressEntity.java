@@ -9,10 +9,10 @@ import io.swagger.annotations.ApiModelProperty;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class AddressEntity {
 	
-	@ApiModelProperty(value = "주소 시퀀스")
-	private int addressId;
+	@ApiModelProperty(value = "주소 일련번호")
+	private int addressSeq;
 	
-	@ApiModelProperty(value = "회원시퀀스")
+	@ApiModelProperty(value = "회원 일련번호")
 	private int memberSeq;
 	
 	@ApiModelProperty(value = "주소")
@@ -30,12 +30,12 @@ public class AddressEntity {
 	@ApiModelProperty(value = "대표 주소 상태")
 	private int addressIsPrimary;
 
-	public int getAddressId() {
-		return addressId;
+	public int getAddressSeq() {
+		return addressSeq;
 	}
 
-	public void setAddressId(int addressId) {
-		this.addressId = addressId;
+	public void setAddressSeq(int addressSeq) {
+		this.addressSeq = addressSeq;
 	}
 
 	public int getMemberSeq() {
@@ -88,12 +88,10 @@ public class AddressEntity {
 
 	@Override
 	public String toString() {
-		return "AddressEntity [addressId=" + addressId + ", memberSeq=" + memberSeq + ", addressAdress=" + addressAdress
-				+ ", addressNick=" + addressNick + ", addressX=" + addressX + ", addressY=" + addressY
+		return "AddressEntity [addressSeq=" + addressSeq + ", memberSeq=" + memberSeq + ", addressAdress="
+				+ addressAdress + ", addressNick=" + addressNick + ", addressX=" + addressX + ", addressY=" + addressY
 				+ ", addressIsPrimary=" + addressIsPrimary + "]";
 	}
-
-	
 
 	
 }//AddressEntity

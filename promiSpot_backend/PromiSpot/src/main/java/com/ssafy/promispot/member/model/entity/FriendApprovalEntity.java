@@ -9,21 +9,21 @@ import io.swagger.annotations.ApiModelProperty;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class FriendApprovalEntity {
 	
-	@ApiModelProperty(value = "친구승인시퀀스")
-	private int friendApprovalId;
+	@ApiModelProperty(value = "친구승인 일련번호")
+	private int friendApprovalSeq;
 	
-	@ApiModelProperty(value = "친구신청을 요청한 회원시퀀스")
+	@ApiModelProperty(value = "친구신청을 요청한 회원일련번호")
 	private int memberSeq;
 	
-	@ApiModelProperty(value = "친구신청을 받은 회원시퀀스")
+	@ApiModelProperty(value = "친구신청을 받은 회원일련번호")
 	private int friendRequestMember;
 
-	public int getFriendApprovalId() {
-		return friendApprovalId;
+	public int getFriendApprovalSeq() {
+		return friendApprovalSeq;
 	}
 
-	public void setFriendApprovalId(int friendApprovalId) {
-		this.friendApprovalId = friendApprovalId;
+	public void setFriendApprovalSeq(int friendApprovalSeq) {
+		this.friendApprovalSeq = friendApprovalSeq;
 	}
 
 	public int getMemberSeq() {
@@ -44,10 +44,10 @@ public class FriendApprovalEntity {
 
 	@Override
 	public String toString() {
-		return "FriendApprovalEntity [friendApprovalId=" + friendApprovalId + ", memberSeq=" + memberSeq
+		return "FriendApprovalEntity [friendApprovalSeq=" + friendApprovalSeq + ", memberSeq=" + memberSeq
 				+ ", friendRequestMember=" + friendRequestMember + "]";
 	}
-	
+
 	
 
 }//FriendApprovalEntity

@@ -16,7 +16,7 @@
 	<select id="getAddress" parameterType="int" resultType="AddressEntity">
 		select *  
 		from addresses 
-		where address_id = #{addressId}  
+		where address_seq = #{addressId}  
 	</select>
 	
 	<!-- 회원 주소 수정 -->
@@ -24,13 +24,13 @@
 		update addresses 
 		set address_address=#{addressAddress}, address_nick=#{addressNick}, address_x=#{addressX}
 		, address_y=#{addressY}, address_is_primary=#{addressIsPrimary} 
-		where address_id = #{addressId} 
+		where address_seq = #{addressSeq} 
 	</update>
 	
 	<!-- 회원 주소 삭제 -->
 	<delete id="removeAddress" parameterType="int">
 		delete from addresses 
-		where address_id = #{addressId} 
+		where address_seq = #{addressSeq} 
 	</delete>
 	
 	<!-- 회원 주소들 조회  -->

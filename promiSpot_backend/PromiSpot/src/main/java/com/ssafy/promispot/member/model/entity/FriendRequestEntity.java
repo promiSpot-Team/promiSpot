@@ -9,24 +9,25 @@ import io.swagger.annotations.ApiModelProperty;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class FriendRequestEntity {
 	
-	@ApiModelProperty(value = "친구신청시퀀스")
-	private int friendRequestId;
+	@ApiModelProperty(value = "친구신청일련번호")
+	private int friendRequestSeq;
 	
-	@ApiModelProperty(value = "친구신청을 요청한 회원시퀀스")
+	@ApiModelProperty(value = "친구신청을 요청한 회원일련번호")
 	private int memberSeq;
 	
-	@ApiModelProperty(value = "친구신청을 받은 회원시퀀스")
+	@ApiModelProperty(value = "친구신청을 받은 회원일련번호")
 	private int friendRequestMember;
 	
 	@ApiModelProperty(value = "신청상태 [ 0:신청 상태 1:승인 상태 ]")
 	private int friendRequestIsAgree;
 
-	public int getFriendRequestId() {
-		return friendRequestId;
+	
+	public int getFriendRequestSeq() {
+		return friendRequestSeq;
 	}
 
-	public void setFriendRequestId(int friendRequestId) {
-		this.friendRequestId = friendRequestId;
+	public void setFriendRequestSeq(int friendRequestSeq) {
+		this.friendRequestSeq = friendRequestSeq;
 	}
 
 	public int getMemberSeq() {
@@ -55,11 +56,10 @@ public class FriendRequestEntity {
 
 	@Override
 	public String toString() {
-		return "FriendRequestEntity [friendRequestId=" + friendRequestId + ", memberSeq=" + memberSeq
+		return "FriendRequestEntity [friendRequestSeq=" + friendRequestSeq + ", memberSeq=" + memberSeq
 				+ ", friendRequestMember=" + friendRequestMember + ", friendRequestIsAgree=" + friendRequestIsAgree
 				+ "]";
 	}
-
 	
 	
 }//FriendRequestEntity

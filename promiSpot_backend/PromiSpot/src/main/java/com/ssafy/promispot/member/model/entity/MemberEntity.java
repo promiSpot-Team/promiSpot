@@ -9,7 +9,7 @@ import io.swagger.annotations.ApiModelProperty;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class MemberEntity {
 	
-	@ApiModelProperty(value = "회원시퀀스")
+	@ApiModelProperty(value = "회원일련번호")
 	private int memberSeq;
 	
 	@ApiModelProperty(value = "회원아이디")
@@ -26,6 +26,9 @@ public class MemberEntity {
 	
 	@ApiModelProperty(value = "이메일")
 	private String memberEmail;
+	
+	@ApiModelProperty(value = "전화번호")
+	private String memberPhoneNum;
 	
 	@ApiModelProperty(value = "프로필 이미지 경로")
 	private String memberImgPath;
@@ -87,6 +90,14 @@ public class MemberEntity {
 		this.memberEmail = memberEmail;
 	}
 
+	public String getMemberPhoneNum() {
+		return memberPhoneNum;
+	}
+
+	public void setMemberPhoneNum(String memberPhoneNum) {
+		this.memberPhoneNum = memberPhoneNum;
+	}
+
 	public String getMemberImgPath() {
 		return memberImgPath;
 	}
@@ -123,10 +134,10 @@ public class MemberEntity {
 	public String toString() {
 		return "MemberEntity [memberSeq=" + memberSeq + ", memberId=" + memberId + ", memberPass=" + memberPass
 				+ ", memberName=" + memberName + ", memberNick=" + memberNick + ", memberEmail=" + memberEmail
-				+ ", memberImgPath=" + memberImgPath + ", memberImgOriginName=" + memberImgOriginName
-				+ ", memberImgServerName=" + memberImgServerName + ", memberAddressIsAgree=" + memberAddressIsAgree
-				+ "]";
-	}	
-	
+				+ ", memberPhoneNum=" + memberPhoneNum + ", memberImgPath=" + memberImgPath + ", memberImgOriginName="
+				+ memberImgOriginName + ", memberImgServerName=" + memberImgServerName + ", memberAddressIsAgree="
+				+ memberAddressIsAgree + "]";
+	}
 
+	
 }//MemberEntity
