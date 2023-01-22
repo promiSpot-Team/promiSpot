@@ -1,3 +1,4 @@
+
 DROP TABLE IF EXISTS `bookmarks`;
 
 CREATE TABLE `bookmarks` (
@@ -22,7 +23,7 @@ CREATE TABLE `members` (
 	`member_img_origin_name`	VARCHAR(200),
 	`member_img_server_name`	VARCHAR(200),
 	`member_address_is_agree`	TINYINT	NULL COMMENT '0:비동의 1:동의',
-    primary key(`member_seq`)
+    primary key(`member_seq`)members
 );
 
 
@@ -56,13 +57,12 @@ CREATE TABLE `friend_request` (
 );
 
 
-DROP TABLE IF EXISTS `friend_approval`;
+DROP TABLE IF EXISTS `friends`;
 
-CREATE TABLE `friend_approval` (
-	`friend_approval_seq`	BIGINT	NOT NULL AUTO_INCREMENT,
-	`member_seq`	BIGINT	NULL	COMMENT '신청 한 사람(사용자)',
-	`friend_request_member`	BIGINT	NULL	COMMENT '신청 받은 사람(친구)',
-    primary key(friend_approval_seq)
+CREATE TABLE `friends` (
+	`member_seq`	BIGINT	,
+	`friend_friend`	BIGINT	,
+    primary key(`member_seq`, `friend_friend`)
 );
 
 
@@ -140,10 +140,10 @@ CREATE TABLE `addresses` (
 -- 회원 더미 데이터 
 insert into members values
 (null, "admin", "1234", "운영자", "운영자자", "admin@naver.com", "01011112222", "", "", "", 1),
-(null, "member1", "1234", "김동언", "회원닉네임1", "member1@naver.com", "01050261111", "", "", "", 1),
-(null, "member2", "1234", "김수형", "회원닉네임2", "member2@naver.com", "01054431111", "", "", "", 1),
-(null, "member3", "1234", "이민정", "회원닉네임3", "member3@naver.com", "01042371111", "", "", "", 1),
-(null, "member4", "1234", "최윤지", "회원닉네임4", "member4@naver.com", "01075771111", "", "", "", 1);
+(null, "member1", "1234", "회원1", "회원닉네임1", "member1@naver.com", "01011112222", "", "", "", 1),
+(null, "member2", "1234", "회원2", "회원닉네임2", "member2@naver.com", "01011112222", "", "", "", 1),
+(null, "member3", "1234", "회원3", "회원닉네임3", "member3@naver.com", "01011112222", "", "", "", 1),
+(null, "member4", "1234", "회원4", "회원닉네임4", "member4@naver.com", "01011112222", "", "", "", 1);
 
 -- 주소 더미 데이터
 insert into addresses values
@@ -159,9 +159,9 @@ insert into friend_request values
 (null, 1, 4, 0);
 
 -- 친구승인 더미데이터
-insert into friend_approval values
-(null, 1, 2),
-(null, 1, 3);
+insert into friends values
+(1, 2),
+(1, 3);
 
 -- 약속 더미데이터
 insert into promises values
@@ -225,25 +225,17 @@ insert into schedules values
 
 
 
--- 친구 신청 더미데이터
-insert into friend_request(member_seq, friend_request_member, friend_request_is_agree) 
-values(2, 3, 1);
-insert into friend_request(member_seq, friend_request_member, friend_request_is_agree) 
-values(2, 4, 0);
-insert into friend_request(member_seq, friend_request_member, friend_request_is_agree) 
-values(2, 5, 0);
-insert into friend_request(member_seq, friend_request_member, friend_request_is_agree) 
-values(3 ,5, 1);
-insert into friend_request(member_seq, friend_request_member, friend_request_is_agree) 
-values(4, 5, 0);
 
--- 친구 승인 더미데이터 
-insert into friend_approval 
-values(null, 2, 3);
-insert into friend_approval 
-values(null, 3, 5);
 
 
 
 select * from promises;
-select * from members;
+
+
+
+select * from friend_approval where member_seq = 1 or friend_request_member = 1;
+
+
+
+
+
