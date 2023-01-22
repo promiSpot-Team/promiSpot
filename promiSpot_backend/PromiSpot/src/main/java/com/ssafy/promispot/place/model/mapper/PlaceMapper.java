@@ -14,13 +14,13 @@ public interface PlaceMapper {
 	public int insertPlace(PlaceEntity placeEntity) throws SQLException;
 	
 	// 장소 조회
-	public PlaceEntity getPlace(String placeId) throws SQLException;
+	public PlaceEntity getPlace(String placeSeq) throws SQLException;
 	
 	// 장소 수정
 	public int modifyPlace(PlaceEntity placeEntity) throws SQLException;
 	
 	// 장소 삭제
-	public int removePlace(String placeId) throws SQLException;
+	public int removePlace(String placeSeq) throws SQLException;
 	
 	
 	
