@@ -15,10 +15,10 @@ import lombok.Data;
 @Data
 public class PromiseMemberEntity {
 	
-	@ApiModelProperty(value = "약속번호")
+	@ApiModelProperty(value = "약속일련번호")
 	private int promiseSeq;
 	
-	@ApiModelProperty(value = "회원시퀀스")
+	@ApiModelProperty(value = "회원일련번호")
 	private int memberSeq;
 	
 	@ApiModelProperty(value = "약속장")

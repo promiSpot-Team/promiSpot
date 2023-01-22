@@ -12,11 +12,11 @@ import lombok.Data;
 public class ScheduleEntity {
 	
 	
-	@ApiModelProperty(value = "스케쥴번호")
-	int scheduleId;
+	@ApiModelProperty(value = "스케쥴일련번호")
+	int scheduleSeq;
 	
-	@ApiModelProperty(value = "약속번호")
-	int promiseId;
+	@ApiModelProperty(value = "약속일련번호")
+	int promiseSeq;
 	
 	
 	@ApiModelProperty(value = "장소번호")

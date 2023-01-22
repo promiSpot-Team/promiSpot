@@ -17,7 +17,12 @@
 	
 	<!-- 약속 하나 조회  -->
 	<select id="getPromise" parameterType="int" resultType="PromiseEntity"> 
-		select * from promises where promise_id = #{promiseId}
+		select * from promises where promise_seq = #{promiseSeq}
+	</select>
+	
+	<!-- 한 회원의 약속 전부 조회  -->
+	<select id="getPromiseList" parameterType="int" resultType="PromiseEntity"> 
+		select * from promises where member_seq = #{memberSeq}
 	</select>
 	
 	
@@ -30,14 +35,14 @@
 			<if test="promiseVoteIsFinish != null">promise_vote_is_finish = #{promiseVoteIsFinish},</if>
 			<if test="promiseScheduleIsFinish != null">promise_schedule_is_finish = #{promiseScheduleIsFinish},</if>
 		</trim>
-		where promise_id = #{promiseId}
+		where promise_seq = #{promiseSeq}
 	</update>
 
 
 	<!-- 약속 삭제 -->
 	<delete id="removeSchedule" parameterType="int">
 		delete from promises
-		where promise_id = #{promiseId}
+		where promise_seq = #{promiseSeq}
 	</delete>
 
 

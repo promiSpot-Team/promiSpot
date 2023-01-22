@@ -13,8 +13,8 @@ import lombok.Data;
 @Data
 public class PromiseEntity {
 	
-	@ApiModelProperty(value = "약속번호")
-	private int promiseId;
+	@ApiModelProperty(value = "약속일련번호")
+	private int promiseSeq;
 	
 	@ApiModelProperty(value = "약속제목")
 	private String promiseTitle;
