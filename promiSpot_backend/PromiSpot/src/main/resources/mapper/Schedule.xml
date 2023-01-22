@@ -10,12 +10,12 @@
 	<!-- 스케듈 생성  -->
 	<insert id="createSchedule" parameterType="ScheduleEntity">
 		insert into schedules
-		values(#{scheduleId}, #{promiseId}, #{placeId}, #{scheduleProcedure}, #{schedulePlaceIsFinish})	
+		values(#{scheduleSeq}, #{promiseSeq}, #{placeId}, #{scheduleProcedure}, #{schedulePlaceIsFinish})	
 	</insert>
 	
 	<!-- 스케듈 하나 조회  -->
 	<select id="getSchedule" parameterType="int" resultType="ScheduleEntity"> 
-		select * from schedules where schedule_id = #{scheduleId}
+		select * from schedules where schedule_seq = #{scheduleSeq}
 	</select>
 	
 	<!-- 스케듈 변경  -->
@@ -25,13 +25,13 @@
 			<if test="scheduleProcedure != null">schedule_procedure = #{scheduleProcedure},</if>
 			<if test="name != null">schedule_place_is_finish = #{schedulePlaceIsFinish},</if>
 		</trim>
-		where schedule_id = #{scheduleId}
+		where schedule_seq = #{scheduleSeq}
 	</update>
 
 	<!-- 스케듈 삭제 -->
 	<delete id="removeSchedule" parameterType="int">
 		delete from schedules
-		where schedule_id = #{scheduleId}
+		where schedule_seq = #{scheduleSeq}
 	</delete>
 
 

@@ -42,6 +42,7 @@
 		</trim>
 		where place_id = #{placeId}
 	</update>
+	
 
 	<!-- 장소 삭제 -->
 	<delete id="removePlace" parameterType="String">
