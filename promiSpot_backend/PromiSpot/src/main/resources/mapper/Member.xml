@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.ssafy.promispot.model.mapper.MemberMapper">
+<mapper namespace="com.ssafy.promispot.member.model.mapper.MemberMapper">
 
 	<!-- 로그인 -->
 	<select id="loginMember" parameterType="MemberEntity" resultType="MemberEntity">
@@ -13,7 +13,7 @@
 	
 	<!-- 회원가입 -->
 	<insert id="registMember" parameterType="MemberEntity">
-		insert into Members(member_id, member_pass, member_name, member_nick, member_phone_num 
+		insert into members(member_id, member_pass, member_name, member_nick, member_phone_num 
 		, member_img_path, member_img_origin_name, member_img_server_name, member_address_is_agree)   
 		values(#{memberId}, #{memberPass}, #{memberName}, #{memberNick}, #{memberPhoneNum}
 		, null, null, null, #{memberAddressIsAgree})
@@ -35,8 +35,8 @@
 	
 	<!-- 회원정보조회 -->
 	<select id="findMember" parameterType="int" resultType="MemberEntity">
-		select member_name, member_id, member_email, member_nick
-		, member_img_path, member_img_origin_name, member_img_server_name 
+		select * 
+		from members 
 		where member_seq = #{memberSeq} 
 	</select>
 	
