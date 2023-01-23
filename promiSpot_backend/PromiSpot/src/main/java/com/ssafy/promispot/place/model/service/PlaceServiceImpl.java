@@ -22,8 +22,8 @@ public class PlaceServiceImpl implements PlaceService{
 
 	// 장소 조회
 	@Override
-	public PlaceEntity getPlace(String placeSeq) throws SQLException {
-		return placeMapper.getPlace(placeSeq);
+	public PlaceEntity getPlace(String placeId) throws SQLException {
+		return placeMapper.getPlace(placeId);
 	}
 
 	// 장소 수정
@@ -34,8 +34,8 @@ public class PlaceServiceImpl implements PlaceService{
 
 	// 장소 삭제
 	@Override
-	public int removePlace(String placeSeq) throws SQLException {
-		return placeMapper.removePlace(placeSeq);
+	public int removePlace(String placeId) throws SQLException {
+		return placeMapper.removePlace(placeId);
 	}
 	
 
