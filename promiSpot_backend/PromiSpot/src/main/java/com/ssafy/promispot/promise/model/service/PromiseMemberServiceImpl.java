@@ -4,10 +4,15 @@ import java.sql.SQLException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+import com.ssafy.promispot.promise.dto.PromiseMemberModifyLeaderDto;
 import com.ssafy.promispot.promise.model.entity.PromiseMemberEntity;
 import com.ssafy.promispot.promise.model.mapper.PromiseMemberMapper;
 
+
+
+@Service
 public class PromiseMemberServiceImpl implements PromiseMemberService{
 
 	@Autowired
@@ -37,8 +42,14 @@ public class PromiseMemberServiceImpl implements PromiseMemberService{
 	
 	// 약속장 변경
 	@Override
-	public int modifyPromiseMemberLeader(int promiseSeq, int memberSeq) throws SQLException {
-		return promiseMemberMapper.modifyPromiseMemberLeader(promiseSeq, memberSeq);
+	public int modifyPromiseMemberLeader(PromiseMemberModifyLeaderDto promiseMemberModifyLeaderdto) throws SQLException {
+		int result1 = promiseMemberMapper.modifyPromiseMemberLeader(promiseMemberModifyLeaderdto.getPromiseSeq(), promiseMemberModifyLeaderdto.getBeforeMemberSeq());
+		int result2 = promiseMemberMapper.modifyPromiseMemberLeader(promiseMemberModifyLeaderdto.getPromiseSeq(), promiseMemberModifyLeaderdto.getAfterMemberSeq());
+		if(result1 != 0 && result2 != 0) {
+			return 1;
+		} else {
+			return 0;
+		}
 	}
 	
 	

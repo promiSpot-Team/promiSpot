@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 
+import com.ssafy.promispot.promise.dto.PromiseMemberModifyLeaderDto;
 import com.ssafy.promispot.promise.model.entity.PromiseMemberEntity;
 
 public interface PromiseMemberService {
@@ -25,8 +26,7 @@ public interface PromiseMemberService {
 	
 	// 약속장 변경
 	public int modifyPromiseMemberLeader(
-			int promiseSeq,
-			int memberSeq) throws SQLException;
+			PromiseMemberModifyLeaderDto promiseMemberModifyLeaderdto) throws SQLException;
 	
 	
 	// 약속 참여자 삭제 

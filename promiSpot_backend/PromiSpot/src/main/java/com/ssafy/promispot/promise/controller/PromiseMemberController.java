@@ -1,4 +1,4 @@
-package com.ssafy.promispot.schedule.controller;
+package com.ssafy.promispot.promise.controller;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -16,24 +16,24 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ssafy.promispot.promise.dto.PromiseMemberModifyLeaderDto;
 import com.ssafy.promispot.promise.model.entity.PromiseEntity;
-import com.ssafy.promispot.schedule.model.entity.ScheduleEntity;
-import com.ssafy.promispot.schedule.model.service.ScheduleService;
+import com.ssafy.promispot.promise.model.entity.PromiseMemberEntity;
+import com.ssafy.promispot.promise.model.service.PromiseMemberService;
 
 @RestController
 @CrossOrigin
-@RequestMapping("/schedule")
-public class ScheduleController {
+@RequestMapping("/promise/member")
+public class PromiseMemberController {
 	
 	@Autowired
-	ScheduleService scheduleService;
+	PromiseMemberService promiseMemberService;
 	
-	// 스케줄 생성
-	@PostMapping("create")
-	public ResponseEntity<?> createSchedule(@RequestBody ScheduleEntity scheduleEntity) {
+	// 약속 참여자 등록
+	@PostMapping("regist")
+	public ResponseEntity<?> registPromiseMember(@RequestBody PromiseMemberEntity promiseMemberEntity) {
 		try {
-			
-			int result = scheduleService.createSchedule(scheduleEntity);
+			int result = promiseMemberService.registPromiseMember(promiseMemberEntity);
 			
 			if(result != 0) {
 				return new ResponseEntity<String>("success", HttpStatus.OK);
@@ -47,16 +47,15 @@ public class ScheduleController {
 		}	
 	}
 	
-	
-	// 스케줄 하나 조회
-	@GetMapping("get/{scheduleSeq}")
-	public ResponseEntity<?> getSchedule(@PathVariable("scheduleSeq") int scheduleSeq) {
+	// 약속 참여자 한 명 조회
+	@GetMapping("get/{promiseSeq}/{memberSeq}")
+	public ResponseEntity<?> getPromiseMember(@PathVariable("promiseSeq") int promiseSeq, @PathVariable("memberSeq") int memberSeq) {
 		try {
-			ScheduleEntity schedule = scheduleService.getSchedule(scheduleSeq);
+			PromiseMemberEntity promiseMember = promiseMemberService.getPromiseMember(promiseSeq, memberSeq);
 			
-			if (schedule != null) {
+			if (promiseMember != null) {
 				System.out.println("success work");
-				return new ResponseEntity<ScheduleEntity>(schedule, HttpStatus.OK);
+				return new ResponseEntity<PromiseMemberEntity>(promiseMember, HttpStatus.OK);
 			} else {
 				System.out.println("fail work");
 				return new ResponseEntity<String>("fail", HttpStatus.NO_CONTENT);
@@ -66,16 +65,19 @@ public class ScheduleController {
 			return exceptionHandling(e);
 		}
 	}
+
 	
-	// 약속 해당하는 스케줄 전부 조회
+	// 약속 참여자 전체 조회
 	@GetMapping("getList/{promiseSeq}")
-	public ResponseEntity<?> getScheduleList(@PathVariable("promiseSeq") int promiseSeq) {
+	public ResponseEntity<?> getPromiseMemberList(@PathVariable("promiseSeq") int promiseSeq) {
 		try {
-			List<ScheduleEntity> scheduleList = scheduleService.getScheduleList(promiseSeq);
 			
-			if (scheduleList != null) {
+			List<PromiseMemberEntity> promiseMemberList = promiseMemberService.getPromiseMemberList(promiseSeq);
+			
+			
+			if (promiseMemberList != null) {
 				System.out.println("success work");
-				return new ResponseEntity<List<ScheduleEntity>>(scheduleList, HttpStatus.OK);
+				return new ResponseEntity<List<PromiseMemberEntity>>(promiseMemberList, HttpStatus.OK);
 			} else {
 				System.out.println("fail work");
 				return new ResponseEntity<String>("fail", HttpStatus.NO_CONTENT);
@@ -86,14 +88,15 @@ public class ScheduleController {
 		}
 	}
 	
+
 	
-	// 스케줄 수정
-	@PutMapping("modify")
-	public ResponseEntity<?> modifySchedule(@RequestBody ScheduleEntity scheduleEntity) {
+	// 약속장 변경
+	@PutMapping("modifyLeader")
+	public ResponseEntity<?> modifyPromiseMemberLeader(@RequestBody PromiseMemberModifyLeaderDto promiseMemberModifyLeaderdto) {
 		
 		try {
-			
-			int result = scheduleService.modifySchedule(scheduleEntity);
+			int result = promiseMemberService.modifyPromiseMemberLeader(promiseMemberModifyLeaderdto);
+
 			if (result != 0) {
 				return new ResponseEntity<String>("success", HttpStatus.OK);
 			} else {
@@ -106,13 +109,13 @@ public class ScheduleController {
 		}
 	}
 	
-	// 스케줄 삭제
-	@DeleteMapping("delete/{scheduleSeq}")
-	public ResponseEntity<?> removePremoveScheduleromise(@PathVariable("scheduleSeq") int scheduleSeq) {
+	
+	// 약속 참여자 삭제 
+	@DeleteMapping("delete/{promiseSeq}/{memberSeq}")
+	public ResponseEntity<?> removePromiseMember(@PathVariable("promiseSeq") int promiseSeq, @PathVariable("memberSeq") int memberSeq) {
 		
 		try {
-			int result = scheduleService.removeSchedule(scheduleSeq);
-			
+			int result = promiseMemberService.removePromiseMember(promiseSeq, memberSeq); 
 			if (result != 0) {
 				return new ResponseEntity<String>("success", HttpStatus.OK);
 			} else {
@@ -123,8 +126,6 @@ public class ScheduleController {
 			return exceptionHandling(e);
 		}
 	}
-	
-	
 	
 	
 	
@@ -134,3 +135,8 @@ public class ScheduleController {
 	}
 
 }
+
+
+
+
+

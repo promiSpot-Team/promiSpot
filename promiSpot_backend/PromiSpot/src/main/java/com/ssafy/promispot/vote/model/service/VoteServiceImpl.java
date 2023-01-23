@@ -4,11 +4,14 @@ import java.sql.SQLException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.ssafy.promispot.vote.model.entity.VoteEntity;
 import com.ssafy.promispot.vote.model.entity.VoteMemberEntity;
 import com.ssafy.promispot.vote.model.mapper.VoteMapper;
 
+
+@Service
 public class VoteServiceImpl implements VoteService{
 
 	@Autowired

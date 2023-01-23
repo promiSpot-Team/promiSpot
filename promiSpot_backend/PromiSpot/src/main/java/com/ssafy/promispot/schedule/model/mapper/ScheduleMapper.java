@@ -1,6 +1,7 @@
 package com.ssafy.promispot.schedule.model.mapper;
 
 import java.sql.SQLException;
+import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
@@ -15,6 +16,9 @@ public interface ScheduleMapper {
 	
 	// 스케줄 조회
 	public ScheduleEntity getSchedule(int scheduleSeq) throws SQLException;
+	
+	// 약속 해당하는 스케줄 전부 조회
+	public List<ScheduleEntity> getScheduleList(int promiseSeq) throws SQLException;
 	
 	// 스케줄 수정
 	public int modifySchedule(ScheduleEntity scheduleEntity) throws SQLException;

@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -20,8 +21,6 @@ import com.ssafy.promispot.place.model.service.PlaceService;
 @CrossOrigin
 @RequestMapping("/place")
 public class PlaceController {
-	
-	
 	
 	@Autowired
 	PlaceService placeService;
@@ -46,21 +45,14 @@ public class PlaceController {
 	}
 	
 	// 장소 하나 조회
-	@GetMapping("{placeId}")
+	@GetMapping("select/{placeId}")
 	public ResponseEntity<?> getPlace(@PathVariable("placeId") String placeId) {
-		
-		
-	
-		
 		try {
-			PlaceEntity place2 = placeService.getPlace("1");
-			System.out.println(place2);
+			PlaceEntity place = placeService.getPlace(placeId);
 			
-			
-			
-			if (place2 != null) {
+			if (place != null) {
 				System.out.println("success work");
-				return new ResponseEntity<PlaceEntity>(place2, HttpStatus.OK);
+				return new ResponseEntity<PlaceEntity>(place, HttpStatus.OK);
 			} else {
 				System.out.println("fail work");
 				return new ResponseEntity<String>("fail", HttpStatus.NO_CONTENT);
@@ -69,13 +61,32 @@ public class PlaceController {
 			e.printStackTrace();
 			return exceptionHandling(e);
 		}
+	}
+	
+	// 장소 수정
+	@PutMapping("update")
+	public ResponseEntity<?> updatePlace(@RequestBody PlaceEntity place) {
 		
+		try {
+			
+			int result = placeService.modifyPlace(place);
+
+			if (result != 0) {
+				return new ResponseEntity<String>("success", HttpStatus.OK);
+			} else {
+				return new ResponseEntity<String>("fail", HttpStatus.NO_CONTENT);
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			return exceptionHandling(e);
+		}
 	}
 	
 	
 	// 장소 삭제 
-	@DeleteMapping("{placeId}")
-	public ResponseEntity<?> deletePlace(@PathVariable("placeId") String placeId) {
+	@DeleteMapping("remove/{placeId}")
+	public ResponseEntity<?> removePlace(@PathVariable("placeId") String placeId) {
 		
 		try {
 			int result = placeService.removePlace(placeId); 
