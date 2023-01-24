@@ -22,7 +22,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 
-//@CrossOrigin(origins = { "*" }, maxAge = 6000)
+@CrossOrigin
 @RestController
 @RequestMapping("/member")
 @Api("회원 컨트롤러  API")
@@ -40,55 +40,100 @@ public class MemberController {
 	/* 회원가입 */
 	@ApiOperation(value = "회원가입 ", notes = "새로운 회원 정보를 입력한다. DB입력 성공여부에 따라 'success' 또는 'fail' 문자열을 반환한다. ", response = String.class )
 	@PostMapping
-	public ResponseEntity<String> registMember(@RequestBody @ApiParam(value="회원가입", required=true) 
-		MemberEntity memberEntity) throws Exception {
+	public ResponseEntity<?> registMember(@RequestBody @ApiParam(value="회원가입", required=true) 
+		MemberEntity memberEntity) {
 		System.out.println("회원가입시도");
-		if(memberService.registMember(memberEntity)) {
-			return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
+		try {
+			if(memberService.registMember(memberEntity)) {
+				return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
+			}else {
+				return new ResponseEntity<String>(FAIL, HttpStatus.NO_CONTENT);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			return exceptionHandling(e);
 		}
-		return new ResponseEntity<String>(FAIL, HttpStatus.NO_CONTENT);
 	}//registMember
 	
 	/* 회원 정보 수정 */
 	@ApiOperation(value = "회원 정보 수정 ", notes = "회원 정보를 수정한다. 그리고 DB 수정 성공여부에 따라 'success' 또는 'fail' 문자열을 반환한다.", response = String.class)
 	@PutMapping("/{memberSeq}")
-	public ResponseEntity<String> modifyMember(@RequestBody @ApiParam(value="회원정보수정", required = true) 
-		MemberEntity memberEntity) throws Exception {
-		if(memberService.modifyMember(memberEntity)) {
-			System.out.println("memberModify SUCCESS!");
-			return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
+	public ResponseEntity<?> modifyMember(@RequestBody @ApiParam(value="회원정보수정", required = true) 
+		MemberEntity memberEntity) {
+		try {
+			if(memberService.modifyMember(memberEntity)) {
+				System.out.println("memberModify SUCCESS!");
+				return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
+			}else {
+				return new ResponseEntity<String>(FAIL, HttpStatus.NO_CONTENT);			
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			return exceptionHandling(e);
 		}
-		return new ResponseEntity<String>(FAIL, HttpStatus.NO_CONTENT);
 	}//modifyMember
 
 	
 	/* 회원 탈퇴 */
 	@ApiOperation(value = "회원탈퇴 ", notes = "회원탈퇴 'success' or 'fail' 문자열 반환 ", response = String.class ) 
 	@DeleteMapping("/{memberSeq}")
-	public ResponseEntity<String> removeMember(@RequestBody @ApiParam(value="회원탈퇴", required=true) 
-	@PathVariable int memberSeq) throws Exception {
-		if(memberService.removeMember(memberSeq)) {
-			return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
+	public ResponseEntity<?> removeMember(@RequestBody @ApiParam(value="회원탈퇴", required=true) 
+	@PathVariable int memberSeq) {
+		try {
+			if(memberService.removeMember(memberSeq)) {
+				return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
+			}else {
+				return new ResponseEntity<String>(FAIL, HttpStatus.NO_CONTENT);			
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			return exceptionHandling(e);
 		}
-		return new ResponseEntity<String>(FAIL, HttpStatus.NO_CONTENT);
 	}//removeMember
 
 	
 	/* 회원 정보 조회 */
 	@ApiOperation(value = "회원 정보 조회 ", notes = "회원 정보 조회 or 'fail' 문자열 반환 ", response = MemberEntity.class) 
 	@GetMapping("/{memberSeq}")
-	public ResponseEntity<MemberEntity> findMember(@PathVariable("memberSeq") 
-		@ApiParam(value="회원일련번호", required=true) int memberSeq) throws Exception {
+	public ResponseEntity<?> findMember(@PathVariable("memberSeq") 
+		@ApiParam(value="회원일련번호", required=true) int memberSeq) {
 		System.out.println("회원 정보 조회 "+memberSeq);
-			return new ResponseEntity<MemberEntity>(memberService.findMember(memberSeq), HttpStatus.OK);		
+		MemberEntity member;
+		try {
+			member = memberService.findMember(memberSeq);
+			if(member != null) {
+				return new ResponseEntity<MemberEntity>(member, HttpStatus.OK);	
+			}else {
+				return new ResponseEntity<String>(FAIL, HttpStatus.NO_CONTENT);				
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			return exceptionHandling(e);
+		}
+				
 	}//findMember
 	
 	/* 회원 목록 조회 */
 	@ApiOperation(value = "회원 목록 조회 ", notes = "회원 정보 조회 or 'fail' 문자열 반환 ", response = MemberEntity.class) 
-	@GetMapping
-	public ResponseEntity<List<MemberEntity>> findMemberList() throws Exception {
+	@GetMapping("/memberList")
+	public ResponseEntity<?> findMemberList()  {
 		System.out.println("회원 목록 조회 ");
-			return new ResponseEntity<List<MemberEntity>>(memberService.findMemberList(), HttpStatus.OK);		
+		try {
+			List<MemberEntity> memberList = memberService.findMemberList();
+			if(memberList != null) {
+				return new ResponseEntity<List<MemberEntity>>(memberList, HttpStatus.OK);					
+			}else {
+				return new ResponseEntity<String>(FAIL, HttpStatus.NO_CONTENT);									
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			return exceptionHandling(e);
+		}		
 	}//findMemberList
+	
+	// 에러 처리
+	private ResponseEntity<String> exceptionHandling(Exception e) {
+		return new ResponseEntity<String>("Error: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+	}//exceptionHandling
 
 }//MemberController

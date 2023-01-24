@@ -16,7 +16,7 @@ public class AddressEntity {
 	private int memberSeq;
 	
 	@ApiModelProperty(value = "주소")
-	private String addressAdress;
+	private String addressAddress;
 	
 	@ApiModelProperty(value = "주소지별칭")
 	private String addressNick;
@@ -47,11 +47,11 @@ public class AddressEntity {
 	}
 
 	public String getAddressAdress() {
-		return addressAdress;
+		return addressAddress;
 	}
 
 	public void setAddressAdress(String addressAdress) {
-		this.addressAdress = addressAdress;
+		this.addressAddress = addressAdress;
 	}
 
 	public String getAddressNick() {
@@ -89,7 +89,7 @@ public class AddressEntity {
 	@Override
 	public String toString() {
 		return "AddressEntity [addressSeq=" + addressSeq + ", memberSeq=" + memberSeq + ", addressAdress="
-				+ addressAdress + ", addressNick=" + addressNick + ", addressX=" + addressX + ", addressY=" + addressY
+				+ addressAddress + ", addressNick=" + addressNick + ", addressX=" + addressX + ", addressY=" + addressY
 				+ ", addressIsPrimary=" + addressIsPrimary + "]";
 	}
 
