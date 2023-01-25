@@ -10,7 +10,6 @@ function App() {
   // const history = useHistory();
   return (
       <BrowserRouter>
-        <SearchBar />
         <Routes>
           <Route path="/" element={<Start/>} />
           <Route path="/login" element={<Login/>} />

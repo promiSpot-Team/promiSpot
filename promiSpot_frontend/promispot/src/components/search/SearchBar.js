@@ -4,7 +4,7 @@ import './searchBar.scss'
 export default function searchBar() {
   return (
     <div>
-      <h2> asdfasdfasdf</h2>
+      <h2> SearchBar</h2>
     </div>
   )
 }
