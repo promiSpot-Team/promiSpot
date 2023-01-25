@@ -9,7 +9,7 @@ function Start() {
   return (
     <div class="startWrapper">
       {/* <Route component={Header} /> */}
-      <Route component={Logo} />
+      {/* <Route component={Logo} /> */}
       <Route component={BagicButton} />
       <Route component={BagicButton} />
       {/* <Route component={Footer} /> */}
