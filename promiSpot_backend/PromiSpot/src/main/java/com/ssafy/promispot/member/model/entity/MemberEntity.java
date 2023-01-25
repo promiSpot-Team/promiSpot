@@ -42,6 +42,37 @@ public class MemberEntity {
 	@ApiModelProperty(value = "내 주소 활용 동의")
 	private int memberAddressIsAgree;
 
+	
+	
+	
+	public MemberEntity() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+	
+	
+	
+
+	public MemberEntity(int memberSeq, String memberId, String memberPass, String memberName, String memberNick,
+			String memberEmail, String memberPhoneNum, String memberImgPath, String memberImgOriginName,
+			String memberImgServerName, int memberAddressIsAgree) {
+		super();
+		this.memberSeq = memberSeq;
+		this.memberId = memberId;
+		this.memberPass = memberPass;
+		this.memberName = memberName;
+		this.memberNick = memberNick;
+		this.memberEmail = memberEmail;
+		this.memberPhoneNum = memberPhoneNum;
+		this.memberImgPath = memberImgPath;
+		this.memberImgOriginName = memberImgOriginName;
+		this.memberImgServerName = memberImgServerName;
+		this.memberAddressIsAgree = memberAddressIsAgree;
+	}
+
+
+
+
 	public int getMemberSeq() {
 		return memberSeq;
 	}
@@ -138,6 +169,94 @@ public class MemberEntity {
 				+ memberImgOriginName + ", memberImgServerName=" + memberImgServerName + ", memberAddressIsAgree="
 				+ memberAddressIsAgree + "]";
 	}
+
+
+
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + memberAddressIsAgree;
+		result = prime * result + ((memberEmail == null) ? 0 : memberEmail.hashCode());
+		result = prime * result + ((memberId == null) ? 0 : memberId.hashCode());
+		result = prime * result + ((memberImgOriginName == null) ? 0 : memberImgOriginName.hashCode());
+		result = prime * result + ((memberImgPath == null) ? 0 : memberImgPath.hashCode());
+		result = prime * result + ((memberImgServerName == null) ? 0 : memberImgServerName.hashCode());
+		result = prime * result + ((memberName == null) ? 0 : memberName.hashCode());
+		result = prime * result + ((memberNick == null) ? 0 : memberNick.hashCode());
+		result = prime * result + ((memberPass == null) ? 0 : memberPass.hashCode());
+		result = prime * result + ((memberPhoneNum == null) ? 0 : memberPhoneNum.hashCode());
+		result = prime * result + memberSeq;
+		return result;
+	}
+
+
+
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		MemberEntity other = (MemberEntity) obj;
+		if (memberAddressIsAgree != other.memberAddressIsAgree)
+			return false;
+		if (memberEmail == null) {
+			if (other.memberEmail != null)
+				return false;
+		} else if (!memberEmail.equals(other.memberEmail))
+			return false;
+		if (memberId == null) {
+			if (other.memberId != null)
+				return false;
+		} else if (!memberId.equals(other.memberId))
+			return false;
+		if (memberImgOriginName == null) {
+			if (other.memberImgOriginName != null)
+				return false;
+		} else if (!memberImgOriginName.equals(other.memberImgOriginName))
+			return false;
+		if (memberImgPath == null) {
+			if (other.memberImgPath != null)
+				return false;
+		} else if (!memberImgPath.equals(other.memberImgPath))
+			return false;
+		if (memberImgServerName == null) {
+			if (other.memberImgServerName != null)
+				return false;
+		} else if (!memberImgServerName.equals(other.memberImgServerName))
+			return false;
+		if (memberName == null) {
+			if (other.memberName != null)
+				return false;
+		} else if (!memberName.equals(other.memberName))
+			return false;
+		if (memberNick == null) {
+			if (other.memberNick != null)
+				return false;
+		} else if (!memberNick.equals(other.memberNick))
+			return false;
+		if (memberPass == null) {
+			if (other.memberPass != null)
+				return false;
+		} else if (!memberPass.equals(other.memberPass))
+			return false;
+		if (memberPhoneNum == null) {
+			if (other.memberPhoneNum != null)
+				return false;
+		} else if (!memberPhoneNum.equals(other.memberPhoneNum))
+			return false;
+		if (memberSeq != other.memberSeq)
+			return false;
+		return true;
+	}
+	
+	
+	
 
 	
 }//MemberEntity
