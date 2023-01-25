@@ -20,8 +20,27 @@ public class FriendRequestEntity {
 	
 	@ApiModelProperty(value = "신청상태 [ 0:신청 상태 1:승인 상태 ]")
 	private int friendRequestIsAgree;
+	
+	
 
 	
+	public FriendRequestEntity() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+	
+	
+
+	public FriendRequestEntity(int friendRequestSeq, int memberSeq, int friendRequestMember, int friendRequestIsAgree) {
+		super();
+		this.friendRequestSeq = friendRequestSeq;
+		this.memberSeq = memberSeq;
+		this.friendRequestMember = friendRequestMember;
+		this.friendRequestIsAgree = friendRequestIsAgree;
+	}
+
+
+
 	public int getFriendRequestSeq() {
 		return friendRequestSeq;
 	}
@@ -60,6 +79,44 @@ public class FriendRequestEntity {
 				+ ", friendRequestMember=" + friendRequestMember + ", friendRequestIsAgree=" + friendRequestIsAgree
 				+ "]";
 	}
+
+
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + friendRequestIsAgree;
+		result = prime * result + friendRequestMember;
+		result = prime * result + friendRequestSeq;
+		result = prime * result + memberSeq;
+		return result;
+	}
+
+
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		FriendRequestEntity other = (FriendRequestEntity) obj;
+		if (friendRequestIsAgree != other.friendRequestIsAgree)
+			return false;
+		if (friendRequestMember != other.friendRequestMember)
+			return false;
+		if (friendRequestSeq != other.friendRequestSeq)
+			return false;
+		if (memberSeq != other.memberSeq)
+			return false;
+		return true;
+	}
+	
+	
+	
 	
 	
 }//FriendRequestEntity

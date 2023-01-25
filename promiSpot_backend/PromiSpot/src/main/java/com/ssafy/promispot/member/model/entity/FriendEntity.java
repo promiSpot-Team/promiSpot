@@ -15,6 +15,23 @@ public class FriendEntity {
 	@ApiModelProperty(value = "친구신청을 받은 회원일련번호")
 	private int friendRequestMember;
 
+	
+	
+	public FriendEntity() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+	
+	
+
+	public FriendEntity(int memberSeq, int friendRequestMember) {
+		super();
+		this.memberSeq = memberSeq;
+		this.friendRequestMember = friendRequestMember;
+	}
+
+
+
 	public int getMemberSeq() {
 		return memberSeq;
 	}
@@ -35,6 +52,37 @@ public class FriendEntity {
 	public String toString() {
 		return "FriendEntity [memberSeq=" + memberSeq + ", friendRequestMember=" + friendRequestMember + "]";
 	}
+
+
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + friendRequestMember;
+		result = prime * result + memberSeq;
+		return result;
+	}
+
+
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		FriendEntity other = (FriendEntity) obj;
+		if (friendRequestMember != other.friendRequestMember)
+			return false;
+		if (memberSeq != other.memberSeq)
+			return false;
+		return true;
+	}
+	
+	
 		
 
 }//FriendEntity
