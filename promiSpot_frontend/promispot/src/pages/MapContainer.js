@@ -1,6 +1,7 @@
 import { React, useEffect } from 'react'
 import mapdata from './mapdata.json'
 import styles from "./MapContainer.module.scss"
+import searchBar from '../components/search/SearchBar';
 
 const { kakao } = window;
 
@@ -18,26 +19,31 @@ export default function MapContainer() {
     const map = new kakao.maps.Map(container, options);
 
     mapdata.places.forEach(place => {
-      var customOverlay = new kakao.maps.CustomOverlay({
-        position: new kakao.maps.LatLng(place.place_y, place.place_x),
-        content: `<div class=${styles.pin}></div>` + `<div class=${styles.pulse}></div>`,
-        xAnchor: 0.3,
-        yAnchor: 0.91
-      });
+    //   var customOverlay = new kakao.maps.CustomOverlay({
+    //     position: new kakao.maps.LatLng(place.place_y, place.place_x),
+    //     content: `<div class=${styles.pin} onClick=${showOverlay()}></div><div class=${styles.pulse}></div>`,
+    //     xAnchor: 0.3,
+    //     yAnchor: 0.91
+    //   });
+
+    //   customOverlay.setMap(map)
       
-      customOverlay.setMap(map)
-      // new kakao.maps.Marker({
-      //   map: map, 
-      //   position: new kakao.maps.LatLng(place.place_y, place.place_x),
-      //   placeName: place.place_name
-      // })
+      const marker = new kakao.maps.Marker({
+        map: map, 
+        clickable: true,
+        position: new kakao.maps.LatLng(place.place_y, place.place_x),
+        placeName: place.place_name
+      })
+
+      kakao.maps.event.addListener(marker, 'click', () => {
+        console.log('click!')
+      })
     })
 
-    
   }
-
   return (
     <>
+      <searchBar />
       <div id="map" style={{
           width: "100%",
           height: "400px"

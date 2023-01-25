@@ -1,14 +1,16 @@
 import './App.css';
 import { BrowserRouter, Route, Routes, useHistory } from 'react-router-dom';
-import start from './pages/start'
+import Start from './pages/Start'
 import MapContainer from './pages/MapContainer'
+import SearchBar from './components/search/SearchBar';
 
 function App() {
   // const history = useHistory();
   return (
       <BrowserRouter>
+        <SearchBar />
         <Routes>
-          <Route path="/" element={<start/>} />
+          <Route path="/" element={<Start/>} />
           {/* <Route path="/form" component={Form} /> */}
           
           {/* <Route component={NotFound} /> */}
