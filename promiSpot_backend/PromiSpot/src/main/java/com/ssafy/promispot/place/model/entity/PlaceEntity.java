@@ -46,7 +46,10 @@ public class PlaceEntity {
 	@ApiModelProperty(value = "장소상세페이지")
 	private String placeUrl;
 
-	
+	public PlaceEntity() {
+		super();
+	}
+
 	
 	public PlaceEntity(String placeId, String placeName, String placeCategoryName, String placeCategoryGroupCode,
 			String placeCategoryGroupName, String placePhone, String placeRoadAddressName, String placeAddressName,
@@ -66,9 +69,6 @@ public class PlaceEntity {
 	}
 
 	
-	public PlaceEntity() {
-		super();
-	}
 
 	public String getPlaceId() {
 		return placeId;
