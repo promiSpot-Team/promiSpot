@@ -140,10 +140,11 @@ CREATE TABLE `addresses` (
 -- 회원 더미 데이터 
 insert into members values
 (null, "admin", "1234", "운영자", "운영자자", "admin@naver.com", "01011112222", "", "", "", 1),
-(null, "member1", "1234", "회원1", "회원닉네임1", "member1@naver.com", "01011112222", "", "", "", 1),
-(null, "member2", "1234", "회원2", "회원닉네임2", "member2@naver.com", "01011112222", "", "", "", 1),
-(null, "member3", "1234", "회원3", "회원닉네임3", "member3@naver.com", "01011112222", "", "", "", 1),
-(null, "member4", "1234", "회원4", "회원닉네임4", "member4@naver.com", "01011112222", "", "", "", 1);
+(null, "member1", "1234", "김동언", "회원닉네임1", "member1@naver.com", "01050261111", "", "", "", 1),
+(null, "member2", "1234", "김수형", "회원닉네임2", "member2@naver.com", "01054431111", "", "", "", 1),
+(null, "member3", "1234", "이민정", "회원닉네임3", "member3@naver.com", "01042371111", "", "", "", 1),
+(null, "member4", "1234", "최윤지", "회원닉네임4", "member4@naver.com", "01075771111", "", "", "", 1);
+
 
 -- 주소 더미 데이터
 insert into addresses values
@@ -154,14 +155,16 @@ insert into addresses values
 
 -- 친구신청 더미데이터
 insert into friend_request values
-(null, 1, 2, 1),
-(null, 1, 3, 1),
-(null, 1, 4, 0);
+(null, 3, 2, 1),
+(null, 4, 3, 1),
+(null, 2, 4, 0);
 
 -- 친구승인 더미데이터
 insert into friends values
-(1, 2),
-(1, 3);
+(3, 2),
+(2, 3);
+(4, 3),
+(3, 4);
 
 -- 약속 더미데이터
 insert into promises values
