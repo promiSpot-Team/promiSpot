@@ -44,5 +44,27 @@
 	<select id="findMemberList" resultType="MemberEntity">
 		select * from members 
 	</select>
+	
+	<!-- 토큰 가져오기 -->
+	<select id="getRefreshToken" parameterType="string" resultType="string">
+		select token
+		from members 
+		where member_id = #{memberId}
+	</select>
+	
+	<!-- 토큰 저장 -->
+	<update id="saveRefreshToken" parameterType="map">
+		update members 
+		set token = #{token}
+		where member_id = #{memberId}
+	</update>
+	
+	<!-- 토큰 삭제 -->
+	<update id="deleteRefreshToken" parameterType="map">
+		update members 
+		set token = #{token, jdbcType=VARCHAR}
+		where member_id = #{memberId}
+	</update>
+	
 
 </mapper>

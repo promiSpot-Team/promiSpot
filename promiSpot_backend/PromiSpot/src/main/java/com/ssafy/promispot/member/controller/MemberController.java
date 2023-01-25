@@ -1,7 +1,13 @@
 package com.ssafy.promispot.member.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ssafy.promispot.member.model.entity.MemberEntity;
+import com.ssafy.promispot.member.model.service.JwtService;
 import com.ssafy.promispot.member.model.service.MemberService;
 
 import io.swagger.annotations.Api;
@@ -27,22 +34,80 @@ import io.swagger.annotations.ApiParam;
 @RequestMapping("/member")
 @Api("회원 컨트롤러  API")
 public class MemberController {
+	
+	public static final Logger logger = LoggerFactory.getLogger(MemberController.class);
 
 	private static final String SUCCESS = "success";
 	private static final String FAIL = "fail";
+	
+	@Autowired
+	private JwtService jwtService; 
 
 	@Autowired
 	private MemberService memberService;
 	
 	/* 로그인 */
+	@ApiOperation(value="로그인", notes="Access-token과 로그인 결과 메세지를 반환한다.", response=Map.class)
+	@PostMapping("/login")
+	public ResponseEntity<Map<String, Object>> login(@RequestBody @ApiParam(value="로그인 시 필요한 회원 정보(아이디, 비밀번호)" 
+		, required=true) MemberEntity memberEntity){
+		Map<String, Object> resultMap = new HashMap<>();
+		HttpStatus status = null;
+		
+		try {
+			MemberEntity loginMember = memberService.loginMember(memberEntity);
+			if(loginMember != null) {
+				String accessToken = jwtService.createAccessToken("memberId", loginMember.getMemberId()); // key, data
+				String refreshToken = jwtService.createRefreshToken("memberId", loginMember.getMemberId()); // key, data
+				memberService.saveRefreshToken(memberEntity.getMemberId(), refreshToken);
+				logger.debug("로그인 accessToken 정보 : {}", accessToken);
+				logger.debug("로그인 refreshToken 정보 : {}", refreshToken);
+				resultMap.put("access-token", accessToken);
+				resultMap.put("refresh-token", refreshToken);
+				resultMap.put("message", SUCCESS);
+				status = HttpStatus.ACCEPTED;
+			} else {
+				resultMap.put("message", FAIL);
+				status = HttpStatus.NO_CONTENT;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			resultMap.put("message", e.getMessage());
+			status = HttpStatus.INTERNAL_SERVER_ERROR;
+		}
+		
+		return new ResponseEntity<Map<String, Object>>(resultMap, status);
+		
+	}//login
+	
 	/* 로그아웃 */
+	@ApiOperation(value="로그아웃", notes="로그아웃. 회원 정보를 담은 Token 제거.", response=Map.class)
+	@GetMapping("/logout/{memberSeq}")
+	public ResponseEntity<?> logout(@PathVariable("memberId") String memberId) {
+		Map<String, Object> resultMap = new HashMap<>();
+		HttpStatus status = HttpStatus.ACCEPTED;
+		try {
+			memberService.deleRefreshToken(memberId);
+			resultMap.put("message", SUCCESS);
+			status = HttpStatus.ACCEPTED;
+		} catch (Exception e) {
+			logger.error("로그아웃 실패.");
+			resultMap.put("message", e.getMessage());
+			status = HttpStatus.INTERNAL_SERVER_ERROR;
+		}
+		
+		return new ResponseEntity<Map<String, Object>>(resultMap, status);
+	}//logout
+	
 	
 	/* 회원가입 */
 	@ApiOperation(value = "회원가입 ", notes = "새로운 회원 정보를 입력한다. DB입력 성공여부에 따라 'success' 또는 'fail' 문자열을 반환한다. ", response = String.class )
 	@PostMapping
 	public ResponseEntity<?> registMember(@RequestBody @ApiParam(value="회원가입", required=true) 
 		MemberEntity memberEntity) {
-		System.out.println("회원가입시도");
+//		System.out.println("회원가입시도");
+		logger.info("registMember - 호출");
+		
 		try {
 			if(memberService.registMember(memberEntity)) {
 				return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
@@ -54,6 +119,7 @@ public class MemberController {
 			return exceptionHandling(e);
 		}
 	}//registMember
+	
 	
 	/* 회원 정보 수정 */
 	@ApiOperation(value = "회원 정보 수정 ", notes = "회원 정보를 수정한다. 그리고 DB 수정 성공여부에 따라 'success' 또는 'fail' 문자열을 반환한다.", response = String.class)
@@ -95,21 +161,36 @@ public class MemberController {
 	/* 회원 정보 조회 */
 	@ApiOperation(value = "회원 정보 조회 ", notes = "회원 정보 조회 or 'fail' 문자열 반환 ", response = MemberEntity.class) 
 	@GetMapping("/{memberSeq}")
-	public ResponseEntity<?> findMember(@PathVariable("memberSeq") 
-		@ApiParam(value="회원일련번호", required=true) int memberSeq) {
+	public ResponseEntity<?> findMember(@RequestBody @PathVariable("memberSeq") 
+		@ApiParam(value="회원일련번호", required=true) int memberSeq, HttpServletRequest request) {
 		System.out.println("회원 정보 조회 "+memberSeq);
-		MemberEntity member;
-		try {
-			member = memberService.findMember(memberSeq);
-			if(member != null) {
-				return new ResponseEntity<MemberEntity>(member, HttpStatus.OK);	
-			}else {
-				return new ResponseEntity<String>(FAIL, HttpStatus.NO_CONTENT);				
+		Map<String, Object> resultMap = new HashMap<>();
+		HttpStatus status = HttpStatus.UNAUTHORIZED;
+		if(jwtService.checkToken(request.getHeader("access-token"))) {
+			logger.info("사용 가능 토큰");
+			MemberEntity member;
+			try {
+				member = memberService.findMember(memberSeq);
+				if(member != null) { // 회원 있음
+					resultMap.put("memberInfo", member);
+					resultMap.put("message", SUCCESS);
+					status = HttpStatus.ACCEPTED;
+				}else { // 회원 없음
+					resultMap.put("message", FAIL);
+					status = HttpStatus.NO_CONTENT;			
+				}
+			} catch (Exception e) { // 오류
+				logger.error("정보조회 실패 : {}", e);
+				resultMap.put("message", e.getMessage());
+				status = HttpStatus.INTERNAL_SERVER_ERROR;
 			}
-		} catch (Exception e) {
-			e.printStackTrace();
-			return exceptionHandling(e);
+			
+		} else {
+			logger.error("사용 불가능 토큰");
+			resultMap.put("message", FAIL);
+			status = HttpStatus.UNAUTHORIZED;
 		}
+		return new ResponseEntity<Map<String, Object>>(resultMap, status);
 				
 	}//findMember
 	
@@ -130,6 +211,36 @@ public class MemberController {
 			return exceptionHandling(e);
 		}		
 	}//findMemberList
+	
+	/* 토큰 재발급 */
+	@ApiOperation(value="AccessToken 재발급", notes="만료된 access token을 재발급 받는다.", response = Map.class)
+	@PostMapping("/refresh")
+	public ResponseEntity<?> refreshToken(@RequestBody MemberEntity memberEntity, HttpServletRequest request){
+		Map<String, Object> resultMap = new HashMap<>();
+		HttpStatus status = HttpStatus.ACCEPTED;
+		String token = request.getHeader("refresh-token");
+		logger.debug("token : {}, memberEntity : {}", token, memberEntity);
+		if(jwtService.checkToken(token)) {
+			try {
+				if(token.equals(memberService.getRefreshToken(memberEntity.getMemberId()))) {
+					String accessToken = jwtService.createAccessToken("memberId", memberEntity.getMemberId());
+					logger.debug("token : {}", accessToken);
+					logger.debug("정상적으로 access token 재발급");
+					resultMap.put("access-token", accessToken);
+					resultMap.put("message", SUCCESS);
+					status = HttpStatus.ACCEPTED;
+				}
+			} catch (Exception e) {
+				logger.error(e.getMessage());
+				resultMap.put("message", e.getMessage());
+				status = HttpStatus.INTERNAL_SERVER_ERROR;
+			}
+		} else {
+			logger.debug("refresh token도 사용 불가능.");
+			status = HttpStatus.UNAUTHORIZED;
+		}
+		return new ResponseEntity<Map<String, Object>>(resultMap, status);
+	}//refreshToken
 	
 	// 에러 처리
 	private ResponseEntity<String> exceptionHandling(Exception e) {
