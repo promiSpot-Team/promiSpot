@@ -69,7 +69,6 @@ public class PlaceEntity {
 	}
 
 	
-
 	public String getPlaceId() {
 		return placeId;
 	}
