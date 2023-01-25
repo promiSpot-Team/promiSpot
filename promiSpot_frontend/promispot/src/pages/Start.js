@@ -1,5 +1,5 @@
 import react, { useContext } from 'react';
-import { Route } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import BasicButton from '../components/buttons/basicButton'
 // import Header from '../components/header/header';
 // import Footer from '../components/footer/footer';
@@ -7,16 +7,26 @@ import './scss/start.scss';
 
 function Start() {
   return (
-    <div className="startWrapper">
-      {/* <Route component={Header} /> */}
-      {/* <Route component={Logo} /> */}
-      {/* <Route component={BasicButton} /> */}
-      {/* <Route component={BasicButton} /> */}
-      <BasicButton text="로그인"
-      onClick={() => console.log('버튼 클릭 완료')}/>
-      <BasicButton text="회원가입"
-      onClick={() => console.log('버튼 클릭 완료@')}/>
-      {/* <Route component={Footer} /> */}
+    <div className="start-wrapper">
+      <div className='start-logo-wrapper'>
+        <img src={ require('../images/promispot_logo.png') } />
+      </div>
+      <div className='start-btn-wrapper'>
+        <div className='start-btn'>
+          <Link to={"/login"} className="link">
+            <BasicButton
+            text="로그인"
+            onClick={() => console.log('로그인!')}/>
+          </Link>
+        </div>
+        <div className='start-btn'>
+          <Link to={"/join"} className="link">
+            <BasicButton
+            text="회원가입"
+            onClick={() => console.log('회원가입!')}/>
+          </Link>
+        </div>
+      </div>
     </div>
   );
 }

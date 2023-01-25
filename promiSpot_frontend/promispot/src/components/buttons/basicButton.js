@@ -1,7 +1,7 @@
 import react from 'react';
 import './basicButton.scss';
 
-const Button = (props) => {
+const BasicButton = (props) => {
     const { text, onClick } = props;
   
     return (
@@ -10,4 +10,4 @@ const Button = (props) => {
     )
   }
   
-  export default Button;
+  export default BasicButton;
