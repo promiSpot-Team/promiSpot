@@ -1,0 +1,16 @@
+{
+  "places": [
+    {
+      "place_id": 1, 
+      "place_name": "멀티캠퍼스", 
+      "place_x": 127.0397,
+      "place_y": 37.5013
+    },
+    {
+      "place_id": 2, 
+      "place_name": "역삼역 센터필드", 
+      "place_x": 127.0416,
+      "place_y": 37.5030
+    }
+  ]
+}
