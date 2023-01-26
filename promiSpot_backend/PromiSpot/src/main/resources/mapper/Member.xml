@@ -6,7 +6,7 @@
 
 	<!-- 로그인 -->
 	<select id="loginMember" parameterType="MemberEntity" resultType="MemberEntity">
-		select member_seq, member_id, member_nick 
+		select * 
 		from members 
 		where member_id = #{memberId} and member_pass = #{memberPass}
 	</select>
@@ -47,7 +47,7 @@
 	
 	<!-- 토큰 가져오기 -->
 	<select id="getRefreshToken" parameterType="string" resultType="string">
-		select token
+		select member_token
 		from members 
 		where member_id = #{memberId}
 	</select>
@@ -55,14 +55,14 @@
 	<!-- 토큰 저장 -->
 	<update id="saveRefreshToken" parameterType="map">
 		update members 
-		set token = #{token}
+		set member_token = #{token}
 		where member_id = #{memberId}
 	</update>
 	
 	<!-- 토큰 삭제 -->
 	<update id="deleteRefreshToken" parameterType="map">
 		update members 
-		set token = #{token, jdbcType=VARCHAR}
+		set member_token = #{token, jdbcType=VARCHAR}
 		where member_id = #{memberId}
 	</update>
 	

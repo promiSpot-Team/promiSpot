@@ -75,11 +75,11 @@ public class MemberServiceImpl implements MemberService {
 	}//getRefreshToken
 
 	@Override
-	public void deleRefreshToken(String memberId) throws Exception {
+	public void deleteRefreshToken(String memberId) throws Exception {
 		Map<String, String> map = new HashMap<>();
 		map.put("memberId", memberId);
 		map.put("token", null);
-		memberMapper.deleRefreshToken(memberId);
+		memberMapper.deleteRefreshToken(memberId);
 	}//deleRefreshToken
 
 

@@ -32,7 +32,7 @@ public interface MemberService {
 	public Object getRefreshToken(String memberId) throws Exception;
 	
 	// 리프래시 토큰 삭제
-	public void deleRefreshToken(String memberId) throws Exception;
+	public void deleteRefreshToken(String memberId) throws Exception;
 
 
 }//MemberService

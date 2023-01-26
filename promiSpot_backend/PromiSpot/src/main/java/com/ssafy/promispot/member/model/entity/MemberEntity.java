@@ -42,20 +42,17 @@ public class MemberEntity {
 	@ApiModelProperty(value = "내 주소 활용 동의")
 	private int memberAddressIsAgree;
 
+	@ApiModelProperty(value = "token")
+	private String member_token;
 	
-	
-	
+		
 	public MemberEntity() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
-	
-	
-	
 
 	public MemberEntity(int memberSeq, String memberId, String memberPass, String memberName, String memberNick,
 			String memberEmail, String memberPhoneNum, String memberImgPath, String memberImgOriginName,
-			String memberImgServerName, int memberAddressIsAgree) {
+			String memberImgServerName, int memberAddressIsAgree, String member_token) {
 		super();
 		this.memberSeq = memberSeq;
 		this.memberId = memberId;
@@ -68,10 +65,10 @@ public class MemberEntity {
 		this.memberImgOriginName = memberImgOriginName;
 		this.memberImgServerName = memberImgServerName;
 		this.memberAddressIsAgree = memberAddressIsAgree;
+		this.member_token = member_token;
 	}
-
-
-
+	
+	
 
 	public int getMemberSeq() {
 		return memberSeq;
@@ -161,17 +158,22 @@ public class MemberEntity {
 		this.memberAddressIsAgree = memberAddressIsAgree;
 	}
 
+	public String getMember_token() {
+		return member_token;
+	}
+
+	public void setMember_token(String member_token) {
+		this.member_token = member_token;
+	}
+
 	@Override
 	public String toString() {
 		return "MemberEntity [memberSeq=" + memberSeq + ", memberId=" + memberId + ", memberPass=" + memberPass
 				+ ", memberName=" + memberName + ", memberNick=" + memberNick + ", memberEmail=" + memberEmail
 				+ ", memberPhoneNum=" + memberPhoneNum + ", memberImgPath=" + memberImgPath + ", memberImgOriginName="
 				+ memberImgOriginName + ", memberImgServerName=" + memberImgServerName + ", memberAddressIsAgree="
-				+ memberAddressIsAgree + "]";
+				+ memberAddressIsAgree + ", member_token=" + member_token + "]";
 	}
-
-
-
 
 	@Override
 	public int hashCode() {
@@ -188,11 +190,9 @@ public class MemberEntity {
 		result = prime * result + ((memberPass == null) ? 0 : memberPass.hashCode());
 		result = prime * result + ((memberPhoneNum == null) ? 0 : memberPhoneNum.hashCode());
 		result = prime * result + memberSeq;
+		result = prime * result + ((member_token == null) ? 0 : member_token.hashCode());
 		return result;
 	}
-
-
-
 
 	@Override
 	public boolean equals(Object obj) {
@@ -252,11 +252,13 @@ public class MemberEntity {
 			return false;
 		if (memberSeq != other.memberSeq)
 			return false;
+		if (member_token == null) {
+			if (other.member_token != null)
+				return false;
+		} else if (!member_token.equals(other.member_token))
+			return false;
 		return true;
 	}
-	
-	
-	
 
 	
 }//MemberEntity

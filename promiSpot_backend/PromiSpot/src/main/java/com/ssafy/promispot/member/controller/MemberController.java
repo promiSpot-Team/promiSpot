@@ -82,12 +82,12 @@ public class MemberController {
 	
 	/* 로그아웃 */
 	@ApiOperation(value="로그아웃", notes="로그아웃. 회원 정보를 담은 Token 제거.", response=Map.class)
-	@GetMapping("/logout/{memberSeq}")
+	@GetMapping("/logout/{memberId}")
 	public ResponseEntity<?> logout(@PathVariable("memberId") String memberId) {
 		Map<String, Object> resultMap = new HashMap<>();
 		HttpStatus status = HttpStatus.ACCEPTED;
 		try {
-			memberService.deleRefreshToken(memberId);
+			memberService.deleteRefreshToken(memberId);
 			resultMap.put("message", SUCCESS);
 			status = HttpStatus.ACCEPTED;
 		} catch (Exception e) {
@@ -163,7 +163,7 @@ public class MemberController {
 	@GetMapping("/{memberSeq}")
 	public ResponseEntity<?> findMember(@RequestBody @PathVariable("memberSeq") 
 		@ApiParam(value="회원일련번호", required=true) int memberSeq, HttpServletRequest request) {
-		System.out.println("회원 정보 조회 "+memberSeq);
+//		System.out.println("회원 정보 조회 "+memberSeq);
 		Map<String, Object> resultMap = new HashMap<>();
 		HttpStatus status = HttpStatus.UNAUTHORIZED;
 		if(jwtService.checkToken(request.getHeader("access-token"))) {
