@@ -23,7 +23,8 @@ CREATE TABLE `members` (
 	`member_img_origin_name`	VARCHAR(200),
 	`member_img_server_name`	VARCHAR(200),
 	`member_address_is_agree`	TINYINT	NULL COMMENT '0:비동의 1:동의',
-    primary key(`member_seq`)members
+	`member_token`    VARCHAR(1000)    NULL    COMMENT 'JWT',
+    primary key(`member_seq`)
 );
 
 
