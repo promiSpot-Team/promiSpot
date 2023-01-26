@@ -1,6 +1,8 @@
 package com.ssafy.promispot.member.model.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -58,6 +60,27 @@ public class MemberServiceImpl implements MemberService {
 	public List<MemberEntity> findMemberList() throws Exception {
 		return memberMapper.findMemberList();
 	}//findMemberList
+	
+	@Override
+	public void saveRefreshToken(String memberId, String refreshToken) throws Exception {
+		Map<String, String> map = new HashMap<>();
+		map.put("memberId", memberId);
+		map.put("token", refreshToken);
+		memberMapper.saveRefreshToken(memberId, refreshToken);		
+	}//saveRefreshToken
+
+	@Override
+	public Object getRefreshToken(String memberId) throws Exception {
+		return memberMapper.getRefreshToken(memberId);
+	}//getRefreshToken
+
+	@Override
+	public void deleteRefreshToken(String memberId) throws Exception {
+		Map<String, String> map = new HashMap<>();
+		map.put("memberId", memberId);
+		map.put("token", null);
+		memberMapper.deleteRefreshToken(memberId);
+	}//deleRefreshToken
 
 
 }//MemberServiceImpl

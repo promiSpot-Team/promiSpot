@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import com.ssafy.promispot.member.model.entity.MemberEntity;
 
@@ -27,5 +28,14 @@ public interface MemberMapper {
 	
 	// 회원들 조회
 	public List<MemberEntity> findMemberList() throws SQLException;
+	
+	// 리프래시토큰 저장
+	public void saveRefreshToken(@Param("memberId") String memberId, @Param("token") String refreshToken) throws Exception;
+	
+	// 리프래시토큰 가져오기
+	public Object getRefreshToken(String memberId) throws Exception;
+	
+	// 리프래시 토큰 삭제
+	public void deleteRefreshToken(String memberId) throws Exception;
 
 }//MemberMapper

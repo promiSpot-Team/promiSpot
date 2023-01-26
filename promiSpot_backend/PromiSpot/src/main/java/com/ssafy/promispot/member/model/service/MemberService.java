@@ -24,5 +24,15 @@ public interface MemberService {
 	
 	// 회원들 조회
 	public List<MemberEntity> findMemberList() throws Exception;
+	
+	// 리프래시토큰 저장
+	public void saveRefreshToken(String memberId, String refreshToken) throws Exception;
+	
+	// 리프래시토큰 가져오기
+	public Object getRefreshToken(String memberId) throws Exception;
+	
+	// 리프래시 토큰 삭제
+	public void deleteRefreshToken(String memberId) throws Exception;
+
 
 }//MemberService
