@@ -1,14 +1,19 @@
 .white-header-wrapper {
     width: 100%;
-    height: 8vh;
+    height: 10vh;
     
     .white-header-vector-wrapper {
         position: absolute;
-        height: 8vh;
+        display: flex;
+        height: 10vh;
+        align-items: center;
+
+        img {
+            height: 8vh;
+        }
     }
 
     .white-header-text-wrapper {
-        border: 1px dotted blue;
         width: 100%;
         display: flex;
         align-items: center;
