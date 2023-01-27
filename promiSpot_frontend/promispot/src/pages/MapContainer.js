@@ -6,10 +6,12 @@ import SearchBar from '../components/search/SearchBar';
 const { kakao } = window;
 
 export default function MapContainer() {
+  
   useEffect(() => {
     mapscript();
   }, []);
 
+  // 지도 그리기
   const mapscript = () => {
     const container = document.getElementById("map");
     const options = {
@@ -18,6 +20,7 @@ export default function MapContainer() {
     };
     const map = new kakao.maps.Map(container, options);
     
+    // 커스텀 오버레이 (마커 모양)
     mapdata.places.forEach(place => {
       var customOverlay = new kakao.maps.CustomOverlay({
         position: new kakao.maps.LatLng(place.place_y, place.place_x),
@@ -28,6 +31,7 @@ export default function MapContainer() {
 
       customOverlay.setMap(map)
       
+      // 마커 그리기
       // const marker = new kakao.maps.Marker({
       //   map: map, 
       //   clickable: true,

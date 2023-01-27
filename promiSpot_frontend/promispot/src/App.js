@@ -2,7 +2,7 @@ import './App.css';
 import { BrowserRouter, Route, Routes, useHistory } from 'react-router-dom';
 import MapContainer from './pages/MapContainer'
 import SearchBar from './components/search/SearchBar';
-import Start from './pages/start'
+import Start from './pages/Start'
 import Login from './pages/login'
 import Join from './pages/join'
 
