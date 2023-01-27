@@ -1,8 +1,8 @@
 import react, { useContext } from 'react';
 import { Route } from 'react-router-dom';
-import BasicButton from '../components/buttons/basicButton';
+import BasicButton from '../../components/buttons/basicButton';
 // import Header from '../components/header/header';
-import './scss/join.scss';
+import '../scss/join.scss';
 
 function Join() {
   return (
