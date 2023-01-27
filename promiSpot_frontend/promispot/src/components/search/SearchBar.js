@@ -3,7 +3,7 @@ import './searchBar.scss'
 import axios from 'axios'
 
 
-export default function SearchBar() {
+export default function SearchBar({ onClick }) {
   // const [catImg, setCatImg] = useState();
 
   // useEffect(() => {
