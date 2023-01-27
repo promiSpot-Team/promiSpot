@@ -16,7 +16,7 @@ function App() {
           {/* <Route path="/form" component={Form} /> */}
           
           {/* <Route component={NotFound} /> */}
-          <Route path="/map" element={<MapContainer />} />
+          
         </Routes>
       </BrowserRouter>
   );
