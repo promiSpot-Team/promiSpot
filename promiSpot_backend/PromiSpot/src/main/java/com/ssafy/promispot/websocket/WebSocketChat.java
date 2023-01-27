@@ -24,7 +24,7 @@ import org.springframework.stereotype.Service;
  */
 
 @Service
-@ServerEndpoint("*/socket/chat")
+@ServerEndpoint("/*/socket/chat")
 public class WebSocketChat {
 	
 	
