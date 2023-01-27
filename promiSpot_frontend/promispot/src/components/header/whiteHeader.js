@@ -4,11 +4,11 @@ import { useNavigate } from 'react-router-dom';
 
 const WhiteHeader = (props) => {
   const navigate = useNavigate();
-  const { text, onClick } = props;
+  const { text } = props;
 
   return (
     <div className="white-header-wrapper">
-      <div className="white-header-vector-wrapper" onClick={onClick}>
+      <div className="white-header-vector-wrapper" onClick={() => navigate(-1)}>
         <img src={ require('../../images/vector.png') } />
       </div>
       <div className="white-header-text-wrapper">
