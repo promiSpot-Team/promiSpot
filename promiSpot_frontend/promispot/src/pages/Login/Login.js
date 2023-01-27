@@ -1,9 +1,9 @@
 import react, { useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-import BasicButton from '../components/buttons/basicButton';
-import WhiteHeader from '../components/header/whiteHeader'
-import './scss/login.scss';
+import BasicButton from '../../components/buttons/basicButton';
+import WhiteHeader from '../../components/header/whiteHeader'
+import '../scss/login.scss';
 
 function Login() {
     const [inputId, setInputId] = useState('')
