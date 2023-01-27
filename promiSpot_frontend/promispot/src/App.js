@@ -1,7 +1,6 @@
 import './App.css';
 import { BrowserRouter, Route, Routes, useHistory } from 'react-router-dom';
 import MapContainer from './pages/PlaceMap/MapContainer'
-import SearchBar from './components/search/searchBar';
 import Start from './pages/Login/Start'
 import Login from './pages/Login/Login'
 import Join from './pages/Login/Join'

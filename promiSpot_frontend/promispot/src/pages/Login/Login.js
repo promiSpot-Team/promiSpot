@@ -37,7 +37,7 @@ function Login() {
 
   return (
     <div className="login-wrapper">
-        <WhiteHeader text="로그인"/>
+        <WhiteHeader text="로그인" onClick={() => {console.log('로그인 페이지 확인')}}/>
         <div className="login-content-wrapper">
             <div className='login-input-wrapper'>
                 {/* <form onSubmit={LoginFunc}> */}
