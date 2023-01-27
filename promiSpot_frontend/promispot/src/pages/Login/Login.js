@@ -1,8 +1,8 @@
 import react, { useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-import BasicButton from '../../components/buttons/basicButton';
-import WhiteHeader from '../../components/header/whiteHeader'
+import BasicButton from '../../components/buttons/BasicButton';
+import WhiteHeader from '../../components/header/WhiteHeader'
 import '../scss/login.scss';
 
 function Login() {

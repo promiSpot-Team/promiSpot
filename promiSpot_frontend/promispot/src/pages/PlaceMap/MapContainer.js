@@ -1,7 +1,7 @@
 import { React, useEffect } from 'react'
 import mapdata from '../mapdata.json'
 import styles from "../scss/map_container.scss"
-import SearchBar from '../../components/search/searchBar';
+import SearchBar from '../../components/search/SearchBar';
 
 const { kakao } = window;
 

@@ -1,7 +1,6 @@
 import react from 'react';
 import './whiteHeader.scss';
 import { useNavigate } from 'react-router-dom';
-import SearchBar from '../search/searchBar';
 
 const WhiteHeader = (props) => {
   const navigate = useNavigate();

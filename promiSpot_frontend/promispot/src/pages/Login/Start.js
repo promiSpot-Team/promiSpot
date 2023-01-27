@@ -1,6 +1,6 @@
 import react, { useContext } from 'react';
 import { Link } from 'react-router-dom';
-import BasicButton from '../../components/buttons/basicButton'
+import BasicButton from '../../components/buttons/BasicButton'
 // import Header from '../components/header/header';
 // import Footer from '../components/footer/footer';
 import '../scss/start.scss';
