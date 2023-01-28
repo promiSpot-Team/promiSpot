@@ -4,7 +4,7 @@ import BasicButton from "../../components/Buttons/BasicButton";
 import InputForm from "../../components/InputForm/InputForm";
 // import Header from '../components/header/header';
 // import Footer from '../components/footer/footer';
-import "../scss/start.scss";
+import "../scss/Start.scss";
 
 function Start() {
   return (
@@ -27,9 +27,7 @@ function Start() {
           </Link>
         </div>
 
-        <div className="start-btn">
-          <InputForm />
-        </div>
+        <div className="start-btn"></div>
       </div>
     </div>
   );
