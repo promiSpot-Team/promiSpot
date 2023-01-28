@@ -1,7 +1,6 @@
 import react, { useContext } from "react";
 import { Link } from "react-router-dom";
 import BasicButton from "../../components/Buttons/BasicButton";
-import InputForm from "../../components/InputForm/InputForm";
 // import Header from '../components/header/header';
 // import Footer from '../components/footer/footer';
 import "../scss/Start.scss";
@@ -26,7 +25,6 @@ function Start() {
             />
           </Link>
         </div>
-
         <div className="start-btn"></div>
       </div>
     </div>
