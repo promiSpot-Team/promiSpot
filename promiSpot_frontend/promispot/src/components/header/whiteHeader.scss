@@ -1,62 +1,24 @@
 .white-header-wrapper {
-    width: 100%;
+  width: 100%;
+  height: 10vh;
+
+  .white-header-vector-wrapper {
+    position: absolute;
+    display: flex;
     height: 10vh;
-    
-    .white-header-vector-wrapper {
-        position: absolute;
-        display: flex;
-        height: 10vh;
-        align-items: center;
+    align-items: center;
+    margin-left: 20px;
+  }
 
-        img {
-            height: 8vh;
-        }
-    }
-
-    .white-header-text-wrapper {
-        width: 100%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        height: 100%;
-        
-        .text {
-
-        }
-    }
+  .white-header-text-wrapper {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    font-family: "Pretendard-Bold";
+    font-style: normal;
+    font-weight: 800;
+    font-size: 25px;
+  }
 }
-
-// .header-wrapper{
-//     // border: 1px solid black;
-//     width: 100%;
-//     height: 10%;
-//     display: flex;
-//     align-items: center;
-//     // justify-content: center;
-//     position: relative;
-// }
-
-// .header-vector-wrapper{
-//     // border: 1px solid black;
-//     width: 20%;
-//     display: flex;
-//     align-items: center;
-//     justify-content: center;
-//     position: absolute;
-// }
-
-// .header-text-wrapper{
-//     // border: 1px solid black;
-//     width: 100%;
-//     height: 100%;
-//     display: flex;
-//     align-items: center;
-//     justify-content: center;
-//     position: absolute;
-//     font-family: 'Inter';
-//     font-style: normal;
-//     font-weight: 800;
-//     font-size: 28px;
-//     line-height: 22px;
-//     color: rgba(0, 0, 0, 0.6);
-// }

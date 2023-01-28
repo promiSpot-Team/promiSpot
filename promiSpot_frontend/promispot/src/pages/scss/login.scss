@@ -1,53 +1,82 @@
-.login-wrapper{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    height: 100vh;
-    
+.login-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100vh;
 }
 
-.link{
-    // border: 1px solid black;
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-decoration: none;
+.link {
+  // border: 1px solid black;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
 }
 
-.login-content-wrapper{
-    // border: 1px solid black;
-    width: 100%;
-    height: 90%;
-    
+.login-content-wrapper {
+  // border: 1px solid black;
+  width: 100%;
+  height: 90%;
 }
 
-.login-input-wrapper{
-    // border: 1px solid black;
-    width: 100%;
-    height: 50%;
-    display: flex;
-    flex-direction: column;
-    // align-items: center;
-    justify-content: center;
-    padding-left: 10%;
-
-    
+.login-input-wrapper {
+  // border: 1px solid black;
+  width: 100%;
+  height: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  // padding-left: 10%;
 }
 
-.login-inputs{
-    width: 80%;
-    height: 30px;
-    outline: none;
-    border:none;
-    border-bottom: 0.5px solid rgba(0, 0, 0, 0.6);
-    margin-bottom: 20px;
+.login-inputs {
+  width: 50%;
+  height: 100px;
+  outline: none;
+  border: none;
+  display: flex;
+  //   border-bottom: 0.5px solid rgba(0, 0, 0, 0.6);
+  //   margin-bottom: 20px;
 
-    &:focus{
-        outline: none;
-    }
+  //   &:focus {
+  //     outline: none;
+  //   }
+}
+// .start-wrapper{
+//     display: flex;
+//     flex-direction: column;
+//     align-items: center;
+//     height: 100vh;
+
+// }
+
+.login-btn-wrapper {
+  // border: 1px solid black;
+  width: 100%;
+  // height: 40%;
+  height: 20vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
-.login-btn{
+.link {
+  // border: 1px solid black;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+}
 
+.login-btn {
+  width: 100%;
+  display: flex;
+  // flex-direction: column;
+  // align-items: center;
+  justify-content: center;
+  margin-top: 15px;
 }

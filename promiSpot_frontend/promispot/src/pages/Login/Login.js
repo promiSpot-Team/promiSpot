@@ -1,9 +1,19 @@
-import react, { useContext, useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useContext, useEffect, useState } from "react";
+import { useNavigate, Link } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
 import BasicButton from "../../components/Buttons/BasicButton";
 import WhiteHeader from "../../components/Header/WhiteHeader";
-import "../scss/login.scss";
+import TextField from "@mui/material/TextField";
+import Input from "@mui/material/Input";
+import InputLabel from "@mui/material/InputLabel";
+import IconButton from "@mui/material/IconButton";
+import FormControl from "@mui/material/FormControl";
+import InputAdornment from "@mui/material/InputAdornment";
+import Visibility from "@mui/icons-material/Visibility";
+import VisibilityOff from "@mui/icons-material/VisibilityOff";
+import "../scss/Login.scss";
 
 function Login() {
   const [inputId, setInputId] = useState("");
@@ -34,37 +44,95 @@ function Login() {
     // 페이지 호출 후 처음 한번만 호출될 수 있도록 [] 추가
     [])
  */
+  const [showPassword, setShowPassword] = React.useState(false);
+
+  const handleClickShowPassword = () => setShowPassword((show) => !show);
+
+  const handleMouseDownPassword = (
+    event: React.MouseEvent<HTMLButtonElement>
+  ) => {
+    event.preventDefault();
+  };
+
+  const navigate = useNavigate();
+
+  const handleNavigate = () => {
+    navigate(-1);
+  };
 
   return (
     <div className="login-wrapper">
+      {/* <FontAwesomeIcon onClick={handleNavigate} icon={faChevronLeft} /> */}
       <WhiteHeader text="로그인" />
       <div className="login-content-wrapper">
         <div className="login-input-wrapper">
           {/* <form onSubmit={LoginFunc}> */}
-          <label htmlFor="input_id">아이디</label>
+          {/* <label htmlFor="input_id">아이디</label>
           <input
             className="login-inputs"
             type="text"
             name="input_id"
             value={inputId}
             onChange={handleInputId}
-          />
-
-          <label htmlFor="input_pw">비밀번호</label>
+          /> */}
+          <FormControl
+            sx={{ m: 1, width: "70%" }}
+            variant="standard"
+            margin="normal"
+          >
+            <TextField
+              id="standard-textarea"
+              label="아이디"
+              placeholder="UserName"
+              multiline
+              variant="standard"
+              font-family="Pretendard-Bold"
+              margin="normal"
+            />
+          </FormControl>
+          {/* <label htmlFor="input_pw">비밀번호</label>
           <input
             className="login-inputs"
             type="password"
             name="input_pw"
             value={inputPw}
             onChange={handleInputPw}
-          />
+          /> */}
 
+          <FormControl
+            sx={{ m: 1, width: "70%" }}
+            variant="standard"
+            margin="normal"
+          >
+            <InputLabel htmlFor="standard-adornment-password">
+              비밀번호
+            </InputLabel>
+            <Input
+              id="standard-adornment-password"
+              type={showPassword ? "text" : "password"}
+              placeholder="Password"
+              margin="normal"
+              endAdornment={
+                <InputAdornment position="end">
+                  <IconButton
+                    aria-label="toggle password visibility"
+                    onClick={handleClickShowPassword}
+                    onMouseDown={handleMouseDownPassword}
+                  >
+                    {showPassword ? <VisibilityOff /> : <Visibility />}
+                  </IconButton>
+                </InputAdornment>
+              }
+            />
+          </FormControl>
           {/* </form> */}
         </div>
-        <div className="login-btn">
-          {/* <Link to={"/"} className="link"> */}
-          <BasicButton text="로그인" onClick={() => onClickLogin} />
-          {/* </Link> */}
+        <div className="login-btn-wrapper">
+          <div className="login-btn">
+            <Link to={"/main"} className="link">
+              <BasicButton text="로그인" onClick={() => onClickLogin} />
+            </Link>
+          </div>
         </div>
       </div>
     </div>
