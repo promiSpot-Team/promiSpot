@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from 'react'
-import './searchBar.scss'
-import axios from 'axios'
-
+import React, { useEffect, useState } from "react";
+import "./SearchBar.scss";
+import axios from "axios";
 
 export default function SearchBar({ onClick }) {
   // const [catImg, setCatImg] = useState();
@@ -18,10 +17,10 @@ export default function SearchBar({ onClick }) {
   return (
     <div>
       <h2>SearchBar</h2>
-        {/* <img src={catImg}></img> */}
-        <div className="search-bar-div">
-          <div className="search-bar-content">여기에 내용을 검색하세요</div>
-        </div>
+      {/* <img src={catImg}></img> */}
+      <div className="search-bar-div">
+        <div className="search-bar-content">여기에 내용을 검색하세요</div>
+      </div>
     </div>
-  )
+  );
 }

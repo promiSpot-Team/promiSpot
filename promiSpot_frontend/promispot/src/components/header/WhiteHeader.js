@@ -1,6 +1,6 @@
-import react from 'react';
-import './whiteHeader.scss';
-import { useNavigate } from 'react-router-dom';
+import react from "react";
+import "./WhiteHeader.scss";
+import { useNavigate } from "react-router-dom";
 
 const WhiteHeader = (props) => {
   const navigate = useNavigate();
@@ -9,11 +9,9 @@ const WhiteHeader = (props) => {
   return (
     <div className="white-header-wrapper">
       <div className="white-header-vector-wrapper" onClick={() => navigate(-1)}>
-        <img src={ require('../../images/vector.png') } />
+        <img src={require("../../images/vector.png")} />
       </div>
-      <div className="white-header-text-wrapper">
-        {text}
-      </div>
+      <div className="white-header-text-wrapper">{text}</div>
     </div>
     // <div className='header-wrapper'>
     //   {/* <PreButton /> */}
@@ -28,7 +26,7 @@ const WhiteHeader = (props) => {
     //       {text}
     //   </div>
     // </div>
-  )
-  }
-  
-  export default WhiteHeader;
+  );
+};
+
+export default WhiteHeader;
