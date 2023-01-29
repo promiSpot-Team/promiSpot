@@ -23,7 +23,7 @@
 .join-input-wrapper {
   // border: 1px solid black;
   width: 100%;
-  height: 50%;
+  //   height: 50%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -32,11 +32,13 @@
 }
 
 .join-inputs {
-  width: 50%;
+  width: 100%;
   height: 100px;
   outline: none;
   border: none;
   display: flex;
+  align-items: center;
+  justify-content: center;
   //   border-bottom: 0.5px solid rgba(0, 0, 0, 0.6);
   //   margin-bottom: 20px;
 
@@ -56,7 +58,7 @@
   // border: 1px solid black;
   width: 100%;
   // height: 40%;
-  height: 20vh;
+  //   height: 20vh;
   display: flex;
   flex-direction: column;
   align-items: center;
