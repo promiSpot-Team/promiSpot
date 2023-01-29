@@ -6,12 +6,17 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import com.ssafy.promispot.member.model.entity.FileEntity;
 import com.ssafy.promispot.member.model.entity.MemberEntity;
 import com.ssafy.promispot.member.model.mapper.MemberMapper;
 
 @Service
 public class MemberServiceImpl implements MemberService {
+	
+	@Autowired
+	private FileHandler fileHandler;
 	
 	@Autowired
 	private MemberMapper memberMapper;
@@ -37,9 +42,9 @@ public class MemberServiceImpl implements MemberService {
 	/* 회원 정보 수정 */
 	@Override
 	public boolean modifyMember(MemberEntity memberEntity) throws Exception {
-		if(memberEntity.getMemberId() == null || memberEntity.getMemberPass() == null) {
-			throw new Exception();
-		}
+//		if(memberEntity.getMemberId() == null || memberEntity.getMemberPass() == null) {
+//			throw new Exception();
+//		}
 		return memberMapper.modifyMember(memberEntity) == 1;
 	}//modifyMember
 
@@ -81,6 +86,12 @@ public class MemberServiceImpl implements MemberService {
 		map.put("token", null);
 		memberMapper.deleteRefreshToken(memberId);
 	}//deleRefreshToken
+
+	/* 회원 프로필 이미지 저장 */
+	@Override
+	public FileEntity saveFile(MultipartFile multipartFile) throws Exception {
+		return fileHandler.saveFile(multipartFile);		
+	}//saveFile
 
 
 }//MemberServiceImpl

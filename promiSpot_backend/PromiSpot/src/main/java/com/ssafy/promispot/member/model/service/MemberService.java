@@ -1,8 +1,10 @@
 package com.ssafy.promispot.member.model.service;
 
-import java.sql.SQLException;
 import java.util.List;
 
+import org.springframework.web.multipart.MultipartFile;
+
+import com.ssafy.promispot.member.model.entity.FileEntity;
 import com.ssafy.promispot.member.model.entity.MemberEntity;
 
 public interface MemberService {
@@ -33,6 +35,9 @@ public interface MemberService {
 	
 	// 리프래시 토큰 삭제
 	public void deleteRefreshToken(String memberId) throws Exception;
+	
+	// 회원 프로필 이미지 저장
+	public FileEntity saveFile(MultipartFile multipartFile) throws Exception;
 
 
 }//MemberService
