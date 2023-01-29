@@ -9,20 +9,24 @@ import BasicButton from "../../components/Buttons/BasicButton";
 import "../scss/join.scss";
 =======
 import WhiteHeader from "../../components/Header/WhiteHeader";
-import TextField from "@mui/material/TextField";
-import Input from "@mui/material/Input";
-import InputLabel from "@mui/material/InputLabel";
-import IconButton from "@mui/material/IconButton";
-import FormControl from "@mui/material/FormControl";
-import InputAdornment from "@mui/material/InputAdornment";
-import Visibility from "@mui/icons-material/Visibility";
-import VisibilityOff from "@mui/icons-material/VisibilityOff";
+import {
+  TextField,
+  Input,
+  InputLabel,
+  IconButton,
+  FormControl,
+  FormControlLabel,
+  InputAdornment,
+  Checkbox,
+} from "@mui/material/";
+import { Visibility, VisibilityOff } from "@mui/icons-material";
 import "../scss/Join.scss";
 >>>>>>> c9e70efc022da716b03a533c92a800c578cb5a5d
 
 function Join() {
   const [inputId, setInputId] = useState("");
   const [inputPw, setInputPw] = useState("");
+  const [checked, setChecked] = useState(false);
 
   // input data 의 변화가 있을 때마다 value 값을 변경해서 useState 해준다
   const handleInputId = (e) => {
@@ -49,11 +53,19 @@ function Join() {
     // 페이지 호출 후 처음 한번만 호출될 수 있도록 [] 추가
     [])
  */
-  const [showPassword, setShowPassword] = React.useState(false);
+  const [showPassword_1, setShowPassword_1] = React.useState(false);
+  const [showPassword_2, setShowPassword_2] = React.useState(false);
 
-  const handleClickShowPassword = () => setShowPassword((show) => !show);
+  const handleClickShowPassword_1 = () => setShowPassword_1((show) => !show);
+  const handleClickShowPassword_2 = () => setShowPassword_2((show) => !show);
 
-  const handleMouseDownPassword = (
+  const handleMouseDownPassword_1 = (
+    event: React.MouseEvent<HTMLButtonElement>
+  ) => {
+    event.preventDefault();
+  };
+
+  const handleMouseDownPassword_2 = (
     event: React.MouseEvent<HTMLButtonElement>
   ) => {
     event.preventDefault();
@@ -65,18 +77,17 @@ function Join() {
     navigate(-1);
   };
 
+  // 의 체크
+  const handleAgree = (event) => {
+    setChecked(event.target.checked);
+  };
+
   return (
     <div className="join-wrapper">
-      <div className="join-content-wrapper">
-        <WhiteHeader text="회원가입" />
-      </div>
+      <WhiteHeader text="회원가입" />
       <div className="join-content-wrapper">
         <div className="join-input-wrapper">
-          <FormControl
-            sx={{ m: 1, width: "70%" }}
-            variant="standard"
-            margin="normal"
-          >
+          <FormControl sx={{ width: "70%" }} variant="standard">
             <TextField
               id="standard-textarea"
               label="아이디"
@@ -87,11 +98,7 @@ function Join() {
               margin="normal"
             />
           </FormControl>
-          <FormControl
-            sx={{ m: 1, width: "70%" }}
-            variant="standard"
-            margin="normal"
-          >
+          <FormControl sx={{ width: "70%" }} variant="standard">
             <TextField
               id="standard-textarea"
               label="이메일"
@@ -103,63 +110,51 @@ function Join() {
             />
           </FormControl>
 
-          <FormControl
-            sx={{ m: 1, width: "70%" }}
-            variant="standard"
-            margin="normal"
-          >
+          <FormControl sx={{ width: "70%" }} variant="standard" margin="normal">
             <InputLabel htmlFor="standard-adornment-password">
               비밀번호
             </InputLabel>
             <Input
               id="standard-adornment-password"
-              type={showPassword ? "text" : "password"}
+              type={showPassword_1 ? "text" : "password"}
               placeholder="Password"
               margin="normal"
               endAdornment={
                 <InputAdornment position="end">
                   <IconButton
                     aria-label="toggle password visibility"
-                    onClick={handleClickShowPassword}
-                    onMouseDown={handleMouseDownPassword}
+                    onClick={handleClickShowPassword_1}
+                    onMouseDown={handleMouseDownPassword_1}
                   >
-                    {showPassword ? <VisibilityOff /> : <Visibility />}
+                    {showPassword_1 ? <VisibilityOff /> : <Visibility />}
                   </IconButton>
                 </InputAdornment>
               }
             />
           </FormControl>
-          <FormControl
-            sx={{ m: 1, width: "70%" }}
-            variant="standard"
-            margin="normal"
-          >
+          <FormControl sx={{ width: "70%" }} variant="standard" margin="normal">
             <InputLabel htmlFor="standard-adornment-password">
               비밀번호 확인
             </InputLabel>
             <Input
               id="standard-adornment-password"
-              type={showPassword ? "text" : "password"}
+              type={showPassword_2 ? "text" : "password"}
               placeholder="Password"
               margin="normal"
               endAdornment={
                 <InputAdornment position="end">
                   <IconButton
                     aria-label="toggle password visibility"
-                    onClick={handleClickShowPassword}
-                    onMouseDown={handleMouseDownPassword}
+                    onClick={handleClickShowPassword_2}
+                    onMouseDown={handleMouseDownPassword_2}
                   >
-                    {showPassword ? <VisibilityOff /> : <Visibility />}
+                    {showPassword_2 ? <VisibilityOff /> : <Visibility />}
                   </IconButton>
                 </InputAdornment>
               }
             />
           </FormControl>
-          <FormControl
-            sx={{ m: 1, width: "70%" }}
-            variant="standard"
-            margin="normal"
-          >
+          <FormControl sx={{ width: "70%" }} variant="standard">
             <TextField
               id="standard-textarea"
               label="이름"
@@ -170,11 +165,7 @@ function Join() {
               margin="normal"
             />
           </FormControl>
-          <FormControl
-            sx={{ m: 1, width: "70%" }}
-            variant="standard"
-            margin="normal"
-          >
+          <FormControl sx={{ width: "70%" }} variant="standard">
             <TextField
               id="standard-textarea"
               label="닉네임"
@@ -185,11 +176,7 @@ function Join() {
               margin="normal"
             />
           </FormControl>
-          <FormControl
-            sx={{ m: 1, width: "70%" }}
-            variant="standard"
-            margin="normal"
-          >
+          <FormControl sx={{ width: "70%" }} variant="standard">
             <TextField
               id="standard-textarea"
               label="주소"
@@ -203,11 +190,7 @@ function Join() {
               }}
             />
           </FormControl>
-          <FormControl
-            sx={{ m: 1, width: "70%" }}
-            variant="standard"
-            margin="normal"
-          >
+          <FormControl sx={{ width: "70%" }} variant="standard">
             <TextField
               id="standard-textarea"
               label="전화번호"
@@ -218,6 +201,13 @@ function Join() {
               margin="normal"
             />
           </FormControl>
+          <div className="join-inputs">
+            <FormControlLabel
+              control={<Checkbox onChange={handleAgree} color="primary" />}
+              label="개인 정보 수집 및 이용 약관 동의"
+              margin="normal"
+            />
+          </div>
         </div>
         <div className="join-btn-wrapper">
           <div className="join-btn">
