@@ -7,6 +7,7 @@ import Join from "./pages/Login/Join";
 import Friend from "./pages/Profile/Friend";
 import FriendList from "./pages/Friend/FriendList";
 import Main from "./pages/Main/Main";
+import AddressSearch from "./pages/Address/AddressSearch"
 
 function App() {
   // const history = useHistory();
@@ -19,6 +20,9 @@ function App() {
       <Route path="/main" element={<Main />} />
       {/* <Route component={NotFound} /> */}
       <Route path="/map" element={<MapContainer />} />
+      <Route path="/address">
+        <Route path="search" element={<AddressSearch />} />
+      </Route>
       <Route path="/friend" element={<Friend />}>
         <Route path="list" element={<FriendList />}></Route>
       </Route>

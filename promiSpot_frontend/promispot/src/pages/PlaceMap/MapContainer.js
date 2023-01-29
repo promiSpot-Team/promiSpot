@@ -1,6 +1,6 @@
 import { React, useEffect } from "react";
 import mapdata from "../mapdata.json";
-import styles from "../scss/Map_Container.scss";
+import styles from "../scss/map_container.scss";
 import SearchBar from "../../components/Search/SearchBar";
 
 const { kakao } = window;

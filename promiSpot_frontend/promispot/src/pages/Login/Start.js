@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import BasicButton from "../../components/Buttons/BasicButton";
 // import Header from '../components/header/header';
 // import Footer from '../components/footer/footer';
-import "../scss/Start.scss";
+import "../scss/start.scss";
 
 function Start() {
   return (

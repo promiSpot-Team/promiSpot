@@ -13,7 +13,7 @@ import FormControl from "@mui/material/FormControl";
 import InputAdornment from "@mui/material/InputAdornment";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
-import "../scss/Login.scss";
+import "../scss/login.scss";
 
 function Login() {
   const [inputId, setInputId] = useState("");
