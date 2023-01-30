@@ -1,0 +1,19 @@
+.search-bar-wrapper {
+  width: 93%;
+  margin: 3% auto;
+
+  .search-bar {
+    width: 90%;
+    border-radius: 30px;
+    padding: 10px;
+    color: #c4c4c4;
+    background-color: #f2f2f2;
+    border: 1px solid #c4c4c4;
+    
+    &:focus {
+      background-color: rgba(242, 242, 242, 0.8);
+      color: black;
+    }
+  }
+
+}

@@ -8,11 +8,8 @@ import Friend from "./pages/Friend/Friend";
 import FriendList from "./pages/Friend/FriendList";
 import Main from "./pages/Main/Main";
 import AddressSearch from "./pages/Address/AddressSearch"
-import TabBar from "./components/TabBar/TabBar";
-import TabBar2 from "./components/TabBar/TabBar2";
-import PromiseList from "./pages/Promise/PromiseList";
-import PromiseCalendar from "./pages/Promise/PromiseCalendar";
-import MyPage from "./pages/MyPage/MyPage";
+import PlaceSearch from "./pages/PlaceMap/PlaceSearch";
+import PlaceRecommend from "./pages/PlaceMap/PlaceRecommend";
 
 function App() {
   // const history = useHistory();
@@ -24,21 +21,16 @@ function App() {
       {/* <Route path="/form" component={Form} /> */}
       <Route path="/main" element={<Main />} />
       {/* <Route component={NotFound} /> */}
-      <Route path="/map" element={<MapContainer />} />
+      <Route path="/map" element={<MapContainer />}>
+        <Route path="search" element={<PlaceSearch />}/>
+        <Route path="recommend" element={<PlaceRecommend />}/>
+      </Route>      
       <Route path="/address">
         <Route path="search" element={<AddressSearch />} />
       </Route>
       <Route path="/friend" element={<Friend />}>
         <Route path="list" element={<FriendList />}></Route>
       </Route>
-      <Route path="/tabBar" element={<TabBar />} />
-      <Route path="/tabBar2" element={<TabBar2 />} />
-      <Route path="/promise" element={<PromiseList/>}>
-        
-      </Route>
-      {/* 임시로 해놓음 */}
-      <Route path="/calendar" element={<PromiseCalendar />}/>
-      <Route path="/mypage" element={<MyPage/>}/>
     </Routes>
   );
 }
