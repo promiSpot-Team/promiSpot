@@ -23,8 +23,8 @@ public class FileHandler {
     private final String rootPath = "C:\\Temp";
 //    private final String rootPath = System.getProperty("user.dir");
     
-    // 프로젝트 루트 경로에 있는 files 디렉토리
-    private final String fileDir = rootPath + "\\files\\";
+    // 프로젝트 루트 경로에 있는 디렉토리
+    private final String fileDir = rootPath + "\\upload\\";
     
     public String getFullPath(String filename) { 
     	return fileDir + filename; 
