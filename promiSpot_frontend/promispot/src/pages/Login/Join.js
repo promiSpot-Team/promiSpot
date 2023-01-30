@@ -4,20 +4,36 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
 import BasicButton from "../../components/Buttons/BasicButton";
+<<<<<<< HEAD
+// import Header from '../components/header/header';
+import "../scss/join.scss";
+=======
 import WhiteHeader from "../../components/Header/WhiteHeader";
-import TextField from "@mui/material/TextField";
-import Input from "@mui/material/Input";
-import InputLabel from "@mui/material/InputLabel";
-import IconButton from "@mui/material/IconButton";
-import FormControl from "@mui/material/FormControl";
-import InputAdornment from "@mui/material/InputAdornment";
-import Visibility from "@mui/icons-material/Visibility";
-import VisibilityOff from "@mui/icons-material/VisibilityOff";
+import {
+  TextField,
+  Input,
+  InputLabel,
+  IconButton,
+  FormControl,
+  FormControlLabel,
+  InputAdornment,
+  Checkbox,
+  FormHelperText,
+} from "@mui/material/";
+import { Visibility, VisibilityOff } from "@mui/icons-material";
 import "../scss/Join.scss";
+>>>>>>> c9e70efc022da716b03a533c92a800c578cb5a5d
 
 function Join() {
   const [inputId, setInputId] = useState("");
   const [inputPw, setInputPw] = useState("");
+  const [checked, setChecked] = useState(false);
+  const [emailError, setEmailError] = useState("");
+  const [passwordState, setPasswordState] = useState("");
+  const [passwordError, setPasswordError] = useState("");
+  const [nameError, setNameError] = useState("");
+  const [registerError, setRegisterError] = useState("");
+  // const history = useHistory();
 
   // input data 의 변화가 있을 때마다 value 값을 변경해서 useState 해준다
   const handleInputId = (e) => {
@@ -44,11 +60,19 @@ function Join() {
     // 페이지 호출 후 처음 한번만 호출될 수 있도록 [] 추가
     [])
  */
-  const [showPassword, setShowPassword] = React.useState(false);
+  const [showPassword_1, setShowPassword_1] = React.useState(false);
+  const [showPassword_2, setShowPassword_2] = React.useState(false);
 
-  const handleClickShowPassword = () => setShowPassword((show) => !show);
+  const handleClickShowPassword_1 = () => setShowPassword_1((show) => !show);
+  const handleClickShowPassword_2 = () => setShowPassword_2((show) => !show);
 
-  const handleMouseDownPassword = (
+  const handleMouseDownPassword_1 = (
+    event: React.MouseEvent<HTMLButtonElement>
+  ) => {
+    event.preventDefault();
+  };
+
+  const handleMouseDownPassword_2 = (
     event: React.MouseEvent<HTMLButtonElement>
   ) => {
     event.preventDefault();
@@ -60,165 +84,224 @@ function Join() {
     navigate(-1);
   };
 
+  const handleAgree = (event) => {
+    setChecked(event.target.checked);
+  };
+
+  const onhandlePost = async (data) => {
+    const { email, name, password } = data;
+    const postData = { email, name, password };
+
+    // post
+    await axios
+      .post("/join", postData)
+      .then(function (response) {
+        console.log(response, "성공");
+        navigate("/login");
+      })
+      .catch(function (err) {
+        console.log(err);
+        setRegisterError("회원가입에 실패하였습니다. 다시한번 확인해 주세요.");
+      });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    const data = new FormData(e.currentTarget);
+    const joinData = {
+      id: data.get("id"),
+      email: data.get("email"),
+      password: data.get("password"),
+      rePassword: data.get("rePassword"),
+      name: data.get("name"),
+      nickName: data.get("nickName"),
+      phoneNumber: data.get("phoneNumber"),
+    };
+    const { id, email, password, rePassword, name, nickName, phoneNumber } =
+      joinData;
+
+    // 이메일 유효성 체크
+    const emailRegex =
+      /([\w-.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
+    if (!emailRegex.test(email))
+      setEmailError("올바른 이메일 형식이 아닙니다.");
+    else setEmailError("");
+
+    // 비밀번호 유효성 체크
+    const passwordRegex =
+      /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,25}$/;
+    if (!passwordRegex.test(password))
+      setPasswordState(
+        "숫자+영문자+특수문자 조합으로 8자리 이상 입력해주세요!"
+      );
+    else setPasswordState("");
+
+    // 비밀번호 같은지 체크
+    if (password !== rePassword)
+      setPasswordError("비밀번호가 일치하지 않습니다.");
+    else setPasswordError("");
+
+    // 이름 유효성 검사
+    const nameRegex = /^[가-힣a-zA-Z]+$/;
+    if (!nameRegex.test(name) || name.length < 1)
+      setNameError("올바른 이름을 입력해주세요.");
+    else setNameError("");
+
+    // 회원가입 동의 체크
+    if (!checked) alert("회원가입 약관에 동의해주세요.");
+
+    if (
+      emailRegex.test(email) &&
+      passwordRegex.test(password) &&
+      password === rePassword &&
+      nameRegex.test(name) &&
+      checked
+    ) {
+      onhandlePost(joinData);
+    }
+  };
+
   return (
     <div className="join-wrapper">
-      <div className="join-content-wrapper">
-        <WhiteHeader text="회원가입" />
-      </div>
+      <WhiteHeader text="회원가입" />
       <div className="join-content-wrapper">
         <div className="join-input-wrapper">
-          <FormControl
-            sx={{ m: 1, width: "70%" }}
-            variant="standard"
-            margin="normal"
-          >
+          <FormControl sx={{ width: "70%" }} variant="standard">
             <TextField
-              id="standard-textarea"
+              id="id"
               label="아이디"
               placeholder="UserName"
               multiline
               variant="standard"
-              font-family="Pretendard-Bold"
-              margin="normal"
+              fontFamily="Pretendard-Bold"
+              margin="dense"
             />
           </FormControl>
-          <FormControl
-            sx={{ m: 1, width: "70%" }}
-            variant="standard"
-            margin="normal"
-          >
+          <FormControl sx={{ width: "70%" }} variant="standard">
             <TextField
-              id="standard-textarea"
+              id="email"
+              type="email"
               label="이메일"
               placeholder="E-mail"
               multiline
               variant="standard"
-              font-family="Pretendard-Bold"
-              margin="normal"
+              fontFamily="Pretendard-Bold"
+              margin="dense"
+              error={emailError !== "" || false}
             />
           </FormControl>
+          <FormHelperText>{emailError}</FormHelperText>
 
-          <FormControl
-            sx={{ m: 1, width: "70%" }}
-            variant="standard"
-            margin="normal"
-          >
+          <FormControl sx={{ width: "70%" }} variant="standard" margin="dense">
             <InputLabel htmlFor="standard-adornment-password">
               비밀번호
             </InputLabel>
             <Input
-              id="standard-adornment-password"
-              type={showPassword ? "text" : "password"}
-              placeholder="Password"
-              margin="normal"
+              id="password"
+              type={showPassword_1 ? "text" : "password"}
+              placeholder="Password(숫자+영문자+특수문자 8자리 이상)"
+              margin="dense"
+              error={passwordState !== "" || false}
               endAdornment={
                 <InputAdornment position="end">
                   <IconButton
                     aria-label="toggle password visibility"
-                    onClick={handleClickShowPassword}
-                    onMouseDown={handleMouseDownPassword}
+                    onClick={handleClickShowPassword_1}
+                    onMouseDown={handleMouseDownPassword_1}
                   >
-                    {showPassword ? <VisibilityOff /> : <Visibility />}
+                    {showPassword_1 ? <VisibilityOff /> : <Visibility />}
                   </IconButton>
                 </InputAdornment>
               }
             />
           </FormControl>
-          <FormControl
-            sx={{ m: 1, width: "70%" }}
-            variant="standard"
-            margin="normal"
-          >
+          <FormHelperText>{passwordState}</FormHelperText>
+          <FormControl sx={{ width: "70%" }} variant="standard" margin="dense">
             <InputLabel htmlFor="standard-adornment-password">
               비밀번호 확인
             </InputLabel>
             <Input
-              id="standard-adornment-password"
-              type={showPassword ? "text" : "password"}
+              id="rePassword"
+              type={showPassword_2 ? "text" : "password"}
               placeholder="Password"
-              margin="normal"
+              margin="dense"
+              error={passwordError !== "" || false}
               endAdornment={
                 <InputAdornment position="end">
                   <IconButton
                     aria-label="toggle password visibility"
-                    onClick={handleClickShowPassword}
-                    onMouseDown={handleMouseDownPassword}
+                    onClick={handleClickShowPassword_2}
+                    onMouseDown={handleMouseDownPassword_2}
                   >
-                    {showPassword ? <VisibilityOff /> : <Visibility />}
+                    {showPassword_2 ? <VisibilityOff /> : <Visibility />}
                   </IconButton>
                 </InputAdornment>
               }
             />
           </FormControl>
-          <FormControl
-            sx={{ m: 1, width: "70%" }}
-            variant="standard"
-            margin="normal"
-          >
+          <FormHelperText>{passwordError}</FormHelperText>
+          <FormControl sx={{ width: "70%" }} variant="standard">
             <TextField
-              id="standard-textarea"
+              id="name"
               label="이름"
               placeholder="Name"
               multiline
               variant="standard"
-              font-family="Pretendard-Bold"
-              margin="normal"
+              fontFamily="Pretendard-Bold"
+              margin="dense"
+              error={nameError !== "" || false}
             />
           </FormControl>
-          <FormControl
-            sx={{ m: 1, width: "70%" }}
-            variant="standard"
-            margin="normal"
-          >
+          <FormHelperText>{nameError}</FormHelperText>
+          <FormControl sx={{ width: "70%" }} variant="standard">
             <TextField
-              id="standard-textarea"
+              id="nickName"
               label="닉네임"
               placeholder="NickName"
               multiline
               variant="standard"
-              font-family="Pretendard-Bold"
-              margin="normal"
+              fontFamily="Pretendard-Bold"
+              margin="dense"
             />
           </FormControl>
-          <FormControl
-            sx={{ m: 1, width: "70%" }}
-            variant="standard"
-            margin="normal"
-          >
+          <FormControl sx={{ width: "70%" }} variant="standard">
             <TextField
-              id="standard-textarea"
+              id="address"
               label="주소"
               placeholder="Address"
               multiline
               variant="standard"
-              font-family="Pretendard-Bold"
-              margin="normal"
+              fontFamily="Pretendard-Bold"
+              margin="dense"
               InputProps={{
                 readOnly: true,
               }}
             />
           </FormControl>
-          <FormControl
-            sx={{ m: 1, width: "70%" }}
-            variant="standard"
-            margin="normal"
-          >
+          <FormControl sx={{ width: "70%" }} variant="standard">
             <TextField
-              id="standard-textarea"
+              id="phoneNumber"
               label="전화번호"
               placeholder="Phone Number"
               multiline
               variant="standard"
-              font-family="Pretendard-Bold"
-              margin="normal"
+              fontFamily="Pretendard-Bold"
+              margin="dense"
             />
           </FormControl>
+          <div className="join-inputs">
+            <FormControlLabel
+              control={<Checkbox onChange={handleAgree} color="primary" />}
+              label="개인 정보 수집 및 이용 약관 동의"
+              margin="dense"
+            />
+          </div>
         </div>
         <div className="join-btn-wrapper">
           <div className="join-btn">
-            <Link to={"/login"} className="link">
-              <BasicButton text="회원가입" onClick={() => onClickJoin} />
-            </Link>
+            <BasicButton text="회원가입" onClick={() => onClickJoin} />
+            <FormHelperText>{registerError}</FormHelperText>
           </div>
         </div>
       </div>

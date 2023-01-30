@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from "react";
 import "./SearchBar.scss";
 import axios from "axios";
+import FormControl from "@mui/material/FormControl";
+import TextField from "@mui/material/TextField";
+import BasicButton from "../Buttons/BasicButton";
 
 export default function SearchBar({ onClick }) {
   // const [catImg, setCatImg] = useState();
@@ -16,11 +19,23 @@ export default function SearchBar({ onClick }) {
 
   return (
     <div>
-      <h2>SearchBar</h2>
       {/* <img src={catImg}></img> */}
-      <div className="search-bar-div">
-        <div className="search-bar-content">여기에 내용을 검색하세요</div>
-      </div>
+      <FormControl
+            sx={{ m: 1, width: "70%" }}
+            variant="standard"
+            margin="normal"
+          >
+            <TextField
+              id="outlined-basic"
+              label="주소 입력"
+              placeholder="지명, 도로명, 건물명을 입력하세요"
+              multiline
+              variant="standard"
+              font-family="Pretendard-Bold"
+              margin="normal"
+            />
+            <BasicButton text="검색" />
+          </FormControl>
     </div>
   );
 }

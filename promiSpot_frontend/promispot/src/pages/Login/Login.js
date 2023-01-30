@@ -13,7 +13,7 @@ import FormControl from "@mui/material/FormControl";
 import InputAdornment from "@mui/material/InputAdornment";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
-import "../scss/Login.scss";
+import "../scss/login.scss";
 
 function Login() {
   const [inputId, setInputId] = useState("");
@@ -78,7 +78,7 @@ function Login() {
           <FormControl
             sx={{ m: 1, width: "70%" }}
             variant="standard"
-            margin="normal"
+            margin="dense"
           >
             <TextField
               id="standard-textarea"
@@ -86,8 +86,8 @@ function Login() {
               placeholder="UserName"
               multiline
               variant="standard"
-              font-family="Pretendard-Bold"
-              margin="normal"
+              fontFamily="Pretendard-Bold"
+              margin="dense"
             />
           </FormControl>
           {/* <label htmlFor="input_pw">비밀번호</label>
@@ -102,7 +102,7 @@ function Login() {
           <FormControl
             sx={{ m: 1, width: "70%" }}
             variant="standard"
-            margin="normal"
+            margin="dense"
           >
             <InputLabel htmlFor="standard-adornment-password">
               비밀번호
@@ -111,7 +111,7 @@ function Login() {
               id="standard-adornment-password"
               type={showPassword ? "text" : "password"}
               placeholder="Password"
-              margin="normal"
+              margin="dense"
               endAdornment={
                 <InputAdornment position="end">
                   <IconButton
