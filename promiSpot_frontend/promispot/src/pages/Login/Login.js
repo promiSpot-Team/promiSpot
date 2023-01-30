@@ -1,7 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
 import BasicButton from "../../components/Buttons/BasicButton";
 import WhiteHeader from "../../components/Header/WhiteHeader";
@@ -62,7 +60,6 @@ function Login() {
 
   return (
     <div className="login-wrapper">
-      {/* <FontAwesomeIcon onClick={handleNavigate} icon={faChevronLeft} /> */}
       <WhiteHeader text="로그인" />
       <div className="login-content-wrapper">
         <div className="login-input-wrapper">
