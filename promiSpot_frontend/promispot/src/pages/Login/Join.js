@@ -4,10 +4,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
 import BasicButton from "../../components/Buttons/BasicButton";
-<<<<<<< HEAD
-// import Header from '../components/header/header';
-import "../scss/join.scss";
-=======
 import WhiteHeader from "../../components/Header/WhiteHeader";
 import {
   TextField,
@@ -21,8 +17,7 @@ import {
   FormHelperText,
 } from "@mui/material/";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
-import "../scss/Join.scss";
->>>>>>> c9e70efc022da716b03a533c92a800c578cb5a5d
+import "../scss/join.scss";
 
 function Join() {
   const [inputId, setInputId] = useState("");

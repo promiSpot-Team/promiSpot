@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import SearchBar from '../../components/Search/SearchBar'
 import FormControl from "@mui/material/FormControl";
 import TextField from "@mui/material/TextField";
 import BasicButton from "../../components/Buttons/BasicButton";
