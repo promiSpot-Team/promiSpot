@@ -12,5 +12,11 @@
       "place_x": 127.0416,
       "place_y": 37.5030
     }
+  ], 
+  "users": [
+    {
+      "user_id": 1, 
+      "profile_url": "https://cdn.lorem.space/images/face/.cache/150x150/nrd-ZmmAnliy1d4-unsplash.jpg"
+    }
   ]
 }

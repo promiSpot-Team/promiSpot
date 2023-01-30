@@ -1,3 +1,26 @@
+.map-user-profile {
+  width: 50px;
+  height: 50px;
+  border: 5px solid blue;
+  border-radius: 50%;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+
+  &:before {
+    content: '■ ';
+    border: 1px solid red;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+  }
+
+  img {
+    width: 100%;
+    height: 100%;
+  }
+}
+
 .pin {
   width: 30px;
   height: 30px;
@@ -80,4 +103,25 @@
     opacity: 0
   }
 
+}
+
+.map-wrapper {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+}
+
+.place-modal-wrapper {
+  position: absolute;
+  z-index: 999;
+  background-color: white;
+  bottom: 5%;
+  width: 90%;
+  height: 40%;
+  border: 1px solid gray;
+  border-radius: 5%;
+  text-align: center;
+  padding: 10px;
+  box-sizing: border-box;
 }
