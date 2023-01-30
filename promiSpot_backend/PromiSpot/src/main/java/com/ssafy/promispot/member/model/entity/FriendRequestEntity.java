@@ -5,20 +5,20 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
-@ApiModel(value = "FriendRequestEntity : ì¹œêµ¬ ì‹ ì²­ ì •ë³´", description = "ì¹œêµ¬ ì‹ ì²­ ì •ë³´ë¥¼ ë‚˜íƒ€ë‚¸ë‹¤. ìƒëŒ€ë°©ì´ ìŠ¹ì¸í•  ê²½ìš° ì¹œêµ¬ê°€ ëœë‹¤.")
+@ApiModel(value = "FriendRequestEntity : Ä£±¸ ½ÅÃ» Á¤º¸", description = "Ä£±¸ ½ÅÃ» Á¤º¸¸¦ ³ªÅ¸³½´Ù. »ó´ë¹æÀÌ ½ÂÀÎÇÒ °æ¿ì Ä£±¸°¡ µÈ´Ù.")
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class FriendRequestEntity {
 	
-	@ApiModelProperty(value = "ì¹œêµ¬ì‹ ì²­ì¼ë ¨ë²ˆí˜¸")
+	@ApiModelProperty(value = "Ä£±¸½ÅÃ»ÀÏ·Ã¹øÈ£")
 	private int friendRequestSeq;
 	
-	@ApiModelProperty(value = "ì¹œêµ¬ì‹ ì²­ì„ ìš”ì²­í•œ íšŒì›ì¼ë ¨ë²ˆí˜¸")
+	@ApiModelProperty(value = "Ä£±¸½ÅÃ»À» ¿äÃ»ÇÑ È¸¿øÀÏ·Ã¹øÈ£")
 	private int memberSeq;
 	
-	@ApiModelProperty(value = "ì¹œêµ¬ì‹ ì²­ì„ ë°›ì€ íšŒì›ì¼ë ¨ë²ˆí˜¸")
+	@ApiModelProperty(value = "Ä£±¸½ÅÃ»À» ¹ŞÀº È¸¿øÀÏ·Ã¹øÈ£")
 	private int friendRequestMember;
 	
-	@ApiModelProperty(value = "ì‹ ì²­ìƒíƒœ [ 0:ì‹ ì²­ ìƒíƒœ 1:ìŠ¹ì¸ ìƒíƒœ ]")
+	@ApiModelProperty(value = "½ÅÃ»»óÅÂ [ 0:½ÅÃ» »óÅÂ 1:½ÂÀÎ »óÅÂ ]")
 	private int friendRequestIsAgree;
 	
 	

@@ -5,14 +5,14 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
-@ApiModel(value = "FriendEntity : ì¹œêµ¬ ì •ë³´", description = "ì¹œêµ¬ì‹ ì²­ì— ìŠ¹ì¸í•˜ì—¬ ì¹œêµ¬ê°€ ëœ ì •ë³´ë¥¼ ë‚˜íƒ€ë‚¸ë‹¤.")
+@ApiModel(value = "FriendEntity : Ä£±¸ Á¤º¸", description = "Ä£±¸½ÅÃ»¿¡ ½ÂÀÎÇÏ¿© Ä£±¸°¡ µÈ Á¤º¸¸¦ ³ªÅ¸³½´Ù.")
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class FriendEntity {
 	
-	@ApiModelProperty(value = "ì¹œêµ¬ì‹ ì²­ì„ ìš”ì²­í•œ íšŒì›ì¼ë ¨ë²ˆí˜¸")
+	@ApiModelProperty(value = "Ä£±¸½ÅÃ»À» ¿äÃ»ÇÑ È¸¿øÀÏ·Ã¹øÈ£")
 	private int memberSeq;
 	
-	@ApiModelProperty(value = "ì¹œêµ¬ì‹ ì²­ì„ ë°›ì€ íšŒì›ì¼ë ¨ë²ˆí˜¸")
+	@ApiModelProperty(value = "Ä£±¸½ÅÃ»À» ¹ŞÀº È¸¿øÀÏ·Ã¹øÈ£")
 	private int friendRequestMember;
 
 	

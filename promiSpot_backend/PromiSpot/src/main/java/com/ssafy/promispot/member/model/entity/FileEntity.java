@@ -5,20 +5,20 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
-@ApiModel(value = "FileEntity : íšŒì› í”„ë¡œí•„ ì´ë¯¸ì§€ íŒŒì¼", description = "íšŒì›ì˜ í”„ë¡œí•„ ì´ë¯¸ì§€ íŒŒì¼.")
+@ApiModel(value = "FileEntity : È¸¿ø ÇÁ·ÎÇÊ ÀÌ¹ÌÁö ÆÄÀÏ", description = "È¸¿øÀÇ ÇÁ·ÎÇÊ ÀÌ¹ÌÁö ÆÄÀÏ.")
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class FileEntity {
 	
-	@ApiModelProperty(value = "í”„ë¡œí•„ ì´ë¯¸ì§€ ê²½ë¡œ")
+	@ApiModelProperty(value = "ÇÁ·ÎÇÊ ÀÌ¹ÌÁö °æ·Î")
 	private String imgPath;
 	
-	@ApiModelProperty(value = "í”„ë¡œí•„ ì´ë¯¸ì§€ ì›ë³¸ ì´ë¦„")
+	@ApiModelProperty(value = "ÇÁ·ÎÇÊ ÀÌ¹ÌÁö ¿øº» ÀÌ¸§")
 	private String imgOriginName;
 	
-	@ApiModelProperty(value = "í”„ë¡œí•„ ì´ë¯¸ì§€ ì„œë²„ ì´ë¦„")
+	@ApiModelProperty(value = "ÇÁ·ÎÇÊ ÀÌ¹ÌÁö ¼­¹ö ÀÌ¸§")
 	private String imgServerName;
 	
-	@ApiModelProperty(value = "í”„ë¡œí•„ ì´ë¯¸ì§€ ì‚¬ì´ì¦ˆ")
+	@ApiModelProperty(value = "ÇÁ·ÎÇÊ ÀÌ¹ÌÁö »çÀÌÁî")
 	private long file_size;
 
 	public FileEntity() {

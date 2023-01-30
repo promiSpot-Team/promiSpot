@@ -15,31 +15,31 @@ public class AddressServiceImpl implements AddressService {
 	@Autowired
 	private AddressMapper addressMapper;
 
-	// íšŒì› ì£¼ì†Œ ë“±ë¡
+	// È¸¿ø ÁÖ¼Ò µî·Ï
 	@Override
 	public boolean addAddress(AddressEntity addressEntity) throws SQLException {		
 		return addressMapper.addAddress(addressEntity) == 1;
 	}//addAddress
 
-	// íšŒì› ì£¼ì†Œ ì¡°íšŒ
+	// È¸¿ø ÁÖ¼Ò Á¶È¸
 	@Override
 	public AddressEntity getAddress(int addressSeq) throws SQLException {
 		return addressMapper.getAddress(addressSeq);
 	}//getAddress
 
-	// íšŒì› ì£¼ì†Œ ìˆ˜ì •
+	// È¸¿ø ÁÖ¼Ò ¼öÁ¤
 	@Override
 	public boolean modifyAddress(AddressEntity addressEntity) throws SQLException {
 		return addressMapper.modifyAddress(addressEntity) == 1;
 	}//modifyAddress
 
-	// íšŒì› ì£¼ì†Œ ì‚­ì œ
+	// È¸¿ø ÁÖ¼Ò »èÁ¦
 	@Override
 	public boolean removeAddress(int addressSeq) throws SQLException {
 		return addressMapper.removeAddress(addressSeq) == 1;
 	}//removeAddress
 
-	// íšŒì› ì£¼ì†Œ ëª©ë¡ ì¡°íšŒ
+	// È¸¿ø ÁÖ¼Ò ¸ñ·Ï Á¶È¸
 	@Override
 	public List<AddressEntity> getAddressList(int memberSeq) throws SQLException {
 		return addressMapper.getAddressList(memberSeq);

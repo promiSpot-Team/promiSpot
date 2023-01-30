@@ -9,16 +9,16 @@ import com.ssafy.promispot.place.model.entity.PlaceEntity;
 
 public interface PlaceService {
 	
-	// 鞛レ唽霌彪 
+	// 厘家殿废 
 	public int insertPlace(PlaceEntity placeEntity) throws SQLException;
 	
-	// 鞛レ唽 臁绊殞
+	// 厘家 炼雀
 	public PlaceEntity getPlace(String placeId) throws SQLException;
 	
-	// 鞛レ唽 靾橃爼
+	// 厘家 荐沥
 	public int modifyPlace(PlaceEntity placeEntity) throws SQLException;
 	
-	// 鞛レ唽 靷牅
+	// 厘家 昏力
 	public int removePlace(String placeId) throws SQLException;
 
 }

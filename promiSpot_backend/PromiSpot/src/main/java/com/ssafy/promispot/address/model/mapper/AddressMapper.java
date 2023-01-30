@@ -10,19 +10,19 @@ import com.ssafy.promispot.address.model.entity.AddressEntity;
 @Mapper
 public interface AddressMapper {
 	
-	// íšŒì› ì£¼ì†Œ ë“±ë¡
+	// È¸¿ø ÁÖ¼Ò µî·Ï
 	public int addAddress(AddressEntity addressEntity) throws SQLException;
 	
-	// íšŒì› ì£¼ì†Œ ì¡°íšŒ
+	// È¸¿ø ÁÖ¼Ò Á¶È¸
 	public AddressEntity getAddress(int addressSeq) throws SQLException;
 	
-	// íšŒì› ì£¼ì†Œ ìˆ˜ì •
+	// È¸¿ø ÁÖ¼Ò ¼öÁ¤
 	public int modifyAddress(AddressEntity addressEntity) throws SQLException;
 	
-	// íšŒì› ì£¼ì†Œ ì‚­ì œ
+	// È¸¿ø ÁÖ¼Ò »èÁ¦
 	public int removeAddress(int addressSeq) throws SQLException;
 	
-	// íšŒì› ì£¼ì†Œë“¤ ì¡°íšŒ
+	// È¸¿ø ÁÖ¼Òµé Á¶È¸
 	public List<AddressEntity> getAddressList(int memberSeq) throws SQLException;
 
 }//AddressMapper

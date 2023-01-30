@@ -9,41 +9,41 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.Getter;
 
-@ApiModel(value = "PlaceEntity : ì¥ì†Œì •ë³´", description = "ì¥ì†Œì— ëŒ€í•œ ê²ƒì„ ì €ì¥í•œë‹¤.")
+@ApiModel(value = "PlaceEntity : Àå¼ÒÁ¤º¸", description = "Àå¼Ò¿¡ ´ëÇÑ °ÍÀ» ÀúÀåÇÑ´Ù.")
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class PlaceEntity {
 	
-	@ApiModelProperty(value = "ì¥ì†Œë²ˆí˜¸")
+	@ApiModelProperty(value = "Àå¼Ò¹øÈ£")
 	private String placeId;
 	
-	@ApiModelProperty(value = "ì¥ì†Œëª…")
+	@ApiModelProperty(value = "Àå¼Ò¸í")
 	private String placeName;
 	
-	@ApiModelProperty(value = "ì¥ì†Œì¹´í…Œê³ ë¦¬ì´ë¦„")
+	@ApiModelProperty(value = "Àå¼ÒÄ«Å×°í¸®ÀÌ¸§")
 	private String placeCategoryName;
 	
-	@ApiModelProperty(value = "ì¥ì†Œê·¸ë£¹ì½”ë“œ")
+	@ApiModelProperty(value = "Àå¼Ò±×·ìÄÚµå")
 	private String placeCategoryGroupCode;
 	
-	@ApiModelProperty(value = "ì •ì†Œê·¸ë£¹ì¹´í…Œê³ ë¦¬ì´ë¦„")
+	@ApiModelProperty(value = "Á¤¼Ò±×·ìÄ«Å×°í¸®ÀÌ¸§")
 	private String placeCategoryGroupName;
 	
-	@ApiModelProperty(value = "ì¥ì†Œì „í™”ë²ˆí˜¸")
+	@ApiModelProperty(value = "Àå¼ÒÀüÈ­¹øÈ£")
 	private String placePhone;
 	
-	@ApiModelProperty(value = "ì¥ì†Œì „ì²´ë„ë¡œëª…ì£¼ì†Œ")
+	@ApiModelProperty(value = "Àå¼ÒÀüÃ¼µµ·Î¸íÁÖ¼Ò")
 	private String placeRoadAddressName;
 	
-	@ApiModelProperty(value = "ì¥ì†Œì „ì²´ì§€ë²ˆì£¼ì†Œ")
+	@ApiModelProperty(value = "Àå¼ÒÀüÃ¼Áö¹øÁÖ¼Ò")
 	private String placeAddressName;
 	
-	@ApiModelProperty(value = "ì¥ì†Œê²½ë„")
-	private String placeX; // ê²½ë„
+	@ApiModelProperty(value = "Àå¼Ò°æµµ")
+	private String placeX; // °æµµ
 	
-	@ApiModelProperty(value = "ì¥ì†Œìœ„ë„")
-	private String placeY; // ìœ„ë„ 
+	@ApiModelProperty(value = "Àå¼ÒÀ§µµ")
+	private String placeY; // À§µµ 
 	
-	@ApiModelProperty(value = "ì¥ì†Œìƒì„¸í˜ì´ì§€")
+	@ApiModelProperty(value = "Àå¼Ò»ó¼¼ÆäÀÌÁö")
 	private String placeUrl;
 
 	public PlaceEntity() {

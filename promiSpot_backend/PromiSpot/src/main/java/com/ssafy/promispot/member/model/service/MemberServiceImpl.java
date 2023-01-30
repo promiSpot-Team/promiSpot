@@ -21,7 +21,7 @@ public class MemberServiceImpl implements MemberService {
 	@Autowired
 	private MemberMapper memberMapper;
 
-	/* íšŒì› ë¡œê·¸ì¸ */
+	/* È¸¿ø ·Î±×ÀÎ */
 	@Override
 	public MemberEntity loginMember(MemberEntity memberEntity) throws Exception {
 		if(memberEntity.getMemberId() == null || memberEntity.getMemberPass() == null) {
@@ -30,7 +30,7 @@ public class MemberServiceImpl implements MemberService {
 		return memberMapper.loginMember(memberEntity);
 	}//loginMember
 
-	/* íšŒì› ê°€ì… */
+	/* È¸¿ø °¡ÀÔ */
 	@Override
 	public boolean registMember(MemberEntity memberEntity) throws Exception {
 		if(memberEntity.getMemberId() == null || memberEntity.getMemberPass() == null) {
@@ -39,7 +39,7 @@ public class MemberServiceImpl implements MemberService {
 		return memberMapper.registMember(memberEntity) == 1;
 	}//registMember
 
-	/* íšŒì› ì •ë³´ ìˆ˜ì • */
+	/* È¸¿ø Á¤º¸ ¼öÁ¤ */
 	@Override
 	public boolean modifyMember(MemberEntity memberEntity) throws Exception {
 //		if(memberEntity.getMemberId() == null || memberEntity.getMemberPass() == null) {
@@ -48,19 +48,19 @@ public class MemberServiceImpl implements MemberService {
 		return memberMapper.modifyMember(memberEntity) == 1;
 	}//modifyMember
 
-	/* íšŒì› íƒˆí‡´ */
+	/* È¸¿ø Å»Åğ */
 	@Override
 	public boolean removeMember(int memberSeq) throws Exception {
 		return memberMapper.removeMember(memberSeq) == 1;
 	}//removeMember
 
-	/* íšŒì› ì¡°íšŒ */
+	/* È¸¿ø Á¶È¸ */
 	@Override
 	public MemberEntity findMember(int memberSeq) throws Exception {		
 		return memberMapper.findMember(memberSeq);
 	}//findMember
 
-	/* íšŒì› ëª©ë¡ ì¡°íšŒ */
+	/* È¸¿ø ¸ñ·Ï Á¶È¸ */
 	@Override
 	public List<MemberEntity> findMemberList() throws Exception {
 		return memberMapper.findMemberList();
@@ -87,7 +87,7 @@ public class MemberServiceImpl implements MemberService {
 		memberMapper.deleteRefreshToken(memberId);
 	}//deleRefreshToken
 
-	/* íšŒì› í”„ë¡œí•„ ì´ë¯¸ì§€ ì €ì¥ */
+	/* È¸¿ø ÇÁ·ÎÇÊ ÀÌ¹ÌÁö ÀúÀå */
 	@Override
 	public FileEntity saveFile(MultipartFile multipartFile) throws Exception {
 		return fileHandler.saveFile(multipartFile);		

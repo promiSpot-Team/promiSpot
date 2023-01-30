@@ -9,18 +9,18 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
-@ApiModel(value = "PromiseEntity : ì•½ì†", description = "ì•½ì† ì •ë³´ë¥¼ ë‚˜íƒ€ë‚¸ë‹¤.")
+@ApiModel(value = "PromiseEntity : ¾à¼Ó", description = "¾à¼Ó Á¤º¸¸¦ ³ªÅ¸³½´Ù.")
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Data
 public class PromiseMemberModifyLeaderDto {
 	
-	@ApiModelProperty(value = "ì•½ì†ì¼ë ¨ë²ˆí˜¸")
+	@ApiModelProperty(value = "¾à¼ÓÀÏ·Ã¹øÈ£")
 	private int promiseSeq;
 	
-	@ApiModelProperty(value = "ì´ì „ì˜ ì•½ì†ì¥")
+	@ApiModelProperty(value = "ÀÌÀüÀÇ ¾à¼ÓÀå")
 	private int beforeMemberSeq;
 	
-	@ApiModelProperty(value = "ì´í›„ì˜ ì•½ì†ì¥")
+	@ApiModelProperty(value = "ÀÌÈÄÀÇ ¾à¼ÓÀå")
 	private int afterMemberSeq;
 
 	public PromiseMemberModifyLeaderDto(int promiseSeq, int beforeMemberSeq, int afterMemberSeq) {

@@ -20,7 +20,7 @@ import org.springframework.stereotype.Service;
 
 
 /*
-1. bean ë“±ë¡ / websocket í™œì„±í™”  
+1. bean µî·Ï / websocket È°¼ºÈ­  
  */
 
 @Service
@@ -31,13 +31,13 @@ public class WebSocketChat {
 	 private static Logger logger = LoggerFactory.getLogger(WebSocketChat.class);
 
 	
-	// 2. í´ë¼ì´ì–¸íŠ¸ì˜ session ì •ë³´ ì €ì¥ 
+	// 2. Å¬¶óÀÌ¾ğÆ®ÀÇ session Á¤º¸ ÀúÀå 
 	private static Set<Session> clients = Collections.synchronizedSet(new HashSet<Session>());
 	
 		
 		/*
-		 * @ServerEndpoing ì—ì„œ ëª…ì‹œí•œ URLë¡œ ìš”ì²­ì´ ë“¤ì–´ì˜¬ ê²½ìš° í•´ë‹¹ ë©”ì†Œë“œê°€ ì‹¤í–‰ëœë‹¤. 
-		 * í´ë¼ì´ì–¸íŠ¸ì˜ ì •ë³´ë¥¼ ë§¤ê°œë³€ìˆ˜ë¡œ ì „ë‹¬ë°›ëŠ”ë‹¤. 
+		 * @ServerEndpoing ¿¡¼­ ¸í½ÃÇÑ URL·Î ¿äÃ»ÀÌ µé¾î¿Ã °æ¿ì ÇØ´ç ¸Ş¼Òµå°¡ ½ÇÇàµÈ´Ù. 
+		 * Å¬¶óÀÌ¾ğÆ®ÀÇ Á¤º¸¸¦ ¸Å°³º¯¼ö·Î Àü´Ş¹Ş´Â´Ù. 
 		 */
 	   @OnOpen
 	   public void onOpen(Session session) {
@@ -48,14 +48,14 @@ public class WebSocketChat {
 	            clients.add(session);
 	            logger.info("session open : {}", session);
 	        }else{
-	            logger.info("ì´ë¯¸ ì—°ê²°ëœ session");
+	            logger.info("ÀÌ¹Ì ¿¬°áµÈ session");
 	        }
 	    }
 
 	   
 	    /*
-	     * í´ë¼ì´ì–¸íŠ¸ì™€ ì„œë²„Socketì´ ì—°ê²°ëœ ìƒíƒœì—ì„œ, ë©”ì„¸ì§€ê°€ ì „ë‹¬ë˜ë©´ í•´ë‹¹ ë©”ì„œë“œê°€
-	     *  ì‹¤í–‰ë˜ì–´ ìƒìˆ˜ì¸ clientsì— ìˆëŠ” ëª¨ë“  sessionì—ê²Œ ë©”ì„¸ì§€ë¥¼ ì „ë‹¬í•©ë‹ˆë‹¤.
+	     * Å¬¶óÀÌ¾ğÆ®¿Í ¼­¹öSocketÀÌ ¿¬°áµÈ »óÅÂ¿¡¼­, ¸Ş¼¼Áö°¡ Àü´ŞµÇ¸é ÇØ´ç ¸Ş¼­µå°¡
+	     *  ½ÇÇàµÇ¾î »ó¼öÀÎ clients¿¡ ÀÖ´Â ¸ğµç session¿¡°Ô ¸Ş¼¼Áö¸¦ Àü´ŞÇÕ´Ï´Ù.
 	     */
 	    @OnMessage
 	    public void onMessage(String message, Session session) throws IOException {
@@ -71,8 +71,8 @@ public class WebSocketChat {
 	    
 	    /*
 	     * 
-	     * í´ë¼ì´ì–¸íŠ¸ê°€ URLì„ ë°”ê¾¸ê±°ë‚˜ ë¸Œë¼ìš°ì €ë¥¼ ì¢…ë£Œí•˜ë©´ 
-	     * í•´ë‹¹ ë©”ì„œë“œê°€ ì‹¤í–‰ë˜ì–´ í´ë¼ì´ì–¸íŠ¸ì˜ ì„¸ì…˜ì •ë³´ë¥¼ clientsì—ì„œ ì œê±°í•©ë‹ˆë‹¤.
+	     * Å¬¶óÀÌ¾ğÆ®°¡ URLÀ» ¹Ù²Ù°Å³ª ºê¶ó¿ìÀú¸¦ Á¾·áÇÏ¸é 
+	     * ÇØ´ç ¸Ş¼­µå°¡ ½ÇÇàµÇ¾î Å¬¶óÀÌ¾ğÆ®ÀÇ ¼¼¼ÇÁ¤º¸¸¦ clients¿¡¼­ Á¦°ÅÇÕ´Ï´Ù.
 	     * 
 	     */
 	    @OnClose

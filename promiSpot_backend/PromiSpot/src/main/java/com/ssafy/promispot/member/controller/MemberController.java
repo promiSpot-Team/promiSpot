@@ -35,7 +35,7 @@ import io.swagger.annotations.ApiParam;
 @CrossOrigin
 @RestController
 @RequestMapping("/member")
-@Api("íšŒì› ì»¨íŠ¸ë¡¤ëŸ¬  API")
+@Api("È¸¿ø ÄÁÆ®·Ñ·¯  API")
 public class MemberController {
 	
 	public static final Logger logger = LoggerFactory.getLogger(MemberController.class);
@@ -49,10 +49,10 @@ public class MemberController {
 	@Autowired
 	private MemberService memberService;
 	
-	/* ë¡œê·¸ì¸ */
-	@ApiOperation(value="ë¡œê·¸ì¸", notes="Access-tokenê³¼ ë¡œê·¸ì¸ ê²°ê³¼ ë©”ì„¸ì§€ë¥¼ ë°˜í™˜í•œë‹¤.", response=Map.class)
+	/* ·Î±×ÀÎ */
+	@ApiOperation(value="·Î±×ÀÎ", notes="Access-token°ú ·Î±×ÀÎ °á°ú ¸Ş¼¼Áö¸¦ ¹İÈ¯ÇÑ´Ù.", response=Map.class)
 	@PostMapping("/login")
-	public ResponseEntity<Map<String, Object>> login(@RequestBody @ApiParam(value="ë¡œê·¸ì¸ ì‹œ í•„ìš”í•œ íšŒì› ì •ë³´(ì•„ì´ë””, ë¹„ë°€ë²ˆí˜¸)" 
+	public ResponseEntity<Map<String, Object>> login(@RequestBody @ApiParam(value="·Î±×ÀÎ ½Ã ÇÊ¿äÇÑ È¸¿ø Á¤º¸(¾ÆÀÌµğ, ºñ¹Ğ¹øÈ£)" 
 		, required=true) MemberEntity memberEntity){
 		Map<String, Object> resultMap = new HashMap<>();
 		HttpStatus status = null;
@@ -63,8 +63,8 @@ public class MemberController {
 				String accessToken = jwtService.createAccessToken("memberId", loginMember.getMemberId()); // key, data
 				String refreshToken = jwtService.createRefreshToken("memberId", loginMember.getMemberId()); // key, data
 				memberService.saveRefreshToken(memberEntity.getMemberId(), refreshToken);
-				logger.debug("ë¡œê·¸ì¸ accessToken ì •ë³´ : {}", accessToken);
-				logger.debug("ë¡œê·¸ì¸ refreshToken ì •ë³´ : {}", refreshToken);
+				logger.debug("·Î±×ÀÎ accessToken Á¤º¸ : {}", accessToken);
+				logger.debug("·Î±×ÀÎ refreshToken Á¤º¸ : {}", refreshToken);
 				resultMap.put("access-token", accessToken);
 				resultMap.put("refresh-token", refreshToken);
 				resultMap.put("message", SUCCESS);
@@ -83,8 +83,8 @@ public class MemberController {
 		
 	}//login
 	
-	/* ë¡œê·¸ì•„ì›ƒ */
-	@ApiOperation(value="ë¡œê·¸ì•„ì›ƒ", notes="ë¡œê·¸ì•„ì›ƒ. íšŒì› ì •ë³´ë¥¼ ë‹´ì€ Token ì œê±°.", response=Map.class)
+	/* ·Î±×¾Æ¿ô */
+	@ApiOperation(value="·Î±×¾Æ¿ô", notes="·Î±×¾Æ¿ô. È¸¿ø Á¤º¸¸¦ ´ãÀº Token Á¦°Å.", response=Map.class)
 	@GetMapping("/logout/{memberId}")
 	public ResponseEntity<?> logout(@PathVariable("memberId") String memberId) {
 		Map<String, Object> resultMap = new HashMap<>();
@@ -94,7 +94,7 @@ public class MemberController {
 			resultMap.put("message", SUCCESS);
 			status = HttpStatus.ACCEPTED;
 		} catch (Exception e) {
-			logger.error("ë¡œê·¸ì•„ì›ƒ ì‹¤íŒ¨.");
+			logger.error("·Î±×¾Æ¿ô ½ÇÆĞ.");
 			resultMap.put("message", e.getMessage());
 			status = HttpStatus.INTERNAL_SERVER_ERROR;
 		}
@@ -103,13 +103,13 @@ public class MemberController {
 	}//logout
 	
 	
-	/* íšŒì›ê°€ì… */
-	@ApiOperation(value = "íšŒì›ê°€ì… ", notes = "ìƒˆë¡œìš´ íšŒì› ì •ë³´ë¥¼ ì…ë ¥í•œë‹¤. DBì…ë ¥ ì„±ê³µì—¬ë¶€ì— ë”°ë¼ 'success' ë˜ëŠ” 'fail' ë¬¸ìì—´ì„ ë°˜í™˜í•œë‹¤. ", response = String.class )
+	/* È¸¿ø°¡ÀÔ */
+	@ApiOperation(value = "È¸¿ø°¡ÀÔ ", notes = "»õ·Î¿î È¸¿ø Á¤º¸¸¦ ÀÔ·ÂÇÑ´Ù. DBÀÔ·Â ¼º°ø¿©ºÎ¿¡ µû¶ó 'success' ¶Ç´Â 'fail' ¹®ÀÚ¿­À» ¹İÈ¯ÇÑ´Ù. ", response = String.class )
 	@PostMapping
-	public ResponseEntity<?> registMember(@RequestBody @ApiParam(value="íšŒì›ê°€ì…", required=true) 
+	public ResponseEntity<?> registMember(@RequestBody @ApiParam(value="È¸¿ø°¡ÀÔ", required=true) 
 		MemberEntity memberEntity) {
-//		System.out.println("íšŒì›ê°€ì…ì‹œë„");
-		logger.info("registMember - í˜¸ì¶œ");
+//		System.out.println("È¸¿ø°¡ÀÔ½Ãµµ");
+		logger.info("registMember - È£Ãâ");
 		
 		try {
 			if(memberService.registMember(memberEntity)) {
@@ -124,8 +124,8 @@ public class MemberController {
 	}//registMember
 	
 	
-	/* íšŒì› ì •ë³´ ìˆ˜ì • */
-	@ApiOperation(value = "íšŒì› ì •ë³´ ìˆ˜ì • ", notes = "íšŒì› ì •ë³´ë¥¼ ìˆ˜ì •í•œë‹¤. ê·¸ë¦¬ê³  DB ìˆ˜ì • ì„±ê³µì—¬ë¶€ì— ë”°ë¼ 'success' ë˜ëŠ” 'fail' ë¬¸ìì—´ì„ ë°˜í™˜í•œë‹¤.", response = String.class)
+	/* È¸¿ø Á¤º¸ ¼öÁ¤ */
+	@ApiOperation(value = "È¸¿ø Á¤º¸ ¼öÁ¤ ", notes = "È¸¿ø Á¤º¸¸¦ ¼öÁ¤ÇÑ´Ù. ±×¸®°í DB ¼öÁ¤ ¼º°ø¿©ºÎ¿¡ µû¶ó 'success' ¶Ç´Â 'fail' ¹®ÀÚ¿­À» ¹İÈ¯ÇÑ´Ù.", response = String.class)
 	@PostMapping("/{memberSeq}")
 	public ResponseEntity<?> modifyMember(
 				@RequestParam(value="memberSeq",required = false) int memberSeq,
@@ -138,7 +138,7 @@ public class MemberController {
 			) {
 		
 		FileEntity file = new FileEntity();
-		// ì´ë¯¸ì§€ íŒŒì¼ì´ ìˆë‹¤ë©´.
+		// ÀÌ¹ÌÁö ÆÄÀÏÀÌ ÀÖ´Ù¸é.
 		if(!multipartFile.isEmpty()) {
 			try {
 				file = memberService.saveFile(multipartFile);
@@ -163,10 +163,10 @@ public class MemberController {
 		}
 	}//modifyMember
 	
-//	/* íšŒì› ì •ë³´ ìˆ˜ì • */
-//	@ApiOperation(value = "íšŒì› ì •ë³´ ìˆ˜ì • ", notes = "íšŒì› ì •ë³´ë¥¼ ìˆ˜ì •í•œë‹¤. ê·¸ë¦¬ê³  DB ìˆ˜ì • ì„±ê³µì—¬ë¶€ì— ë”°ë¼ 'success' ë˜ëŠ” 'fail' ë¬¸ìì—´ì„ ë°˜í™˜í•œë‹¤.", response = String.class)
+//	/* È¸¿ø Á¤º¸ ¼öÁ¤ */
+//	@ApiOperation(value = "È¸¿ø Á¤º¸ ¼öÁ¤ ", notes = "È¸¿ø Á¤º¸¸¦ ¼öÁ¤ÇÑ´Ù. ±×¸®°í DB ¼öÁ¤ ¼º°ø¿©ºÎ¿¡ µû¶ó 'success' ¶Ç´Â 'fail' ¹®ÀÚ¿­À» ¹İÈ¯ÇÑ´Ù.", response = String.class)
 //	@PutMapping("/{memberSeq}")
-//	public ResponseEntity<?> modifyMember(@RequestBody @ApiParam(value="íšŒì›ì •ë³´ìˆ˜ì •", required = true) 
+//	public ResponseEntity<?> modifyMember(@RequestBody @ApiParam(value="È¸¿øÁ¤º¸¼öÁ¤", required = true) 
 //	MemberEntity memberEntity) {
 //		try {
 //			if(memberService.modifyMember(memberEntity)) {
@@ -182,10 +182,10 @@ public class MemberController {
 //	}//modifyMember
 
 	
-	/* íšŒì› íƒˆí‡´ */
-	@ApiOperation(value = "íšŒì›íƒˆí‡´ ", notes = "íšŒì›íƒˆí‡´ 'success' or 'fail' ë¬¸ìì—´ ë°˜í™˜ ", response = String.class ) 
+	/* È¸¿ø Å»Åğ */
+	@ApiOperation(value = "È¸¿øÅ»Åğ ", notes = "È¸¿øÅ»Åğ 'success' or 'fail' ¹®ÀÚ¿­ ¹İÈ¯ ", response = String.class ) 
 	@DeleteMapping("/{memberSeq}")
-	public ResponseEntity<?> removeMember(@RequestBody @ApiParam(value="íšŒì›íƒˆí‡´", required=true) 
+	public ResponseEntity<?> removeMember(@RequestBody @ApiParam(value="È¸¿øÅ»Åğ", required=true) 
 	@PathVariable int memberSeq) {
 		try {
 			if(memberService.removeMember(memberSeq)) {
@@ -200,35 +200,35 @@ public class MemberController {
 	}//removeMember
 
 	
-	/* íšŒì› ì •ë³´ ì¡°íšŒ */
-	@ApiOperation(value = "íšŒì› ì •ë³´ ì¡°íšŒ ", notes = "íšŒì› ì •ë³´ ì¡°íšŒ or 'fail' ë¬¸ìì—´ ë°˜í™˜ ", response = MemberEntity.class) 
+	/* È¸¿ø Á¤º¸ Á¶È¸ */
+	@ApiOperation(value = "È¸¿ø Á¤º¸ Á¶È¸ ", notes = "È¸¿ø Á¤º¸ Á¶È¸ or 'fail' ¹®ÀÚ¿­ ¹İÈ¯ ", response = MemberEntity.class) 
 	@GetMapping("/{memberSeq}")
 	public ResponseEntity<?> findMember(@RequestBody @PathVariable("memberSeq") 
-		@ApiParam(value="íšŒì›ì¼ë ¨ë²ˆí˜¸", required=true) int memberSeq, HttpServletRequest request) {
-//		System.out.println("íšŒì› ì •ë³´ ì¡°íšŒ "+memberSeq);
+		@ApiParam(value="È¸¿øÀÏ·Ã¹øÈ£", required=true) int memberSeq, HttpServletRequest request) {
+//		System.out.println("È¸¿ø Á¤º¸ Á¶È¸ "+memberSeq);
 		Map<String, Object> resultMap = new HashMap<>();
 		HttpStatus status = HttpStatus.UNAUTHORIZED;
 		if(jwtService.checkToken(request.getHeader("access-token"))) {
-			logger.info("ì‚¬ìš© ê°€ëŠ¥ í† í°");
+			logger.info("»ç¿ë °¡´É ÅäÅ«");
 			MemberEntity member;
 			try {
 				member = memberService.findMember(memberSeq);
-				if(member != null) { // íšŒì› ìˆìŒ
+				if(member != null) { // È¸¿ø ÀÖÀ½
 					resultMap.put("memberInfo", member);
 					resultMap.put("message", SUCCESS);
 					status = HttpStatus.ACCEPTED;
-				}else { // íšŒì› ì—†ìŒ
+				}else { // È¸¿ø ¾øÀ½
 					resultMap.put("message", FAIL);
 					status = HttpStatus.NO_CONTENT;			
 				}
-			} catch (Exception e) { // ì˜¤ë¥˜
-				logger.error("ì •ë³´ì¡°íšŒ ì‹¤íŒ¨ : {}", e);
+			} catch (Exception e) { // ¿À·ù
+				logger.error("Á¤º¸Á¶È¸ ½ÇÆĞ : {}", e);
 				resultMap.put("message", e.getMessage());
 				status = HttpStatus.INTERNAL_SERVER_ERROR;
 			}
 			
 		} else {
-			logger.error("ì‚¬ìš© ë¶ˆê°€ëŠ¥ í† í°");
+			logger.error("»ç¿ë ºÒ°¡´É ÅäÅ«");
 			resultMap.put("message", FAIL);
 			status = HttpStatus.UNAUTHORIZED;
 		}
@@ -236,11 +236,11 @@ public class MemberController {
 				
 	}//findMember
 	
-	/* íšŒì› ëª©ë¡ ì¡°íšŒ */
-	@ApiOperation(value = "íšŒì› ëª©ë¡ ì¡°íšŒ ", notes = "íšŒì› ì •ë³´ ì¡°íšŒ or 'fail' ë¬¸ìì—´ ë°˜í™˜ ", response = MemberEntity.class) 
+	/* È¸¿ø ¸ñ·Ï Á¶È¸ */
+	@ApiOperation(value = "È¸¿ø ¸ñ·Ï Á¶È¸ ", notes = "È¸¿ø Á¤º¸ Á¶È¸ or 'fail' ¹®ÀÚ¿­ ¹İÈ¯ ", response = MemberEntity.class) 
 	@GetMapping("/memberList")
 	public ResponseEntity<?> findMemberList()  {
-		System.out.println("íšŒì› ëª©ë¡ ì¡°íšŒ ");
+		System.out.println("È¸¿ø ¸ñ·Ï Á¶È¸ ");
 		try {
 			List<MemberEntity> memberList = memberService.findMemberList();
 			if(memberList != null) {
@@ -254,8 +254,8 @@ public class MemberController {
 		}		
 	}//findMemberList
 	
-	/* í† í° ì¬ë°œê¸‰ */
-	@ApiOperation(value="AccessToken ì¬ë°œê¸‰", notes="ë§Œë£Œëœ access tokenì„ ì¬ë°œê¸‰ ë°›ëŠ”ë‹¤.", response = Map.class)
+	/* ÅäÅ« Àç¹ß±Ş */
+	@ApiOperation(value="AccessToken Àç¹ß±Ş", notes="¸¸·áµÈ access tokenÀ» Àç¹ß±Ş ¹Ş´Â´Ù.", response = Map.class)
 	@PostMapping("/refresh")
 	public ResponseEntity<?> refreshToken(@RequestBody MemberEntity memberEntity, HttpServletRequest request){
 		Map<String, Object> resultMap = new HashMap<>();
@@ -267,7 +267,7 @@ public class MemberController {
 				if(token.equals(memberService.getRefreshToken(memberEntity.getMemberId()))) {
 					String accessToken = jwtService.createAccessToken("memberId", memberEntity.getMemberId());
 					logger.debug("token : {}", accessToken);
-					logger.debug("ì •ìƒì ìœ¼ë¡œ access token ì¬ë°œê¸‰");
+					logger.debug("Á¤»óÀûÀ¸·Î access token Àç¹ß±Ş");
 					resultMap.put("access-token", accessToken);
 					resultMap.put("message", SUCCESS);
 					status = HttpStatus.ACCEPTED;
@@ -278,13 +278,13 @@ public class MemberController {
 				status = HttpStatus.INTERNAL_SERVER_ERROR;
 			}
 		} else {
-			logger.debug("refresh tokenë„ ì‚¬ìš© ë¶ˆê°€ëŠ¥.");
+			logger.debug("refresh tokenµµ »ç¿ë ºÒ°¡´É.");
 			status = HttpStatus.UNAUTHORIZED;
 		}
 		return new ResponseEntity<Map<String, Object>>(resultMap, status);
 	}//refreshToken
 	
-	// ì—ëŸ¬ ì²˜ë¦¬
+	// ¿¡·¯ Ã³¸®
 	private ResponseEntity<String> exceptionHandling(Exception e) {
 		return new ResponseEntity<String>("Error: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
 	}//exceptionHandling

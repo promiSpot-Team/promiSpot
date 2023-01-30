@@ -15,32 +15,32 @@ public class PromiseServiceImpl implements PromiseService{
 	@Autowired
 	PromiseMapper promiseMapper;
 	
-	// ì•½ì† ìƒì„±
+	// ¾à¼Ó »ı¼º
 	@Override
 	public int createPromise(PromiseEntity promiseEntity) throws SQLException {
 		// TODO Auto-generated method stub
 		return 0;
 	}
 
-	// ì•½ì† ì¡°íšŒ 
+	// ¾à¼Ó Á¶È¸ 
 	@Override
 	public PromiseEntity getPromise(int promiseSeq) throws SQLException {
 		return promiseMapper.getPromise(promiseSeq);
 	}
 
-	// í•œ íšŒì›ì´ ì†í•œ ì•½ì† ì „ë¶€ ì¡°íšŒ
+	// ÇÑ È¸¿øÀÌ ¼ÓÇÑ ¾à¼Ó ÀüºÎ Á¶È¸
 	@Override
 	public List<PromiseEntity> getPromiseList(int memberSeq) throws SQLException {
 		return promiseMapper.getPromiseList(memberSeq);
 	}
 
-	// ì•½ì† ìˆ˜ì • 
+	// ¾à¼Ó ¼öÁ¤ 
 	@Override
 	public int modifyPromise(PromiseEntity promiseEntity) throws SQLException {
 		return promiseMapper.modifyPromise(promiseEntity);
 	}
 
-	// ì•½ì† ì‚­ì œ
+	// ¾à¼Ó »èÁ¦
 	@Override
 	public int removePromise(int promiseSeq) throws SQLException {
 		return promiseMapper.removePromise(promiseSeq);

@@ -14,25 +14,25 @@ public class PlaceServiceImpl implements PlaceService{
 	@Autowired
 	PlaceMapper placeMapper;
 
-	// ì¥ì†Œ ë“±ë¡
+	// Àå¼Ò µî·Ï
 	@Override
 	public int insertPlace(PlaceEntity placeEntity) throws SQLException {
 		return placeMapper.insertPlace(placeEntity);
 	}
 
-	// ì¥ì†Œ ì¡°íšŒ
+	// Àå¼Ò Á¶È¸
 	@Override
 	public PlaceEntity getPlace(String placeId) throws SQLException {
 		return placeMapper.getPlace(placeId);
 	}
 
-	// ì¥ì†Œ ìˆ˜ì •
+	// Àå¼Ò ¼öÁ¤
 	@Override
 	public int modifyPlace(PlaceEntity placeEntity) throws SQLException {
 		return placeMapper.modifyPlace(placeEntity);
 	}
 
-	// ì¥ì†Œ ì‚­ì œ
+	// Àå¼Ò »èÁ¦
 	@Override
 	public int removePlace(String placeId) throws SQLException {
 		return placeMapper.removePlace(placeId);

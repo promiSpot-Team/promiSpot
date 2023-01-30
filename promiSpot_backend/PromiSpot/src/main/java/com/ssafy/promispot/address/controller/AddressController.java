@@ -23,10 +23,11 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 
+
 @CrossOrigin
 @RestController
 @RequestMapping("/address")
-@Api("íšŒì› ì£¼ì†Œ ì»¨íŠ¸ë¡¤ëŸ¬  API")
+@Api("È¸¿ø ÁÖ¼Ò ÄÁÆ®·Ñ·¯  API")
 public class AddressController {
 	
 	private static final String SUCCESS = "success";
@@ -35,10 +36,10 @@ public class AddressController {
 	@Autowired 
 	private AddressService addressService;
 	
-	// íšŒì› ì£¼ì†Œ ë“±ë¡
-	@ApiOperation(value = "íšŒì› ì£¼ì†Œ ë“±ë¡", notes = "íšŒì› ì£¼ì†Œ ë“±ë¡. DBì…ë ¥ ì„±ê³µì—¬ë¶€ì— ë”°ë¼ 'success' ë˜ëŠ” 'fail' ë¬¸ìì—´ì„ ë°˜í™˜í•œë‹¤. ", response = String.class)
+	// È¸¿ø ÁÖ¼Ò µî·Ï
+	@ApiOperation(value = "È¸¿ø ÁÖ¼Ò µî·Ï", notes = "È¸¿ø ÁÖ¼Ò µî·Ï. DBÀÔ·Â ¼º°ø¿©ºÎ¿¡ µû¶ó 'success' ¶Ç´Â 'fail' ¹®ÀÚ¿­À» ¹İÈ¯ÇÑ´Ù. ", response = String.class)
 	@PostMapping
-	public ResponseEntity<?> addAddress(@RequestBody @ApiParam(value="íšŒì› ì£¼ì†Œ", required=true) 
+	public ResponseEntity<?> addAddress(@RequestBody @ApiParam(value="È¸¿ø ÁÖ¼Ò", required=true) 
 		AddressEntity addressEntity){
 		
 		try {
@@ -55,10 +56,10 @@ public class AddressController {
 	}//addAddress
 	
 	
-	// íšŒì› ì£¼ì†Œ ì¡°íšŒ
-	@ApiOperation(value = "íšŒì› ì£¼ì†Œ ìƒì„¸ ì¡°íšŒ", notes = "íšŒì› ì£¼ì†Œ ìƒì„¸ ì¡°íšŒ. DB ì¡°íšŒ ì„±ê³µì—¬ë¶€ì— ë”°ë¼ AddressEntity ë˜ëŠ” 'fail' ë¬¸ìì—´ì„ ë°˜í™˜í•œë‹¤. ", response = String.class)
+	// È¸¿ø ÁÖ¼Ò Á¶È¸
+	@ApiOperation(value = "È¸¿ø ÁÖ¼Ò »ó¼¼ Á¶È¸", notes = "È¸¿ø ÁÖ¼Ò »ó¼¼ Á¶È¸. DB Á¶È¸ ¼º°ø¿©ºÎ¿¡ µû¶ó AddressEntity ¶Ç´Â 'fail' ¹®ÀÚ¿­À» ¹İÈ¯ÇÑ´Ù. ", response = String.class)
 	@GetMapping("/{addressSeq}")
-	public ResponseEntity<?> getAddress(@RequestBody @ApiParam(value="íšŒì› ì£¼ì†Œ ì¼ë ¨ë²ˆí˜¸", required=true) 
+	public ResponseEntity<?> getAddress(@RequestBody @ApiParam(value="È¸¿ø ÁÖ¼Ò ÀÏ·Ã¹øÈ£", required=true) 
 		@PathVariable("addressSeq") int addressSeq){
 		
 		try {
@@ -76,10 +77,10 @@ public class AddressController {
 	}//getAddress
 	
 	
-	// íšŒì› ì£¼ì†Œ ìˆ˜ì •
-	@ApiOperation(value = "íšŒì› ì£¼ì†Œ ìˆ˜ì •", notes = "íšŒì› ì£¼ì†Œ ìˆ˜ì •. DB ìˆ˜ì • ì„±ê³µì—¬ë¶€ì— ë”°ë¼ 'success' ë˜ëŠ” 'fail' ë¬¸ìì—´ì„ ë°˜í™˜í•œë‹¤. ", response = String.class)
+	// È¸¿ø ÁÖ¼Ò ¼öÁ¤
+	@ApiOperation(value = "È¸¿ø ÁÖ¼Ò ¼öÁ¤", notes = "È¸¿ø ÁÖ¼Ò ¼öÁ¤. DB ¼öÁ¤ ¼º°ø¿©ºÎ¿¡ µû¶ó 'success' ¶Ç´Â 'fail' ¹®ÀÚ¿­À» ¹İÈ¯ÇÑ´Ù. ", response = String.class)
 	@PutMapping
-	public ResponseEntity<?> modifyAddress(@RequestBody @ApiParam(value="íšŒì› ì£¼ì†Œ", required=true) 
+	public ResponseEntity<?> modifyAddress(@RequestBody @ApiParam(value="È¸¿ø ÁÖ¼Ò", required=true) 
 		AddressEntity addressEntity){
 		
 		try {
@@ -96,10 +97,10 @@ public class AddressController {
 	}//modifyAddress
 	
 	
-	// íšŒì› ì£¼ì†Œ ì‚­ì œ
-	@ApiOperation(value = "íšŒì› ì£¼ì†Œ ì‚­ì œ", notes = "íšŒì› ì£¼ì†Œ ì‚­ì œ. DB ì‚­ì œ ì„±ê³µì—¬ë¶€ì— ë”°ë¼ 'success' ë˜ëŠ” 'fail' ë¬¸ìì—´ì„ ë°˜í™˜í•œë‹¤. ", response = String.class)
+	// È¸¿ø ÁÖ¼Ò »èÁ¦
+	@ApiOperation(value = "È¸¿ø ÁÖ¼Ò »èÁ¦", notes = "È¸¿ø ÁÖ¼Ò »èÁ¦. DB »èÁ¦ ¼º°ø¿©ºÎ¿¡ µû¶ó 'success' ¶Ç´Â 'fail' ¹®ÀÚ¿­À» ¹İÈ¯ÇÑ´Ù. ", response = String.class)
 	@DeleteMapping("/{addressSeq}")
-	public ResponseEntity<?> removeAddress(@RequestBody @ApiParam(value="íšŒì› ì£¼ì†Œ ì¼ë ¨ë²ˆí˜¸", required=true) 
+	public ResponseEntity<?> removeAddress(@RequestBody @ApiParam(value="È¸¿ø ÁÖ¼Ò ÀÏ·Ã¹øÈ£", required=true) 
 		@PathVariable("addressSeq") int addressSeq){
 		
 		try {
@@ -116,10 +117,10 @@ public class AddressController {
 	}//removeAddress
 
 	
-	// íšŒì› ì£¼ì†Œ ëª©ë¡ ì¡°íšŒ
-	@ApiOperation(value = "íšŒì› ì£¼ì†Œ ëª©ë¡ ì¡°íšŒ", notes = "íšŒì› ì£¼ì†Œ ëª©ë¡ ì¡°íšŒ. DB ëª©ë¡ ì¡°íšŒ ì„±ê³µì—¬ë¶€ì— ë”°ë¼ ì£¼ì†Œ ëª©ë¡ ë˜ëŠ” 'fail' ë¬¸ìì—´ì„ ë°˜í™˜í•œë‹¤. ", response = String.class)
+	// È¸¿ø ÁÖ¼Ò ¸ñ·Ï Á¶È¸
+	@ApiOperation(value = "È¸¿ø ÁÖ¼Ò ¸ñ·Ï Á¶È¸", notes = "È¸¿ø ÁÖ¼Ò ¸ñ·Ï Á¶È¸. DB ¸ñ·Ï Á¶È¸ ¼º°ø¿©ºÎ¿¡ µû¶ó ÁÖ¼Ò ¸ñ·Ï ¶Ç´Â 'fail' ¹®ÀÚ¿­À» ¹İÈ¯ÇÑ´Ù. ", response = String.class)
 	@GetMapping("/addressList/{memberSeq}")
-	public ResponseEntity<?> getAddressList(@RequestBody @ApiParam(value="íšŒì› ì¼ë ¨ë²ˆí˜¸", required=true) 
+	public ResponseEntity<?> getAddressList(@RequestBody @ApiParam(value="È¸¿ø ÀÏ·Ã¹øÈ£", required=true) 
 		@PathVariable("memberSeq") int memberSeq){
 		
 		try {
@@ -136,7 +137,7 @@ public class AddressController {
 		
 	}//getAddressList
 
-	// ì—ëŸ¬ ì²˜ë¦¬
+	// ¿¡·¯ Ã³¸®
 	private ResponseEntity<String> exceptionHandling(Exception e) {
 		return new ResponseEntity<String>("Error: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
 	}//exceptionHandling

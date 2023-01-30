@@ -19,28 +19,28 @@ public class PromiseMemberServiceImpl implements PromiseMemberService{
 	PromiseMemberMapper promiseMemberMapper;
 	
 	
-	// ì•½ì† ì°¸ì—¬ì ë“±ë¡
+	// ¾à¼Ó Âü¿©ÀÚ µî·Ï
 	@Override
 	public int registPromiseMember(PromiseMemberEntity promiseMemberEntity) throws SQLException {
 		return promiseMemberMapper.registPromiseMember(promiseMemberEntity);
 	}
 
 	
-	// ì•½ì† ì°¸ì—¬ì í•œ ëª… ì¡°íšŒ
+	// ¾à¼Ó Âü¿©ÀÚ ÇÑ ¸í Á¶È¸
 	@Override
 	public PromiseMemberEntity getPromiseMember(int promiseSeq, int memberSeq) throws SQLException {
 		return promiseMemberMapper.getPromiseMember(promiseSeq, memberSeq);
 	}
 
 	
-	// ì•½ì† ì°¸ì—¬ì ì „ì²´ ì¡°íšŒ
+	// ¾à¼Ó Âü¿©ÀÚ ÀüÃ¼ Á¶È¸
 	@Override
 	public List<PromiseMemberEntity> getPromiseMemberList(int promiseSeq) throws SQLException {
 		return promiseMemberMapper.getPromiseMemberList(promiseSeq);
 	}
 
 	
-	// ì•½ì†ì¥ ë³€ê²½
+	// ¾à¼ÓÀå º¯°æ
 	@Override
 	public int modifyPromiseMemberLeader(PromiseMemberModifyLeaderDto promiseMemberModifyLeaderdto) throws SQLException {
 		int result1 = promiseMemberMapper.modifyPromiseMemberLeader(promiseMemberModifyLeaderdto.getPromiseSeq(), promiseMemberModifyLeaderdto.getBeforeMemberSeq());
@@ -53,7 +53,7 @@ public class PromiseMemberServiceImpl implements PromiseMemberService{
 	}
 	
 	
-	// ì•½ì† ì°¸ì—¬ì ì‚­ì œ 
+	// ¾à¼Ó Âü¿©ÀÚ »èÁ¦ 
 	@Override
 	public int removePromiseMember(int promiseSeq, int memberSeq) throws SQLException {
 		return promiseMemberMapper.removePromiseMember(promiseSeq, memberSeq);

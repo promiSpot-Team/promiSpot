@@ -5,7 +5,7 @@ public class UnAuthorizedException extends RuntimeException {
 	private static final long serialVersionUID = -2238030302650813813L;
 	
 	public UnAuthorizedException() {
-		super("ê³„ì • ê¶Œí•œì´ ìœ íš¨í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤. \n ë‹¤ì‹œ ë¡œê·¸ì¸ í•´ì£¼ì„¸ìš”.");
+		super("°èÁ¤ ±ÇÇÑÀÌ À¯È¿ÇÏÁö ¾Ê½À´Ï´Ù. \n ´Ù½Ã ·Î±×ÀÎ ÇØÁÖ¼¼¿ä.");
 	}
 
 }//UnAuthorizedException

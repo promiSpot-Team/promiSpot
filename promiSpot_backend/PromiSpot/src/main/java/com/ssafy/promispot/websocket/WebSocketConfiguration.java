@@ -5,12 +5,12 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.socket.server.standard.ServerEndpointExporter;
 
 
-// websocket ë¸”ë¡œê·¸ : https://velog.io/@postlist/SpringBoot-WebSocket-%EB%A7%8C%EB%93%A4%EA%B8%B0-React-%EC%B1%84%ED%8C%85%EA%B5%AC%ED%98%84
+// websocket ºí·Î±× : https://velog.io/@postlist/SpringBoot-WebSocket-%EB%A7%8C%EB%93%A4%EA%B8%B0-React-%EC%B1%84%ED%8C%85%EA%B5%AC%ED%98%84
 
 /*
- * ì¼ë°˜ì ìœ¼ë¡œ í´ë˜ìŠ¤ë“¤ì€ Springì˜ ì˜í•´ beanìœ¼ë¡œ ë“±ë¡ë˜ê³  í•´ë‹¹ ì¸ìŠ¤í„´ìŠ¤ëŠ” Singletonìœ¼ë¡œ ê´€ë¦¬ë˜ì§€ë§Œ, 
- * @ServerEndPoint Annotationì´ ë‹¬ë¦° í´ë˜ìŠ¤ë“¤ì€ WebSocketì´ ìƒì„±ë  ë•Œë§ˆë‹¤ ì¸ìŠ¤í„´ìŠ¤ê°€ ìƒì„±ë˜ê³  
- * JWAêµ¬í˜„ì— ì˜í•´ ê´€ë¦¬ë˜ê¸° ë•Œë¬¸ì— ë‚´ë¶€ì— Autowiredê°€ ì„¤ì •ëœ ë©¤ë²„ë“¤ì´ ì •ìƒì ìœ¼ë¡œ ì´ˆê¸°í™”ê°€ ë˜ì§€ì•ŠëŠ”ë‹¤.
+ * ÀÏ¹İÀûÀ¸·Î Å¬·¡½ºµéÀº SpringÀÇ ÀÇÇØ beanÀ¸·Î µî·ÏµÇ°í ÇØ´ç ÀÎ½ºÅÏ½º´Â SingletonÀ¸·Î °ü¸®µÇÁö¸¸, 
+ * @ServerEndPoint AnnotationÀÌ ´Ş¸° Å¬·¡½ºµéÀº WebSocketÀÌ »ı¼ºµÉ ¶§¸¶´Ù ÀÎ½ºÅÏ½º°¡ »ı¼ºµÇ°í 
+ * JWA±¸Çö¿¡ ÀÇÇØ °ü¸®µÇ±â ¶§¹®¿¡ ³»ºÎ¿¡ Autowired°¡ ¼³Á¤µÈ ¸â¹öµéÀÌ Á¤»óÀûÀ¸·Î ÃÊ±âÈ­°¡ µÇÁö¾Ê´Â´Ù.
  */
 
 @Component

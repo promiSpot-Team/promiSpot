@@ -237,9 +237,6 @@ select * from promises;
 
 
 
-select * from friend_approval where member_seq = 1 or friend_request_member = 1;
-
-
 
 
 

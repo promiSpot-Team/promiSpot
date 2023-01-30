@@ -9,34 +9,34 @@ import com.ssafy.promispot.member.model.entity.MemberEntity;
 
 public interface MemberService {
 	
-	// ë¡œê·¸ì¸
+	// ·Î±×ÀÎ
 	public MemberEntity loginMember(MemberEntity memberEntity) throws Exception;
 	
-	// íšŒì›ê°€ì…
+	// È¸¿ø°¡ÀÔ
 	public boolean registMember(MemberEntity memberEntity) throws Exception;
 	
-	// íšŒì›ìˆ˜ì •
+	// È¸¿ø¼öÁ¤
 	public boolean modifyMember(MemberEntity memberEntity) throws Exception;
 	
-	// íšŒì›íƒˆí‡´
+	// È¸¿øÅ»Åğ
 	public boolean removeMember(int memberSeq) throws Exception;	
 	
-	// íšŒì›ì •ë³´ì¡°íšŒ
+	// È¸¿øÁ¤º¸Á¶È¸
 	public MemberEntity findMember(int memberSeq) throws Exception;
 	
-	// íšŒì›ë“¤ ì¡°íšŒ
+	// È¸¿øµé Á¶È¸
 	public List<MemberEntity> findMemberList() throws Exception;
 	
-	// ë¦¬í”„ë˜ì‹œí† í° ì €ì¥
+	// ¸®ÇÁ·¡½ÃÅäÅ« ÀúÀå
 	public void saveRefreshToken(String memberId, String refreshToken) throws Exception;
 	
-	// ë¦¬í”„ë˜ì‹œí† í° ê°€ì ¸ì˜¤ê¸°
+	// ¸®ÇÁ·¡½ÃÅäÅ« °¡Á®¿À±â
 	public Object getRefreshToken(String memberId) throws Exception;
 	
-	// ë¦¬í”„ë˜ì‹œ í† í° ì‚­ì œ
+	// ¸®ÇÁ·¡½Ã ÅäÅ« »èÁ¦
 	public void deleteRefreshToken(String memberId) throws Exception;
 	
-	// íšŒì› í”„ë¡œí•„ ì´ë¯¸ì§€ ì €ì¥
+	// È¸¿ø ÇÁ·ÎÇÊ ÀÌ¹ÌÁö ÀúÀå
 	public FileEntity saveFile(MultipartFile multipartFile) throws Exception;
 
 

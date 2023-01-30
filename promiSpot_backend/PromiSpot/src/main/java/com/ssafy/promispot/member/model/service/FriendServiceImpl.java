@@ -16,37 +16,37 @@ public class FriendServiceImpl implements FriendService {
 	@Autowired
 	private FriendMapper friendMapper;
 
-	// ì¹œêµ¬ ì‹ ì²­
+	// Ä£±¸ ½ÅÃ»
 	@Override
 	public boolean requestFriend(FriendRequestEntity friendRequestEntity) throws SQLException {
 		return friendMapper.requestFriend(friendRequestEntity) == 1;
 	}//requestFriend
 
-	// ì¹œêµ¬ ì‹ ì²­ ëª©ë¡ ì¡°íšŒ - ë‚˜í•œí…Œ ì˜¨ ì¹œêµ¬ ì‹ ì²­(received), ë‚´ê°€ ì‹ ì²­í•œ ì¹œêµ¬ ë³´ê¸°(sent)
+	// Ä£±¸ ½ÅÃ» ¸ñ·Ï Á¶È¸ - ³ªÇÑÅ× ¿Â Ä£±¸ ½ÅÃ»(received), ³»°¡ ½ÅÃ»ÇÑ Ä£±¸ º¸±â(sent)
 	@Override
 	public List<MemberEntity> getRequestFriend(int memberSeq, int order) throws SQLException {
 		return friendMapper.getRequestFriend(memberSeq, order);
 	}//getRequestFriend
 
-	// ì¹œêµ¬ ì‹ ì²­ ìŠ¹ì¸
+	// Ä£±¸ ½ÅÃ» ½ÂÀÎ
 	@Override
 	public boolean approvalFriend(int friendRequestSeq) throws SQLException {
 		return friendMapper.approvalFriend(friendRequestSeq) == 1;
 	}//approvalFriend
 
-	// ì¹œêµ¬ ì‹ ì²­ ê±°ì ˆ
+	// Ä£±¸ ½ÅÃ» °ÅÀı
 	@Override
 	public boolean rejectFriend(int friendRequestSeq) throws SQLException {
 		return friendMapper.rejectFriend(friendRequestSeq) == 1;
 	}//rejectFriend
 
-	// ì¹œêµ¬ ì •ë³´ ì¡°íšŒ
+	// Ä£±¸ Á¤º¸ Á¶È¸
 	@Override
 	public MemberEntity findFriend(String memberId) throws SQLException {
 		return friendMapper.findFriend(memberId);
 	}//findFriend
 
-	// ì¹œêµ¬ ëª©ë¡ ì¡°íšŒ
+	// Ä£±¸ ¸ñ·Ï Á¶È¸
 	@Override
 	public List<MemberEntity> findFriendList(int memberSeq) throws SQLException {
 		return friendMapper.findFriendList(memberSeq);

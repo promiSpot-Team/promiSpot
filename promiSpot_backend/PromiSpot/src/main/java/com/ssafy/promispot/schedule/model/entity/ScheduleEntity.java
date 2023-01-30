@@ -6,28 +6,28 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
-@ApiModel(value = "ScheduleEntity : ìŠ¤ì¼€ì¥´ì •ë³´", description = "ìŠ¤ì¼€ì¥´ì— ëŒ€í•œ ê²ƒì„ ì €ì¥í•œë‹¤.")
+@ApiModel(value = "ScheduleEntity : ½ºÄÉÁìÁ¤º¸", description = "½ºÄÉÁì¿¡ ´ëÇÑ °ÍÀ» ÀúÀåÇÑ´Ù.")
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Data
 public class ScheduleEntity {
 	
 	
-	@ApiModelProperty(value = "ìŠ¤ì¼€ì¥´ì¼ë ¨ë²ˆí˜¸")
+	@ApiModelProperty(value = "½ºÄÉÁìÀÏ·Ã¹øÈ£")
 	int scheduleSeq;
 	
-	@ApiModelProperty(value = "ì•½ì†ì¼ë ¨ë²ˆí˜¸")
+	@ApiModelProperty(value = "¾à¼ÓÀÏ·Ã¹øÈ£")
 	int promiseSeq;
 	
 	
-	@ApiModelProperty(value = "ì¥ì†Œë²ˆí˜¸")
+	@ApiModelProperty(value = "Àå¼Ò¹øÈ£")
 	String placeId;
 	
 	
-	@ApiModelProperty(value = "ìŠ¤ì¼€ì¥´ìˆœì„œ")
+	@ApiModelProperty(value = "½ºÄÉÁì¼ø¼­")
 	int scheduleProcedure;
 	
 	
-	@ApiModelProperty(value = "ì¥ì†Œì™„ë£Œ")
+	@ApiModelProperty(value = "Àå¼Ò¿Ï·á")
 	int schedulePlaceIsFinish;
 
 

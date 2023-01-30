@@ -27,7 +27,7 @@ import io.swagger.annotations.ApiParam;
 @CrossOrigin
 @RestController
 @RequestMapping("/friend")
-@Api("ì¹œêµ¬ ì»¨íŠ¸ë¡¤ëŸ¬  API")
+@Api("Ä£±¸ ÄÁÆ®·Ñ·¯  API")
 public class FriendController {
 	
 	private static final String SUCCESS = "success";
@@ -36,10 +36,10 @@ public class FriendController {
 	@Autowired
 	private FriendService friendService;
 	
-	// ì¹œêµ¬ ì‹ ì²­
-	@ApiOperation(value = "ì¹œêµ¬ ì‹ ì²­", notes = "ì¹œêµ¬ ì‹ ì²­. DBì…ë ¥ ì„±ê³µì—¬ë¶€ì— ë”°ë¼ 'success' ë˜ëŠ” 'fail' ë¬¸ìì—´ì„ ë°˜í™˜í•œë‹¤. ", response = String.class)
+	// Ä£±¸ ½ÅÃ»
+	@ApiOperation(value = "Ä£±¸ ½ÅÃ»", notes = "Ä£±¸ ½ÅÃ». DBÀÔ·Â ¼º°ø¿©ºÎ¿¡ µû¶ó 'success' ¶Ç´Â 'fail' ¹®ÀÚ¿­À» ¹İÈ¯ÇÑ´Ù. ", response = String.class)
 	@PostMapping("/request")
-	public ResponseEntity<?> requestFriend(@RequestBody @ApiParam(value="ì¹œêµ¬ ì‹ ì²­", required=true) 
+	public ResponseEntity<?> requestFriend(@RequestBody @ApiParam(value="Ä£±¸ ½ÅÃ»", required=true) 
 		FriendRequestEntity friendRequestEntity) {	
 		
 		try {
@@ -55,10 +55,10 @@ public class FriendController {
 		
 	}//requestFriend
 	
-	// ì¹œêµ¬ ì‹ ì²­ ëª©ë¡ ì¡°íšŒ - ë‚˜í•œí…Œ ì˜¨ ì¹œêµ¬ ì‹ ì²­(0), ë‚´ê°€ ì‹ ì²­í•œ ì¹œêµ¬ ë³´ê¸°(1)
-	@ApiOperation(value = "ì¹œêµ¬ ì‹ ì²­ ëª©ë¡ ì¡°íšŒ", notes = "order : ë‚˜í•œí…Œ ì˜¨ ì¹œêµ¬ ì‹ ì²­(0), ë‚´ê°€ ì‹ ì²­í•œ ì¹œêµ¬ ë³´ê¸°(1)", response = String.class)
+	// Ä£±¸ ½ÅÃ» ¸ñ·Ï Á¶È¸ - ³ªÇÑÅ× ¿Â Ä£±¸ ½ÅÃ»(0), ³»°¡ ½ÅÃ»ÇÑ Ä£±¸ º¸±â(1)
+	@ApiOperation(value = "Ä£±¸ ½ÅÃ» ¸ñ·Ï Á¶È¸", notes = "order : ³ªÇÑÅ× ¿Â Ä£±¸ ½ÅÃ»(0), ³»°¡ ½ÅÃ»ÇÑ Ä£±¸ º¸±â(1)", response = String.class)
 	@GetMapping("/{memberSeq}/{order}")
-	public ResponseEntity<?> getRequestFriend(@RequestBody @ApiParam(value="íšŒì›ì¼ë ¨ë²ˆí˜¸, ë°›ì€0/ë³´ë‚¸1", required=true) 
+	public ResponseEntity<?> getRequestFriend(@RequestBody @ApiParam(value="È¸¿øÀÏ·Ã¹øÈ£, ¹ŞÀº0/º¸³½1", required=true) 
 		@PathVariable("memberSeq") int memberSeq, @PathVariable("order") int order){
 		
 		try {
@@ -74,10 +74,10 @@ public class FriendController {
 		}
 	}//getRequestFriend
 	
-	// ì¹œêµ¬ ì‹ ì²­ ìŠ¹ì¸
-	@ApiOperation(value = "ì¹œêµ¬ ì‹ ì²­ ìŠ¹ì¸", notes = "ì¹œêµ¬ ì‹ ì²­ ìŠ¹ì¸. DB update ì„±ê³µì—¬ë¶€ì— ë”°ë¼ 'success' ë˜ëŠ” 'fail' ë¬¸ìì—´ì„ ë°˜í™˜í•œë‹¤. ", response = String.class)
+	// Ä£±¸ ½ÅÃ» ½ÂÀÎ
+	@ApiOperation(value = "Ä£±¸ ½ÅÃ» ½ÂÀÎ", notes = "Ä£±¸ ½ÅÃ» ½ÂÀÎ. DB update ¼º°ø¿©ºÎ¿¡ µû¶ó 'success' ¶Ç´Â 'fail' ¹®ÀÚ¿­À» ¹İÈ¯ÇÑ´Ù. ", response = String.class)
 	@PutMapping("request/{friendRequestSeq}")
-	public ResponseEntity<?> approvalFriend(@RequestBody @ApiParam(value="ì¹œêµ¬ ì‹ ì²­ ì¼ë ¨ë²ˆí˜¸", required=true) 
+	public ResponseEntity<?> approvalFriend(@RequestBody @ApiParam(value="Ä£±¸ ½ÅÃ» ÀÏ·Ã¹øÈ£", required=true) 
 	@PathVariable("friendRequestSeq") int friendRequestSeq){
 		
 		try {
@@ -93,10 +93,10 @@ public class FriendController {
 		
 	}//approvalFriend
 	
-	// ì¹œêµ¬ ì‹ ì²­ ê±°ì ˆ
-	@ApiOperation(value = "ì¹œêµ¬ ì‹ ì²­ ê±°ì ˆ", notes = "ì¹œêµ¬ ì‹ ì²­ ê±°ì ˆ. DB update ì„±ê³µì—¬ë¶€ì— ë”°ë¼ 'success' ë˜ëŠ” 'fail' ë¬¸ìì—´ì„ ë°˜í™˜í•œë‹¤. ", response = String.class)
+	// Ä£±¸ ½ÅÃ» °ÅÀı
+	@ApiOperation(value = "Ä£±¸ ½ÅÃ» °ÅÀı", notes = "Ä£±¸ ½ÅÃ» °ÅÀı. DB update ¼º°ø¿©ºÎ¿¡ µû¶ó 'success' ¶Ç´Â 'fail' ¹®ÀÚ¿­À» ¹İÈ¯ÇÑ´Ù. ", response = String.class)
 	@DeleteMapping("request/{friendRequestSeq}")
-	public ResponseEntity<?> rejectFriend(@RequestBody @ApiParam(value="ì¹œêµ¬ ì‹ ì²­ ì¼ë ¨ë²ˆí˜¸", required=true) 
+	public ResponseEntity<?> rejectFriend(@RequestBody @ApiParam(value="Ä£±¸ ½ÅÃ» ÀÏ·Ã¹øÈ£", required=true) 
 		@PathVariable("friendRequestSeq") int friendRequestSeq){
 		
 		try {
@@ -112,10 +112,10 @@ public class FriendController {
 		
 	}//rejectFriend
 	
-	// ì¹œêµ¬ ì •ë³´ ì¡°íšŒ (ì¹œêµ¬ ê²€ìƒ‰)
-	@ApiOperation(value = "ì¹œêµ¬ ì •ë³´ ì¡°íšŒ", notes = "ì¹œêµ¬ ì •ë³´ ì¡°íšŒ (ì¹œêµ¬ ê²€ìƒ‰). ì•„ì´ë”” í˜¹ì€ ì „í™”ë²ˆí˜¸ë¡œ ê²€ìƒ‰ëœ ì¹œêµ¬ë¥¼ ë°˜í™˜í•œë‹¤. ", response = String.class)
+	// Ä£±¸ Á¤º¸ Á¶È¸ (Ä£±¸ °Ë»ö)
+	@ApiOperation(value = "Ä£±¸ Á¤º¸ Á¶È¸", notes = "Ä£±¸ Á¤º¸ Á¶È¸ (Ä£±¸ °Ë»ö). ¾ÆÀÌµğ È¤Àº ÀüÈ­¹øÈ£·Î °Ë»öµÈ Ä£±¸¸¦ ¹İÈ¯ÇÑ´Ù. ", response = String.class)
 	@GetMapping("/{memberInfo}")
-	public ResponseEntity<?> findFriend(@RequestBody @ApiParam(value="ì¹œêµ¬ ì•„ì´ë”” í˜¹ì€ ì „í™”ë²ˆí˜¸", required=true) 
+	public ResponseEntity<?> findFriend(@RequestBody @ApiParam(value="Ä£±¸ ¾ÆÀÌµğ È¤Àº ÀüÈ­¹øÈ£", required=true) 
 		@PathVariable("memberInfo") String memberInfo){
 		
 		try {
@@ -132,10 +132,10 @@ public class FriendController {
 		
 	}//findFriend
 	
-	// ì¹œêµ¬ ëª©ë¡ ì¡°íšŒ
-	@ApiOperation(value = "ì¹œêµ¬ ëª©ë¡ ì¡°íšŒ", notes = "ì¹œêµ¬ ëª©ë¡ ì¡°íšŒ í˜„ì¬ ë¡œê·¸ì¸ í•œ ì‚¬ìš©ìì˜ ì¹œêµ¬ëª©ë¡ì„ ë°˜í™˜í•œë‹¤. ", response = String.class)
+	// Ä£±¸ ¸ñ·Ï Á¶È¸
+	@ApiOperation(value = "Ä£±¸ ¸ñ·Ï Á¶È¸", notes = "Ä£±¸ ¸ñ·Ï Á¶È¸ ÇöÀç ·Î±×ÀÎ ÇÑ »ç¿ëÀÚÀÇ Ä£±¸¸ñ·ÏÀ» ¹İÈ¯ÇÑ´Ù. ", response = String.class)
 	@GetMapping("friends/{memberSeq}")
-	public ResponseEntity<?> findFriendList(@RequestBody @ApiParam(value="íšŒì› ì¼ë ¨ ë²ˆí˜¸", required=true) 
+	public ResponseEntity<?> findFriendList(@RequestBody @ApiParam(value="È¸¿ø ÀÏ·Ã ¹øÈ£", required=true) 
 		@PathVariable("memberSeq") int memberSeq){
 		
 		try {
@@ -152,7 +152,7 @@ public class FriendController {
 		
 	}//findFriendList
 
-	// ì—ëŸ¬ ì²˜ë¦¬
+	// ¿¡·¯ Ã³¸®
 	private ResponseEntity<String> exceptionHandling(Exception e) {
 		return new ResponseEntity<String>("Error: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
 	}//exceptionHandling

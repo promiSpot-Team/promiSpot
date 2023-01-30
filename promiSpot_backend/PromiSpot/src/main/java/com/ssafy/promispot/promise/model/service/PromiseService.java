@@ -7,19 +7,19 @@ import com.ssafy.promispot.promise.model.entity.PromiseEntity;
 
 public interface PromiseService {
 	
-	// ì•½ì† ìƒì„±
+	// ¾à¼Ó »ı¼º
 	public int createPromise(PromiseEntity promiseEntity) throws SQLException;
 	
-	// ì•½ì† ì¡°íšŒ 
+	// ¾à¼Ó Á¶È¸ 
 	public PromiseEntity getPromise(int promiseSeq) throws SQLException;
 	
-	// í•œ íšŒì›ì´ ì†í•œ ì•½ì† ì „ë¶€ ì¡°íšŒ
+	// ÇÑ È¸¿øÀÌ ¼ÓÇÑ ¾à¼Ó ÀüºÎ Á¶È¸
 	public List<PromiseEntity> getPromiseList(int memberSeq) throws SQLException;
 	
-	// ì•½ì† ìˆ˜ì • 
+	// ¾à¼Ó ¼öÁ¤ 
 	public int modifyPromise(PromiseEntity promiseEntity) throws SQLException;
 	
-	// ì•½ì† ì‚­ì œ
+	// ¾à¼Ó »èÁ¦
 	public int removePromise(int promiseSeq) throws SQLException;
 	
 	

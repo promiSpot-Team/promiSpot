@@ -11,31 +11,31 @@ import com.ssafy.promispot.member.model.entity.MemberEntity;
 @Mapper
 public interface MemberMapper {
 	
-	// ë¡œê·¸ì¸
+	// ·Î±×ÀÎ
 	public MemberEntity loginMember(MemberEntity memberEntity) throws SQLException;
 	
-	// íšŒì›ê°€ì…
+	// È¸¿ø°¡ÀÔ
 	public int registMember(MemberEntity memberEntity) throws SQLException;
 	
-	// íšŒì›ìˆ˜ì •
+	// È¸¿ø¼öÁ¤
 	public int modifyMember(MemberEntity memberEntity) throws SQLException;
 	
-	// íšŒì›íƒˆí‡´
+	// È¸¿øÅ»Åğ
 	public int removeMember(int memberSeq) throws SQLException;	
 	
-	// íšŒì›ì •ë³´ì¡°íšŒ
+	// È¸¿øÁ¤º¸Á¶È¸
 	public MemberEntity findMember(int memberSeq) throws SQLException;
 	
-	// íšŒì›ë“¤ ì¡°íšŒ
+	// È¸¿øµé Á¶È¸
 	public List<MemberEntity> findMemberList() throws SQLException;
 	
-	// ë¦¬í”„ë˜ì‹œí† í° ì €ì¥
+	// ¸®ÇÁ·¡½ÃÅäÅ« ÀúÀå
 	public void saveRefreshToken(@Param("memberId") String memberId, @Param("token") String refreshToken) throws Exception;
 	
-	// ë¦¬í”„ë˜ì‹œí† í° ê°€ì ¸ì˜¤ê¸°
+	// ¸®ÇÁ·¡½ÃÅäÅ« °¡Á®¿À±â
 	public Object getRefreshToken(String memberId) throws Exception;
 	
-	// ë¦¬í”„ë˜ì‹œ í† í° ì‚­ì œ
+	// ¸®ÇÁ·¡½Ã ÅäÅ« »èÁ¦
 	public void deleteRefreshToken(String memberId) throws Exception;
 
 }//MemberMapper

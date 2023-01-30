@@ -19,11 +19,11 @@ public class FileHandler {
 	
 	public static final Logger logger = LoggerFactory.getLogger(FileHandler.class);
 	
-	// ë£¨íŠ¸ ê²½ë¡œ ë¶ˆëŸ¬ì˜¤ê¸°
+	// ·çÆ® °æ·Î ºÒ·¯¿À±â
     private final String rootPath = "C:\\Temp";
 //    private final String rootPath = System.getProperty("user.dir");
     
-    // í”„ë¡œì íŠ¸ ë£¨íŠ¸ ê²½ë¡œì— ìˆëŠ” ë””ë ‰í† ë¦¬
+    // ÇÁ·ÎÁ§Æ® ·çÆ® °æ·Î¿¡ ÀÖ´Â µğ·ºÅä¸®
     private final String fileDir = rootPath + "\\upload\\";
     
     public String getFullPath(String filename) { 
@@ -32,10 +32,10 @@ public class FileHandler {
 	
 	public FileEntity saveFile(MultipartFile multipartFile) {
 		
-		// ì‘ì„±ìê°€ ì—…ë¡œë“œí•œ íŒŒì¼ëª…
+		// ÀÛ¼ºÀÚ°¡ ¾÷·ÎµåÇÑ ÆÄÀÏ¸í
 		String originalFileName = multipartFile.getOriginalFilename();
 		
-		// ì„œë²„ì—ì„œ ê´€ë¦¬í•˜ëŠ” íŒŒì¼. íŒŒì¼ëª…ì„ ì¤‘ë³µë˜ì§€ ì•Šê²Œë” UUIDë¡œ ì •í•˜ê³  ".í™•ì¥ì"ëŠ” ê·¸ëŒ€ë¡œ
+		// ¼­¹ö¿¡¼­ °ü¸®ÇÏ´Â ÆÄÀÏ. ÆÄÀÏ¸íÀ» Áßº¹µÇÁö ¾Ê°Ô²û UUID·Î Á¤ÇÏ°í ".È®ÀåÀÚ"´Â ±×´ë·Î
         String storeFilename = UUID.randomUUID() + "." + extractExt(originalFileName);
         
         
@@ -46,7 +46,7 @@ public class FileHandler {
 										, storeFilename
 										, multipartFile.getSize());
 		
-		// íŒŒì¼ ì €ì¥
+		// ÆÄÀÏ ÀúÀå
 		File newFile = new File(folder, storeFilename);
 		try {
 			multipartFile.transferTo(newFile);
@@ -61,7 +61,7 @@ public class FileHandler {
 
 	private File makeFolder() {
 		
-		// ì˜¤ëŠ˜ ë‚ ì§œë¡œ í´ë” ìƒì„±
+		// ¿À´Ã ³¯Â¥·Î Æú´õ »ı¼º
 		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMdd");
 		String current_date = simpleDateFormat.format(new Date());
 		
@@ -69,9 +69,9 @@ public class FileHandler {
 		
         if(!folder.exists()) {
         	if(folder.mkdir()) {
-        		logger.info("files ìƒì„± ì„±ê³µ");
+        		logger.info("files »ı¼º ¼º°ø");
         	}else {
-        		logger.info("files ìƒì„± ì‹¤íŒ¨");        		
+        		logger.info("files »ı¼º ½ÇÆĞ");        		
         	}
         }
         
@@ -79,16 +79,16 @@ public class FileHandler {
         folder = new File(folder + File.separator + current_date);
         if(!folder.exists()) {
         	if(folder.mkdir()) {
-        		logger.info("ë‚ ì§œ í´ë” ìƒì„± ì„±ê³µ");
+        		logger.info("³¯Â¥ Æú´õ »ı¼º ¼º°ø");
         	}else {
-        		logger.info("ë‚ ì§œ í´ë” ìƒì„± ì‹¤íŒ¨");        		
+        		logger.info("³¯Â¥ Æú´õ »ı¼º ½ÇÆĞ");        		
         	}
         }
         
 		return folder;
 	}//makeFolder
 
-	// í™•ì¥ì ì¶”ì¶œ
+	// È®ÀåÀÚ ÃßÃâ
 	private String extractExt(String originalFileName) {
 		int pos = originalFileName.lastIndexOf(".");
         return originalFileName.substring(pos + 1);

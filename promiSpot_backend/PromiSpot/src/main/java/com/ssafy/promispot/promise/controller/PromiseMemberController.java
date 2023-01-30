@@ -29,7 +29,7 @@ public class PromiseMemberController {
 	@Autowired
 	PromiseMemberService promiseMemberService;
 	
-	// ì•½ì† ì°¸ì—¬ì ë“±ë¡
+	// ¾à¼Ó Âü¿©ÀÚ µî·Ï
 	@PostMapping("regist")
 	public ResponseEntity<?> registPromiseMember(@RequestBody PromiseMemberEntity promiseMemberEntity) {
 		try {
@@ -47,7 +47,7 @@ public class PromiseMemberController {
 		}	
 	}
 	
-	// ì•½ì† ì°¸ì—¬ì í•œ ëª… ì¡°íšŒ
+	// ¾à¼Ó Âü¿©ÀÚ ÇÑ ¸í Á¶È¸
 	@GetMapping("get/{promiseSeq}/{memberSeq}")
 	public ResponseEntity<?> getPromiseMember(@PathVariable("promiseSeq") int promiseSeq, @PathVariable("memberSeq") int memberSeq) {
 		try {
@@ -67,7 +67,7 @@ public class PromiseMemberController {
 	}
 
 	
-	// ì•½ì† ì°¸ì—¬ì ì „ì²´ ì¡°íšŒ
+	// ¾à¼Ó Âü¿©ÀÚ ÀüÃ¼ Á¶È¸
 	@GetMapping("getList/{promiseSeq}")
 	public ResponseEntity<?> getPromiseMemberList(@PathVariable("promiseSeq") int promiseSeq) {
 		try {
@@ -90,7 +90,7 @@ public class PromiseMemberController {
 	
 
 	
-	// ì•½ì†ì¥ ë³€ê²½
+	// ¾à¼ÓÀå º¯°æ
 	@PutMapping("modifyLeader")
 	public ResponseEntity<?> modifyPromiseMemberLeader(@RequestBody PromiseMemberModifyLeaderDto promiseMemberModifyLeaderdto) {
 		
@@ -110,7 +110,7 @@ public class PromiseMemberController {
 	}
 	
 	
-	// ì•½ì† ì°¸ì—¬ì ì‚­ì œ 
+	// ¾à¼Ó Âü¿©ÀÚ »èÁ¦ 
 	@DeleteMapping("delete/{promiseSeq}/{memberSeq}")
 	public ResponseEntity<?> removePromiseMember(@PathVariable("promiseSeq") int promiseSeq, @PathVariable("memberSeq") int memberSeq) {
 		
@@ -129,7 +129,7 @@ public class PromiseMemberController {
 	
 	
 	
-	// ì—ëŸ¬ ì²˜ë¦¬
+	// ¿¡·¯ Ã³¸®
 	private ResponseEntity<String> exceptionHandling(Exception e) {
 		return new ResponseEntity<String>("Error: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
 	}

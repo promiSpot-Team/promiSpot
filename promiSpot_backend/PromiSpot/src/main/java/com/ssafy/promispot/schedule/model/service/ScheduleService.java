@@ -7,19 +7,19 @@ import com.ssafy.promispot.schedule.model.entity.ScheduleEntity;
 
 public interface ScheduleService {
 	
-	// ìŠ¤ì¼€ì¤„ ìƒì„±
+	// ½ºÄÉÁÙ »ı¼º
 	public int createSchedule(ScheduleEntity scheduleEntity) throws SQLException;
 	
-	// ìŠ¤ì¼€ì¤„ ì¡°íšŒ
+	// ½ºÄÉÁÙ Á¶È¸
 	public ScheduleEntity getSchedule(int scheduleSeq) throws SQLException;
 	
-	// ì•½ì† í•´ë‹¹í•˜ëŠ” ìŠ¤ì¼€ì¤„ ì „ë¶€ ì¡°íšŒ
+	// ¾à¼Ó ÇØ´çÇÏ´Â ½ºÄÉÁÙ ÀüºÎ Á¶È¸
 	public List<ScheduleEntity> getScheduleList(int promiseSeq) throws SQLException;
 	
-	// ìŠ¤ì¼€ì¤„ ìˆ˜ì •
+	// ½ºÄÉÁÙ ¼öÁ¤
 	public int modifySchedule(ScheduleEntity scheduleEntity) throws SQLException;
 	
-	// ìŠ¤ì¼€ì¤„ ì‚­ì œ
+	// ½ºÄÉÁÙ »èÁ¦
 	public int removeSchedule(int scheduleSeq) throws SQLException;
 
 }

@@ -28,7 +28,7 @@ public class PromiseController {
 	@Autowired
 	PromiseService promiseService;
 
-	// ì•½ì† ìƒì„±
+	// ¾à¼Ó »ı¼º
 	@PostMapping("create")
 	public ResponseEntity<?> createPromise(@RequestBody PromiseEntity promiseEntity) {
 		try {
@@ -48,7 +48,7 @@ public class PromiseController {
 	
 	
 	
-	// ì•½ì† ì¡°íšŒ 
+	// ¾à¼Ó Á¶È¸ 
 	@GetMapping("get/{promiseSeq}")
 	public ResponseEntity<?> getPromise(@PathVariable("promiseSeq") int promiseSeq) {
 		try {
@@ -68,7 +68,7 @@ public class PromiseController {
 	}
 	
 	
-	// í•œ íšŒì›ì´ ì†í•œ ì•½ì† ì „ë¶€ ì¡°íšŒ
+	// ÇÑ È¸¿øÀÌ ¼ÓÇÑ ¾à¼Ó ÀüºÎ Á¶È¸
 	@GetMapping("getList/{memberSeq}")
 	public ResponseEntity<?> getPromiseList(@PathVariable("memberSeq") int memberSeq) {
 		try {
@@ -88,7 +88,7 @@ public class PromiseController {
 		}
 	}
 	
-	// ì•½ì† ìˆ˜ì • 
+	// ¾à¼Ó ¼öÁ¤ 
 	@PutMapping("modify")
 	public ResponseEntity<?> modifyPromise(@RequestBody PromiseEntity promiseEntity) {
 		
@@ -109,7 +109,7 @@ public class PromiseController {
 	}
 	
 
-	// ì•½ì† ì‚­ì œ
+	// ¾à¼Ó »èÁ¦
 	@DeleteMapping("delete/{promiseSeq}")
 	public ResponseEntity<?> removePromise(@PathVariable("promiseSeq") int promiseSeq) {
 		
@@ -129,7 +129,7 @@ public class PromiseController {
 	
 	
 	
-	// ì—ëŸ¬ ì²˜ë¦¬
+	// ¿¡·¯ Ã³¸®
 	private ResponseEntity<String> exceptionHandling(Exception e) {
 		return new ResponseEntity<String>("Error: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
 	}

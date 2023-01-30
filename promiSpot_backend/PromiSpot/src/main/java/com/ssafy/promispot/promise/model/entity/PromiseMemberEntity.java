@@ -10,18 +10,18 @@ import lombok.Data;
 
 
 
-@ApiModel(value = "PromiseMemberEntity : ì•½ì†ì°¸ì—¬ì", description = "ì•½ì†ì°¸ì—¬ì ì •ë³´ë¥¼ ë‚˜íƒ€ë‚¸ë‹¤.")
+@ApiModel(value = "PromiseMemberEntity : ¾à¼ÓÂü¿©ÀÚ", description = "¾à¼ÓÂü¿©ÀÚ Á¤º¸¸¦ ³ªÅ¸³½´Ù.")
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Data
 public class PromiseMemberEntity {
 	
-	@ApiModelProperty(value = "ì•½ì†ì¼ë ¨ë²ˆí˜¸")
+	@ApiModelProperty(value = "¾à¼ÓÀÏ·Ã¹øÈ£")
 	private int promiseSeq;
 	
-	@ApiModelProperty(value = "íšŒì›ì¼ë ¨ë²ˆí˜¸")
+	@ApiModelProperty(value = "È¸¿øÀÏ·Ã¹øÈ£")
 	private int memberSeq;
 	
-	@ApiModelProperty(value = "ì•½ì†ì¥")
+	@ApiModelProperty(value = "¾à¼ÓÀå")
 	private int promiseMemberIsLeader;
 
 	public PromiseMemberEntity() {

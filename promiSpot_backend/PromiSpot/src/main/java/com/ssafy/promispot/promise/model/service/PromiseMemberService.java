@@ -10,26 +10,26 @@ import com.ssafy.promispot.promise.model.entity.PromiseMemberEntity;
 
 public interface PromiseMemberService {
 
-	// ì•½ì† ì°¸ì—¬ì ë“±ë¡
+	// ¾à¼Ó Âü¿©ÀÚ µî·Ï
 	public int registPromiseMember(PromiseMemberEntity promiseMemberEntity) throws SQLException;
 	
 	
-	// ì•½ì† ì°¸ì—¬ì í•œ ëª… ì¡°íšŒ
+	// ¾à¼Ó Âü¿©ÀÚ ÇÑ ¸í Á¶È¸
 	public PromiseMemberEntity getPromiseMember(
 			 int promiseSeq, 
 			 int memberSeq) throws SQLException;
 	
 	
-	// ì•½ì† ì°¸ì—¬ì ì „ì²´ ì¡°íšŒ
+	// ¾à¼Ó Âü¿©ÀÚ ÀüÃ¼ Á¶È¸
 	public List<PromiseMemberEntity> getPromiseMemberList(int promiseSeq) throws SQLException;
 	
 	
-	// ì•½ì†ì¥ ë³€ê²½
+	// ¾à¼ÓÀå º¯°æ
 	public int modifyPromiseMemberLeader(
 			PromiseMemberModifyLeaderDto promiseMemberModifyLeaderdto) throws SQLException;
 	
 	
-	// ì•½ì† ì°¸ì—¬ì ì‚­ì œ 
+	// ¾à¼Ó Âü¿©ÀÚ »èÁ¦ 
 	public int removePromiseMember(
 			int promiseSeq,
 			int memberSeq) throws SQLException;

@@ -18,54 +18,54 @@ public class VoteServiceImpl implements VoteService{
 	VoteMapper voteMapper;
 	
 	
-	//ì•½ì† ì¥ì†Œ í›„ë³´ ë“±ë¡
+	//¾à¼Ó Àå¼Ò ÈÄº¸ µî·Ï
 	@Override
 	public int insertCandidatePlace(VoteEntity voteEntity) throws SQLException {
 		return voteMapper.insertCandidatePlace(voteEntity);
 	}
 
 	
-	//ì•½ì† ì¥ì†Œ í›„ë³´ ê°€ì ¸ì˜¤ê¸°
+	//¾à¼Ó Àå¼Ò ÈÄº¸ °¡Á®¿À±â
 	@Override
 	public VoteEntity getCandidatePlace(int voteSeq) throws SQLException {
 		return voteMapper.getCandidatePlace(voteSeq);
 	}
 
 	
-	//ì•½ì† ì¥ì†Œ í›„ë³´ë“¤ ê°€ì ¸ì˜¤ê¸° - í•˜ë‚˜ì˜ ì•½ì†ì— ì†í•œ ëª¨ë“  ì¥ì†Œ í›„ë³´ë“¤
+	//¾à¼Ó Àå¼Ò ÈÄº¸µé °¡Á®¿À±â - ÇÏ³ªÀÇ ¾à¼Ó¿¡ ¼ÓÇÑ ¸ğµç Àå¼Ò ÈÄº¸µé
 	@Override
 	public List<VoteEntity> getCandidatePlaceList(int promiseSeq) throws SQLException {
 		return voteMapper.getCandidatePlaceList(promiseSeq);
 	}
 
 	
-	//ì•½ì† ì¥ì†Œ í›„ë³´ ìˆ˜ì •(íˆ¬í‘œ/íˆ¬í‘œì·¨ì†Œ)
+	//¾à¼Ó Àå¼Ò ÈÄº¸ ¼öÁ¤(ÅõÇ¥/ÅõÇ¥Ãë¼Ò)
 	@Override
 	public int modifyCandidatePlace(int voteSeq) throws SQLException {
 		return voteMapper.modifyCandidatePlace(voteSeq);
 	}
 
 	
-	//ì•½ì† ì¥ì†Œ í›„ë³´ ì‚­ì œ
+	//¾à¼Ó Àå¼Ò ÈÄº¸ »èÁ¦
 	@Override
 	public int removeCandidatePlace(int voteSeq) throws SQLException {
 		return voteMapper.removeCandidatePlace(voteSeq);
 	}
 
 	
-	//ì‚¬ìš©ìê°€ í•œ ì•½ì†ì—ì„œ ì´ ì¥ì†Œë¥¼ íˆ¬í‘œí•œ ê±´ì§€ ì•„ë‹Œì§€ ì¡°íšŒ
+	//»ç¿ëÀÚ°¡ ÇÑ ¾à¼Ó¿¡¼­ ÀÌ Àå¼Ò¸¦ ÅõÇ¥ÇÑ °ÇÁö ¾Æ´ÑÁö Á¶È¸
 	@Override
 	public int isVoted(int memberSeq, int voteSeq) throws SQLException {
 		return voteMapper.isVoted(memberSeq, voteSeq);
 	}
 
-	//ì•½ì† ì¥ì†Œ íˆ¬í‘œë²„íŠ¼ ëˆ„ë¥´ë©´ íˆ¬í‘œì í…Œì´ë¸”ì— ì¶”ê°€
+	//¾à¼Ó Àå¼Ò ÅõÇ¥¹öÆ° ´©¸£¸é ÅõÇ¥ÀÚ Å×ÀÌºí¿¡ Ãß°¡
 	@Override
 	public int insertVoter(VoteMemberEntity voteMemberEntity) throws SQLException {
 		return voteMapper.insertVoter(voteMemberEntity);
 	}
 
-	//ì•½ì† ì¥ì†Œ íˆ¬í‘œë¥¼ í•´ì œí•˜ë©´ íˆ¬í‘œì í…Œì´ë¸”ì—ì„œ ì‚­ì œ
+	//¾à¼Ó Àå¼Ò ÅõÇ¥¸¦ ÇØÁ¦ÇÏ¸é ÅõÇ¥ÀÚ Å×ÀÌºí¿¡¼­ »èÁ¦
 	@Override
 	public int removeVoter(int memberSeq, int voteSeq) throws SQLException {
 		return voteMapper.removeVoter(memberSeq, voteSeq);

@@ -15,31 +15,31 @@ public class ScheduleServiceImpl implements ScheduleService{
 	@Autowired
 	ScheduleMapper scheduleMapper;
 	
-	// ìŠ¤ì¼€ì¤„ ìƒì„±
+	// ½ºÄÉÁÙ »ı¼º
 	@Override
 	public int createSchedule(ScheduleEntity scheduleEntity) throws SQLException {
 		return scheduleMapper.createSchedule(scheduleEntity);
 	}
 
-	// ìŠ¤ì¼€ì¤„ ì¡°íšŒ
+	// ½ºÄÉÁÙ Á¶È¸
 	@Override
 	public ScheduleEntity getSchedule(int scheduleSeq) throws SQLException {
 		return scheduleMapper.getSchedule(scheduleSeq);
 	}
 	
-	// ì•½ì† í•´ë‹¹í•˜ëŠ” ìŠ¤ì¼€ì¤„ ì „ë¶€ ì¡°íšŒ
+	// ¾à¼Ó ÇØ´çÇÏ´Â ½ºÄÉÁÙ ÀüºÎ Á¶È¸
 	@Override
 	public List<ScheduleEntity> getScheduleList(int promiseSeq) throws SQLException {
 		return scheduleMapper.getScheduleList(promiseSeq);
 	}
 
-	// ìŠ¤ì¼€ì¤„ ìˆ˜ì •
+	// ½ºÄÉÁÙ ¼öÁ¤
 	@Override
 	public int modifySchedule(ScheduleEntity scheduleEntity) throws SQLException {
 		return scheduleMapper.modifySchedule(scheduleEntity);
 	}
 
-	// ìŠ¤ì¼€ì¤„ ì‚­ì œ
+	// ½ºÄÉÁÙ »èÁ¦
 	@Override
 	public int removeSchedule(int scheduleSeq) throws SQLException {
 		return scheduleMapper.removeSchedule(scheduleSeq);

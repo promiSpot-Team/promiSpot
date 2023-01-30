@@ -21,11 +21,11 @@ import com.ssafy.promispot.place.model.service.PlaceService;
 @CrossOrigin
 @RequestMapping("/place")
 public class PlaceController {
-	
+
 	@Autowired
 	PlaceService placeService;
 	
-	// 장소 등록
+	// ��� ���
 	@PostMapping("insert")
 	public ResponseEntity<?> insertPlace(@RequestBody PlaceEntity placeEntity) {
 		
@@ -44,7 +44,7 @@ public class PlaceController {
 		}	
 	}
 	
-	// 장소 하나 조회
+	// ��� �ϳ� ��ȸ
 	@GetMapping("select/{placeId}")
 	public ResponseEntity<?> getPlace(@PathVariable("placeId") String placeId) {
 		try {
@@ -63,7 +63,7 @@ public class PlaceController {
 		}
 	}
 	
-	// 장소 수정
+	// ��� ����
 	@PutMapping("update")
 	public ResponseEntity<?> updatePlace(@RequestBody PlaceEntity place) {
 		
@@ -84,7 +84,7 @@ public class PlaceController {
 	}
 	
 	
-	// 장소 삭제 
+	// ��� ���� 
 	@DeleteMapping("remove/{placeId}")
 	public ResponseEntity<?> removePlace(@PathVariable("placeId") String placeId) {
 		
@@ -111,7 +111,7 @@ public class PlaceController {
 	
 
 	
-	// 에러 처리
+	// ���� ó��
 	private ResponseEntity<String> exceptionHandling(Exception e) {
 		return new ResponseEntity<String>("Error: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
 	}

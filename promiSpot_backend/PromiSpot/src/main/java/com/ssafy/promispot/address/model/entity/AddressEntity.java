@@ -5,29 +5,29 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
-@ApiModel(value = "AddressEntity : íšŒì› ì£¼ì†Œ ì •ë³´", description = "íšŒì›ì˜ ì£¼ì†Œë¥¼ ë‚˜íƒ€ë‚¸ë‹¤.")
+@ApiModel(value = "AddressEntity : È¸¿ø ÁÖ¼Ò Á¤º¸", description = "È¸¿øÀÇ ÁÖ¼Ò¸¦ ³ªÅ¸³½´Ù.")
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class AddressEntity {
 	
-	@ApiModelProperty(value = "ì£¼ì†Œ ì¼ë ¨ë²ˆí˜¸")
+	@ApiModelProperty(value = "ÁÖ¼Ò ÀÏ·Ã¹øÈ£")
 	private int addressSeq;
 	
-	@ApiModelProperty(value = "íšŒì› ì¼ë ¨ë²ˆí˜¸")
+	@ApiModelProperty(value = "È¸¿ø ÀÏ·Ã¹øÈ£")
 	private int memberSeq;
 	
-	@ApiModelProperty(value = "ì£¼ì†Œ")
+	@ApiModelProperty(value = "ÁÖ¼Ò")
 	private String addressAddress;
 	
-	@ApiModelProperty(value = "ì£¼ì†Œì§€ë³„ì¹­")
+	@ApiModelProperty(value = "ÁÖ¼ÒÁöº°Äª")
 	private String addressNick;
 	
-	@ApiModelProperty(value = "ê²½ë„")
+	@ApiModelProperty(value = "°æµµ")
 	private String addressX;
 	
-	@ApiModelProperty(value = "ìœ„ë„")
+	@ApiModelProperty(value = "À§µµ")
 	private String addressY;
 	
-	@ApiModelProperty(value = "ëŒ€í‘œ ì£¼ì†Œ ìƒíƒœ")
+	@ApiModelProperty(value = "´ëÇ¥ ÁÖ¼Ò »óÅÂ")
 	private int addressIsPrimary;
 
 	

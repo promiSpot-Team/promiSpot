@@ -5,41 +5,41 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
-@ApiModel(value = "MemberEntity : íšŒì› ì •ë³´", description = "íšŒì›ì˜ ìƒì„¸ ì •ë³´ë¥¼ ë‚˜íƒ€ë‚¸ë‹¤.")
+@ApiModel(value = "MemberEntity : È¸¿ø Á¤º¸", description = "È¸¿øÀÇ »ó¼¼ Á¤º¸¸¦ ³ªÅ¸³½´Ù.")
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class MemberEntity {
 	
-	@ApiModelProperty(value = "íšŒì›ì¼ë ¨ë²ˆí˜¸")
+	@ApiModelProperty(value = "È¸¿øÀÏ·Ã¹øÈ£")
 	private int memberSeq;
 	
-	@ApiModelProperty(value = "íšŒì›ì•„ì´ë””")
+	@ApiModelProperty(value = "È¸¿ø¾ÆÀÌµğ")
 	private String memberId;
 	
-	@ApiModelProperty(value = "ë¹„ë°€ë²ˆí˜¸")
+	@ApiModelProperty(value = "ºñ¹Ğ¹øÈ£")
 	private String memberPass;
 	
-	@ApiModelProperty(value = "ì•„ë£¸")
+	@ApiModelProperty(value = "¾Æ·ë")
 	private String memberName;
 	
-	@ApiModelProperty(value = "ë‹‰ë„¤ì„")
+	@ApiModelProperty(value = "´Ğ³×ÀÓ")
 	private String memberNick;
 	
-	@ApiModelProperty(value = "ì´ë©”ì¼")
+	@ApiModelProperty(value = "ÀÌ¸ŞÀÏ")
 	private String memberEmail;
 	
-	@ApiModelProperty(value = "ì „í™”ë²ˆí˜¸")
+	@ApiModelProperty(value = "ÀüÈ­¹øÈ£")
 	private String memberPhoneNum;
 	
-	@ApiModelProperty(value = "í”„ë¡œí•„ ì´ë¯¸ì§€ ê²½ë¡œ")
+	@ApiModelProperty(value = "ÇÁ·ÎÇÊ ÀÌ¹ÌÁö °æ·Î")
 	private String memberImgPath;
 	
-	@ApiModelProperty(value = "í”„ë¡œí•„ ì´ë¯¸ì§€ ì›ë³¸ ì´ë¦„")
+	@ApiModelProperty(value = "ÇÁ·ÎÇÊ ÀÌ¹ÌÁö ¿øº» ÀÌ¸§")
 	private String memberImgOriginName;
 	
-	@ApiModelProperty(value = "í”„ë¡œí•„ ì´ë¯¸ì§€ ì„œë²„ ì´ë¦„")
+	@ApiModelProperty(value = "ÇÁ·ÎÇÊ ÀÌ¹ÌÁö ¼­¹ö ÀÌ¸§")
 	private String memberImgServerName;
 	
-	@ApiModelProperty(value = "ë‚´ ì£¼ì†Œ í™œìš© ë™ì˜")
+	@ApiModelProperty(value = "³» ÁÖ¼Ò È°¿ë µ¿ÀÇ")
 	private int memberAddressIsAgree;
 
 	@ApiModelProperty(value = "token")

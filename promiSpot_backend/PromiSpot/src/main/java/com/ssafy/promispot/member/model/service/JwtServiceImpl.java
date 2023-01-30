@@ -25,15 +25,15 @@ import io.jsonwebtoken.SignatureAlgorithm;
 public class JwtServiceImpl implements JwtService {
 	
 	/* 
-	 * AccessToken : ë§¤ë²ˆ ì¸ê°€ë¥¼ ë°›ì„ ë•Œ ì‚¬ìš©í•˜ëŠ” í† í°. (ë³´í†µ ìˆ˜ëª…ì´ ì§§ë‹¤.)
-	 * RefreshToken : AccessTokenì˜ ìˆ˜ëª…ì´ ë‹¤í–ˆì„ ë•Œ AccessTokenì„ ì¬ë°œí–‰ ë°›ê¸° ìœ„í•œ í† í°. (ë³´í†µ 2ì£¼ ì •ë„ë¡œ ê¸°ê°„ì´ ê¸¸ê²Œ ì¡íŒë‹¤.)
-	 * ëˆ„êµ°ê°€ë¥¼ ë¡œê·¸ì•„ì›ƒ ì‹œí‚¤ë ¤ë©´ refreshTokenì„ dbì—ì„œ ì§€ì›Œë²„ë¦¬ë©´ ë˜ëŠ”ë° ê·¸ë˜ë„ accessTokenì˜ ìˆ˜ëª…ë™ì•ˆì€ ë°”ë¡œ ì°¨ë‹¨í•  ë°©ë²•ì´ ì—†ë‹¤.
+	 * AccessToken : ¸Å¹ø ÀÎ°¡¸¦ ¹ŞÀ» ¶§ »ç¿ëÇÏ´Â ÅäÅ«. (º¸Åë ¼ö¸íÀÌ Âª´Ù.)
+	 * RefreshToken : AccessTokenÀÇ ¼ö¸íÀÌ ´ÙÇßÀ» ¶§ AccessTokenÀ» Àç¹ßÇà ¹Ş±â À§ÇÑ ÅäÅ«. (º¸Åë 2ÁÖ Á¤µµ·Î ±â°£ÀÌ ±æ°Ô ÀâÈù´Ù.)
+	 * ´©±º°¡¸¦ ·Î±×¾Æ¿ô ½ÃÅ°·Á¸é refreshTokenÀ» db¿¡¼­ Áö¿ö¹ö¸®¸é µÇ´Âµ¥ ±×·¡µµ accessTokenÀÇ ¼ö¸íµ¿¾ÈÀº ¹Ù·Î Â÷´ÜÇÒ ¹æ¹ıÀÌ ¾ø´Ù.
 	*/
 	public static final Logger logger = LoggerFactory.getLogger(JwtServiceImpl.class);
 	
 	private static final String SALT = "promispotSecret";
-	private static final int ACCESS_TOKEN_EXPIRE_MINUTES = 1; // ë¶„ ë‹¨ìœ„ 
-	private static final int REFRESH_TOKEN_EXPIRE_WEEKS = 2; // ì£¼ ë‹¨ìœ„
+	private static final int ACCESS_TOKEN_EXPIRE_MINUTES = 1; // ºĞ ´ÜÀ§ 
+	private static final int REFRESH_TOKEN_EXPIRE_WEEKS = 2; // ÁÖ ´ÜÀ§
 
 	@Override
 	public <T> String createAccessToken(String key, T data) {
@@ -41,34 +41,34 @@ public class JwtServiceImpl implements JwtService {
 	}//createAccessToken
 
 	@Override
-	public <T> String createRefreshToken(String key, T data) { // AccessTokenì— ë¹„í•´ ìœ íš¨ê¸°ê°„ì„ ê¸¸ê²Œ
+	public <T> String createRefreshToken(String key, T data) { // AccessToken¿¡ ºñÇØ À¯È¿±â°£À» ±æ°Ô
 		return create(key, data, "refresh-token", 1000 * 60 * 60 * 24 * 7 * REFRESH_TOKEN_EXPIRE_WEEKS);
 	}//createRefreshToken
 
 	/*
-	 * key : Claimì— ì…‹íŒ…ë  key ê°’
-	 * data : Claimì— ì…‹íŒ…ë  data ê°’
-	 * subject : payloadì— subì˜ valueë¡œ ë“¤ì–´ê°ˆ subject ê°’
-	 * expire : í† í° ìœ íš¨ê¸°ê°„ ì„¤ì •ì„ ìœ„í•œ ê°’
-	 * jwt í† í°ì˜ êµ¬ì„± : header + payload + signature
+	 * key : Claim¿¡ ¼ÂÆÃµÉ key °ª
+	 * data : Claim¿¡ ¼ÂÆÃµÉ data °ª
+	 * subject : payload¿¡ subÀÇ value·Î µé¾î°¥ subject °ª
+	 * expire : ÅäÅ« À¯È¿±â°£ ¼³Á¤À» À§ÇÑ °ª
+	 * jwt ÅäÅ«ÀÇ ±¸¼º : header + payload + signature
 	 */
 	@Override
 	public <T> String create(String key, T data, String subject, long expire) {
 		String jwt = Jwts.builder()
-				// Header ì„¤ì • : í† í°ì˜ íƒ€ì…, í•´ì‰¬ ì•Œê³ ë¦¬ì¦˜ ì •ë³´ ì„¸íŒ…
+				// Header ¼³Á¤ : ÅäÅ«ÀÇ Å¸ÀÔ, ÇØ½¬ ¾Ë°í¸®Áò Á¤º¸ ¼¼ÆÃ
 					.setHeaderParam("typ", "JWT")
-					.setHeaderParam("regDate", System.currentTimeMillis()) // ìƒì„±ì‹œê°„
-					// payload ì„¤ì • : ìœ íš¨ê¸°ê°„(Expriration), í† í° ì œëª©(Subject), ë°ì´í„°(Claim) ë“± ì •ë³´ ì…‹íŒ…)
-					.setExpiration(new Date(System.currentTimeMillis() + expire)) // í† í° ìœ íš¨ê¸°ê°„
-					.setSubject(subject) // í† í° ì œëª© ì„¤ì • ex) access-token, refresh-token
-					.claim(key, data) // ì €ì¥í•  ë°ì´í„°
-					// Signature ì„¤ì • : secret keyë¥¼ í™œìš©í•œ ì•”í˜¸í™”
+					.setHeaderParam("regDate", System.currentTimeMillis()) // »ı¼º½Ã°£
+					// payload ¼³Á¤ : À¯È¿±â°£(Expriration), ÅäÅ« Á¦¸ñ(Subject), µ¥ÀÌÅÍ(Claim) µî Á¤º¸ ¼ÂÆÃ)
+					.setExpiration(new Date(System.currentTimeMillis() + expire)) // ÅäÅ« À¯È¿±â°£
+					.setSubject(subject) // ÅäÅ« Á¦¸ñ ¼³Á¤ ex) access-token, refresh-token
+					.claim(key, data) // ÀúÀåÇÒ µ¥ÀÌÅÍ
+					// Signature ¼³Á¤ : secret key¸¦ È°¿ëÇÑ ¾ÏÈ£È­
 					.signWith(SignatureAlgorithm.HS256, this.generateKey())
-					.compact(); // ì§ë ¬í™” ì²˜ë¦¬
+					.compact(); // Á÷·ÄÈ­ Ã³¸®
 		return jwt;
 	}//create
 
-	// Signature ì„¤ì •ì— ë“¤ì–´ê°ˆ key ìƒì„±
+	// Signature ¼³Á¤¿¡ µé¾î°¥ key »ı¼º
 	private byte[] generateKey() {
 		byte[] key = null;
 		try {
@@ -108,7 +108,7 @@ public class JwtServiceImpl implements JwtService {
 		return (int) this.get("member").get("memberSeq");
 	}//getMemberId
 
-	// ì „ë‹¬ ë°›ì€ í† í°ì´ ì œëŒ€ë¡œ ìƒì„±ëœê²ƒì¸ì§€ í™•ì¸ í•˜ê³  ë¬¸ì œê°€ ìˆë‹¤ë©´ UnauthorizedExceptionì„ ë°œìƒ.
+	// Àü´Ş ¹ŞÀº ÅäÅ«ÀÌ Á¦´ë·Î »ı¼ºµÈ°ÍÀÎÁö È®ÀÎ ÇÏ°í ¹®Á¦°¡ ÀÖ´Ù¸é UnauthorizedExceptionÀ» ¹ß»ı.
 	@Override
 	public boolean checkToken(String jwt) {
 		try {

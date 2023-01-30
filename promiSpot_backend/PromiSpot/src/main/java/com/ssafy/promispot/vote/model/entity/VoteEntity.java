@@ -5,23 +5,23 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
-@ApiModel(value = "VoteEntity : ì•½ì†ì¥ì†Œíˆ¬í‘œ", description = "ì•½ì†ì¥ì†Œíˆ¬í‘œ")
+@ApiModel(value = "VoteEntity : ¾à¼ÓÀå¼ÒÅõÇ¥", description = "¾à¼ÓÀå¼ÒÅõÇ¥")
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class VoteEntity {
 	
-	@ApiModelProperty(value = "ì•½ì†ì¥ì†Œí›„ë³´ì¼ë ¨ë²ˆí˜¸")
+	@ApiModelProperty(value = "¾à¼ÓÀå¼ÒÈÄº¸ÀÏ·Ã¹øÈ£")
 	private int voteSeq;
 	
-	@ApiModelProperty(value = "ì•½ì†ì¼ë ¨ë²ˆí˜¸")
+	@ApiModelProperty(value = "¾à¼ÓÀÏ·Ã¹øÈ£")
 	private int promiseSeq;
 	
-	@ApiModelProperty(value = "ì¥ì†Œë²ˆí˜¸")
+	@ApiModelProperty(value = "Àå¼Ò¹øÈ£")
 	private String placeId;
 	
-	@ApiModelProperty(value = "íšŒì›ì¼ë ¬ë²ˆí˜¸")
+	@ApiModelProperty(value = "È¸¿øÀÏ·Ä¹øÈ£")
 	private int memberSeq;
 	
-	@ApiModelProperty(value = "ë“í‘œìˆ˜")
+	@ApiModelProperty(value = "µæÇ¥¼ö")
 	private int voteCnt;
 	
 	public VoteEntity() {

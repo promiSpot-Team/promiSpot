@@ -10,23 +10,23 @@ import com.ssafy.promispot.member.model.entity.MemberEntity;
 
 public interface FriendService {
 	
-	// ì¹œêµ¬ ì‹ ì²­
+	// Ä£±¸ ½ÅÃ»
 	public boolean requestFriend(FriendRequestEntity friendRequestEntity) throws SQLException;
 	
-	// ì¹œêµ¬ ì‹ ì²­ ëª©ë¡ ì¡°íšŒ (ë‚˜í•œí…Œ ì˜¨ ì¹œêµ¬ ì‹ ì²­ ë³´ê¸°)
+	// Ä£±¸ ½ÅÃ» ¸ñ·Ï Á¶È¸ (³ªÇÑÅ× ¿Â Ä£±¸ ½ÅÃ» º¸±â)
 	public List<MemberEntity> getRequestFriend(@Param("memberSeq") int memberSeq
 			, @Param("order") int order) throws SQLException;
 	
-	// ì¹œêµ¬ ì‹ ì²­ ìŠ¹ì¸
+	// Ä£±¸ ½ÅÃ» ½ÂÀÎ
 	public boolean approvalFriend(int friendRequestSeq) throws SQLException;
 	
-	// ì¹œêµ¬ ì‹ ì²­ ê±°ì ˆ
+	// Ä£±¸ ½ÅÃ» °ÅÀı
 	public boolean rejectFriend(int friendRequestSeq) throws SQLException;
 	
-	// ì¹œêµ¬ ì •ë³´ ì¡°íšŒ
+	// Ä£±¸ Á¤º¸ Á¶È¸
 	public MemberEntity findFriend(String memberId) throws SQLException;
 	
-	// ì¹œêµ¬ ëª©ë¡ ì¡°íšŒ
+	// Ä£±¸ ¸ñ·Ï Á¶È¸
 	public List<MemberEntity> findFriendList(int memberSeq) throws SQLException;
 
 }//FriendService

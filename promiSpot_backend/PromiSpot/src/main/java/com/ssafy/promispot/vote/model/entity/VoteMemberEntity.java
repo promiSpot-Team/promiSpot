@@ -5,12 +5,12 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
-@ApiModel(value = "VoteMemberEntity : íˆ¬í‘œì", description = "íˆ¬í‘œìë¥¼ ë‚˜íƒ€ë‚´ëŠ” Entityì…ë‹ˆë‹¤")
+@ApiModel(value = "VoteMemberEntity : ÅõÇ¥ÀÚ", description = "ÅõÇ¥ÀÚ¸¦ ³ªÅ¸³»´Â EntityÀÔ´Ï´Ù")
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class VoteMemberEntity {
-	@ApiModelProperty(value = "íšŒì›ì¼ë ¨ë²ˆí˜¸")
+	@ApiModelProperty(value = "È¸¿øÀÏ·Ã¹øÈ£")
 	private int memberSeq;
-	@ApiModelProperty(value = "ì•½ì†ì¥ì†Œí›„ë³´ì¼ë ¨ë²ˆí˜¸")
+	@ApiModelProperty(value = "¾à¼ÓÀå¼ÒÈÄº¸ÀÏ·Ã¹øÈ£")
 	private int voteSeq;
 	
 	

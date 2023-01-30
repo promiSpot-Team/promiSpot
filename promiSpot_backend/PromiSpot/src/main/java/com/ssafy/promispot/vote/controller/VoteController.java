@@ -33,7 +33,7 @@ public class VoteController {
 	VoteService voteService;
 	
 	
-	//ì•½ì† ì¥ì†Œ í›„ë³´ ë“±ë¡
+	//¾à¼Ó Àå¼Ò ÈÄº¸ µî·Ï
 	@PostMapping("insert")
 	public ResponseEntity<?> insertCandidatePlace(@RequestBody VoteEntity voteEntity) {
 		try {
@@ -55,7 +55,7 @@ public class VoteController {
 	
 	
 	
-	//ì•½ì† ì¥ì†Œ í›„ë³´ ê°€ì ¸ì˜¤ê¸°
+	//¾à¼Ó Àå¼Ò ÈÄº¸ °¡Á®¿À±â
 	@GetMapping("get/{voteSeq}")
 	public ResponseEntity<?> getCandidatePlace(@PathVariable("voteSeq") int voteSeq) {
 		try {
@@ -76,7 +76,7 @@ public class VoteController {
 	
 	
 	
-	//ì•½ì† ì¥ì†Œ í›„ë³´ë“¤ ê°€ì ¸ì˜¤ê¸° - í•˜ë‚˜ì˜ ì•½ì†ì— ì†í•œ ëª¨ë“  ì¥ì†Œ í›„ë³´ë“¤
+	//¾à¼Ó Àå¼Ò ÈÄº¸µé °¡Á®¿À±â - ÇÏ³ªÀÇ ¾à¼Ó¿¡ ¼ÓÇÑ ¸ğµç Àå¼Ò ÈÄº¸µé
 	@GetMapping("getList/{promiseSeq}")
 	public ResponseEntity<?> getCandidatePlaceList(@PathVariable("promiseSeq") int promiseSeq) {
 		try {
@@ -101,7 +101,7 @@ public class VoteController {
 	
 	
 	
-	//ì•½ì† ì¥ì†Œ í›„ë³´ ìˆ˜ì •(íˆ¬í‘œ/íˆ¬í‘œì·¨ì†Œ)
+	//¾à¼Ó Àå¼Ò ÈÄº¸ ¼öÁ¤(ÅõÇ¥/ÅõÇ¥Ãë¼Ò)
 	@PutMapping("modify/{voteSeq}")
 	public ResponseEntity<?> modifyCandidatePlace(@PathVariable("voteSeq") int voteSeq) {
 		
@@ -124,7 +124,7 @@ public class VoteController {
 	
 	
 	
-	//ì•½ì† ì¥ì†Œ í›„ë³´ ì‚­ì œ
+	//¾à¼Ó Àå¼Ò ÈÄº¸ »èÁ¦
 	@DeleteMapping("delete/{voteSeq}")
 	public ResponseEntity<?> removeCandidatePlace(@PathVariable("voteSeq") int voteSeq) {
 		
@@ -142,7 +142,7 @@ public class VoteController {
 	}
 	
 	
-	//ì‚¬ìš©ìê°€ í•œ ì•½ì†ì—ì„œ ì´ ì¥ì†Œë¥¼ íˆ¬í‘œí•œ ê±´ì§€ ì•„ë‹Œì§€ ì¡°íšŒ
+	//»ç¿ëÀÚ°¡ ÇÑ ¾à¼Ó¿¡¼­ ÀÌ Àå¼Ò¸¦ ÅõÇ¥ÇÑ °ÇÁö ¾Æ´ÑÁö Á¶È¸
 	@GetMapping("isVoted/{memberSeq}/{voteSeq}")
 	public ResponseEntity<?> getPromiseList(@PathVariable("memberSeq") int memberSeq, @PathVariable("voteSeq") int voteSeq) {
 		try {
@@ -162,7 +162,7 @@ public class VoteController {
 		}
 	}
 	
-	//ì•½ì† ì¥ì†Œ íˆ¬í‘œë²„íŠ¼ ëˆ„ë¥´ë©´ íˆ¬í‘œì í…Œì´ë¸”ì— ì¶”ê°€
+	//¾à¼Ó Àå¼Ò ÅõÇ¥¹öÆ° ´©¸£¸é ÅõÇ¥ÀÚ Å×ÀÌºí¿¡ Ãß°¡
 	@PostMapping("member/insert")
 	public ResponseEntity<?> insertVoter(@RequestBody VoteMemberEntity voteMemberEntity) {
 		try {
@@ -182,7 +182,7 @@ public class VoteController {
 	}
 	
 	
-	//ì•½ì† ì¥ì†Œ íˆ¬í‘œë¥¼ í•´ì œí•˜ë©´ íˆ¬í‘œì í…Œì´ë¸”ì—ì„œ ì‚­ì œ
+	//¾à¼Ó Àå¼Ò ÅõÇ¥¸¦ ÇØÁ¦ÇÏ¸é ÅõÇ¥ÀÚ Å×ÀÌºí¿¡¼­ »èÁ¦
 	@DeleteMapping("delete/{memberSeq}/{voteSeq}")
 	public ResponseEntity<?> removeVoter(@PathVariable("memberSeq") int memberSeq, @PathVariable("voteSeq") int voteSeq) {
 		
@@ -201,7 +201,7 @@ public class VoteController {
 	}
 
 	
-	// ì—ëŸ¬ ì²˜ë¦¬
+	// ¿¡·¯ Ã³¸®
 	private ResponseEntity<String> exceptionHandling(Exception e) {
 		return new ResponseEntity<String>("Error: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
 	}

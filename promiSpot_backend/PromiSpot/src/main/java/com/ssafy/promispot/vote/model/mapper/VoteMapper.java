@@ -14,32 +14,32 @@ import com.ssafy.promispot.vote.model.entity.VoteMemberEntity;
 @Mapper
 public interface VoteMapper {
  
-	//ì•½ì† ì¥ì†Œ í›„ë³´ ë“±ë¡
+	//¾à¼Ó Àå¼Ò ÈÄº¸ µî·Ï
 	public int insertCandidatePlace(VoteEntity voteEntity) throws SQLException;
 	
-	//ì•½ì† ì¥ì†Œ í›„ë³´ ê°€ì ¸ì˜¤ê¸°
+	//¾à¼Ó Àå¼Ò ÈÄº¸ °¡Á®¿À±â
 	public VoteEntity getCandidatePlace(int voteSeq) throws SQLException;
 	
-	//ì•½ì† ì¥ì†Œ í›„ë³´ë“¤ ê°€ì ¸ì˜¤ê¸° - í•˜ë‚˜ì˜ ì•½ì†ì— ì†í•œ ëª¨ë“  ì¥ì†Œ í›„ë³´ë“¤
+	//¾à¼Ó Àå¼Ò ÈÄº¸µé °¡Á®¿À±â - ÇÏ³ªÀÇ ¾à¼Ó¿¡ ¼ÓÇÑ ¸ğµç Àå¼Ò ÈÄº¸µé
 	public List<VoteEntity> getCandidatePlaceList(int promiseSeq) throws SQLException;
 	
-	//ì•½ì† ì¥ì†Œ í›„ë³´ ìˆ˜ì •(íˆ¬í‘œ/íˆ¬í‘œì·¨ì†Œ)
+	//¾à¼Ó Àå¼Ò ÈÄº¸ ¼öÁ¤(ÅõÇ¥/ÅõÇ¥Ãë¼Ò)
 	public int modifyCandidatePlace(int voteSeq) throws SQLException;
 	
-	//ì•½ì† ì¥ì†Œ í›„ë³´ ì‚­ì œ
+	//¾à¼Ó Àå¼Ò ÈÄº¸ »èÁ¦
 	public int removeCandidatePlace(int voteSeq) throws SQLException;
 	
 	
-	//ì‚¬ìš©ìê°€ í•œ ì•½ì†ì—ì„œ ì´ ì¥ì†Œë¥¼ íˆ¬í‘œí•œ ê±´ì§€ ì•„ë‹Œì§€ ì¡°íšŒ
+	//»ç¿ëÀÚ°¡ ÇÑ ¾à¼Ó¿¡¼­ ÀÌ Àå¼Ò¸¦ ÅõÇ¥ÇÑ °ÇÁö ¾Æ´ÑÁö Á¶È¸
 	public int isVoted(@Param("memberSeq") int memberSeq, @Param("voteSeq") int voteSeq) throws SQLException;
 	
-	//ì•½ì† ì¥ì†Œ íˆ¬í‘œë²„íŠ¼ ëˆ„ë¥´ë©´ íˆ¬í‘œì í…Œì´ë¸”ì— ì¶”ê°€
+	//¾à¼Ó Àå¼Ò ÅõÇ¥¹öÆ° ´©¸£¸é ÅõÇ¥ÀÚ Å×ÀÌºí¿¡ Ãß°¡
 	public int insertVoter(VoteMemberEntity voteMemberEntity) throws SQLException;
 	
-	//ì•½ì† ì¥ì†Œ íˆ¬í‘œë¥¼ í•´ì œí•˜ë©´ íˆ¬í‘œì í…Œì´ë¸”ì—ì„œ ì‚­ì œ
+	//¾à¼Ó Àå¼Ò ÅõÇ¥¸¦ ÇØÁ¦ÇÏ¸é ÅõÇ¥ÀÚ Å×ÀÌºí¿¡¼­ »èÁ¦
 	public int removeVoter(@Param("memberSeq") int memberSeq, @Param("voteSeq") int voteSeq) throws SQLException;
 	
-	//'ì•½ì† ì¥ì†Œ í›„ë³´'ë¥¼ ì•„ì˜ˆ ì‚­ì œí•˜ë©´ íˆ¬í‘œìì—ì„œë„ íˆ¬í‘œí–ˆë˜ ì‚¬ëŒë“¤ì„ ë‹¤ ì‚­ì œí•´ì•¼ í•œë‹¤.. ë¼ëŠ” ë¡œì§ì€ ë‚˜ì¤‘ì— ì„œë¹„ìŠ¤ì—ì„œ~
+	//'¾à¼Ó Àå¼Ò ÈÄº¸'¸¦ ¾Æ¿¹ »èÁ¦ÇÏ¸é ÅõÇ¥ÀÚ¿¡¼­µµ ÅõÇ¥Çß´ø »ç¶÷µéÀ» ´Ù »èÁ¦ÇØ¾ß ÇÑ´Ù.. ¶ó´Â ·ÎÁ÷Àº ³ªÁß¿¡ ¼­ºñ½º¿¡¼­~
 	
 
 }
