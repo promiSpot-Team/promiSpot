@@ -18,6 +18,7 @@ import MyPage from "./pages/MyPage/MyPage";
 import Promise from "./pages/Promise/Promise";
 import Privacy from "./pages/Login/Privacy";
 
+
 function App() {
   // const history = useHistory();
   return (

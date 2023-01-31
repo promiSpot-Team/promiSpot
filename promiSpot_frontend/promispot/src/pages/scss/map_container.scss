@@ -1,18 +1,14 @@
 .map-user-profile {
-  width: 50px;
-  height: 50px;
-  border: 5px solid blue;
+  width: 2rem;
+  height: 2rem;
+  border: 0.2rem solid skyblue;
   border-radius: 50%;
   overflow: hidden;
   display: flex;
   justify-content: center;
 
   &:before {
-    content: '■ ';
-    border: 1px solid red;
-    position: absolute;
-    top: 50%;
-    left: 50%;
+    
   }
 
   img {
@@ -120,7 +116,7 @@
   width: 90%;
   height: 40%;
   border: 1px solid gray;
-  border-radius: 5%;
+  border-radius: 15px;
   text-align: center;
   padding: 10px;
   box-sizing: border-box;
