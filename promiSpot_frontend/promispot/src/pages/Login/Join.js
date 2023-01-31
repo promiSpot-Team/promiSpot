@@ -4,20 +4,13 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
 import BasicButton from "../../components/Buttons/BasicButton";
-import WhiteHeader from "../../components/Header/WhiteHeader";
-import {
-  TextField,
-  Input,
-  InputLabel,
-  IconButton,
-  FormControl,
-  FormControlLabel,
-  InputAdornment,
-  Checkbox,
-  FormHelperText,
-} from "@mui/material/";
-import { Visibility, VisibilityOff } from "@mui/icons-material";
-import "../scss/join.scss";
+import WhiteHeader from "../../components/Header/BasicHeader1";
+import InputForm from "../../components/InputForm/InputForm";
+import InputFormRO from "../../components/InputForm/InputFormRO";
+import InputFormPWD from "../../components/InputForm/InputFormPWD";
+
+import {  FormControl,  FormControlLabel,  Checkbox,  FormHelperText } from "@mui/material/";
+import "../scss/Join.scss";
 
 function Join() {
   const [inputId, setInputId] = useState("");
@@ -162,136 +155,41 @@ function Join() {
       <WhiteHeader text="회원가입" />
       <div className="join-content-wrapper">
         <div className="join-input-wrapper">
-          <FormControl sx={{ width: "70%" }} variant="standard">
-            <TextField
-              id="id"
-              label="아이디"
-              placeholder="UserName"
-              multiline
-              variant="standard"
-              fontFamily="Pretendard-Bold"
-              margin="dense"
-            />
-          </FormControl>
-          <FormControl sx={{ width: "70%" }} variant="standard">
-            <TextField
-              id="email"
-              type="email"
-              label="이메일"
-              placeholder="E-mail"
-              multiline
-              variant="standard"
-              fontFamily="Pretendard-Bold"
-              margin="dense"
-              error={emailError !== "" || false}
-            />
-          </FormControl>
-          <FormHelperText>{emailError}</FormHelperText>
-
-          <FormControl sx={{ width: "70%" }} variant="standard" margin="dense">
-            <InputLabel htmlFor="standard-adornment-password">
-              비밀번호
-            </InputLabel>
-            <Input
-              id="password"
-              type={showPassword_1 ? "text" : "password"}
-              placeholder="Password(숫자+영문자+특수문자 8자리 이상)"
-              margin="dense"
-              error={passwordState !== "" || false}
-              endAdornment={
-                <InputAdornment position="end">
-                  <IconButton
-                    aria-label="toggle password visibility"
-                    onClick={handleClickShowPassword_1}
-                    onMouseDown={handleMouseDownPassword_1}
-                  >
-                    {showPassword_1 ? <VisibilityOff /> : <Visibility />}
-                  </IconButton>
-                </InputAdornment>
-              }
-            />
-          </FormControl>
-          <FormHelperText>{passwordState}</FormHelperText>
-          <FormControl sx={{ width: "70%" }} variant="standard" margin="dense">
-            <InputLabel htmlFor="standard-adornment-password">
-              비밀번호 확인
-            </InputLabel>
-            <Input
-              id="rePassword"
-              type={showPassword_2 ? "text" : "password"}
-              placeholder="Password"
-              margin="dense"
-              error={passwordError !== "" || false}
-              endAdornment={
-                <InputAdornment position="end">
-                  <IconButton
-                    aria-label="toggle password visibility"
-                    onClick={handleClickShowPassword_2}
-                    onMouseDown={handleMouseDownPassword_2}
-                  >
-                    {showPassword_2 ? <VisibilityOff /> : <Visibility />}
-                  </IconButton>
-                </InputAdornment>
-              }
-            />
-          </FormControl>
-          <FormHelperText>{passwordError}</FormHelperText>
-          <FormControl sx={{ width: "70%" }} variant="standard">
-            <TextField
-              id="name"
-              label="이름"
-              placeholder="Name"
-              multiline
-              variant="standard"
-              fontFamily="Pretendard-Bold"
-              margin="dense"
-              error={nameError !== "" || false}
-            />
-          </FormControl>
-          <FormHelperText>{nameError}</FormHelperText>
-          <FormControl sx={{ width: "70%" }} variant="standard">
-            <TextField
-              id="nickName"
-              label="닉네임"
-              placeholder="NickName"
-              multiline
-              variant="standard"
-              fontFamily="Pretendard-Bold"
-              margin="dense"
-            />
-          </FormControl>
-          <FormControl sx={{ width: "70%" }} variant="standard">
-            <TextField
-              id="address"
-              label="주소"
-              placeholder="Address"
-              multiline
-              variant="standard"
-              fontFamily="Pretendard-Bold"
-              margin="dense"
-              InputProps={{
-                readOnly: true,
-              }}
-            />
-          </FormControl>
-          <FormControl sx={{ width: "70%" }} variant="standard">
-            <TextField
-              id="phoneNumber"
-              label="전화번호"
-              placeholder="Phone Number"
-              multiline
-              variant="standard"
-              fontFamily="Pretendard-Bold"
-              margin="dense"
-            />
-          </FormControl>
+      <FormControl sx={{ width: "70%" }} variant="standard">
+        <InputForm id="id" label="아이디" placeholder="UserName"/>
+      </FormControl>
+      <FormControl sx={{ width: "70%" }} variant="standard">
+        <InputForm id="email" label="이메일" placeholder="E-mail" type="email"/>
+      </FormControl>
+      <FormControl sx={{ width: "70%" }} variant="standard" margin="dense">
+        <InputFormPWD id="password" label="비밀번호" placeholder="Password"/>
+      </FormControl>
+      <FormControl sx={{ width: "70%" }} variant="standard" margin="dense">
+        <InputFormPWD id="rePassword" label="비밀번호 확인" placeholder="Rewrite Password"/>
+      </FormControl>
+      <FormControl sx={{ width: "70%" }} variant="standard">
+        <InputForm id="name" label="이름" placeholder="Name"/>
+      </FormControl>
+      <FormControl sx={{ width: "70%" }} variant="standard">
+        <InputForm id="nickName" label="닉네임" placeholder="NickName"/>
+      </FormControl>
+      <FormControl sx={{ width: "70%" }} variant="standard">
+        <InputForm id="phoneNumber" label="전화번호" placeholder="Phone Number"/>
+      </FormControl>
+      <FormControl sx={{ width: "70%" }} variant="standard" margin="normal">
+        <Link to = {"/address"} className="link">
+        <InputFormRO id="Address" label="주소" defaultvalue="아직 등록된 주소가 없습니다"/></Link>
+      </FormControl>
           <div className="join-inputs">
-            <FormControlLabel
-              control={<Checkbox onChange={handleAgree} color="primary" />}
-              label="개인 정보 수집 및 이용 약관 동의"
-              margin="dense"
-            />
+              <FormControlLabel
+                control={<Checkbox onChange={handleAgree} color="primary" />}
+                label="개인정보 수집 이용약관 동의"
+                margin="normal"
+              />
+            
           </div>
+            {/* <Link to = {"/privacy"} className="link">
+            약관</Link> */}
         </div>
         <div className="join-btn-wrapper">
           <div className="join-btn">

@@ -1,8 +1,8 @@
-.white-header-wrapper {
+.basic-header-1-wrapper {
   width: 100%;
   height: 10vh;
 
-  .white-header-vector-wrapper {
+  .basic-header-1-vector-wrapper {
     position: absolute;
     display: flex;
     height: 10vh;
@@ -10,7 +10,7 @@
     margin-left: 20px;
   }
 
-  .white-header-text-wrapper {
+  .basic-header-1-text-wrapper {
     width: 100%;
     display: flex;
     align-items: center;
@@ -19,6 +19,6 @@
     font-family: "Pretendard-Bold";
     font-style: normal;
     font-weight: 800;
-    font-size: 25px;
+    font-size: 2em;
   }
 }

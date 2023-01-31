@@ -1,17 +1,14 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import axios from "axios";
 import BasicButton from "../../components/Buttons/BasicButton";
-import WhiteHeader from "../../components/Header/WhiteHeader";
-import TextField from "@mui/material/TextField";
-import Input from "@mui/material/Input";
-import InputLabel from "@mui/material/InputLabel";
-import IconButton from "@mui/material/IconButton";
-import FormControl from "@mui/material/FormControl";
-import InputAdornment from "@mui/material/InputAdornment";
-import Visibility from "@mui/icons-material/Visibility";
-import VisibilityOff from "@mui/icons-material/VisibilityOff";
-import "../scss/login.scss";
+import WhiteHeader from "../../components/Header/BasicHeader1";
+import InputForm from "../../components/InputForm/InputForm";
+import InputFormRO from "../../components/InputForm/InputFormRO";
+import InputFormPWD from "../../components/InputForm/InputFormPWD";
+
+import {  FormControl,  FormControlLabel,  Checkbox,  FormHelperText } from "@mui/material/";
+import "../scss/Login.scss";
 
 function Login() {
   const [inputId, setInputId] = useState("");
@@ -63,66 +60,20 @@ function Login() {
       <WhiteHeader text="로그인" />
       <div className="login-content-wrapper">
         <div className="login-input-wrapper">
-          {/* <form onSubmit={LoginFunc}> */}
-          {/* <label htmlFor="input_id">아이디</label>
-          <input
-            className="login-inputs"
-            type="text"
-            name="input_id"
-            value={inputId}
-            onChange={handleInputId}
-          /> */}
           <FormControl
-            sx={{ m: 1, width: "70%" }}
+            sx={{ width: "70%" }}
             variant="standard"
-            margin="dense"
           >
-            <TextField
-              id="standard-textarea"
-              label="아이디"
-              placeholder="UserName"
-              multiline
-              variant="standard"
-              fontFamily="Pretendard-Bold"
-              margin="dense"
-            />
+            <InputForm id="id" label="아이디" placeholder="UserName"/>
           </FormControl>
-          {/* <label htmlFor="input_pw">비밀번호</label>
-          <input
-            className="login-inputs"
-            type="password"
-            name="input_pw"
-            value={inputPw}
-            onChange={handleInputPw}
-          /> */}
 
           <FormControl
-            sx={{ m: 1, width: "70%" }}
+            sx={{ width: "70%" }}
             variant="standard"
             margin="dense"
           >
-            <InputLabel htmlFor="standard-adornment-password">
-              비밀번호
-            </InputLabel>
-            <Input
-              id="standard-adornment-password"
-              type={showPassword ? "text" : "password"}
-              placeholder="Password"
-              margin="dense"
-              endAdornment={
-                <InputAdornment position="end">
-                  <IconButton
-                    aria-label="toggle password visibility"
-                    onClick={handleClickShowPassword}
-                    onMouseDown={handleMouseDownPassword}
-                  >
-                    {showPassword ? <VisibilityOff /> : <Visibility />}
-                  </IconButton>
-                </InputAdornment>
-              }
-            />
+          < InputFormPWD id="password" label="비밀번호" placeholder="Password"/>
           </FormControl>
-          {/* </form> */}
         </div>
         <div className="login-btn-wrapper">
           <div className="login-btn">
