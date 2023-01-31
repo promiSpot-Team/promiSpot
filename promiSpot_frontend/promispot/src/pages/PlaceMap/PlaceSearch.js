@@ -25,7 +25,7 @@ export default function PlaceSearch() {
     // }
   })
 
-  console.log('response', response)
+  
   return (
     <motion.div
       className='place-modal-wrapper'
