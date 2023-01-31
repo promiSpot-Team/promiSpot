@@ -1,6 +1,5 @@
 import React from 'react';
 import { useNavigate } from "react-router-dom";
-import Back from '../Icon/Back';
 import "./BasicHeader2.scss";
 
 export default function LeftHeader(props) {

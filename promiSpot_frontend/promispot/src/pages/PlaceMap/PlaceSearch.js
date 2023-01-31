@@ -1,7 +1,7 @@
 import React, { useState, useEffect }from 'react'
 import { motion } from "framer-motion"
-import '../scss/map_container.scss'
-import '../scss/search_bar.scss'
+import '../scss/Map_Container.scss'
+import '../scss/Search_Bar.scss'
 import useAxios from '../../hooks/useAxios'
 import SearchBar from '../../components/Search/SearchBar'
 

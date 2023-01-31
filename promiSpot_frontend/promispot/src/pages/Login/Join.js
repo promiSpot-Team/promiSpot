@@ -183,7 +183,7 @@ function Join() {
           <div className="join-inputs">
               <FormControlLabel
                 control={<Checkbox onChange={handleAgree} color="primary" />}
-                label="개인정보 수집 이용약관 동의"
+                label="개인 정보 수집 및 이용 약관 동의"
                 margin="normal"
               />
             
