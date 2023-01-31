@@ -2,10 +2,10 @@ import React, { useState } from 'react'
 import FormControl from "@mui/material/FormControl";
 import TextField from "@mui/material/TextField";
 import BasicButton from "../../components/Buttons/BasicButton";
-import WhiteHeader from '../../components/Header/WhiteHeader';
+import WhiteHeader from '../../components/Header/BasicHeader1';
 import axios from "axios";
-import '../scss/search_bar.scss'
-import '../scss/address.scss'
+import '../scss/Search_Bar.scss'
+import '../scss/Address.scss'
 
 export default function AddressSearch() {
   const [addressQeury, setAddress] = useState("");

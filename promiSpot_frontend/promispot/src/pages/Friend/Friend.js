@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link, Outlet } from 'react-router-dom'
 
-export default function () {
+export default function Friend () {
   return (
     <div>
       <h1>친구 목록</h1>
@@ -9,5 +9,5 @@ export default function () {
       <hr></hr>
       <Outlet />
     </div>
-  )
+  );
 }

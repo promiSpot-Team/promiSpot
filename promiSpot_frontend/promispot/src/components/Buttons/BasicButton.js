@@ -1,14 +1,14 @@
-import react from "react";
+import React from "react";
 import "./BasicButton.scss";
 
-const BasicButton = (props) => {
+export default function BasicButton(props) {
+
   const { text, onClick } = props;
 
   return (
-    <button className="basicButton-wrapper" onClick={onClick}>
+    // 버튼 : 이름(상위에서 받는 걸로 설정), click
+    <button className="basicButton" onClick={onClick}>
       {text}
     </button>
   );
 };
-
-export default BasicButton;
