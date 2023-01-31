@@ -14,6 +14,21 @@ public class ChatMessage {
 	private String message; // 메시지 
 	
 	
+	
+	
+	public ChatMessage() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+	
+	public ChatMessage(MessageType type, String roomId, String sender, String message) {
+		super();
+		this.type = type;
+		this.roomId = roomId;
+		this.sender = sender;
+		this.message = message;
+	}
+
 	public MessageType getType() {
 		return type;
 	}

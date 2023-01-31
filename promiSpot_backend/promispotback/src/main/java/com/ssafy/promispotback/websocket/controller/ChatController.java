@@ -11,7 +11,7 @@ import lombok.RequiredArgsConstructor;
 
 /*
 @RequiredArgsConstructor 생성자 주입해주는 롬복 
-final이 붙ㅌ거나 @NotNull 이 붙은 필드의 생성자를 자동 생성해주는 롬복 어노테이션 입니다. 
+final이 붙거나 @NotNull 이 붙은 필드의 생성자를 자동 생성해주는 롬복 어노테이션 입니다. 
 */
 
 @RequiredArgsConstructor
@@ -19,13 +19,14 @@ final이 붙ㅌ거나 @NotNull 이 붙은 필드의 생성자를 자동 생성�
 public class ChatController {
 	
 	// private final 
-	SimpMessageSendingOperations messagingTemplate;
+	private final SimpMessageSendingOperations sendingOperations;
 	
-	@MessageMapping("/chat/message")
-	public void message(ChatMessage message) {
-		if(ChatMessage.MessageType.ENTER.equals(message.getType()))
-			message.setMessage(message.getSender() + "님이 입장하셨습니다.");
-		messagingTemplate.convertAndSend("/sub/chat/room" + message.getRoomId(), message);
-	}
+  @MessageMapping("/chat/message")
+    public void enter(ChatMessage message) {
+        if (ChatMessage.MessageType.ENTER.equals(message.getType())) {
+            message.setMessage(message.getSender()+"님이 입장하였습니다.");
+        }
+        sendingOperations.convertAndSend("/topic/chat/room/"+message.getRoomId(),message);
+  	}
 
 }
