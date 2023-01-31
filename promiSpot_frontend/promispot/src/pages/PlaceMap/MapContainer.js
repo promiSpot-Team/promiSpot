@@ -1,7 +1,7 @@
 import { React, useEffect, useState } from "react";
 import { Link, Outlet } from 'react-router-dom';
 import { motion, Variants } from "framer-motion";
-import "../scss/map_container.scss";
+import "../scss/Map_Container.scss";
 import mapdata from '../mapdata.json'
 
 const { kakao } = window;

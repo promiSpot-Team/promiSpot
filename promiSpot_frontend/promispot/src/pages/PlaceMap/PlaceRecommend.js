@@ -1,5 +1,5 @@
 import React from 'react'
-import '../scss/map_container.scss'
+import '../scss/Map_Container.scss'
 import { motion } from 'framer-motion'
 
 export default function PlaceRecommend() {
