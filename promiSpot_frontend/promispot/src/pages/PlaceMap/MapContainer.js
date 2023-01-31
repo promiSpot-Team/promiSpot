@@ -34,7 +34,6 @@ export default function MapContainer() {
 
     // 커스텀 오버레이 (마커 모양)
     mapdata.places.forEach((place) => {
-      console.log(place.place_x)
       var customOverlay = new kakao.maps.CustomOverlay({
         position: new kakao.maps.LatLng(place.place_y, place.place_x),
         content: `<div class="pin"></div><div class="pulse"></div>`,
