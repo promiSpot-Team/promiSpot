@@ -1,6 +1,6 @@
-$navbar-height: 75px;
+$navbar-height: 5em;
 $circle-radius: 80px;
-$backgroundColor: rgb(253, 192, 223);
+// $backgroundColor: rgb(253, 192, 223);
 
 html,
 body {
@@ -16,25 +16,28 @@ body {
 
 .wrapper {
   height: 100%;
+  width: 100%;
   display: flex;
   justify-content: center;
   align-items: flex-end;
   position:fixed;
   bottom:0px;
-  background-color: $backgroundColor;
+  // background-color: $backgroundColor;
 }
 
 .navbar {
   position: bottom;
   height: $navbar-height;
-  min-width: 400px;
+  min-width: 390px;
+  width: 100%;
   padding-left: 35px;
   padding-right: 35px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-radius: 25px;
-  background-color: white;
+  border-top-left-radius: 25px;
+  border-top-right-radius: 25px;
+  background-color: rgb(93, 70, 145);
   box-shadow: 0 10px 20px rgba(82, 74, 74, 0.3);
 }
 
@@ -64,9 +67,9 @@ body {
   justify-content: center;
   align-items: center;
   overflow: hidden;
-  background-color: rgb(255, 94, 0);
+  background-color: rgb(179, 131, 194);
   z-index: 9;
-  box-shadow: 0 5px 5px rgba(255, 147, 85, 0.35);
+  box-shadow: 0 5px 5px rgba(189, 138, 209, 0.35);
   transition: height 0.3s;
 }
 
@@ -142,7 +145,7 @@ body {
   height: calc(#{$circle-radius} + 20px);
   width: calc(#{$circle-radius} + 20px);
   border-radius: calc(#{$circle-radius + 20} / 2);
-  background-color: $backgroundColor;
+  // background-color: $backgroundColor;
 }
 
 .icon-home,
