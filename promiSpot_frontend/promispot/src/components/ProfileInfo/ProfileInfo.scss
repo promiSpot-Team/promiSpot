@@ -1,0 +1,36 @@
+.profile-info-wrapper {
+  width: 100%;
+  height: 5vh;
+  display: flex;
+  margin-top: 0.5vh;
+  margin-bottom: 0.5vh;
+
+  .profile-info-img-wrapper {
+    display: flex;
+    // width: 5%;
+    // height: 5%;
+    border-radius: 70%;
+    overflow: hidden;
+    margin-right: 2vh;
+    border: 0.3vh outset rgba(156, 122, 219, 0.67);
+  }
+
+  .profile-info-name-wrapper {
+    display: grid;
+
+    .profile-info-nickname-wrapper {
+      display: grid;
+      font-weight: 900;
+    }
+    .profile-info-id-wrapper {
+      display: grid;
+    }
+  }
+
+  .profile-info-icon-wrapper {
+    display: grid;
+    margin-left: auto;
+    margin-right: 3vh;
+    align-items: center;
+  }
+}

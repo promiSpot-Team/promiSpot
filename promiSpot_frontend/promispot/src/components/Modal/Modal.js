@@ -5,7 +5,6 @@ export default function Modal(props) {
 
   function closeModal() {
     props.closeModal();
-    console.log("hello");
   }
 
   return (

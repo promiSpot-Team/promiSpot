@@ -1,6 +1,6 @@
 import React from 'react'
 import {  TextField} from "@mui/material/";
-import './InputForm.scss';
+import './InputForm.module.scss';
 
 export default function InputForm(props) {
 

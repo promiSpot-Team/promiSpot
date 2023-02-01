@@ -7,7 +7,12 @@ import InputForm from "../../components/InputForm/InputForm";
 import InputFormRO from "../../components/InputForm/InputFormRO";
 import InputFormPWD from "../../components/InputForm/InputFormPWD";
 
-import {  FormControl,  FormControlLabel,  Checkbox,  FormHelperText } from "@mui/material/";
+import {
+  FormControl,
+  FormControlLabel,
+  Checkbox,
+  FormHelperText,
+} from "@mui/material/";
 import "../scss/Login.scss";
 
 function Login() {
@@ -60,19 +65,16 @@ function Login() {
       <WhiteHeader text="로그인" />
       <div className="login-content-wrapper">
         <div className="login-input-wrapper">
-          <FormControl
-            sx={{ width: "70%" }}
-            variant="standard"
-          >
-            <InputForm id="id" label="아이디" placeholder="UserName"/>
+          <FormControl sx={{ width: "70%" }} variant="standard">
+            <InputForm id="id" label="아이디" placeholder="UserName" />
           </FormControl>
 
-          <FormControl
-            sx={{ width: "70%" }}
-            variant="standard"
-            margin="dense"
-          >
-          < InputFormPWD id="password" label="비밀번호" placeholder="Password"/>
+          <FormControl sx={{ width: "70%" }} variant="standard" margin="dense">
+            <InputFormPWD
+              id="password"
+              label="비밀번호"
+              placeholder="Password"
+            />
           </FormControl>
         </div>
         <div className="login-btn-wrapper">
