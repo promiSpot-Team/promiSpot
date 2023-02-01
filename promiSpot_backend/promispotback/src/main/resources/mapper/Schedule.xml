@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ssafy.promispotback.schedule.model.mapper.ScheduleMapper">
+
+
+	<!-- 스케듈 생성  -->
+	<insert id="createSchedule" parameterType="ScheduleEntity">
+		insert into schedules
+		values(#{scheduleSeq}, #{promiseSeq}, #{placeId}, #{scheduleProcedure}, #{schedulePlaceIsFinish})	
+	</insert>
+	
+	<!-- 스케듈 하나 조회  -->
+	<select id="getSchedule" parameterType="int" resultType="ScheduleEntity"> 
+		select * from schedules where schedule_seq = #{scheduleSeq}
+	</select>
+	
+	<!-- 약속에 해당하는 스케쥴 전체 조회  -->
+	<select id="getScheduleList" parameterType="int" resultType="ScheduleEntity"> 
+		select * from schedules where promise_seq = #{promiseSeq}
+	</select>
+	
+	
+	
+	
+	<!-- 스케듈 변경  -->
+	<update id="modifySchedule" parameterType="ScheduleEntity">
+		update schedules
+		<trim prefix="set" suffixOverrides=",">
+			<if test="scheduleProcedure != null">schedule_procedure = #{scheduleProcedure},</if>
+			<if test="name != null">schedule_place_is_finish = #{schedulePlaceIsFinish},</if>
+		</trim>
+		where schedule_seq = #{scheduleSeq}
+	</update>
+
+	<!-- 스케듈 삭제 -->
+	<delete id="removeSchedule" parameterType="int">
+		delete from schedules
+		where schedule_seq = #{scheduleSeq}
+	</delete>
+
+
+</mapper>

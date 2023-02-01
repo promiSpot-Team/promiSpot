@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ssafy.promispotback.promise.model.mapper.PromiseMemberMapper">
+
+
+	<!-- 약속 참여자 등록 -->
+	<insert id="registPromiseMember" parameterType="PromiseMemberEntity">
+		insert into promises_members(promise_seq, member_seq, promise_memeber_is_leader)
+		values(#{promiseSeq}, #{memberSeq}, #{promiseMemberIsLeader})
+	</insert>
+
+
+
+	<!-- 약속 참여자 한 명 조회 -->
+	<select id="getPromiseMember"  resultType="PromiseMemberEntity"> 
+		select * from promises_members where promise_seq = #{promiseSeq} and member_seq = #{memberSeq}
+	</select>
+	
+
+
+
+	<!-- 약속 참여자 전체 조회 -->
+	<select id="getPromiseMemberList" parameterType="int" resultType="PromiseMemberEntity"> 
+		select * from promises_members where promise_seq = #{promiseSeq}
+	</select>
+	
+	
+	
+	<!-- 약속장 변경 -->
+	<update id="modifyPromiseMemberLeader">
+		update promises_members set `promise_member_is_leader` = if(`promise_member_is_leader` = 1, 0 , 1) 
+		where promise_seq = #{promiseSeq} and member_seq = #{memberSeq};
+	</update>
+	
+
+	<!-- 약속 참여자 삭제 -->
+	<delete id="removePromiseMember">
+		delete from promises_members
+		where promise_seq = #{promiseSeq} and member_seq = #{memberSeq}
+	</delete>
+
+
+
+
+
+</mapper>
