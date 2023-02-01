@@ -16,7 +16,9 @@
   "users": [
     {
       "user_id": 1, 
-      "profile_url": "https://cdn.lorem.space/images/face/.cache/150x150/nrd-ZmmAnliy1d4-unsplash.jpg"
+      "profile_url": "https://cdn.lorem.space/images/face/.cache/150x150/nrd-ZmmAnliy1d4-unsplash.jpg",
+      "place_x": 127.0374,
+      "place_y": 37.4999
     }
   ]
 }

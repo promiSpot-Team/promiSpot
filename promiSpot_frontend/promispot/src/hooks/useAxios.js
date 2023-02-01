@@ -9,7 +9,7 @@ export const useAxios = () => {
     const [loading, setLoading] = useState(false);
 
     const operation = async(params) => {
-        console.log('params', params)
+        console.log('useAxios', params)
         try {
             setLoading(true)
             const result = await axios.request(params);

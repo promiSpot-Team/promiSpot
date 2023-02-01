@@ -1,19 +1,33 @@
-import React, { useState  }from 'react'
+import React, { useState }from 'react'
+import { useLocation } from 'react-router-dom'
 import { motion } from "framer-motion"
+import { KAKAO_MAP_URL, KAKAO_REST_API_KEY } from '../../constans/kakaomap'
+import SearchBar from '../../components/Search/SearchBar'
 import '../scss/Map_Container.scss'
 import '../scss/Search_Bar.scss'
-import SearchBar from '../../components/Search/SearchBar'
 
 export default function PlaceSearch() {
-  const [{ response, loading, error }, setData] = useState([])
+  const [placeList, setPlaceList] = useState([])
 
   const GetAxiosResponse = (data) => {
-    console.log('data1', data)
-    setData(data)
-    console.log('data2', )
+    if (data?.response?.documents) {
+      setPlaceList(data.response.documents)
+    }
   }
   
-  console.log(response)
+  const config = {
+    method: 'GET', 
+    baseURL: `${KAKAO_MAP_URL}/v2/local/search/keyword`,
+    headers: {
+      // Host: `${KAKAO_MAP_HOST}`,
+      Authorization: `KakaoAK ${KAKAO_REST_API_KEY}`
+    },
+    params: {
+      size: 3,
+      rect: '58, 125, 61, 125'
+    }
+  }
+
   return (
     <motion.div
       className='place-modal-wrapper'
@@ -26,15 +40,17 @@ export default function PlaceSearch() {
       }}
     >
       <h2>장소 검색</h2>
-      <SearchBar GetAxiosResponse={GetAxiosResponse} />
+      <SearchBar GetAxiosResponse={GetAxiosResponse} config={config}/>
+      <div>
+        {placeList.map((place, index) => {
+          return (
+            <div key={index}>{place.place_name}</div>
+          )
+        })}
+      </div>
       {/* <form className='search-bar-wrapper'>
         <input type="text" className='search-bar' placeholder='검색어를 입력하세요...'/>
       </form> */}
-      <div>
-        {/* {
-          loading ? <p>...loading</p> : <p>{response.title}</p>
-        } */}
-      </div>
     </motion.div>
   )
 }

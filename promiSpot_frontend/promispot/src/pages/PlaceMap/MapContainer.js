@@ -7,62 +7,46 @@ import mapdata from '../mapdata.json'
 const { kakao } = window;
 
 export default function MapContainer() {
-  
+  const [map, setMap] = useState(null);
+
+  // 페이지 불러올 때 한 번만 지도 그리기
   useEffect(() => {
     mapscript();
   }, []);
+  
+  // 마커나 프로필이 추가됐을 때 
+  useEffect(() => {
+    console.log('sdf')
+  }, [mapdata]);
+
 
   // 지도 그리기
   const mapscript = () => {
     const container = document.getElementById("map");
     const options = {
       center: new kakao.maps.LatLng(37.5013, 127.0397),
-      level: 1,
+      level: 2,
     };
-    const map = new kakao.maps.Map(container, options);
 
-    mapdata.users.forEach((user) => {
-      var customOverlay = new kakao.maps.CustomOverlay({
-        position: new kakao.maps.LatLng(37.5013, 127.0399),
-        content: `<div class="map-user-profile"><img src=${user.profile_url}></div>`,
-        xAnchor: 0.3,
-        yAnnchor: 0.91
-      })
-
-      customOverlay.setMap(map);
+    var map = new kakao.maps.Map(container, options)
+    setMap(map)
+  }
+   
+  // 지도가 그려진 후에 'dragend' 이벤트 인식
+  if (map !== null) {
+    kakao.maps.event.addListener(map, 'dragend', function(){
+      console.log(map.getCenter(), map.getBounds().toString())
+      // setBounds(map.getBounds().toString())
     })
-
-    // 커스텀 오버레이 (마커 모양)
-    mapdata.places.forEach((place) => {
-      var customOverlay = new kakao.maps.CustomOverlay({
-        position: new kakao.maps.LatLng(place.place_y, place.place_x),
-        content: `<div class="pin"></div><div class="pulse"></div>`,
-        xAnchor: 0.3,
-        yAnchor: 0.91,
-      });
-
-      customOverlay.setMap(map);
-
-    //   // 마커 그리기
-    //   // const marker = new kakao.maps.Marker({
-    //   //   map: map,
-    //   //   clickable: true,
-    //   //   position: new kakao.maps.LatLng(place.place_y, place.place_x),
-    //   //   placeName: place.place_name
-    //   // })
-
-    //   // kakao.maps.event.addListener(marker, 'click', () => {
-    //   //   console.log('click!')
-    //   // })
-    });
-  };
+  }
+  
   return (
     <>
       <div
         id="map"
         className="map-wrapper"
       >
-        <Link to='/map/search'>
+        <Link to='/map/search' state={{  }}>
           <button style={{
             position: "absolute",
             zIndex: 999,
