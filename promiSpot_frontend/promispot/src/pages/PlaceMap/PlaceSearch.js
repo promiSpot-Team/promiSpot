@@ -1,31 +1,19 @@
-import React, { useState, useEffect }from 'react'
+import React, { useState  }from 'react'
 import { motion } from "framer-motion"
 import '../scss/Map_Container.scss'
 import '../scss/Search_Bar.scss'
-import useAxios from '../../hooks/useAxios'
 import SearchBar from '../../components/Search/SearchBar'
 
 export default function PlaceSearch() {
-  const [query, setQuery] = useState('')
+  const [{ response, loading, error }, setData] = useState([])
 
-  const changeQuery = (value) => {
-    setQuery(value)
+  const GetAxiosResponse = (data) => {
+    console.log('data1', data)
+    setData(data)
+    console.log('data2', )
   }
-
-  const { response, loading, error, refetch } = useAxios({
-    method: 'GET', 
-    url: 'https://api.thecatapi.com/v1/images/search',
-    // headers: {
-    //   accepts: '*/*',
-    // },
-    // data: {
-    //   userId: 1,
-    //   title: query,
-    //   body: 'body is...'
-    // }
-  })
-
   
+  console.log(response)
   return (
     <motion.div
       className='place-modal-wrapper'
@@ -38,14 +26,14 @@ export default function PlaceSearch() {
       }}
     >
       <h2>장소 검색</h2>
-      <SearchBar changeQuery={changeQuery}/>
+      <SearchBar GetAxiosResponse={GetAxiosResponse} />
       {/* <form className='search-bar-wrapper'>
         <input type="text" className='search-bar' placeholder='검색어를 입력하세요...'/>
       </form> */}
       <div>
-        {
+        {/* {
           loading ? <p>...loading</p> : <p>{response.title}</p>
-        }
+        } */}
       </div>
     </motion.div>
   )

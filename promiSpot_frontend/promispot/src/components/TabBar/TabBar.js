@@ -17,7 +17,10 @@ export default function TabBar(props) {
   return (
     <>    <div className="Main">
 
-    <input type="button" value="회원가입" className="blueBtn" onClick={() => setModalOpen(!modalOpen)}/>
+    <input type="button" value="회원가입" className="blueBtn" onClick={() => setModalOpen(true)} style={{
+      position: 'absolute', 
+      zIndex: '1000',
+    }}/>
     {modalOpen && (<Modal closeModal={() => setModalOpen(!modalOpen)}><Calendar/></Modal>
     )}
   </div>
