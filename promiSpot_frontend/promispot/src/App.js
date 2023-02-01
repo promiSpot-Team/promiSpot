@@ -41,7 +41,7 @@ function App() {
       </Route>
       <Route path="/tabBar" element={<TabBar />} />
       <Route path="/tabBar2" element={<TabBar2 />} />
-      <Route path="/promiselist" element={<PromiseList/>}/>
+      {/* <Route path="/promiselist" element={<PromiseList/>}/> */}
       <Route path="/promise" element={<Promise/>}/>
       {/* 임시 */}
       <Route path="/calendar" element={<PromiseCalendar />}/>
