@@ -4,70 +4,30 @@ import TextField from "@mui/material/TextField";
 import BasicButton from "../../components/Buttons/BasicButton";
 import WhiteHeader from '../../components/Header/BasicHeader1';
 import SearchBar from '../../components/Search/SearchBar';
-import axios from "axios";
+import { KAKAO_MAP_URL, KAKAO_REST_API_KEY } from '../../constans/kakaomap'
 import '../scss/Search_Bar.scss'
 import '../scss/Address.scss'
 
 export default function AddressSearch() {
   const [addressList, setAddressList] = useState([]);
-  const [modalOpen, setModalOpen] = useState(false);
 
   const GetAxiosResponse = (data) => {
-    // if (data.response.documents.length !== 0) {
-    // }
-    // setAddressList(data.response.documents)
-    console.log('addressList', addressList)
-  }
-
-  const showModal = () => {
-    setModalOpen(true);
+    if (data?.response?.documents) {
+      setAddressList(data.response.documents)
+    }
   }
 
   const config = {
     method: 'GET', 
+    baseURL: `${KAKAO_MAP_URL}/v2/local/search/address`,
     headers: {
-      Authorization: `KakaoAK 64bbe2063e9e0b314a6060be44144a26`
+      // Host: `${KAKAO_MAP_HOST}`,
+      Authorization: `KakaoAK ${KAKAO_REST_API_KEY}`
     },
   }
 
-  // function getAddressResult() {
-  //   getAddress();
-  //   async function getAddress() {
-  //     try{
-  //       const response = await axios.get(`https://dapi.kakao.com/v2/local/search/address.json?query=${addressQeury}`, {
-  //         headers: {Authorization: `KakaoAK 64bbe2063e9e0b314a6060be44144a26`},
-  //       })
-  //       const newAdressList = response.data.documents.map((address) => {
-  //         return {
-  //           address_name: address.address_name
-  //         }
-  //       })
-  //       setAddressList(newAdressList)
-  //     }
-  //     catch {
-  //       console.log('에러뜸')
-  //     }
-  //   }
-  // }
-  // const onChange = (e) => {
-  //   e.preventDefault()
-  //   setAddress(e.target.value);
-  // }
-
-  // const onSubmit = (e) => {
-  //   e.preventDefault()
-  //   getAddressResult()
-  // }
-
   return (
     <div>
-      {/* {addressList.map((address, index) => {
-        return (
-          <div key={index}>
-            <h2>name: {address.address_name}</h2>
-          </div>
-        )
-      })} */}
       <WhiteHeader text="주소 검색"/>
       {/* <div className="search-bar-wrapper" style={{
         textAlign: 'center',
@@ -85,16 +45,7 @@ export default function AddressSearch() {
         <p>검색 결과</p>
       </div>
       <hr />
-      <button onClick={() => setModalOpen(true)}>모달</button>
-      {modalOpen && <div style={{ width: '50px', height: '50px', border: '1px solid black'}}>12314</div>}
-      <div>
-        {addressList.map((address, index) => {
-          return (
-            <div key={index}>{address.address_name}</div>
-          )
-        })}
-      </div>
-      {/* <ul className='address-result-ul'>
+      <ul className='address-result-ul'>
         {addressList.map((address, inx) => {
           return (
             <li className='address-result-li'>
@@ -107,7 +58,7 @@ export default function AddressSearch() {
             </li>
           )
         })}
-      </ul> */}
+      </ul>
       
     </div>
   )

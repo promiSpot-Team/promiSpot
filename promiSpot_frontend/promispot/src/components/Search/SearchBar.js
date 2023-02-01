@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
-import "./SearchBar.scss";
 import FormControl from "@mui/material/FormControl";
 import TextField from "@mui/material/TextField";
 import BasicButton from "../Buttons/BasicButton";
 import { useAxios } from "../../hooks/useAxios";
+import "./SearchBar.scss";
 
 export default function SearchBar({ onClick, GetAxiosResponse, config }) {
   const { response, loading, error, operation } = useAxios();
@@ -12,6 +12,7 @@ export default function SearchBar({ onClick, GetAxiosResponse, config }) {
   const onChange  = (e) => {
     e.preventDefault();
     operation({...config, params: {
+      ...config.params,
       query: e.target.value}
     });
   }
