@@ -10,12 +10,17 @@ import '../scss/Address.scss'
 
 export default function AddressSearch() {
   const [addressList, setAddressList] = useState([]);
+  const [modalOpen, setModalOpen] = useState(false);
 
   const GetAxiosResponse = (data) => {
-    if (data.response.documents.length !== 0) {
-    }
-    setAddressList(data.response.documents)
+    // if (data.response.documents.length !== 0) {
+    // }
+    // setAddressList(data.response.documents)
     console.log('addressList', addressList)
+  }
+
+  const showModal = () => {
+    setModalOpen(true);
   }
 
   const config = {
@@ -80,6 +85,8 @@ export default function AddressSearch() {
         <p>검색 결과</p>
       </div>
       <hr />
+      <button onClick={() => setModalOpen(true)}>모달</button>
+      {modalOpen && <div style={{ width: '50px', height: '50px', border: '1px solid black'}}>12314</div>}
       <div>
         {addressList.map((address, index) => {
           return (
