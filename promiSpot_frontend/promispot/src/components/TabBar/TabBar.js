@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import './TabBar.scss';
 import Modal  from '../Modal/Modal';
-import Calendar from '../Calendar/Calendar';
+import NewPromiseF from '../../pages/NewPromise/NewPromiseF';
 import { Link } from "react-router-dom";
 import {MdPersonSearch} from "react-icons/md";
 import {FaHome} from "react-icons/fa";
@@ -15,15 +15,7 @@ export default function TabBar(props) {
     const [modalOpen, setModalOpen] = useState(false);
 
   return (
-    <>    <div className="Main">
-
-    <input type="button" value="회원가입" className="blueBtn" onClick={() => setModalOpen(true)} style={{
-      position: 'absolute', 
-      zIndex: '1000',
-    }}/>
-    {modalOpen && (<Modal closeModal={() => setModalOpen(!modalOpen)}><Calendar/></Modal>
-    )}
-  </div>
+    <>
   <div className="wrapper">
     <div className="navbar">
       <Link to={"/main"} className="link" style={{textDecoration: 'none'}}>
@@ -38,13 +30,19 @@ export default function TabBar(props) {
       <Link to={"/mypage"} className="link">
       <BsPersonCircle size="36" color="#ffffff"/>
       </Link>
+      <div onClick={() => setModalOpen(true)}>
+      
       <div className="circle" >
-      <Link to={"/promise"} className="link">
+
       <ImPlus size="36" color="#ffffff" />
-      </Link>
-      </div>
+
+
+      </div></div>
       <div className="circleBackground"></div>
     </div>
-  </div></>
+  </div>
+  <div>
+  {modalOpen && (<Modal closeModal={() => setModalOpen(!modalOpen)}><NewPromiseF/></Modal>)}</div>
+  </>
   )
 }

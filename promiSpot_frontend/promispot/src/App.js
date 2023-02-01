@@ -7,7 +7,7 @@ import Join from "./pages/Login/Join";
 import Friend from "./pages/Friend/Friend";
 import FriendList from "./pages/Friend/FriendList";
 import Main from "./pages/Main/Main";
-import AddressSearch from "./pages/Address/AddressSearch"
+import AddressSearch from "./pages/Address/AddressSearch";
 import PlaceSearch from "./pages/PlaceMap/PlaceSearch";
 import PlaceRecommend from "./pages/PlaceMap/PlaceRecommend";
 import TabBar from "./components/TabBar/TabBar";
@@ -17,7 +17,6 @@ import PromiseCalendar from "./pages/Promise/PromiseCalendar";
 import MyPage from "./pages/MyPage/MyPage";
 import Promise from "./pages/Promise/Promise";
 import Privacy from "./pages/Login/Privacy";
-
 
 function App() {
   // const history = useHistory();
@@ -30,9 +29,9 @@ function App() {
       <Route path="/main" element={<Main />} />
       {/* <Route component={NotFound} /> */}
       <Route path="/map" element={<MapContainer />}>
-        <Route path="search" element={<PlaceSearch />}/>
-        <Route path="recommend" element={<PlaceRecommend />}/>
-      </Route>      
+        <Route path="search" element={<PlaceSearch />} />
+        <Route path="recommend" element={<PlaceRecommend />} />
+      </Route>
       <Route path="/address">
         <Route path="search" element={<AddressSearch />} />
       </Route>
@@ -42,11 +41,11 @@ function App() {
       <Route path="/tabBar" element={<TabBar />} />
       <Route path="/tabBar2" element={<TabBar2 />} />
       {/* <Route path="/promiselist" element={<PromiseList/>}/> */}
-      <Route path="/promise" element={<Promise/>}/>
+      <Route path="/promise" element={<Promise />} />
       {/* 임시 */}
-      <Route path="/calendar" element={<PromiseCalendar />}/>
-      <Route path="/mypage" element={<MyPage/>}/>
-      <Route path="/privacy" element={<Privacy/>}/>
+      <Route path="/calendar" element={<PromiseCalendar />} />
+      <Route path="/mypage" element={<MyPage />} />
+      <Route path="/privacy" element={<Privacy />} />
     </Routes>
   );
 }

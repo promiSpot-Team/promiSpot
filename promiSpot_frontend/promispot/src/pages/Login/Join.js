@@ -9,7 +9,12 @@ import InputForm from "../../components/InputForm/InputForm";
 import InputFormRO from "../../components/InputForm/InputFormRO";
 import InputFormPWD from "../../components/InputForm/InputFormPWD";
 
-import {  FormControl,  FormControlLabel,  Checkbox,  FormHelperText } from "@mui/material/";
+import {
+  FormControl,
+  FormControlLabel,
+  Checkbox,
+  FormHelperText,
+} from "@mui/material/";
 import "../scss/Join.scss";
 
 function Join() {
@@ -155,40 +160,65 @@ function Join() {
       <WhiteHeader text="회원가입" />
       <div className="join-content-wrapper">
         <div className="join-input-wrapper">
-      <FormControl sx={{ width: "70%" }} variant="standard">
-        <InputForm id="id" label="아이디" placeholder="UserName"/>
-      </FormControl>
-      <FormControl sx={{ width: "70%" }} variant="standard">
-        <InputForm id="email" label="이메일" placeholder="E-mail" type="email"/>
-      </FormControl>
-      <FormControl sx={{ width: "70%" }} variant="standard" margin="dense">
-        <InputFormPWD id="password" label="비밀번호" placeholder="Password"/>
-      </FormControl>
-      <FormControl sx={{ width: "70%" }} variant="standard" margin="dense">
-        <InputFormPWD id="rePassword" label="비밀번호 확인" placeholder="Rewrite Password"/>
-      </FormControl>
-      <FormControl sx={{ width: "70%" }} variant="standard">
-        <InputForm id="name" label="이름" placeholder="Name"/>
-      </FormControl>
-      <FormControl sx={{ width: "70%" }} variant="standard">
-        <InputForm id="nickName" label="닉네임" placeholder="NickName"/>
-      </FormControl>
-      <FormControl sx={{ width: "70%" }} variant="standard">
-        <InputForm id="phoneNumber" label="전화번호" placeholder="Phone Number"/>
-      </FormControl>
-      <FormControl sx={{ width: "70%" }} variant="standard" margin="normal">
-        <Link to = {"/address"} className="link">
-        <InputFormRO id="Address" label="주소" defaultvalue="아직 등록된 주소가 없습니다"/></Link>
-      </FormControl>
-          <div className="join-inputs">
-              <FormControlLabel
-                control={<Checkbox onChange={handleAgree} color="primary" />}
-                label="개인 정보 수집 및 이용 약관 동의"
-                margin="normal"
+          <FormControl
+            sx={{ width: "70%" }}
+            font-family="Pretendard-ExtraBold"
+            variant="standard"
+          >
+            <InputForm id="id" label="아이디" placeholder="UserName" />
+          </FormControl>
+          <FormControl sx={{ width: "70%" }} variant="standard">
+            <InputForm
+              id="email"
+              label="이메일"
+              placeholder="E-mail"
+              type="email"
+            />
+          </FormControl>
+          <FormControl sx={{ width: "70%" }} variant="standard" margin="dense">
+            <InputFormPWD
+              id="password"
+              label="비밀번호"
+              placeholder="Password"
+            />
+          </FormControl>
+          <FormControl sx={{ width: "70%" }} variant="standard" margin="dense">
+            <InputFormPWD
+              id="rePassword"
+              label="비밀번호 확인"
+              placeholder="Rewrite Password"
+            />
+          </FormControl>
+          <FormControl sx={{ width: "70%" }} variant="standard">
+            <InputForm id="name" label="이름" placeholder="Name" />
+          </FormControl>
+          <FormControl sx={{ width: "70%" }} variant="standard">
+            <InputForm id="nickName" label="닉네임" placeholder="NickName" />
+          </FormControl>
+          <FormControl sx={{ width: "70%" }} variant="standard">
+            <InputForm
+              id="phoneNumber"
+              label="전화번호"
+              placeholder="Phone Number"
+            />
+          </FormControl>
+          <FormControl sx={{ width: "70%" }} variant="standard" margin="normal">
+            <Link to={"/address"} className="link">
+              <InputFormRO
+                id="Address"
+                label="주소"
+                defaultvalue="아직 등록된 주소가 없습니다"
               />
-            
+            </Link>
+          </FormControl>
+          <div className="join-inputs">
+            <FormControlLabel
+              control={<Checkbox onChange={handleAgree} color="primary" />}
+              label="개인 정보 수집 및 이용 약관 동의"
+              margin="normal"
+            />
           </div>
-            {/* <Link to = {"/privacy"} className="link">
+          {/* <Link to = {"/privacy"} className="link">
             약관</Link> */}
         </div>
         <div className="join-btn-wrapper">

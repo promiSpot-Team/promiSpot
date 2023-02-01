@@ -10,30 +10,29 @@
   justify-content: center;
   align-items: center;
 }
- 
+
 /* modal창 */
 .modalBody {
   position: absolute;
-  width: 300px;
-  height: 500px;
-  padding: 40px;
+  width: 60%;
+  height: 65%;
+  padding: 2vh;
   text-align: center;
   background-color: rgb(255, 255, 255);
-  border-radius: 10px;
-  box-shadow: 0 2px 3px 0 rgba(34, 36, 38, 0.15);
+  border-radius: 2vh;
+  box-shadow: 0 2vh 3vh 0 rgba(34, 36, 38, 0.15);
 }
- 
+
 #modalCloseBtn {
   position: absolute;
-  top: 15px;
-  right: 15px;
+  top: 3vh;
+  right: 3vh;
   border: none;
   color: rgba(0, 0, 0, 0.7);
   background-color: transparent;
-  font-size: 20px;
+  font-size: 2vh;
 }
- 
+
 #modalCloseBtn:hover {
   cursor: pointer;
 }
- 
