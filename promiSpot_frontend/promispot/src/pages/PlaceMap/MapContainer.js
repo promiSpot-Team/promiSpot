@@ -1,13 +1,16 @@
 import { React, useEffect, useState } from "react";
-import { Link, Outlet } from 'react-router-dom';
+import { Link, Outlet, useNavigate } from 'react-router-dom';
 import { motion, Variants } from "framer-motion";
 import "../scss/Map_Container.scss";
 import mapdata from '../mapdata.json'
+import { ConnectingAirportsOutlined } from "@mui/icons-material";
 
 const { kakao } = window;
 
 export default function MapContainer() {
   const [map, setMap] = useState(null);
+  const [rect, setRect] = useState('');
+  const navigate = useNavigate();
 
   // 페이지 불러올 때 한 번만 지도 그리기
   useEffect(() => {
@@ -16,7 +19,7 @@ export default function MapContainer() {
   
   // 마커나 프로필이 추가됐을 때 
   useEffect(() => {
-    console.log('sdf')
+    // console.log('sdf')
   }, [mapdata]);
 
 
@@ -35,8 +38,9 @@ export default function MapContainer() {
   // 지도가 그려진 후에 'dragend' 이벤트 인식
   if (map !== null) {
     kakao.maps.event.addListener(map, 'dragend', function(){
-      console.log(map.getCenter(), map.getBounds().toString())
-      // setBounds(map.getBounds().toString())
+      const bounds = map.getBounds()
+      const newRect = String(bounds.ha) + ',' + String(bounds.qa) + ',' + String(bounds.oa) + ',' + String(bounds.pa)
+      setRect(newRect)
     })
   }
   
@@ -46,16 +50,18 @@ export default function MapContainer() {
         id="map"
         className="map-wrapper"
       >
-        <Link to='/map/search' state={{  }}>
+        {/* <Link to='/map/search' state={{ rect: rect }}> */}
           <button style={{
             position: "absolute",
             zIndex: 999,
             top: 0,
             left: 0,
-          }}>
+          }}
+            onClick={() => navigate('/map/search')}
+          >
             검색
           </button>
-        </Link>
+        {/* </Link> */}
         <Link to='/map/recommend'>
           <button style={{
             position: "absolute",

@@ -11,7 +11,10 @@ export default function SearchBar({ onClick, GetAxiosResponse, config }) {
 
   const onChange  = (e) => {
     e.preventDefault();
-    operation({...config, params: {
+    operation({
+      ...config, 
+      params: {
+      ...config.params,
       query: e.target.value}
     });
   }
@@ -39,7 +42,7 @@ export default function SearchBar({ onClick, GetAxiosResponse, config }) {
               margin="normal"
               onKeyUp={onChange}
             />
-            <BasicButton text="검색" />
+            {/* <BasicButton text="검색" /> */}
           </FormControl>
     </div>
   );

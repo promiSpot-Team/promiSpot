@@ -2,19 +2,21 @@ import React, { useState }from 'react'
 import { useLocation } from 'react-router-dom'
 import { motion } from "framer-motion"
 import { KAKAO_MAP_URL, KAKAO_REST_API_KEY } from '../../constans/kakaomap'
-import SearchBar from '../../components/Search/SearchBar'
+import SearchBar from '../../components/Search/SearchBar2'
 import '../scss/Map_Container.scss'
 import '../scss/Search_Bar.scss'
 
 export default function PlaceSearch() {
   const [placeList, setPlaceList] = useState([])
+  // const rect = useLocation().state.rect
+  console.log('rect', useLocation())
 
   const GetAxiosResponse = (data) => {
     if (data?.response?.documents) {
       setPlaceList(data.response.documents)
     }
   }
-  
+
   const config = {
     method: 'GET', 
     baseURL: `${KAKAO_MAP_URL}/v2/local/search/keyword`,
@@ -23,8 +25,7 @@ export default function PlaceSearch() {
       Authorization: `KakaoAK ${KAKAO_REST_API_KEY}`
     },
     params: {
-      size: 3,
-      rect: '58, 125, 61, 125'
+      rect: '127.03981055912708,37.50035032925001,127.040871597946,37.5018523942496',
     }
   }
 
