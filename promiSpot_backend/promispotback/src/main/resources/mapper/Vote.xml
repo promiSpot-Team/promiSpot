@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ssafy.promispotback.vote.model.mapper.VoteMapper">
+
+	<!-- 약속 장소 후보 등록 -->
+	<insert id="insertCandidatePlace" parameterType="voteEntity">
+		insert into votes (promise_id, place_id, member_seq, vote_rank, vote_cnt)
+		values(#{promiseId}, #{placeId}, #{memberSeq}, #{voteRank}, 0)
+	</insert>
+	
+	
+	<!-- 약속 장소 후보 가져오기 -->
+	<select id="getCandidatePlace" parameterType="int" resultType="voteEntity">
+		select v.vote_seq, v.promise_seq, v.place_id, v.member_seq, vote_cnt
+		from votes v
+		where v.vote_seq = #{voteSeq}
+	</select>
+	
+	<!-- 약속 장소 후보들 가져오기 - 하나의 약속에 속한 모든 장소 후보들 -->
+	<select id="getCandidatePlaceList" parameterType="int" resultType="voteEntity">
+		select v.vote_seq, v.promise_seq, v.place_id, v.member_seq, vote_cnt
+		from votes v
+		where v.promise_seq = #{promiseSeq}
+		order by v.vote_seq
+	</select>
+	
+	<!-- 약속 장소 후보 수정(투표/투표취소) -->
+	<update id="modifyCandidatePlace" parameterType="voteEntity">
+		update votes
+		set vote_cnt = #{voteCnt}
+		where vote_id = #{voteId}
+	</update>
+	
+	
+	<!-- 약속 장소 후보 삭제 -->
+	<delete id="removeCandidatePlace" parameterType="int">
+		delete from votes
+		where vote_seq = #{voteSeq}
+	</delete>
+	
+	
+	
+	<!-- 사용자가 한 약속에서 이 장소를 투표한 건지 아닌지 조회 
+	//resultType가 boolean인지 int인지 모르겠다
+	//exists문은 결과값이 있으면 1을 리턴, 없으면 0을 리턴.
+	-->
+	<select id="isVoted" parameterType="map" resultType="int">
+		select
+		exists
+		(select 1
+		from voters_members vm
+		where vm.member_seq = #{memberSeq} and vm.vote_seq = #{voteSeq})
+	</select>
+	
+	<!-- 약속 장소 투표버튼 누르면 투표자 테이블에 추가 -->
+	<insert id="insertVoter" parameterType="voteMemberEntity">
+		insert into voters_members (promise_id, vote_id, member_seq, place_id)
+		values(#{promiseMemberId}, #{voteId}, #{memberSeq}, #{placeId})
+	</insert>
+	
+	<!-- 약속 장소 투표를 해제하면 투표자 테이블에서 삭제 -->
+	<delete id="removeVoter" parameterType="map">
+		delete from voters_members
+		where member_seq = #{memberSeq} and vote_seq = #{voteSeq}
+	</delete>
+
+</mapper>
