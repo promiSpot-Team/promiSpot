@@ -1,59 +1,27 @@
-// import { useEffect, useState } from 'react';
-// import axios from 'axios';
-
-// axios.defaults.baseURL = 'http://localhost:8080l';
-
-// export const useAxios = (axiosParams) => {
-//   const [response, setResponse] = useState({});
-//   const [error, setError] = useState('');
-//   const [loading, setLoading] = useState(true);
-  
-//   const fetchData = async (params) => {
-//     try {
-//       const result = await axios.request(params)
-//       setResponse(result.data)
-//     } catch {
-//       setError(error)
-//     } finally {
-//       setLoading(false)
-//     }
-//   }
-
-//   useEffect(() => {
-//     fetchData(axiosParams)
-//   }, [])
-  
-//   return { response, error, loading }
-// }
-
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import axios from 'axios';
 
-axios.defaults.baseURL = 'https://jsonplaceholder.typicode.com';
+axios.defaults.baseURL = 'https://dapi.kakao.com/v2/local/search/address.json'
 
-export const useAxios = (axiosParams) => {
+export const useAxios = () => {
     const [response, setResponse] = useState(undefined);
     const [error, setError] = useState('');
-    const [loading, setLoading] = useState(true);
-    
-    const fetchData = async (params) => {
-      try {
-       const result = await axios.request(params);
-       setResponse(result.data);
-       } catch( error ) {
-         setError(error);
-       } finally {
-         setLoading(false);
-       }
+    const [loading, setLoading] = useState(false);
+
+    const operation = async(params) => {
+        console.log('params', params)
+        try {
+            setLoading(true)
+            const result = await axios.request(params);
+            setResponse(result.data);
+        } catch (error) {
+            setError(error);
+        } finally {
+            setLoading(false);
+        }
     };
 
-    useEffect(() => {
-      if (response && axiosParams.title != response.title) {
-        fetchData(axiosParams);
-      }
-    }, []); 
-
-    return { response, error, loading };
+    return { response, error, loading, operation };
 };
 
 export default useAxios;

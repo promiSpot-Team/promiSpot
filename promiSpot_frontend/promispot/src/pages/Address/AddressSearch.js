@@ -3,42 +3,56 @@ import FormControl from "@mui/material/FormControl";
 import TextField from "@mui/material/TextField";
 import BasicButton from "../../components/Buttons/BasicButton";
 import WhiteHeader from '../../components/Header/BasicHeader1';
+import SearchBar from '../../components/Search/SearchBar';
 import axios from "axios";
 import '../scss/Search_Bar.scss'
 import '../scss/Address.scss'
 
 export default function AddressSearch() {
-  const [addressQeury, setAddress] = useState("");
   const [addressList, setAddressList] = useState([]);
 
-  function getAddressResult() {
-    getAddress();
-    async function getAddress() {
-      try{
-        const response = await axios.get(`https://dapi.kakao.com/v2/local/search/address.json?query=${addressQeury}`, {
-          headers: {Authorization: `KakaoAK 64bbe2063e9e0b314a6060be44144a26`},
-        })
-        const newAdressList = response.data.documents.map((address) => {
-          return {
-            address_name: address.address_name
-          }
-        })
-        setAddressList(newAdressList)
-      }
-      catch {
-        console.log('에러뜸')
-      }
+  const GetAxiosResponse = (data) => {
+    if (data.response.documents.length !== 0) {
     }
-  }
-  const onChange = (e) => {
-    setAddress(e.target.value);
-    e.preventDefault()
+    setAddressList(data.response.documents)
+    console.log('addressList', addressList)
   }
 
-  const onSubmit = (e) => {
-    e.preventDefault()
-    getAddressResult()
+  const config = {
+    method: 'GET', 
+    headers: {
+      Authorization: `KakaoAK 64bbe2063e9e0b314a6060be44144a26`
+    },
   }
+
+  // function getAddressResult() {
+  //   getAddress();
+  //   async function getAddress() {
+  //     try{
+  //       const response = await axios.get(`https://dapi.kakao.com/v2/local/search/address.json?query=${addressQeury}`, {
+  //         headers: {Authorization: `KakaoAK 64bbe2063e9e0b314a6060be44144a26`},
+  //       })
+  //       const newAdressList = response.data.documents.map((address) => {
+  //         return {
+  //           address_name: address.address_name
+  //         }
+  //       })
+  //       setAddressList(newAdressList)
+  //     }
+  //     catch {
+  //       console.log('에러뜸')
+  //     }
+  //   }
+  // }
+  // const onChange = (e) => {
+  //   e.preventDefault()
+  //   setAddress(e.target.value);
+  // }
+
+  // const onSubmit = (e) => {
+  //   e.preventDefault()
+  //   getAddressResult()
+  // }
 
   return (
     <div>
@@ -50,7 +64,7 @@ export default function AddressSearch() {
         )
       })} */}
       <WhiteHeader text="주소 검색"/>
-      <div className="search-bar-wrapper" style={{
+      {/* <div className="search-bar-wrapper" style={{
         textAlign: 'center',
       }}>
         <form onSubmit={onSubmit}
@@ -60,12 +74,20 @@ export default function AddressSearch() {
           <input type="submit" value="검색"/>
 
         </form>
-      </div>
+      </div> */}
+      <SearchBar GetAxiosResponse={GetAxiosResponse} config={config}/>
       <div className="address-result-top-div">
         <p>검색 결과</p>
       </div>
       <hr />
-      <ul className='address-result-ul'>
+      <div>
+        {addressList.map((address, index) => {
+          return (
+            <div key={index}>{address.address_name}</div>
+          )
+        })}
+      </div>
+      {/* <ul className='address-result-ul'>
         {addressList.map((address, inx) => {
           return (
             <li className='address-result-li'>
@@ -78,7 +100,7 @@ export default function AddressSearch() {
             </li>
           )
         })}
-      </ul>
+      </ul> */}
       
     </div>
   )
