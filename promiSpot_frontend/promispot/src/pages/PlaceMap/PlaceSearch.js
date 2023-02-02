@@ -14,6 +14,8 @@ export default function PlaceSearch() {
   const { rect } = useLocation().state
   const navigate = useNavigate()
   const childRef = useRef()
+  // const rect = useLocation().state.rect
+  console.log('rect', useLocation())
 
   const GetAxiosResponse = (data) => {
     if (data?.response?.documents) {

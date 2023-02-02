@@ -57,12 +57,15 @@ export default function MapContainer() {
         className="map-wrapper"
       >
         <Link to='/map/search' state={{ rect }}>
+        {/* <Link to='/map/search' state={{ rect: rect }}> */}
           <button style={{
             position: "absolute",
             zIndex: 999,
             top: 0,
             left: 0,
-          }}>
+          }}
+            onClick={() => navigate('/map/search')}
+          >
             검색
           </button>
         </Link>

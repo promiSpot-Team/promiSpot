@@ -11,12 +11,11 @@ const SearchBar2 = forwardRef(({ onClick, GetAxiosResponse, config }, ref) => {
 
   const onChange = (e) => {
     e.preventDefault();
-    setQuery(e.target.value)
     operation({
       ...config, 
       params: {
       ...config.params,
-      query}
+      query: e.target.value}
     });
   }
 
