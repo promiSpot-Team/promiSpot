@@ -1,11 +1,11 @@
 import React, {useState} from 'react'
 import SearchBar from '../../components/Search/SearchBar'
 import ProfileInfo from '../../components/ProfileInfo/ProfileInfo'
-import '../scss/NewPromiseF.scss'
 import Modal from '../../components/Modal/Modal'
+import store from '../../index'
+import '../scss/NewPromiseF.scss'
 
 export default function NewPromiseF() {
-
   const [modalOpen, setModalOpen] = useState(false);
 
   return (
@@ -33,7 +33,7 @@ export default function NewPromiseF() {
           <div className='new-promise-under-img'>
           <img src={require("../../img/IU_Profile.jpg")} width="35px"/></div>
         </div>
-        <div className='new-promise-under-btn-wrapper' onClick={() => setModalOpen(true)}>
+        <div className='new-promise-under-btn-wrapper' onClick={(e) => {}}>
           다음
         </div>
       </div>{modalOpen && (<Modal closeModal={() => setModalOpen(!modalOpen)}><NewPromiseF/></Modal>)}

@@ -12,7 +12,7 @@ function Start() {
       {/* <Background/> */}
       <div className="start-wrapper">
         <div className="start-logo-wrapper">
-          <img src={require("../../images/promispot_logo.png")} width="300px" />
+          {/* <img src={require("../../images/promispot_logo.png")} width="300px" /> */}
         </div>
         <div className="start-btn-wrapper">
           <div className="start-btn">

@@ -1,6 +1,5 @@
 import React from 'react';
 import './Info.scss';
-import Profile from '../../images/IU_Profile.jpg';
 
 export default function Info(props) {
 
