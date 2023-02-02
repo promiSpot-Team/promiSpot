@@ -3,6 +3,8 @@ import './Modal.scss';
 
 export default function Modal(props) {
 
+  const {text} = props;
+
   function closeModal() {
     props.closeModal();
   }
