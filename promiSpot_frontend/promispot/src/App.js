@@ -6,6 +6,8 @@ import Login from "./pages/Login/Login";
 import Join from "./pages/Login/Join";
 import Friend from "./pages/Friend/Friend";
 import FriendList from "./pages/Friend/FriendList";
+import FriendRequestReceive from "./pages/Friend/FriendRequestReceive";
+import FriendRequestSend from "./pages/Friend/FriendRequestSend";
 import Main from "./pages/Main/Main";
 import AddressSearch from "./pages/Address/AddressSearch";
 import PlaceSearch from "./pages/PlaceMap/PlaceSearch";
@@ -17,7 +19,7 @@ import PromiseCalendar from "./pages/Promise/PromiseCalendar";
 import MyPage from "./pages/MyPage/MyPage";
 import Promise from "./pages/Promise/Promise";
 import Privacy from "./pages/Login/Privacy";
-import PlaceDetail from './pages/PlaceMap/PlaceDetail';
+import PlaceDetail from "./pages/PlaceMap/PlaceDetail";
 
 function App() {
   // const history = useHistory();
@@ -38,7 +40,9 @@ function App() {
         <Route path="search" element={<AddressSearch />} />
       </Route>
       <Route path="/friend" element={<Friend />}>
-        <Route path="list" element={<FriendList />}></Route>
+        <Route path="list" element={<FriendList />} />
+        <Route path="receive" element={<FriendRequestReceive />} />
+        <Route path="send" element={<FriendRequestSend />} />
       </Route>
       <Route path="/tabBar" element={<TabBar />} />
       <Route path="/tabBar2" element={<TabBar2 />} />
