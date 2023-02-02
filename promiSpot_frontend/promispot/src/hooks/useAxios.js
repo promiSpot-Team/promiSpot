@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import axios from 'axios';
 
-axios.defaults.baseURL = 'https://dapi.kakao.com/v2/local/search/address.json'
+axios.defaults.baseURL = 'http://localhost:9090'
 
 export const useAxios = () => {
     const [response, setResponse] = useState(undefined);
