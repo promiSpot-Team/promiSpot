@@ -17,6 +17,8 @@ import PromiseCalendar from "./pages/Promise/PromiseCalendar";
 import MyPage from "./pages/MyPage/MyPage";
 import Promise from "./pages/Promise/Promise";
 import Privacy from "./pages/Login/Privacy";
+import PlaceDetail from './pages/PlaceMap/PlaceDetail';
+
 
 function App() {
   // const history = useHistory();
@@ -31,6 +33,7 @@ function App() {
       <Route path="/map" element={<MapContainer />}>
         <Route path="search" element={<PlaceSearch />} />
         <Route path="recommend" element={<PlaceRecommend />} />
+        <Route path="detail" element={<PlaceDetail />} />
       </Route>
       <Route path="/address">
         <Route path="search" element={<AddressSearch />} />
