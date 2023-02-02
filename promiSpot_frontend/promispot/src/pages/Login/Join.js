@@ -16,6 +16,7 @@ import {
   FormHelperText,
 } from "@mui/material/";
 import "../scss/Join.scss";
+import { FunctionsTwoTone } from "@mui/icons-material";
 
 function Join() {
   const [inputId, setInputId] = useState("");
@@ -38,7 +39,7 @@ function Join() {
   };
 
   // login 버튼 클릭 이벤트
-  const onClickJoin = () => {
+  const onClickJoin = (e) => {
     console.log("click join");
     //로그인 버튼을 눌렀을 때 발생하는 일들을 쓰면 됨
   };
@@ -76,7 +77,7 @@ function Join() {
   const handleNavigate = () => {
     navigate(-1);
   };
-
+  
   const handleAgree = (event) => {
     setChecked(event.target.checked);
   };
@@ -85,9 +86,9 @@ function Join() {
     const { email, name, password } = data;
     const postData = { email, name, password };
 
-    // post
+    console.log("postData", postData)
     await axios
-      .post("/join", postData)
+      .post("/member", postData)
       .then(function (response) {
         console.log(response, "성공");
         navigate("/login");
@@ -100,7 +101,7 @@ function Join() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
+    
     const data = new FormData(e.currentTarget);
     const joinData = {
       id: data.get("id"),
@@ -114,45 +115,47 @@ function Join() {
     const { id, email, password, rePassword, name, nickName, phoneNumber } =
       joinData;
 
-    // 이메일 유효성 체크
-    const emailRegex =
-      /([\w-.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
-    if (!emailRegex.test(email))
-      setEmailError("올바른 이메일 형식이 아닙니다.");
-    else setEmailError("");
+    // // 이메일 유효성 체크
+    // const emailRegex =
+    //   /([\w-.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
+    // if (!emailRegex.test(email))
+    //   setEmailError("올바른 이메일 형식이 아닙니다.");
+    // else setEmailError("");
 
-    // 비밀번호 유효성 체크
-    const passwordRegex =
-      /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,25}$/;
-    if (!passwordRegex.test(password))
-      setPasswordState(
-        "숫자+영문자+특수문자 조합으로 8자리 이상 입력해주세요!"
-      );
-    else setPasswordState("");
+    // // 비밀번호 유효성 체크
+    // const passwordRegex =
+    //   /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,25}$/;
+    // if (!passwordRegex.test(password))
+    //   setPasswordState(
+    //     "숫자+영문자+특수문자 조합으로 8자리 이상 입력해주세요!"
+    //   );
+    // else setPasswordState("");
 
-    // 비밀번호 같은지 체크
-    if (password !== rePassword)
-      setPasswordError("비밀번호가 일치하지 않습니다.");
-    else setPasswordError("");
+    // // 비밀번호 같은지 체크
+    // if (password !== rePassword)
+    //   setPasswordError("비밀번호가 일치하지 않습니다.");
+    // else setPasswordError("");
 
-    // 이름 유효성 검사
-    const nameRegex = /^[가-힣a-zA-Z]+$/;
-    if (!nameRegex.test(name) || name.length < 1)
-      setNameError("올바른 이름을 입력해주세요.");
-    else setNameError("");
+    // // 이름 유효성 검사
+    // const nameRegex = /^[가-힣a-zA-Z]+$/;
+    // if (!nameRegex.test(name) || name.length < 1)
+    //   setNameError("올바른 이름을 입력해주세요.");
+    // else setNameError("");
 
-    // 회원가입 동의 체크
-    if (!checked) alert("회원가입 약관에 동의해주세요.");
+    // // 회원가입 동의 체크
+    // if (!checked) alert("회원가입 약관에 동의해주세요.");
 
-    if (
-      emailRegex.test(email) &&
-      passwordRegex.test(password) &&
-      password === rePassword &&
-      nameRegex.test(name) &&
-      checked
-    ) {
-      onhandlePost(joinData);
-    }
+    // if (
+    //   emailRegex.test(email) &&
+    //   passwordRegex.test(password) &&
+    //   password === rePassword &&
+    //   nameRegex.test(name) &&
+    //   checked
+    // ) {
+    //   onhandlePost(joinData);
+    // }
+    console.log(1)
+    onhandlePost(joinData)
   };
 
   return (
@@ -162,7 +165,7 @@ function Join() {
         <div className="join-input-wrapper">
           <FormControl
             sx={{ width: "70%" }}
-            font-family="Pretendard-ExtraBold"
+            fontFamily="Pretendard-ExtraBold"
             variant="standard"
           >
             <InputForm id="id" label="아이디" placeholder="UserName" />
@@ -223,7 +226,8 @@ function Join() {
         </div>
         <div className="join-btn-wrapper">
           <div className="join-btn">
-            <BasicButton text="회원가입" onClick={() => onClickJoin} />
+            <button onClick={() => handleSubmit()}>임시버튼</button>
+            <BasicButton text="회원가입" onClick={() => handleSubmit} />
             <FormHelperText>{registerError}</FormHelperText>
           </div>
         </div>

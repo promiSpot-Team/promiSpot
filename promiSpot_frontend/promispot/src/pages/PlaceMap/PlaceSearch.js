@@ -1,17 +1,18 @@
 import React, { useState, useRef, useEffect  }from 'react'
-import { useLocation, Link } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 import { motion } from "framer-motion"
 import { KAKAO_MAP_URL, KAKAO_REST_API_KEY } from '../../constans/kakaomap'
 import SearchBar from '../../components/Search/SearchBar2'
 import store from '../../index'
-
+import { useSelector } from 'react-redux'
 import '../scss/Map_Container.scss'
 import '../scss/Search_Bar.scss'
-import axios from 'axios'
 
 export default function PlaceSearch() {
-  const [placeList, setPlaceList] = useState([])
+  const statePlaceList = useSelector((state) => state.placeList)
+  const [placeList, setPlaceList] = useState(statePlaceList)
   const { rect } = useLocation().state
+  const navigate = useNavigate()
   const childRef = useRef()
 
   const GetAxiosResponse = (data) => {
@@ -35,21 +36,24 @@ export default function PlaceSearch() {
     }
   }
   
-  function placeDatailShow() {
-    // 
-    console.log('선택되고잇는중')
+  function moveToPlaceDetail(props) {
+    store.dispatch({
+      type: 'SAVE_PLACE_LIST',
+      placeList
+    })
+    navigate(`/map/${props}`)
   }
 
   return (
     <motion.div
       className='place-modal-wrapper'
-      initial={{ opacity: 0, y: 15 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{
-        duration: 0.3,
-        delay: 0.3,
-        // ease: [0, 0.71, 0.2, 1.01]
-      }}
+      // initial={{ opacity: 0, y: 15 }}
+      // animate={{ opacity: 1, y: 0 }}
+      // transition={{
+      //   duration: 0.3,
+      //   delay: 0.3,
+      //   // ease: [0, 0.71, 0.2, 1.01]
+      // }}
     >
       <h2>장소 검색</h2>
       <SearchBar 
@@ -60,7 +64,7 @@ export default function PlaceSearch() {
       <div style={{ position: 'absolute', overflow: 'auto', width: '100%', left: '-0.3%', height: '50%'}}>
         {placeList.map((place, index) => {
           return (
-            <div onClick={placeDatailShow} style={{ height: '40px'}} key={index}>{place.place_name}</div>
+            <div onClick={() => moveToPlaceDetail(place.id)} style={{ height: '40px'}} key={index}><span>{place.place_name}</span></div>
           )
         })}
       </div>

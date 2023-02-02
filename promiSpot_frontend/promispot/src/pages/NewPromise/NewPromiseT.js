@@ -1,7 +1,9 @@
 import React from 'react'
 
-export default function NewPromiseT() {
+const NewPromiseT = () => {
   return (
     <div>NewPromiseT</div>
-  )
-}
+    )
+  }
+  
+export default NewPromiseT

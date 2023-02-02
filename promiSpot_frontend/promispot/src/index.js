@@ -7,9 +7,11 @@ import { BrowserRouter } from 'react-router-dom';
 import { createStore } from 'redux';
 import { Provider } from 'react-redux';
 import reducer from './store';
+import NewFriendT from './pages/NewPromise/NewPromiseT'
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 const store = createStore(reducer)
+// store.subscribe(NewFriendT)
 
 root.render(
   <React.StrictMode>
