@@ -11,14 +11,14 @@ export default function MapContainer() {
   const [map, setMap] = useState(null);
   const [rect, setRect] = useState('');
   const navigate = useNavigate()
-  const { x, y } = useSelector(state => state.mapCenterPosition);
+  // const { x, y } = useSelector(state => state.mapCenterPosition);
 
   // 페이지 불러올 때 한 번만 지도 그리기
   useEffect(() => {
     mapscript();
   }, []);
   
-  // 마커나 프로필이 추가됐을 때 
+  // 마커나 프로필이 DB에 추가됐을 때 
   useEffect(() => {
   }, [mapdata]);
 

@@ -1,7 +1,7 @@
 import React from 'react'
 import { useNavigate, useLocation } from 'react-router-dom'
 import BasicHeader from '../../components/Header/BasicHeader1'
-import store from '../../index'
+// import store from '../../index'
 
 export default function PlaceDetail(props) {
   const navigate = useNavigate()
@@ -9,20 +9,21 @@ export default function PlaceDetail(props) {
   const place = location.state
 
   const registerPlaceToMap = () => {
-    store.dispatch({
-      type: 'REGISTER_PLACE_TO_MAP',
-      mapCenterPosition: {
-        x: ()
-      }
-    })
-    console.log(store.getState())
+    // store.dispatch({
+    //   type: 'REGISTER_PLACE_TO_MAP',
+    //   mapCenterPosition: {
+    //     x: parseFloat(place.x),
+    //     y: parseFloat(place.y),
+    //   }
+    // })
+    // console.log(store.getState())
   }
 
   return (
     <div className="place-modal-wrapper">
       <BasicHeader text={place.place_name} />
       <div>
-        <button onClick={registerPlaceToMap} style={{
+        <button style={{
           position: 'absolute',
           bottom: 0,
           right: 0,
