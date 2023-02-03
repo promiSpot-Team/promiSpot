@@ -21,6 +21,7 @@ import Promise from "./pages/Promise/Promise";
 import Privacy from "./pages/Login/Privacy";
 import PlaceDetail from "./pages/PlaceMap/PlaceDetail";
 import Join2 from './pages/Login/Join2'
+import Card from "./components/Card/Card";
 
 function App() {
   // const history = useHistory();
@@ -40,20 +41,12 @@ function App() {
       <Route path="/address">
         <Route path="search" element={<AddressSearch />} />
       </Route>
-      <Route path="/friend" element={<Friend />}>
-        <Route path="list" element={<FriendList />} />
-        <Route path="receive" element={<FriendRequestReceive />} />
-        <Route path="send" element={<FriendRequestSend />} />
-      </Route>
-      <Route path="/tabBar" element={<TabBar />} />
-      <Route path="/tabBar2" element={<TabBar2 />} />
-      {/* <Route path="/promiselist" element={<PromiseList/>}/> */}
+      <Route path="/friend" element={<Friend />}/>
       <Route path="/promise" element={<Promise />} />
-      {/* 임시 */}
-      <Route path="/calendar" element={<PromiseCalendar />} />
       <Route path="/mypage" element={<MyPage />} />
       <Route path="/privacy" element={<Privacy />} />
-      <Route path="/join2" element={<Join2 />} />
+      {/* <Route path="/join2" element={<Join2 />} /> */}
+      <Route path="/card" element={<Card/>}/>
     </Routes>
   );
 }

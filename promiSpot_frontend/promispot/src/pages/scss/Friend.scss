@@ -18,11 +18,14 @@
     width:100%;
     // height:90%;
   }
+  .friend-search-wrapper {
+    width:85%;
+  }
 }
 
 .friend-list-wrapper {
   align-items: center;
-  width: 100%;
+  // width: 100%;
   // height: 100vh;
   
   .friend-list-each-wrapper {
@@ -30,6 +33,8 @@
     height: 50px;
     margin-left: 1vw;
     margin-right:1vw;
-    padding: 1vh 1vw 0 1vh;
+    padding: 1vh 1vh 1vh 1vh;
   }
 }
+
+
