@@ -22,6 +22,7 @@ export default function InputFormPWD(props) {
       </InputLabel>
       <Input
         id={props.id}
+        name={props.name}
         type={showPassword ? "text" : "password"}
         placeholder={props.placeholder}
         margin="dense"

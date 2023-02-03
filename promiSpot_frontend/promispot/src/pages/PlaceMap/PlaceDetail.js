@@ -1,29 +1,28 @@
 import React from 'react'
 import { useNavigate, useLocation } from 'react-router-dom'
 import BasicHeader from '../../components/Header/BasicHeader1'
-// import store from '../../index'
+import store from '../../index'
 
-export default function PlaceDetail(props) {
+export default function PlaceDetail() {
   const navigate = useNavigate()
   const location = useLocation()
   const place = location.state
 
   const registerPlaceToMap = () => {
-    // store.dispatch({
-    //   type: 'REGISTER_PLACE_TO_MAP',
-    //   mapCenterPosition: {
-    //     x: parseFloat(place.x),
-    //     y: parseFloat(place.y),
-    //   }
-    // })
-    // console.log(store.getState())
+    store.dispatch({
+      type: 'REGISTER_PLACE_TO_MAP',
+      mapCenterPosition: {
+        x: parseFloat(place.x),
+        y: parseFloat(place.y)
+      }
+    })
   }
 
   return (
     <div className="place-modal-wrapper">
       <BasicHeader text={place.place_name} />
       <div>
-        <button style={{
+        <button onClick={registerPlaceToMap} style={{
           position: 'absolute',
           bottom: 0,
           right: 0,

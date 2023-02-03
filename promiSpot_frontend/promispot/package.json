@@ -33,6 +33,7 @@
     "react-scripts": "5.0.1",
     "react-swipe-views": "^0.0.12",
     "redux": "^4.2.1",
+    "redux-devtools-extension": "^2.13.9",
     "swiper": "^9.0.1",
     "web-vitals": "^2.1.4"
   },
@@ -62,6 +63,6 @@
   },
   "devDependencies": {
     "sass": "^1.57.1"
-  }
-  
+  },
+  "proxy": "http://i8a109.p.ssafy.io:9090"
 }

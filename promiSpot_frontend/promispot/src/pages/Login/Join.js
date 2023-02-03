@@ -206,7 +206,7 @@ function Join() {
             />
           </FormControl>
           <FormControl sx={{ width: "70%" }} variant="standard" margin="normal">
-            <Link to={"/address/search"} className="link">
+            <Link to={"/address"} className="link">
               <InputFormRO
                 id="Address"
                 label="주소"

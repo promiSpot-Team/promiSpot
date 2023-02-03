@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect  }from 'react'
-import { useLocation, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { motion } from "framer-motion"
 import { KAKAO_MAP_URL, KAKAO_REST_API_KEY } from '../../constans/kakaomap'
 import SearchBar from '../../components/Search/SearchBar2'
@@ -10,11 +10,10 @@ import '../scss/Search_Bar.scss'
 
 export default function PlaceSearch() {
   const statePlaceList = useSelector((state) => state.placeList)
+  const stateRect = useSelector((state) => state.rect)
   const [placeList, setPlaceList] = useState(statePlaceList)
-  const { rect } = useLocation().state
   const navigate = useNavigate()
   const childRef = useRef()
-  // const rect = useLocation().state.rect
 
   const GetAxiosResponse = (data) => {
     if (data?.response?.documents) {
@@ -24,7 +23,11 @@ export default function PlaceSearch() {
   
   useEffect(() => {
     childRef.current.whileDragMapHandle()
-  }, [rect])
+  }, [])
+
+  useEffect(() => {
+    childRef.current.whileDragMapHandle()
+  }, [stateRect])
 
   const config = {
     method: 'GET', 
@@ -33,7 +36,7 @@ export default function PlaceSearch() {
       Authorization: `KakaoAK ${KAKAO_REST_API_KEY}`
     },
     params: {
-      rect
+      rect: stateRect
     }
   }
   
@@ -61,8 +64,8 @@ export default function PlaceSearch() {
         config={config}
         ref={childRef}
       />
-      <div style={{ position: 'absolute', overflow: 'auto', width: '100%', left: '-0.3%', height: '50%'}}>
-        {placeList.map((place, index) => {
+      <div className="place-search-wrapper">
+        {placeList && placeList.map((place, index) => {
           return (
             <div onClick={() => moveToPlaceDetail(place)} style={{ height: '40px'}} key={index}><span>{place.place_name}</span></div>
           )
