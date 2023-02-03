@@ -1,0 +1,64 @@
+
+# Web ContextRootPath and PortNumber Setting
+server:
+  port: 9090
+
+
+spring:
+  # html path
+  mvc:
+    view:
+      prefix: /templates/
+      suffix: .html
+    # library version matching
+    pathmatch:
+      matching-strategy: ANT_PATH_MATCHER
+      
+  # DataBase Settings
+  datasource:
+    hikari:
+      maximum-pool-size: 10
+      connection-timeout: 5000
+      connection-init-sql: SELECT 1
+      validation-timeout: 2000
+      minimum-idle: 10
+      idle-timeout: 600000
+      max-lifetime: 1800000
+      auto-commit: true
+
+    # DataBase Connection
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: asianautoever0125.
+    type: org.apache.commons.dbcp2.BasicDataSource
+    url: jdbc:mysql://i8a109.p.ssafy.io:3306/promispot?serverTimezone=UTC&useUniCode=yes&characterEncoding=UTF-8
+
+
+  # freemarker use
+  devtools:
+    livereload:
+      enabled: true
+    restart:
+      enabled: false
+    add-properties: false
+  freemarker:
+    cache: false
+
+  # jackson
+  jackson:
+    serialization:
+      fail-on-empty-beans: false
+
+  profiles:
+    active: local
+
+
+
+
+# MyBatos Setting
+mybatis:
+  type-aliases-package: com.ssafy.promispotback.*.model.entity
+  mapper-locations: mapper/*.xml
+  configuration:
+    map-underscore-to-camel-case: true
+
