@@ -31,12 +31,14 @@ const SearchBar2 = forwardRef(({ onClick, GetAxiosResponse, config }, ref) => {
   }))
 
   function whileDragMapHandle() {
-    operation({
+    if (query !== '') {
+      operation({
       ...config, 
       params: {
-      ...config.params,
-      query}
-    });
+        ...config.params,
+        query}
+      });
+    }
   }
 
   return (
