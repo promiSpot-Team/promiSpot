@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import './TabBar.scss';
 import Modal  from '../Modal/Modal';
-import NewPromiseT from '../../pages/NewPromise/NewPromiseT';
+import NewPromiseF from '../../pages/NewPromise/NewPromiseF';
 import { Link } from "react-router-dom";
 import {MdPersonSearch} from "react-icons/md";
 import {FaHome} from "react-icons/fa";
@@ -42,7 +42,7 @@ export default function TabBar(props) {
     </div>
   </div>
   <div>
-  {modalOpen && (<Modal closeModal={() => setModalOpen(!modalOpen)}><NewPromiseT/></Modal>)}</div>
+  {modalOpen && (<Modal closeModal={() => setModalOpen(!modalOpen)}><NewPromiseF/></Modal>)}</div>
   </>
   )
 }
