@@ -3,7 +3,7 @@ import FormControl from "@mui/material/FormControl";
 import TextField from "@mui/material/TextField";
 import BasicButton from "../../components/Buttons/BasicButton";
 import WhiteHeader from '../../components/Header/BasicHeader1';
-import SearchBar from '../../components/Search/SearchBar';
+import SearchBar from '../../components/Search/SearchBar2';
 import { KAKAO_MAP_URL, KAKAO_REST_API_KEY } from '../../constans/kakaomap'
 import '../scss/Search_Bar.scss'
 import '../scss/Address.scss'
