@@ -3,14 +3,15 @@ import { Link, Outlet, useNavigate } from 'react-router-dom';
 import { motion, Variants } from "framer-motion";
 import "../scss/Map_Container.scss";
 import mapdata from '../mapdata.json'
+import { useSelector } from 'react-redux'
 
 const { kakao } = window;
 
 export default function MapContainer() {
   const [map, setMap] = useState(null);
   const [rect, setRect] = useState('');
-
   const navigate = useNavigate()
+  const { x, y } = useSelector(state => state.mapCenterPosition);
 
   // 페이지 불러올 때 한 번만 지도 그리기
   useEffect(() => {

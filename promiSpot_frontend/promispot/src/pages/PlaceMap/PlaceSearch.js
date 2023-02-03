@@ -15,7 +15,6 @@ export default function PlaceSearch() {
   const navigate = useNavigate()
   const childRef = useRef()
   // const rect = useLocation().state.rect
-  console.log('rect', useLocation())
 
   const GetAxiosResponse = (data) => {
     if (data?.response?.documents) {
@@ -38,12 +37,12 @@ export default function PlaceSearch() {
     }
   }
   
-  function moveToPlaceDetail(props) {
+  function moveToPlaceDetail(place) {
     store.dispatch({
       type: 'SAVE_PLACE_LIST',
       placeList
     })
-    navigate(`/map/${props}`)
+    navigate(`/map/${place.id}`, {state: place})
   }
 
   return (
@@ -57,7 +56,6 @@ export default function PlaceSearch() {
       //   // ease: [0, 0.71, 0.2, 1.01]
       // }}
     >
-      <h2>장소 검색</h2>
       <SearchBar 
         GetAxiosResponse={GetAxiosResponse} 
         config={config}
@@ -66,7 +64,7 @@ export default function PlaceSearch() {
       <div style={{ position: 'absolute', overflow: 'auto', width: '100%', left: '-0.3%', height: '50%'}}>
         {placeList.map((place, index) => {
           return (
-            <div onClick={() => moveToPlaceDetail(place.id)} style={{ height: '40px'}} key={index}><span>{place.place_name}</span></div>
+            <div onClick={() => moveToPlaceDetail(place)} style={{ height: '40px'}} key={index}><span>{place.place_name}</span></div>
           )
         })}
       </div>

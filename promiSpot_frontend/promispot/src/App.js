@@ -20,6 +20,7 @@ import MyPage from "./pages/MyPage/MyPage";
 import Promise from "./pages/Promise/Promise";
 import Privacy from "./pages/Login/Privacy";
 import PlaceDetail from "./pages/PlaceMap/PlaceDetail";
+import Join2 from './pages/Login/Join2'
 
 function App() {
   // const history = useHistory();
@@ -52,6 +53,7 @@ function App() {
       <Route path="/calendar" element={<PromiseCalendar />} />
       <Route path="/mypage" element={<MyPage />} />
       <Route path="/privacy" element={<Privacy />} />
+      <Route path="/join2" element={<Join2 />} />
     </Routes>
   );
 }
