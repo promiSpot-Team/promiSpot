@@ -11,6 +11,7 @@ const SearchBar2 = forwardRef(({ onClick, GetAxiosResponse, config }, ref) => {
 
   const onChange = (e) => {
     e.preventDefault();
+    setQuery(e.target.value)
     operation({
       ...config, 
       params: {
@@ -30,14 +31,12 @@ const SearchBar2 = forwardRef(({ onClick, GetAxiosResponse, config }, ref) => {
   }))
 
   function whileDragMapHandle() {
-    if (query !== '') {
-      operation({
-        ...config, 
-        params: {
-        ...config.params,
-        query}
-      });
-    }
+    operation({
+      ...config, 
+      params: {
+      ...config.params,
+      query}
+    });
   }
 
   return (
@@ -51,11 +50,11 @@ const SearchBar2 = forwardRef(({ onClick, GetAxiosResponse, config }, ref) => {
               id="outlined-basic"
               label="장소 입력"
               placeholder="검색어를 입력하세요"
-              
+              multiline
               variant="standard"
               fontFamily="Pretendard-Bold"
               margin="normal"
-              onKeyUp={onChange}
+              onChange={onChange}
             />
             {/* <BasicButton text="검색" /> */}
           </FormControl>
