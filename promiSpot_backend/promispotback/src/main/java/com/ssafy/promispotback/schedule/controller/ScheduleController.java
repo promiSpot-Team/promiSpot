@@ -123,11 +123,7 @@ public class ScheduleController {
 			return exceptionHandling(e);
 		}
 	}
-	
-	
-	
-	
-	
+
 	// 에러 처리
 	private ResponseEntity<String> exceptionHandling(Exception e) {
 		return new ResponseEntity<String>("Error: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
