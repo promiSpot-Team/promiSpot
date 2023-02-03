@@ -18,16 +18,16 @@ export default function SearchBar({ GetAxiosResponse, config = null }) {
     });
   }
 
-  useEffect(() => {
-    if (response !== null) {
-      GetAxiosResponse({ response, loading, error })
-    }
-  }, [response])
+  // useEffect(() => {
+  //   if (response !== null) {
+  //     GetAxiosResponse({ response, loading, error })
+  //   }
+  // }, [response])
 
   return (
-    <div class="search">
-      <input type="text" class="search__input" placeholder="Search..." onKeyUp={onChange}/>
-      <div class="search__icon">
+    <div className="search">
+      <input type="text" className="search__input" placeholder="Search..." onKeyUp={onChange}/>
+      <div className="search__icon">
         <ImSearch/>
       </div>
 </div>

@@ -35,7 +35,6 @@ export default function NewPromiseT() {
                 : 'normal-day'
         }
     >
-      <div>console.log(d)</div>
     </DatePicker>
 
     <div className='new-promise-under-btn-wrapper'>
