@@ -7,6 +7,7 @@ import SearchBar from '../../components/Search/SearchBar2';
 import { KAKAO_MAP_URL, KAKAO_REST_API_KEY } from '../../constans/kakaomap'
 import '../scss/Search_Bar.scss'
 import '../scss/Address.scss'
+import store from '../../index'
 
 export default function AddressSearch() {
   const [addressList, setAddressList] = useState([]);
@@ -24,6 +25,13 @@ export default function AddressSearch() {
       // Host: `${KAKAO_MAP_HOST}`,
       Authorization: `KakaoAK ${KAKAO_REST_API_KEY}`
     },
+  }
+
+  const saveAddressInfo = (props) => {
+    console.log(props)
+    // store.dispatch({
+
+    // })
   }
 
   return (
@@ -46,9 +54,9 @@ export default function AddressSearch() {
       </div>
       <hr />
       <ul className='address-result-ul'>
-        {addressList.map((address, inx) => {
+        {addressList.map((address, index) => {
           return (
-            <li className='address-result-li'>
+            <li key={index} className='address-result-li' onClick={() => saveAddressInfo({address})}>
               <p className='address-result-text'>
                 {address.address_name}
               </p>
