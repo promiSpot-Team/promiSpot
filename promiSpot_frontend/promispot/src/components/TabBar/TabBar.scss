@@ -20,8 +20,8 @@ $circle-radius: 80px;
   display: flex;
   justify-content: center;
   align-items: flex-end;
-  position:fixed;
-  bottom:0px;
+  position: fixed;
+  bottom: 0px;
   // background-color: $backgroundColor;
 }
 
@@ -39,6 +39,26 @@ $circle-radius: 80px;
   border-top-right-radius: 25px;
   background-color: rgb(93, 70, 145);
   box-shadow: 0 10px 20px rgba(82, 74, 74, 0.3);
+
+  .navbar-left {
+    display: flex;
+    justify-content: space-between;
+    width: 50%;
+    padding-right: 15vw;
+    .navbar-left-icon {
+      justify-content: space-between;
+    }
+  }
+
+  .navbar-right {
+    display: flex;
+    justify-content: space-between;
+    width: 50%;
+    padding-left: 15vw;
+    .navbar-right-icon {
+      justify-content: space-between;
+    }
+  }
 }
 
 // .navbar:after {
@@ -57,7 +77,7 @@ $circle-radius: 80px;
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
-  bottom: calc(100px - #{$circle-radius / 2});
+  bottom: calc(85px - #{$circle-radius / 2});
   margin-bottom: 0;
   height: $circle-radius;
   width: $circle-radius;
