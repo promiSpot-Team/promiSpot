@@ -13,7 +13,8 @@ export const useAxios = () => {
         try {
             setLoading(true)
             const result = await axios.request(params);
-            setResponse(result.data);
+            console.log("result", result)
+            setResponse(result);
         } catch (error) {
             setError(error);
         } finally {

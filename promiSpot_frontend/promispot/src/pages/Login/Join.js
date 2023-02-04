@@ -60,17 +60,17 @@ function Join() {
   const handleClickShowPassword_1 = () => setShowPassword_1((show) => !show);
   const handleClickShowPassword_2 = () => setShowPassword_2((show) => !show);
 
-  const handleMouseDownPassword_1 = (
-    event: React.MouseEvent<HTMLButtonElement>
-  ) => {
-    event.preventDefault();
-  };
+  // const handleMouseDownPassword_1 = (
+  //   event: React.MouseEvent<HTMLButtonElement>
+  // ) => {
+  //   event.preventDefault();
+  // };
 
-  const handleMouseDownPassword_2 = (
-    event: React.MouseEvent<HTMLButtonElement>
-  ) => {
-    event.preventDefault();
-  };
+  // const handleMouseDownPassword_2 = (
+  //   event: React.MouseEvent<HTMLButtonElement>
+  // ) => {
+  //   event.preventDefault();
+  // };
 
   const navigate = useNavigate();
 

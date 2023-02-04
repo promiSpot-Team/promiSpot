@@ -16,7 +16,11 @@ export const reducer = (state, action) => {
         nickName:'', 
         phoneNumber: ''
       },
-      addressInfo: ''
+      addressInfo: {
+        addressAddress: '',
+        addressX: 0,
+        addressY: 0
+      }
     }
   }
 
@@ -45,12 +49,14 @@ export const reducer = (state, action) => {
       break
 
     // 회원가입 진행 후 리덕스에 임시로 저장했던 회원 정보는 삭제하기
-    case 'REMOVE_USER_JOIN_INFO':
-      newState = Object.assign({}, state, {userId: action.userId})
+    case 'CLEAR_USER_JOIN_INFO':
+      newState = Object.assign({}, state, {joinInfo: action.joinInfo, addressInfo: action.addressInfo})
       break
 
+    // 회원가입 진행 시 주소 선택 후 돌아왔을 때 회원가입 페이지에 선택된 주소 띄우기
     case 'SAVE_ADDRESS_INFO':
       newState = Object.assign({}, state, {addressInfo: action.addressInfo})
+      break
     }
   return newState
 }
