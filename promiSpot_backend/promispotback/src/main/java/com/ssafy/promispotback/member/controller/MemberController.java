@@ -92,7 +92,7 @@ public class MemberController {
 			status = HttpStatus.ACCEPTED;
 		} catch (Exception e) {
 			logger.error("로그아웃 실패.");
-			resultMap.put("message", e.getMessage());
+			resultMap.put("message", FAIL);
 			status = HttpStatus.INTERNAL_SERVER_ERROR;
 		}
 		
