@@ -34,5 +34,7 @@ public interface MemberService {
 	// 리프래시 토큰 삭제
 	public void deleteRefreshToken(String memberId) throws Exception;
 
+	// 회원 일련번호 조회
+	public int getMemberSeq(String memberId) throws Exception;
 
 }//MemberService

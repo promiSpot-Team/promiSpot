@@ -82,5 +82,10 @@ public class MemberServiceImpl implements MemberService {
 		memberMapper.deleteRefreshToken(memberId);
 	}//deleRefreshToken
 
+	@Override
+	public int getMemberSeq(String memberId) throws Exception {
+		return memberMapper.getMemberSeq(memberId);
+	}
+
 
 }//MemberServiceImpl
