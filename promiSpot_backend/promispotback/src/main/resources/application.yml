@@ -2,7 +2,8 @@
 # Web ContextRootPath and PortNumber Setting
 server:
   port: 9090
-
+  servlet:
+    context-path: /api
 
 spring:
   # html path
