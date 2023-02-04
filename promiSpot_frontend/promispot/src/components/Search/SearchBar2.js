@@ -25,6 +25,7 @@ const SearchBar2 = forwardRef(({ onClick, GetAxiosResponse, config }, ref) => {
 
   useEffect(() => {
     if (response !== null) {
+      console.log("결과값", response)
       GetAxiosResponse({ response, loading, error })
     }
   }, [response])

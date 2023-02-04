@@ -4,8 +4,6 @@ import { Visibility, VisibilityOff } from "@mui/icons-material";
 import './InputFormPWD.scss';
 
 export default function InputFormPWD(props) {
-
-  const { id, label, placeholder } = props;
   const [passwordState] = useState("");
   const [showPassword, setShowPassword] = React.useState(false);
   const handleClickShowPassword = () => setShowPassword((show) => !show);
