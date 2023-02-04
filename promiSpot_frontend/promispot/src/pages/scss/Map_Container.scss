@@ -111,11 +111,14 @@
   z-index: 999;
   background-color: white;
   bottom: 0;
-  width: 100%;
+  width: 95%;
   height: 40%;
-  border-top: 1px solid #c4c4c4;
+  border: 1px solid #c4c4c4;
+  // border-top: 1px solid #c4c4c4;
   border-top-left-radius: 15px;
   border-top-right-radius: 15px;
+  border-bottom-left-radius: 15px;
+  border-bottom-right-radius: 15px;
   text-align: center;
   padding-top: 1rem;
   padding-bottom: 1rem;

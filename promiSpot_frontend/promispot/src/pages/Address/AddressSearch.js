@@ -8,9 +8,11 @@ import { KAKAO_MAP_URL, KAKAO_REST_API_KEY } from '../../constans/kakaomap'
 import '../scss/Search_Bar.scss'
 import '../scss/Address.scss'
 import store from '../../index'
+import { useNavigate } from 'react-router-dom'
 
 export default function AddressSearch() {
   const [addressList, setAddressList] = useState([]);
+  const navigate = useNavigate();
 
   const GetAxiosResponse = (data) => {
     if (data?.response?.documents) {
@@ -28,10 +30,11 @@ export default function AddressSearch() {
   }
 
   const saveAddressInfo = (props) => {
-    console.log(props)
-    // store.dispatch({
-
-    // })
+    console.log(props.address.address_name)
+    store.dispatch({
+      type: 'SAVE_ADDRESS_INFO',
+      addressInfo: props.address.address_name
+    })
   }
 
   return (
