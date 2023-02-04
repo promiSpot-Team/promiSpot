@@ -107,17 +107,25 @@ public class MemberController {
 		MemberEntity memberEntity) {
 //		System.out.println("회원가입시도");
 		logger.info("registMember - 호출");
-		
+		Map<String, Object> resultMap = new HashMap<>();
+		HttpStatus status = HttpStatus.ACCEPTED;
 		try {
 			if(memberService.registMember(memberEntity)) {
-				return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
+				int memberSeq = memberService.getMemberSeq(memberEntity.getMemberId());
+				resultMap.put("message", SUCCESS);
+				resultMap.put("memberSeq", memberSeq);
+				status = HttpStatus.OK;
 			}else {
-				return new ResponseEntity<String>(FAIL, HttpStatus.NO_CONTENT);
+				resultMap.put("message", FAIL);
+				status = HttpStatus.NO_CONTENT;
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			return exceptionHandling(e);
+			resultMap.put("message", exceptionHandling(e));
+			status = HttpStatus.INTERNAL_SERVER_ERROR;
 		}
+
+		return new ResponseEntity<Map<String, Object>>(resultMap, status);
 	}//registMember
 	
 	
