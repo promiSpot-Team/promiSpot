@@ -5,7 +5,8 @@ import BasicHeader from "../../components/Header/BasicHeader1";
 import BasicButton from "../../components/Buttons/BasicButton";
 import InputFormRO from "../../components/InputForm/InputFormRO";
 import store from '../../index'
-
+import axios from 'axios'
+import { SERVER_URL } from '../../constants/constants'
 import { 
   Input,
   TextField,
@@ -22,6 +23,9 @@ import { SettingsInputAntenna, Visibility, VisibilityOff } from "@mui/icons-mate
 import "../scss/Join2.scss";
 
 export default function Join2() {
+  // input 값 변경될 때마다 리덕스에 변경된 값 저장
+  // 페이지 첫 랜더링 될 때 저장된 값 불러오기
+  // 저장된 값이 '' 라면 defaultValue == null
   const joinInfo = useSelector((state) => state.joinInfo)
   const [state, setState] = useState({
     id: joinInfo.id,
@@ -31,6 +35,8 @@ export default function Join2() {
     nickName: joinInfo.nickName,
     phoneNumber: joinInfo.phoneNumber,
   })
+  const addressInfo = useSelector((state) => state.addressInfo)
+  
   const navigate = useNavigate();
   
   // 값이 입력될 때마다 변화하는 입력값 state객체에 저장
@@ -50,13 +56,14 @@ export default function Join2() {
   // 주소 검색 페이지로 이동
   const moveToAddressSearch = () => {
     const newJoinInfo = {...joinInfo, ...state}
-    // 주소 선택 페이지 이동 후 되돌아왔을 때에도 입력했던 정보 유지시키기 위함
+    // 주소 검색 페이지 이동 후 되돌아왔을 때에도 입력했던 정보 유지시키기 위함
     store.dispatch({
       type: 'SAVE_USER_JOIN_INFO',
       joinInfo: {
         ...newJoinInfo
       }
     })
+    // 주소 검색 페이지로 이동
     navigate('/address/search')
   }
 
@@ -65,6 +72,57 @@ export default function Join2() {
   const handleAgree = (event) => {
     setChecked(event.target.checked);
   };
+
+  // async awiat axios 요청
+  const onhandlePost = async (data) => {
+    const postData = { ...data }
+    console.log(postData)
+    try {
+      // 아이디, 비밀번호, 이메일, 이름, 닉네임, 전화번호 보내기
+      const response = await axios({
+        url: '/member',
+        method: 'POST',
+        baseURL: SERVER_URL,
+        data
+      })
+      // 회원정보 받기
+      const { memberSeq } = response.data
+
+      const response2 = await axios({
+        url: '/member/login',
+        method: 'POST', 
+        baseURL: SERVER_URL,
+        data: {
+          memberSeq,
+          ...addressInfo
+        }
+      })
+      console.log(response2)
+
+      // 회원가입 성공하면 리덕스에 저장된 임시 정보 제거
+      store.dispatch({
+        type: 'CLEAR_USER_JOIN_INFO',
+        joinInfo: {
+          id: '',
+          email: '', 
+          password:'',
+          name: '',
+          nickName:'', 
+          phoneNumber: ''
+        },
+        addressInfo: {
+          addressAddress: '',
+          addressX: 0,
+          addressY: 0
+        }
+      })
+      
+      // 로그인 페이지로 이동
+      navigate("/login");
+    } catch(err) {
+      console.log(err)
+    }
+  }
 
   // form의 onSubmit 이벤트
   const handleSubmit = (e) => {
@@ -80,7 +138,10 @@ export default function Join2() {
       memberPhoneNum: data.get("phoneNumber"),
     }
 
-    console.log(joinData)
+    // 유효성 검사
+
+    // 유효성 검사가 성공하면 axios 요청
+    onhandlePost(joinData)
   }
 
   return (
@@ -241,7 +302,8 @@ export default function Join2() {
               <InputFormRO
                 id="Address"
                 label="주소"
-                defaultvalue="아직 등록된 주소가 없습니다"
+                defaultvalue={addressInfo.addressAddress === '' ? 
+                "아직 등록된 주소가 없습니다" : addressInfo.addressAddress}
               />
             {/* </Link> */}
           </FormControl>

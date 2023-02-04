@@ -4,17 +4,19 @@ import TextField from "@mui/material/TextField";
 import BasicButton from "../../components/Buttons/BasicButton";
 import WhiteHeader from '../../components/Header/BasicHeader1';
 import SearchBar from '../../components/Search/SearchBar2';
-import { KAKAO_MAP_URL, KAKAO_REST_API_KEY } from '../../constans/kakaomap'
+import { KAKAO_MAP_URL, KAKAO_REST_API_KEY } from '../../constants/constants'
 import '../scss/Search_Bar.scss'
 import '../scss/Address.scss'
 import store from '../../index'
+import { useNavigate } from 'react-router-dom'
 
 export default function AddressSearch() {
   const [addressList, setAddressList] = useState([]);
+  const navigate = useNavigate();
 
-  const GetAxiosResponse = (data) => {
-    if (data?.response?.documents) {
-      setAddressList(data.response.documents)
+  const GetAxiosResponse = ({ response, error, loading}) => {
+    if (response?.data?.documents) {
+      setAddressList(response.data.documents)
     }
   }
 
@@ -27,11 +29,16 @@ export default function AddressSearch() {
     },
   }
 
-  const saveAddressInfo = (props) => {
-    console.log(props)
-    // store.dispatch({
-
-    // })
+  const saveAddressInfo = (address) => {
+    store.dispatch({
+      type: 'SAVE_ADDRESS_INFO',
+      addressInfo: {
+        addressAddress: address.address.address_name,
+        addressX: address.address.x,
+        addressY: address.address.y,
+      }
+    })
+    navigate('/join2')
   }
 
   return (

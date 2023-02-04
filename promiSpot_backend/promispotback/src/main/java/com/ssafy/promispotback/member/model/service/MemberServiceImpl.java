@@ -82,5 +82,19 @@ public class MemberServiceImpl implements MemberService {
 		memberMapper.deleteRefreshToken(memberId);
 	}//deleRefreshToken
 
+	/* 회원 일련번호 가져오기 */
+	@Override
+	public int getMemberSeq(String memberId) throws Exception {
+		return memberMapper.getMemberSeq(memberId);
+	}
+
+	/* id 중복체크 */
+	@Override
+	public boolean checkId(String memberId) throws Exception {
+		return memberMapper.checkId(memberId) == 0;
+	}//checkId
+
+
+
 
 }//MemberServiceImpl

@@ -65,6 +65,20 @@
 		set member_token = #{token, jdbcType=VARCHAR}
 		where member_id = #{memberId}
 	</update>
-	
+
+	<!-- 회원 일련번호 조회 -->
+	<select id="getMemberSeq" parameterType="String" resultType="int">
+		select member_seq
+		from members
+		where member_id = #{memberId}
+	</select>
+
+	<!-- 회원 id 중복체크 -->
+	<select id="checkId" parameterType="string" resultType="int">
+		select count(member_id)
+		from members
+		where member_id = #{memberId}
+	</select>
+
 
 </mapper>

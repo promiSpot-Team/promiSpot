@@ -1,12 +1,12 @@
-import React, { useState, useRef, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
-import { motion } from "framer-motion";
-import { KAKAO_MAP_URL, KAKAO_REST_API_KEY } from "../../constans/kakaomap";
-import SearchBar from "../../components/Search/SearchBar2";
-import store from "../../index";
-import { useSelector } from "react-redux";
-import "../scss/Map_Container.scss";
-import "../scss/Search_Bar.scss";
+import React, { useState, useRef, useEffect  }from 'react'
+import { useNavigate } from 'react-router-dom'
+import { motion } from "framer-motion"
+import { KAKAO_MAP_URL, KAKAO_REST_API_KEY } from '../../constants/constants'
+import SearchBar from '../../components/Search/SearchBar2'
+import store from '../../index'
+import { useSelector } from 'react-redux'
+import '../scss/Map_Container.scss'
+import '../scss/Search_Bar.scss'
 
 export default function PlaceSearch() {
   const statePlaceList = useSelector((state) => state.placeList);
@@ -15,9 +15,9 @@ export default function PlaceSearch() {
   const navigate = useNavigate();
   const childRef = useRef();
 
-  const GetAxiosResponse = (data) => {
-    if (data?.response?.documents) {
-      setPlaceList(data.response.documents);
+  const GetAxiosResponse = ({ response, error, loading }) => {
+    if (response?.data?.documents) {
+      setPlaceList(response.data.documents)
     }
   };
 

@@ -5,7 +5,6 @@ import TextField from "@mui/material/TextField";
 import BasicButton from "../Buttons/BasicButton";
 import { useAxios } from "../../hooks/useAxios";
 import {ImSearch} from "react-icons/im";
-import './SearchBar.scss';
 
 const SearchBar2 = forwardRef(({ onClick, GetAxiosResponse, config }, ref) => {
   const { response, loading, error, operation } = useAxios();
@@ -26,6 +25,7 @@ const SearchBar2 = forwardRef(({ onClick, GetAxiosResponse, config }, ref) => {
 
   useEffect(() => {
     if (response !== null) {
+      console.log("결과값", response)
       GetAxiosResponse({ response, loading, error })
     }
   }, [response])
