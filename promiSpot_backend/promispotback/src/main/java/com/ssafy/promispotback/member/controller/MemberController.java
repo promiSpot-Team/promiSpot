@@ -249,7 +249,24 @@ public class MemberController {
 		}
 		return new ResponseEntity<Map<String, Object>>(resultMap, status);
 	}//refreshToken
-	
+
+	/* id 중복 확인 */
+	@ApiOperation(value = "회원 id 중복 확인 ", notes = "회원 id 중복 확인 사용가능='success', 불가능='fail' 문자열 반환 ", response = String.class)
+	@GetMapping("/checkId/{memberId}")
+	private ResponseEntity<String> checkId(@PathVariable("memberId") String memberId) {
+		try{
+			if(memberService.checkId(memberId)){ // id 사용 가능
+				return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
+			}else{ // id 사용 불가능
+				return new ResponseEntity<String>(FAIL, HttpStatus.OK);
+			}
+		}catch (Exception e){
+			return exceptionHandling(e);
+		}
+
+	}//checkId
+
+
 	// 에러 처리
 	private ResponseEntity<String> exceptionHandling(Exception e) {
 		return new ResponseEntity<String>("Error: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);

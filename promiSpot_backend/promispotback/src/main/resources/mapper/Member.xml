@@ -73,4 +73,12 @@
 		where member_id = #{memberId}
 	</select>
 
+	<!-- 회원 id 중복체크 -->
+	<select id="checkId" parameterType="string" resultType="int">
+		select count(member_id)
+		from members
+		where member_id = #{memberId}
+	</select>
+
+
 </mapper>

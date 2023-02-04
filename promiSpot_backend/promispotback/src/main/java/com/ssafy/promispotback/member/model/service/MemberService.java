@@ -37,4 +37,8 @@ public interface MemberService {
 	// 회원 일련번호 조회
 	public int getMemberSeq(String memberId) throws Exception;
 
+	// id 중복 체크
+	public boolean checkId(String memberId) throws  Exception;
+
+
 }//MemberService
