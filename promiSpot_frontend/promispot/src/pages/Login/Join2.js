@@ -5,7 +5,7 @@ import BasicHeader from "../../components/Header/BasicHeader1";
 import BasicButton from "../../components/Buttons/BasicButton";
 import InputFormRO from "../../components/InputForm/InputFormRO";
 import store from '../../index'
-
+import axios from 'axios'
 import { 
   Input,
   TextField,
@@ -22,6 +22,9 @@ import { SettingsInputAntenna, Visibility, VisibilityOff } from "@mui/icons-mate
 import "../scss/Join2.scss";
 
 export default function Join2() {
+  // input 값 변경될 때마다 리덕스에 변경된 값 저장
+  // 페이지 첫 랜더링 될 때 저장된 값 불러오기
+  // 저장된 값이 '' 라면 defaultValue == null
   const joinInfo = useSelector((state) => state.joinInfo)
   const [state, setState] = useState({
     id: joinInfo.id,
@@ -31,6 +34,8 @@ export default function Join2() {
     nickName: joinInfo.nickName,
     phoneNumber: joinInfo.phoneNumber,
   })
+  const addressInfo = useSelector((state) => state.addressInfo)
+  
   const navigate = useNavigate();
   
   // 값이 입력될 때마다 변화하는 입력값 state객체에 저장
@@ -50,13 +55,14 @@ export default function Join2() {
   // 주소 검색 페이지로 이동
   const moveToAddressSearch = () => {
     const newJoinInfo = {...joinInfo, ...state}
-    // 주소 선택 페이지 이동 후 되돌아왔을 때에도 입력했던 정보 유지시키기 위함
+    // 주소 검색 페이지 이동 후 되돌아왔을 때에도 입력했던 정보 유지시키기 위함
     store.dispatch({
       type: 'SAVE_USER_JOIN_INFO',
       joinInfo: {
         ...newJoinInfo
       }
     })
+    // 주소 검색 페이지로 이동
     navigate('/address/search')
   }
 
@@ -65,6 +71,11 @@ export default function Join2() {
   const handleAgree = (event) => {
     setChecked(event.target.checked);
   };
+
+  // async awiat axios 요청
+  const onhandlePost = async (e) => {
+    
+  }
 
   // form의 onSubmit 이벤트
   const handleSubmit = (e) => {
@@ -79,6 +90,25 @@ export default function Join2() {
       memberNick: data.get("nickName"),
       memberPhoneNum: data.get("phoneNumber"),
     }
+
+    axios(
+      {
+        url: '/member',
+        method: 'post', 
+        data: {
+          ...joinData
+        },
+        baseURL: 'http://localhost:9090'
+      }
+    ).then((res) => {
+      console.log(res)
+    }).then((res) => {
+      console.log(res)
+    }).then((res) => {
+     
+    }).catch((err) => {
+
+    })
 
     console.log(joinData)
   }
@@ -241,7 +271,7 @@ export default function Join2() {
               <InputFormRO
                 id="Address"
                 label="주소"
-                defaultvalue="아직 등록된 주소가 없습니다"
+                defaultvalue={addressInfo === '' ? "아직 등록된 주소가 없습니다" : addressInfo}
               />
             {/* </Link> */}
           </FormControl>

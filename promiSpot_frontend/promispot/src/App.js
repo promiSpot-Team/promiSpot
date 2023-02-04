@@ -47,6 +47,7 @@ function App() {
       <Route path="/privacy" element={<Privacy />} />
       {/* <Route path="/join2" element={<Join2 />} /> */}
       <Route path="/card" element={<Card/>}/>
+      <Route path="/join2" element={<Join2/>}/>
     </Routes>
   );
 }
