@@ -46,7 +46,7 @@ public class FriendController {
 			if(friendService.requestFriend(friendRequestEntity)) {
 				return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
 			}else {
-				return new ResponseEntity<String>(FAIL, HttpStatus.NO_CONTENT);			
+				return new ResponseEntity<String>(FAIL, HttpStatus.ACCEPTED);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -66,7 +66,7 @@ public class FriendController {
 			if(memberList != null) {
 				return new ResponseEntity<List<MemberEntity>>(memberList, HttpStatus.OK);
 			}else {
-				return new ResponseEntity<String>(FAIL, HttpStatus.NO_CONTENT);
+				return new ResponseEntity<String>(FAIL, HttpStatus.ACCEPTED);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -84,7 +84,7 @@ public class FriendController {
 			if(friendService.approvalFriend(friendRequestSeq)) {
 				return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
 			}else {
-				return new ResponseEntity<String>(FAIL, HttpStatus.NO_CONTENT);
+				return new ResponseEntity<String>(FAIL, HttpStatus.ACCEPTED);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -103,7 +103,7 @@ public class FriendController {
 			if(friendService.rejectFriend(friendRequestSeq)) {
 				return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
 			}else {
-				return new ResponseEntity<String>(FAIL, HttpStatus.NO_CONTENT);
+				return new ResponseEntity<String>(FAIL, HttpStatus.ACCEPTED);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -123,7 +123,7 @@ public class FriendController {
 			if(member != null) {
 				return new ResponseEntity<MemberEntity>(member, HttpStatus.OK);
 			}else {
-				return new ResponseEntity<String>(FAIL, HttpStatus.NO_CONTENT);
+				return new ResponseEntity<String>(FAIL, HttpStatus.ACCEPTED);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -143,7 +143,7 @@ public class FriendController {
 			if(memberList != null) {
 				return new ResponseEntity<List<MemberEntity>>(memberList, HttpStatus.OK);
 			}else {
-				return new ResponseEntity<String>(FAIL, HttpStatus.NO_CONTENT);
+				return new ResponseEntity<String>(FAIL, HttpStatus.ACCEPTED);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

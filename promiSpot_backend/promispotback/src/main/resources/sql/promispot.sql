@@ -135,6 +135,20 @@ CREATE TABLE `addresses` (
     primary key(address_seq)
 );
 
+-- 친구 성립 트리거
+DELIMITER $$
+CREATE TRIGGER friend_trigger
+    AFTER UPDATE
+    ON friend_request FOR EACH ROW
+BEGIN
+    DECLARE member_seq bigint;
+		DECLARE friend_friend bigint;
+
+        SET member_seq = OLD.member_seq;
+        SET friend_friend = OLD.friend_request_member;
+    insert into friends values(member_seq, friend_friend), (friend_friend, member_seq);
+END $$
+DELIMITER ;
 
 /* 더미 데이터 */ 
 
