@@ -10,7 +10,7 @@
 
 	<!-- 약속 참여자 등록 -->
 	<insert id="registPromiseMember" parameterType="PromiseMemberEntity">
-		insert into promises_members(promise_seq, member_seq, promise_memeber_is_leader)
+		insert into promises_members(promise_seq, member_seq, promise_member_is_leader)
 		values(#{promiseSeq}, #{memberSeq}, #{promiseMemberIsLeader})
 	</insert>
 
