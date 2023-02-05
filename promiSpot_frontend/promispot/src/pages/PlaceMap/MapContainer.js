@@ -11,7 +11,7 @@ import PlaceSearch from "./PlaceSearch";
 const { kakao } = window;
 
 export default function MapContainer() {
-  const [isSearchSelect, setIsSearchSelect] = useState(false);
+  const [isSearchSelect, setIsSearchSelect] = useState(false)
   const stateMapCenterPosition = useSelector(
     (state) => state.mapCenterPosition
   );
@@ -19,9 +19,7 @@ export default function MapContainer() {
   const [map, setMap] = useState(null);
   const [rect, setRect] = useState("");
   const stateRect = useSelector((state) => state.rect);
-
-  const navigate = useNavigate();
-  // const { x, y } = useSelector(state => state.mapCenterPosition);
+  const navigate = useNavigate()
 
   // 페이지 불러올 때 한 번만 지도 그리기
   useEffect(() => {
@@ -31,14 +29,44 @@ export default function MapContainer() {
   // 마커나 프로필이 DB에 추가됐을 때
   useEffect(() => {}, [mapdata]);
 
-  // 지도에 장소가 등록돼서 중심 위치를 변경시켜줘야할 때
-  useEffect(() => {
-    function panTo() {
-      var moveLatLon = new kakao.maps.LatLng(mapCenter.x, mapCenter.y);
-      if (map) map.panTo(moveLatLon);
-    }
-    panTo();
-  }, [stateMapCenterPosition]);
+  // // 지도에 장소가 등록됐을 때
+  // useEffect(() => {
+  //   setmapCenter(stateMapCenterPosition)
+  //   function panTo() {
+  //     var moveLatLon = new kakao.maps.LatLng(mapCenter.y, mapCenter.x);
+  //     if (map) {
+  //       // 1. 등록된 장소로 지도 중심 위치 이동
+  //       map.panTo(moveLatLon);
+
+  //       // 2. 장소 마커로 표시하기
+
+  //       var markerPosition  = new kakao.maps.LatLng(mapCenter.y, mapCenter.x);   
+  //       var marker = new kakao.maps.Marker({
+  //           position: markerPosition
+  //       }).then((res) => {
+  //         marker.setMap(map);      
+  //       })
+  //     }
+  //   }
+  //   panTo()
+  // }, [stateMapCenterPosition])
+
+  const markerPosition = async () => {
+    // state의 mapCenterPosition이 변경될 때마다 실행
+
+    //  1. 위도, 경도로 지도에 표시할 위치값 받기
+    var { x, y } = stateMapCenterPosition
+    var markerPosition = await new kakao.maps.LatLng(y, x)
+
+    //  2. 1에서 받은 위치로 이동
+    map.panTo(markerPosition)
+
+    //  3. 1에서 받은 위치에 마커 표시
+    var marker = await new kakao.maps.Marker({
+      position: markerPosition
+    })
+    marker.setMap(map)
+  }
 
   useEffect(() => {
     setRect(stateRect);
@@ -92,34 +120,6 @@ export default function MapContainer() {
   return (
     <div id="map-all-wrapper">
       <div id="map" className="map-wrapper">
-        {/* {isSearchSelect && (
-          <PlaceSearch />
-        )} */}
-        {/* <Link to="/map/search" state={{ rect }}>
-          <button
-            style={{
-              position: "absolute",
-              zIndex: 999,
-              top: 0,
-              left: 0,
-            }}
-            onClick={() => navigate("/map/search")}
-            // onClick={() => setIsSearchSelect(!isSearchSelect)}
-          >
-            검색
-          </button>
-        </Link> */}
-        {/* <Link to="/map/recommend">
-          <button
-            style={{
-              position: "absolute",
-              zIndex: 999,
-            }}
-          >
-            추천
-          </button>
-        </Link> */}
-
         <Outlet />
       </div>
       <div className="map-tab-wrapper">
