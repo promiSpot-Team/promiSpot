@@ -1,12 +1,18 @@
 .promise-list-wrapper {
   // width: 80%;
-  margin-top:  5px;
+  margin-top: 5px;
   // align-items: center;
   .promise-list-each-wrapper {
     // width:100%;
     align-items: center;
     margin-bottom: 20px;
   }
+}
+
+.promise-calendar-wrapper {
+  display: flex;
+  margin: auto;
+  font-size: 80px;
 }
 
 // .friend-wrapper {
@@ -38,7 +44,7 @@
 //   align-items: center;
 //   // width: 100%;
 //   // height: 100vh;
-  
+
 //   .friend-list-each-wrapper {
 //     display: grid;
 //     height: 50px;

@@ -9,73 +9,82 @@ import '../scss/Map_Container.scss'
 import '../scss/Search_Bar.scss'
 
 export default function PlaceSearch() {
-  const statePlaceList = useSelector((state) => state.placeList)
-  const stateRect = useSelector((state) => state.rect)
-  const [placeList, setPlaceList] = useState(statePlaceList)
-  const navigate = useNavigate()
-  const childRef = useRef()
+  const statePlaceList = useSelector((state) => state.placeList);
+  const stateRect = useSelector((state) => state.rect);
+  const [placeList, setPlaceList] = useState(statePlaceList);
+  const navigate = useNavigate();
+  const childRef = useRef();
 
   const GetAxiosResponse = ({ response, error, loading }) => {
     if (response?.data?.documents) {
       setPlaceList(response.data.documents)
     }
-  }
-  
-  useEffect(() => {
-    childRef.current.whileDragMapHandle()
-  }, [])
+  };
 
   useEffect(() => {
-    childRef.current.whileDragMapHandle()
-  }, [stateRect])
+    childRef.current.whileDragMapHandle();
+  }, []);
+
+  useEffect(() => {
+    childRef.current.whileDragMapHandle();
+  }, [stateRect]);
 
   const config = {
-    method: 'GET', 
+    method: "GET",
     baseURL: `${KAKAO_MAP_URL}/v2/local/search/keyword`,
     headers: {
-      Authorization: `KakaoAK ${KAKAO_REST_API_KEY}`
+      Authorization: `KakaoAK ${KAKAO_REST_API_KEY}`,
     },
     params: {
-      rect: stateRect
-    }
-  }
-  
+      rect: stateRect,
+    },
+  };
+
   function moveToPlaceDetail(place) {
     store.dispatch({
-      type: 'SAVE_PLACE_LIST',
-      placeList
-    })
-    navigate(`/map/${place.id}`, {state: place})
+      type: "SAVE_PLACE_LIST",
+      placeList,
+    });
+    navigate(`/map/${place.id}`, { state: place });
   }
 
   return (
     <motion.div
-      className='place-modal-wrapper'
-      // initial={{ opacity: 0, y: 15 }}
-      // animate={{ opacity: 1, y: 0 }}
-      // transition={{
-      //   duration: 0.3,
-      //   delay: 0.3,
-      //   // ease: [0, 0.71, 0.2, 1.01]
-      // }}
+      className="place-modal-wrapper"
+      initial={{ opacity: 0, y: 15 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{
+        duration: 0.3,
+        delay: 0.3,
+        // ease: [0, 0.71, 0.2, 1.01]
+      }}
     >
-      <SearchBar 
-        GetAxiosResponse={GetAxiosResponse} 
-        config={config}
-        ref={childRef}
-      />
-      <div className="place-search-wrapper">
-        {placeList && placeList.map((place, index) => {
-          return (
-            <div onClick={() => moveToPlaceDetail(place)} style={{ height: '40px'}} key={index}><span>{place.place_name}</span></div>
-          )
-        })}
+      <div className="place-search-bar-wrapper">
+        <SearchBar
+          GetAxiosResponse={GetAxiosResponse}
+          config={config}
+          ref={childRef}
+        />
       </div>
-      {/* <form className='search-bar-wrapper'>
-        <input type="text" className='search-bar' placeholder='검색어를 입력하세요...'/>
-      </form> */}
+      <div className="place-search-wrapper">
+        <div className="place-search-result-wrapper">
+          {placeList &&
+            placeList.map((place, index) => {
+              return (
+                <div
+                  className="place-search-result-each-wrapper"
+                  onClick={() => moveToPlaceDetail(place)}
+                  // style={{ height: "35px" }}
+                  key={index}
+                >
+                  <span>{place.place_name}</span>
+                </div>
+              );
+            })}
+        </div>
+      </div>
     </motion.div>
-  )
+  );
 }
 // export default function PlaceSearch() {
 //   const [placeList, setPlaceList] = useState([])
@@ -88,13 +97,13 @@ export default function PlaceSearch() {
 //       setPlaceList(data.response.documents)
 //     }
 //   }
-  
+
 //   useEffect(() => {
 //     childRef.current.showAlert()
 //   }, [rect])
 
 //   const config = {
-//     method: 'GET', 
+//     method: 'GET',
 //     baseURL: `${KAKAO_MAP_URL}/v2/local/search/keyword`,
 //     headers: {
 //       // Host: `${KAKAO_MAP_HOST}`,
