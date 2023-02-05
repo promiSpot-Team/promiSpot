@@ -1,6 +1,7 @@
 package com.ssafy.promispotback.websocket.controller;
 
 import com.ssafy.promispotback.chat.MongoChatService;
+import com.ssafy.promispotback.place.model.entity.PlaceEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.simp.SimpMessageSendingOperations;
@@ -18,26 +19,34 @@ final이 붙거나 @NotNull 이 붙은 필드의 생성자를 자동 생성해�
 @RequiredArgsConstructor
 @Controller
 public class ChatController {
-	
-	// private final 
-	private final SimpMessageSendingOperations sendingOperations;
+
+    // private final
+    private final SimpMessageSendingOperations sendingOperations;
 
     private final MongoChatService mongoChatService;
-	
-  @MessageMapping("/chat/message")
+
+
+    // 채팅 메세지 매핑
+    @MessageMapping("/chat/message")
     public void enter(ChatMessage message) {
         if (ChatMessage.MessageType.ENTER.equals(message.getType())) {
-            message.setMessage(message.getSender()+"님이 입장하였습니다.");
+            message.setMessage(message.getSender() + "님이 입장하였습니다.");
         }
 
         mongoChatService.saveChatMessage(message);
-        System.out.println(message.toString());
-        sendingOperations.convertAndSend("/topic/chat/room/"+message.getRoomId(),message);
+        sendingOperations.convertAndSend("/topic/chat/room/" + message.getRoomId(), message);
+    }
 
 
+    // 다른 주소도 먹히는지 확인
+    @MessageMapping("/chat/place")
+    public void placeChat(ChatMessage message) {
 
+        if (ChatMessage.MessageType.ENTER.equals(message.getType())) {
+            message.setMessage(message.getSender() + "님이 입장하였습니다.");
+        }
 
-
-  	}
-
+        mongoChatService.saveChatMessage(message);
+        sendingOperations.convertAndSend("/topic/chat/room/" + message.getRoomId(), message);
+    }
 }
