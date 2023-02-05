@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import axios from 'axios';
 
-axios.defaults.baseURL = 'http://i8a109.p.ssafy.io:9090'
+// axios.defaults.baseURL = 'http://i8a109.p.ssafy.io:9090'
 
 export const useAxios = () => {
     const [response, setResponse] = useState(undefined);

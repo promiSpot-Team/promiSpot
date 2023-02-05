@@ -11,16 +11,15 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 const store = createStore(reducer, composeWithDevTools())
-// store.subscribe(NewFriendT)
 
 root.render(
-  <React.StrictMode>
+  // <React.StrictMode>
     <Provider store={store}>
       <BrowserRouter>
         <App />
       </BrowserRouter>
     </Provider>
-  </React.StrictMode>
+  // </React.StrictMode>
 );
 
 reportWebVitals();

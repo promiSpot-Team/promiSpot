@@ -8,7 +8,7 @@ import InputForm from "../../components/InputForm/InputForm";
 import InputFormRO from "../../components/InputForm/InputFormRO";
 import InputFormPWD from "../../components/InputForm/InputFormPWD";
 import { useAxios } from "../../hooks/useAxios";
-import { baseURL } from '../../constants/constants'
+import { SERVER_URL } from '../../constants/constants'
 
 import axios from "axios";
 
@@ -40,23 +40,29 @@ function Login() {
     setInputPw(e.target.value);
   };
 
-  // useAxios.js
-  const { response, error, loading, operation } = useAxios()
-  
+  const loginHandle = async(data) => {
+    try {
+      const response = await axios({
+        method: 'POST', 
+        url: `${SERVER_URL}/member/login`,
+        data,
+      })
+      navigate('/main')
+    } catch(err) {
+      console.log(err)
+    }
+  }
+
   // 로그인 버튼 클릭시 로그인 요청
   const handleLogin = (e) => {
     e.preventDefault();
   
     const loginData = new FormData(e.currentTarget);
-    operation({
-      url: '/member/login',
-      method: 'POST', 
-      data: {
-        memberId: loginData.get('id'),
-        memberPass: loginData.get('password')
-      }
-    })
-    console.log(response, error, loading)
+    const data = {
+      memberId: loginData.get('id'),
+      memberPass: loginData.get('password')
+    }
+    loginHandle(data)
   }
 
   // const handleMouseDownPassword = (
