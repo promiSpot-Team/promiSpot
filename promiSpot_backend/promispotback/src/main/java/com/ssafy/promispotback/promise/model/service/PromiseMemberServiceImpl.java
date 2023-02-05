@@ -3,6 +3,7 @@ package com.ssafy.promispotback.promise.model.service;
 import java.sql.SQLException;
 import java.util.List;
 
+import com.ssafy.promispotback.member.model.entity.MemberEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -35,7 +36,7 @@ public class PromiseMemberServiceImpl implements PromiseMemberService{
 	
 	// 약속 참여자 전체 조회
 	@Override
-	public List<PromiseMemberEntity> getPromiseMemberList(int promiseSeq) throws SQLException {
+	public List<MemberEntity> getPromiseMemberList(int promiseSeq) throws SQLException {
 		return promiseMemberMapper.getPromiseMemberList(promiseSeq);
 	}
 

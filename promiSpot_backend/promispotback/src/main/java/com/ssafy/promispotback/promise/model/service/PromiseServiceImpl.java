@@ -18,8 +18,7 @@ public class PromiseServiceImpl implements PromiseService{
 	// 약속 생성
 	@Override
 	public int createPromise(PromiseEntity promiseEntity) throws SQLException {
-		// TODO Auto-generated method stub
-		return 0;
+		return promiseMapper.createPromise(promiseEntity);
 	}
 
 	// 약속 조회 

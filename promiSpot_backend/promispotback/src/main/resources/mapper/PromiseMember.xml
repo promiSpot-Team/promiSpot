@@ -25,8 +25,12 @@
 
 
 	<!-- 약속 참여자 전체 조회 -->
-	<select id="getPromiseMemberList" parameterType="int" resultType="PromiseMemberEntity"> 
-		select * from promises_members where promise_seq = #{promiseSeq}
+	<select id="getPromiseMemberList" parameterType="int" resultType="MemberEntity">
+		<!--select * from promises_members where promise_seq = #{promiseSeq} -->
+		select m.member_seq, member_nick, member_id, member_img_path, member_img_server_name
+		from members m join promises_members pm
+		on m.member_seq = pm.member_seq
+		where promise_seq = #{promiseSeq}
 	</select>
 	
 	
