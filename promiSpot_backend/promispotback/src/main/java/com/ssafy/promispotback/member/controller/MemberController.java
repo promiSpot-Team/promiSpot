@@ -65,10 +65,10 @@ public class MemberController {
 				resultMap.put("access-token", accessToken);
 				resultMap.put("refresh-token", refreshToken);
 				resultMap.put("message", SUCCESS);
-				status = HttpStatus.ACCEPTED;
+				status = HttpStatus.OK;
 			} else {
 				resultMap.put("message", FAIL);
-				status = HttpStatus.NO_CONTENT;
+				status = HttpStatus.ACCEPTED;
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -89,7 +89,7 @@ public class MemberController {
 		try {
 			memberService.deleteRefreshToken(memberId);
 			resultMap.put("message", SUCCESS);
-			status = HttpStatus.ACCEPTED;
+			status = HttpStatus.OK;
 		} catch (Exception e) {
 			logger.error("로그아웃 실패.");
 			resultMap.put("message", FAIL);
@@ -117,7 +117,7 @@ public class MemberController {
 				status = HttpStatus.OK;
 			}else {
 				resultMap.put("message", FAIL);
-				status = HttpStatus.NO_CONTENT;
+				status = HttpStatus.ACCEPTED;
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -139,7 +139,7 @@ public class MemberController {
 				System.out.println("memberModify SUCCESS!");
 				return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
 			}else {
-				return new ResponseEntity<String>(FAIL, HttpStatus.NO_CONTENT);			
+				return new ResponseEntity<String>(FAIL, HttpStatus.ACCEPTED);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -157,7 +157,7 @@ public class MemberController {
 			if(memberService.removeMember(memberSeq)) {
 				return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
 			}else {
-				return new ResponseEntity<String>(FAIL, HttpStatus.NO_CONTENT);			
+				return new ResponseEntity<String>(FAIL, HttpStatus.ACCEPTED);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -182,10 +182,10 @@ public class MemberController {
 				if(member != null) { // 회원 있음
 					resultMap.put("memberInfo", member);
 					resultMap.put("message", SUCCESS);
-					status = HttpStatus.ACCEPTED;
+					status = HttpStatus.OK;
 				}else { // 회원 없음
 					resultMap.put("message", FAIL);
-					status = HttpStatus.NO_CONTENT;			
+					status = HttpStatus.ACCEPTED;
 				}
 			} catch (Exception e) { // 오류
 				logger.error("정보조회 실패 : {}", e);
@@ -212,7 +212,7 @@ public class MemberController {
 			if(memberList != null) {
 				return new ResponseEntity<List<MemberEntity>>(memberList, HttpStatus.OK);					
 			}else {
-				return new ResponseEntity<String>(FAIL, HttpStatus.NO_CONTENT);									
+				return new ResponseEntity<String>(FAIL, HttpStatus.ACCEPTED);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -236,7 +236,7 @@ public class MemberController {
 					logger.debug("정상적으로 access token 재발급");
 					resultMap.put("access-token", accessToken);
 					resultMap.put("message", SUCCESS);
-					status = HttpStatus.ACCEPTED;
+					status = HttpStatus.OK;
 				}
 			} catch (Exception e) {
 				logger.error(e.getMessage());
@@ -258,7 +258,7 @@ public class MemberController {
 			if(memberService.checkId(memberId)){ // id 사용 가능
 				return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
 			}else{ // id 사용 불가능
-				return new ResponseEntity<String>(FAIL, HttpStatus.OK);
+				return new ResponseEntity<String>(FAIL, HttpStatus.ACCEPTED);
 			}
 		}catch (Exception e){
 			return exceptionHandling(e);
