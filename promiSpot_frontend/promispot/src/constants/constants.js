@@ -1,5 +1,5 @@
 // BACKEND API
-export const SERVER_URL = 'http://i8a109.p.ssafy.io:9090'
+export const SERVER_URL = 'https://i8a109.p.ssafy.io/api'
 
 // KAKAO MAP API
 export const KAKAO_MAP_URL = 'https://dapi.kakao.com'

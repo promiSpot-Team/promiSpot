@@ -71,6 +71,10 @@ export default function MapContainer() {
   useEffect(() => {
     setRect(stateRect);
   }, [stateRect]);
+  
+  useEffect(() => {
+    markerPosition()
+  }, [stateMapCenterPosition])
 
   // 지도 그리기
   const mapscript = () => {

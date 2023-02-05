@@ -22,6 +22,7 @@ import Privacy from "./pages/Login/Privacy";
 import PlaceDetail from "./pages/PlaceMap/PlaceDetail";
 import Join2 from './pages/Login/Join2'
 import Card from "./components/Card/Card";
+import GetDetail from './pages/PlaceMap/GetDetail'
 
 function App() {
   // const history = useHistory();
@@ -48,6 +49,7 @@ function App() {
       {/* <Route path="/join2" element={<Join2 />} /> */}
       <Route path="/card" element={<Card/>}/>
       <Route path="/join2" element={<Join2/>}/>
+      <Route path="/detail" element={<GetDetail />} />
     </Routes>
   );
 }

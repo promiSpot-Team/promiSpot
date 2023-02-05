@@ -19,8 +19,10 @@
     "axios": "^1.2.4",
     "babel-plugin-macros": "^3.1.0",
     "cheerio": "^1.0.0-rc.12",
+    "cors": "^2.8.5",
     "date-fns": "^2.29.3",
     "framer-motion": "^8.5.4",
+    "http-proxy-middleware": "^2.0.6",
     "moment": "^2.29.4",
     "react": "^18.2.0",
     "react-anime": "^4.1.1",
@@ -32,9 +34,11 @@
     "react-redux": "^8.0.5",
     "react-router-dom": "^6.7.0",
     "react-scripts": "5.0.1",
+    "react-stomp": "^5.1.0",
     "react-swipe-views": "^0.0.12",
     "redux": "^4.2.1",
     "redux-devtools-extension": "^2.13.9",
+    "socketjs-client": "^1.0.2",
     "swiper": "^9.0.1",
     "web-vitals": "^2.1.4"
   },
@@ -64,6 +68,5 @@
   },
   "devDependencies": {
     "sass": "^1.57.1"
-  },
-  "proxy": "http://i8a109.p.ssafy.io:9090"
+  }
 }
