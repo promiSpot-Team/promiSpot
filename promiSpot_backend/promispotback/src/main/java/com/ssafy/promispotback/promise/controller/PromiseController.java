@@ -37,7 +37,7 @@ public class PromiseController {
 			if(result != 0) {
 				return new ResponseEntity<String>("success", HttpStatus.OK);
 			} else {
-				return new ResponseEntity<String>("fail", HttpStatus.NO_CONTENT);
+				return new ResponseEntity<String>("fail", HttpStatus.ACCEPTED);
 			}
 			
 		} catch (Exception e) {
@@ -59,7 +59,7 @@ public class PromiseController {
 				return new ResponseEntity<PromiseEntity>(promise, HttpStatus.OK);
 			} else {
 				System.out.println("fail work");
-				return new ResponseEntity<String>("fail", HttpStatus.NO_CONTENT);
+				return new ResponseEntity<String>("fail", HttpStatus.ACCEPTED);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -80,7 +80,7 @@ public class PromiseController {
 				return new ResponseEntity<List<PromiseEntity>>(promiseList, HttpStatus.OK);
 			} else {
 				System.out.println("fail work");
-				return new ResponseEntity<String>("fail", HttpStatus.NO_CONTENT);
+				return new ResponseEntity<String>("fail", HttpStatus.ACCEPTED);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -99,7 +99,7 @@ public class PromiseController {
 			if (result != 0) {
 				return new ResponseEntity<String>("success", HttpStatus.OK);
 			} else {
-				return new ResponseEntity<String>("fail", HttpStatus.NO_CONTENT);
+				return new ResponseEntity<String>("fail", HttpStatus.ACCEPTED);
 			}
 
 		} catch (Exception e) {
@@ -118,7 +118,7 @@ public class PromiseController {
 			if (result != 0) {
 				return new ResponseEntity<String>("success", HttpStatus.OK);
 			} else {
-				return new ResponseEntity<String>("fail", HttpStatus.NO_CONTENT);
+				return new ResponseEntity<String>("fail", HttpStatus.ACCEPTED);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
