@@ -1,4 +1,4 @@
-package com.ssafy.promispotback.mongdb.chat;
+package com.ssafy.promispotback.chat;
 
 
 import org.springframework.beans.factory.annotation.Autowired;

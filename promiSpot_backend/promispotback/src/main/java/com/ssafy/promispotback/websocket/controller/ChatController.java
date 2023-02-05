@@ -1,5 +1,6 @@
 package com.ssafy.promispotback.websocket.controller;
 
+import com.ssafy.promispotback.chat.MongoChatService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.simp.SimpMessageSendingOperations;
@@ -20,13 +21,23 @@ public class ChatController {
 	
 	// private final 
 	private final SimpMessageSendingOperations sendingOperations;
+
+    private final MongoChatService mongoChatService;
 	
   @MessageMapping("/chat/message")
     public void enter(ChatMessage message) {
         if (ChatMessage.MessageType.ENTER.equals(message.getType())) {
             message.setMessage(message.getSender()+"님이 입장하였습니다.");
         }
+
+        mongoChatService.saveChatMessage(message);
+        System.out.println(message.toString());
         sendingOperations.convertAndSend("/topic/chat/room/"+message.getRoomId(),message);
+
+
+
+
+
   	}
 
 }

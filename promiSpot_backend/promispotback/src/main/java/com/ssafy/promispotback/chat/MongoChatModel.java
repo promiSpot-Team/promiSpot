@@ -1,11 +1,10 @@
-package com.ssafy.promispotback.mongdb.chat;
+package com.ssafy.promispotback.chat;
 
 import lombok.Data;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 

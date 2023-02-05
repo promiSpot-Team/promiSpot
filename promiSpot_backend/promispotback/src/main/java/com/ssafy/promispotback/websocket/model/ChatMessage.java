@@ -1,7 +1,9 @@
 package com.ssafy.promispotback.websocket.model;
 
 
+import org.springframework.data.mongodb.core.mapping.Document;
 
+@Document(collection = "chat")
 public class ChatMessage {
 	
 	public enum MessageType {
