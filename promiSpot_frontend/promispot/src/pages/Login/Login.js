@@ -9,6 +9,7 @@ import InputFormRO from "../../components/InputForm/InputFormRO";
 import InputFormPWD from "../../components/InputForm/InputFormPWD";
 import { useAxios } from "../../hooks/useAxios";
 import { SERVER_URL } from '../../constants/constants'
+import store from '../../index'
 
 import axios from "axios";
 
@@ -46,6 +47,20 @@ function Login() {
         method: 'POST', 
         url: `${SERVER_URL}/member/login`,
         data,
+      })
+      
+      const accessToken = response.data['access-token']
+      const memberSeq = response.data.memberSeq
+      
+
+      // 로그인 성공시 메인 페이지로 이동하면서
+      // 리덕스에 memberSeq 저장
+      store.dispatch({
+        type: 'SAVE_CURRENT_USER_INFO',
+        currentUserInfo: {
+          accessToken,
+          memberSeq
+        }
       })
       navigate('/main')
     } catch(err) {
