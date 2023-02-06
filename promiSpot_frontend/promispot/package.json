@@ -72,5 +72,8 @@
   },
   "devDependencies": {
     "sass": "^1.57.1"
+  },
+  "browser": {
+    "child_process": false
   }
 }
