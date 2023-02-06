@@ -18,7 +18,7 @@ public class MemberEntity {
 	@ApiModelProperty(value = "비밀번호")
 	private String memberPass;
 	
-	@ApiModelProperty(value = "아룸")
+	@ApiModelProperty(value = "이름")
 	private String memberName;
 	
 	@ApiModelProperty(value = "닉네임")

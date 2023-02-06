@@ -65,6 +65,7 @@ public class MemberController {
 				resultMap.put("access-token", accessToken);
 				resultMap.put("refresh-token", refreshToken);
 				resultMap.put("message", SUCCESS);
+				resultMap.put("memberSeq", loginMember.getMemberSeq());
 				status = HttpStatus.OK;
 			} else {
 				resultMap.put("message", FAIL);
