@@ -37,6 +37,21 @@
   }
 }
 
+.friend-search-result-wrapper {
+  height: 48px;
+  color: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 14px;
+  
+  p:first-child {
+    margin-left: 3vw;
+  }
+  p:last-child {
+    margin-right: 3vw;
+  }
+}
 
 :root {
   --primary-light: #8abdff;
@@ -96,4 +111,7 @@ $inner-shadow: inset 0.2em 0.2em 0.5em var(--greyLight-2),
     transition: 0.3s ease;
     margin-top: 5px;
   }
+}
+.friend-search-result-list {
+  border: 1px solid skyblue;
 }

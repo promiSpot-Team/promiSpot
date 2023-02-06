@@ -9,7 +9,7 @@ spring:
   # html path
   mvc:
     view:
-      prefix: /templates/
+      prefix: /api/templates/
       suffix: .html
     # library version matching
     pathmatch:
@@ -55,14 +55,15 @@ spring:
     active: local
 
   # mongoDB
-#  data:
-#    mongodb:
-#      host: localhost
-#      port: 27017
-#      authentication-database: promispot
-#      database: promispot
-#      username: promispot
-#      password: asianautoever0125.
+
+  data:
+    mongodb:
+      host: i8a109.p.ssafy.io
+      port: 27017
+      authentication-database: promispot
+      database: promispot
+      username: promispot
+      password: asianautoever0125.
 
 
 

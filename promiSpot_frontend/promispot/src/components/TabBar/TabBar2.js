@@ -45,9 +45,11 @@ export default function TabBar2(props) {
               </Link>
             </div>
           </div>
-          <div className="circle">
-            <BsChatLeftDotsFill size="36" color="#ffffff" />
-          </div>
+          <Link to="/chatting">
+            <div className="circle">
+              <BsChatLeftDotsFill size="36" color="#ffffff" />
+            </div>
+          </Link>
         </div>
         <div className="circleBackground"></div>
       </div>

@@ -19,7 +19,7 @@ export default function AddressSearch() {
       setAddressList(response.data.documents)
     }
   }
-
+  
   const config = {
     method: 'GET', 
     baseURL: `${KAKAO_MAP_URL}/v2/local/search/address`,

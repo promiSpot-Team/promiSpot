@@ -1,13 +1,33 @@
-import React, {useState} from 'react'
+import React, { useState, useEffect } from 'react'
 import SearchBar from '../../components/Search/SearchBar'
 import ProfileInfo from '../../components/ProfileInfo/ProfileInfo'
 import Modal from '../../components/Modal/Modal'
 import NewPromiseT from './NewPromiseT'
 import store from '../../index'
+import axios from 'axios'
 import '../scss/NewPromiseF.scss'
+import { useSelector } from 'react-redux'
+import { SERVER_URL } from '../../constants/constants'
 
 export default function NewPromiseF() {
   const [modalOpen, setModalOpen] = useState(false);
+  const [friendList, setFriendList] = useState([])
+  const memberSeq = useSelector(state => state.currentUserInfo.memberSeq)
+
+  const getFriendList = async () => {
+    
+  // 처음 생성 될 때 약속장의 친구 목록 불러오기
+    const response = await axios({
+      url: `/friends/${memberSeq}`,
+      method: 'GET',
+      baseURL: `${SERVER_URL}`
+    })
+    setFriendList(response.data)
+  }
+
+  useEffect(() => {
+    getFriendList()
+  }, [])
 
   return (
     <div className='new-promise-wrapper'>

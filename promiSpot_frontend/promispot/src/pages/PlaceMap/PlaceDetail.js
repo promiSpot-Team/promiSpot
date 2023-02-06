@@ -9,9 +9,6 @@ export default function PlaceDetail() {
   const location = useLocation();
   const place = location.state;
 
-  // console.log(place)
-
-  // console.log(getDetail())
 
   // 장소 등록하기를 누르면 지도에 표시하기
   const registerPlaceToMap = () => {
