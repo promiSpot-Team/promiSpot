@@ -16,6 +16,7 @@ import {ImSearch} from "react-icons/im";
 import { useAxios } from '../../hooks/useAxios'
 import { SERVER_URL } from '../../constants/constants'
 import axios from 'axios'
+import MiniButton from "../../components/Buttons/MiniButton";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -232,6 +233,32 @@ export default function Friend(props) {
           :
           <>
             <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+              <Tabs value={value} onChange={handleChange} textColor="secondary" indicatorColor="secondary" aria-label="basic tabs example" centered>
+                <Tab label="검색 결과" {...a11yProps(0)} />
+          <p onClick={clearInputQuery}>X</p>
+              </Tabs>
+            </Box>
+            <TabPanel value={value} index={0}>
+              {searchList !== null && searchList.map((friend) => {
+                return (
+                  <div className='profile-info-wrapper'>
+                    <div className='profile-info-img-wrapper'>
+                      <div className='profile-info-img'>
+                      <img src={require("../../img/IU_Profile.jpg")} width="40px"/></div>
+                    </div>
+                    <div className='profile-info-name-wrapper'>
+                      <div className='profile-info-nickname-wrapper'>닉네임</div>
+                      <div className='profile-info-id-wrapper'>아이디</div>
+                    </div>
+                    <div className='profile-info-button-wrapper'>
+                      <div className='profile-info-button'><MiniButton text="요청"/></div>
+                    
+                    </div>
+                  </div>
+                )
+              })}
+            </TabPanel>
+            {/* <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
               <div className="friend-search-result-wrapper">
                 <p>검색 결과</p>
                 <p onClick={clearInputQuery}>X</p>
@@ -246,10 +273,10 @@ export default function Friend(props) {
                 )
               })}
             </ul>
-          </>
-        }
-        
-      </Box>
+          
+        }*/}
+        </>
+}</Box> 
       <TabBar />
     </>
   );
