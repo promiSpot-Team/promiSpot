@@ -12,22 +12,29 @@ import { SERVER_URL } from '../../constants/constants'
 export default function NewPromiseF() {
   const [modalOpen, setModalOpen] = useState(false);
   const [friendList, setFriendList] = useState([])
-  const memberSeq = useSelector(state => state.currentUserInfo.memberSeq)
+  const memberSeq = useSelector(state => state?.currentUserInfo?.memberSeq ? state.currentUserInfo.memberSeq : 0)
 
   const getFriendList = async () => {
     
-  // 처음 생성 될 때 약속장의 친구 목록 불러오기
+   // 처음 생성 될 때 약속장의 친구 목록 불러오기
     const response = await axios({
-      url: `/friends/${memberSeq}`,
-      method: 'GET',
-      baseURL: `${SERVER_URL}`
+      url: `${SERVER_URL}/friends/${memberSeq}`,
+      method: 'GET'
     })
     setFriendList(response.data)
+  }
+
+  const HandleInputFocus = () => {
+    // console.log(data)
   }
 
   useEffect(() => {
     getFriendList()
   }, [])
+
+  useEffect(() => {
+    console.log("friendList", friendList)
+  }, [friendList])
 
   return (
     <div className='new-promise-wrapper'>
@@ -35,7 +42,7 @@ export default function NewPromiseF() {
         새로운 약속 생성
       </div>
       <div className='new-promise-search-wrapper'>
-      <SearchBar/>
+      <SearchBar HandleInputFocus={HandleInputFocus}/>
       </div>
       <div className='new-promise-profile-wrapper'>
       <ProfileInfo imgName="IU_Profile" nickName="국힙원탑" id="IU"/>
