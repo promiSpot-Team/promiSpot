@@ -3,9 +3,7 @@ package com.ssafy.promispotback.promise.model.service;
 import java.sql.SQLException;
 import java.util.List;
 
-import com.ssafy.promispotback.member.model.entity.MemberEntity;
 import com.ssafy.promispotback.promise.model.entity.ParticipantEntity;
-import org.apache.ibatis.annotations.Param;
 
 import com.ssafy.promispotback.promise.dto.PromiseMemberModifyLeaderDto;
 import com.ssafy.promispotback.promise.model.entity.PromiseMemberEntity;
