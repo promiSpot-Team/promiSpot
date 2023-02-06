@@ -6,8 +6,8 @@
 
 	<!-- 약속 장소 후보 등록 -->
 	<insert id="insertCandidatePlace" parameterType="voteEntity">
-		insert into votes (promise_id, place_id, member_seq, vote_rank, vote_cnt)
-		values(#{promiseId}, #{placeId}, #{memberSeq}, #{voteRank}, 0)
+		insert into votes (promise_seq, place_id, member_seq, vote_cnt)
+		values(#{promiseSeq}, #{placeId}, #{memberSeq}, 0)
 	</insert>
 	
 	
@@ -19,9 +19,10 @@
 	</select>
 	
 	<!-- 약속 장소 후보들 가져오기 - 하나의 약속에 속한 모든 장소 후보들 -->
-	<select id="getCandidatePlaceList" parameterType="int" resultType="voteEntity">
-		select v.vote_seq, v.promise_seq, v.place_id, v.member_seq, vote_cnt
-		from votes v
+	<select id="getCandidatePlaceList" parameterType="int" resultType="VotePlaceEntity">
+		select v.vote_seq, v.promise_seq, v.place_id, v.member_seq, vote_cnt, place_x, place_y
+		from votes v join places p
+		on v.place_id = p.place_id
 		where v.promise_seq = #{promiseSeq}
 		order by v.vote_seq
 	</select>

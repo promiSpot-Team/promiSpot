@@ -3,6 +3,7 @@ package com.ssafy.promispotback.member.model.service;
 import java.sql.SQLException;
 import java.util.List;
 
+import com.ssafy.promispotback.member.model.entity.RequestMemberEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,7 +25,7 @@ public class FriendServiceImpl implements FriendService {
 
 	// 친구 신청 목록 조회 - 나한테 온 친구 신청(received), 내가 신청한 친구 보기(sent)
 	@Override
-	public List<MemberEntity> getRequestFriend(int memberSeq, int order) throws SQLException {
+	public List<RequestMemberEntity> getRequestFriend(int memberSeq, int order) throws SQLException {
 		return friendMapper.getRequestFriend(memberSeq, order);
 	}//getRequestFriend
 

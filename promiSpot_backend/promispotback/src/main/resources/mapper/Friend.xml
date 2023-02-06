@@ -11,9 +11,9 @@
 	</insert>
 	
 	<!-- 친구 신청 조회 (나한테 온 친구 신청(0), 내가 신청한 친구 보기(1)) 닉네임, 아이디, 프로필 -->
-	<select id="getRequestFriend" parameterType="map" resultType="MemberEntity">
+	<select id="getRequestFriend" parameterType="map" resultType="RequestMemberEntity">
 		select m.member_seq, member_nick, member_id, member_img_path
-			, member_img_origin_name, member_img_server_name 
+			, member_img_origin_name, member_img_server_name, friend_request_seq, friend_request_is_agree
 		from members m join friend_request f 
 		<if test="order == 0">
 			on m.member_seq = f.member_seq
