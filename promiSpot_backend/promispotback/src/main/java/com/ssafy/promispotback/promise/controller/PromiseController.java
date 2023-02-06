@@ -3,6 +3,7 @@ package com.ssafy.promispotback.promise.controller;
 import java.sql.SQLException;
 import java.util.List;
 
+import com.ssafy.promispotback.promise.model.entity.PromiseDataEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -52,11 +53,11 @@ public class PromiseController {
 	@GetMapping("get/{promiseSeq}")
 	public ResponseEntity<?> getPromise(@PathVariable("promiseSeq") int promiseSeq) {
 		try {
-			PromiseEntity promise = promiseService.getPromise(promiseSeq);
+			PromiseDataEntity promise = promiseService.getPromise(promiseSeq);
 			
 			if (promise != null) {
 				System.out.println("success work");
-				return new ResponseEntity<PromiseEntity>(promise, HttpStatus.OK);
+				return new ResponseEntity<PromiseDataEntity>(promise, HttpStatus.OK);
 			} else {
 				System.out.println("fail work");
 				return new ResponseEntity<String>("fail", HttpStatus.ACCEPTED);
@@ -73,11 +74,11 @@ public class PromiseController {
 	public ResponseEntity<?> getPromiseList(@PathVariable("memberSeq") int memberSeq) {
 		try {
 			
-			List<PromiseEntity> promiseList = promiseService.getPromiseList(memberSeq);
+			List<PromiseDataEntity> promiseList = promiseService.getPromiseList(memberSeq);
 			
 			if (promiseList != null) {
 				System.out.println("success work");
-				return new ResponseEntity<List<PromiseEntity>>(promiseList, HttpStatus.OK);
+				return new ResponseEntity<List<PromiseDataEntity>>(promiseList, HttpStatus.OK);
 			} else {
 				System.out.println("fail work");
 				return new ResponseEntity<String>("fail", HttpStatus.ACCEPTED);

@@ -65,7 +65,19 @@ public class MemberController {
 				resultMap.put("access-token", accessToken);
 				resultMap.put("refresh-token", refreshToken);
 				resultMap.put("message", SUCCESS);
+
+				// 회원엔티티 담아 보내기
 				resultMap.put("memberSeq", loginMember.getMemberSeq());
+				resultMap.put("memberId", loginMember.getMemberId());
+				resultMap.put("memberName", loginMember.getMemberName());
+				resultMap.put("memberNick", loginMember.getMemberNick());
+				resultMap.put("memberEmail", loginMember.getMemberEmail());
+				resultMap.put("memberPhoneNum", loginMember.getMemberPhoneNum());
+				resultMap.put("memberImgPath", loginMember.getMemberImgPath());
+				resultMap.put("memberImgOriginName", loginMember.getMemberImgOriginName());
+				resultMap.put("memberImgServerName", loginMember.getMemberImgServerName());
+
+
 				status = HttpStatus.OK;
 			} else {
 				resultMap.put("message", FAIL);

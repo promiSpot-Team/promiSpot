@@ -17,11 +17,9 @@ export default function Chatting() {
   //   heartbeatOutgoing: 4000,
   // });
 
-
-
   return (
     <div>
       <h1>Chatting</h1>
     </div>
-  )
+  );
 }
