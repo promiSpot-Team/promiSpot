@@ -1,9 +1,33 @@
 import { Button } from "@mui/material";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import ProfileInfoB from "../../components/ProfileInfo/ProfileInfoB";
 import '../scss/Friend.scss';
+import axios from 'axios'
+import { SERVER_URL } from '../../constants/constants'
+import { useSelector } from "react-redux";
 
-export default function FriendList() {
+export default function FriendList({ memberSeq }) {
+  const [friendList, setFriendList] = useState(null)
+  // const memberSeq = useSelector(state => state?.currentUserInfo?.memberSeq ? state.currentUserInfo.memberSeq : 0)
+
+  const getFriendList = async () => {
+    
+  // 친구 목록 불러오기
+    const response = await axios({
+      url: `${SERVER_URL}/friends/${memberSeq}`,
+      method: 'GET',
+    })
+    setFriendList(response.data)
+  }
+
+  const HandleInputFocus = () => {
+    // console.log(data)
+  }
+
+  useEffect(() => {
+    getFriendList()
+  }, [])
+
   return (
     <div className="friend-list-wrapper">
       <div className='friend-list-each-wrapper'>

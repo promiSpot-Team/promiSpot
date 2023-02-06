@@ -3,7 +3,7 @@ export const reducer = (state, action) => {
   // state의 초기값 설정
   if (state === undefined) {
     return {
-      userId: 1,
+      memberSeq: 1,
       mapCenterPosition: {
         x: 37.5013, 
         y: 127.0397

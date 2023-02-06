@@ -14,6 +14,7 @@ import Box from '@mui/material/Box';
 import { useAxios } from '../../hooks/useAxios'
 import { SERVER_URL } from '../../constants/constants'
 import axios from 'axios'
+import { useSelector } from 'react-redux'
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -55,12 +56,14 @@ export default function Friend(props) {
   const [showSearchResult, setShowSearchResult] = useState(false)
   const [searchList, setSearchList] = useState(null)
   const [clearQuery, setClearQuery] = useState()
+  const memberSeq = useSelector(state => state?.currentUserInfo?.memberSeq ? state.currentUserInfo.memberSeq : 0)
+  
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
 
-  const handleInputFocus = (isFocus) => {
+  const HandleInputFocus = (isFocus) => {
     setShowSearchResult(isFocus)
   }
 
@@ -74,18 +77,39 @@ export default function Friend(props) {
   const [query, setQuery] = useState('')
 
   const searchFriend = async () => {
-    const response = await axios({
-      method: 'GET',
-      url: `${SERVER_URL}/friend/${query}`,
-    })
-    if (response?.data !== 'fail') {
-      setSearchList([response.data])
+    try {
+      const response = await axios({
+        method: 'GET',
+        url: `${SERVER_URL}/friend/${query}`,
+      })
+      if (response?.data !== 'fail') {
+        setSearchList([response.data])
+      }
+    } catch(err) {
+      console.log(err)
     }
   }
 
   // 부모컴포넌트(Friend.js)에서 자식 컴포넌트(Searchbar.js) 값 가져오기
   const GetAxiosQuery = (query) => {
     setQuery(query)
+  }
+
+  // 검색된 결과에서 친구 요청 보내기
+  const requestFriend = async (friendSeq) => { 
+    try {
+      const response = await axios({
+        method: 'POST', 
+        url: `${SERVER_URL}/friend/request`,
+        data: {
+          memberSeq,
+          friendRequestMember: friendSeq
+        }
+      })
+    } catch(err) {
+      console.log(err)
+    }
+
   }
 
   useEffect(() => {
@@ -105,7 +129,7 @@ export default function Friend(props) {
       <BasicHeader2 text="친구 목록" />
       <div className="friend-wrapper">
         <div className="friend-search-wrapper">
-          <SearchBar GetAxiosQuery={GetAxiosQuery} handleInputFocus={handleInputFocus} clearQuery={clearQuery}/>
+          <SearchBar GetAxiosQuery={GetAxiosQuery} HandleInputFocus={HandleInputFocus} clearQuery={clearQuery}/>
         </div>
         {/* <Link to = '/friend/list'>
           <button onClick={() => setVisible1(!visible1)}>친구 리스트</button>
@@ -133,13 +157,13 @@ export default function Friend(props) {
               </Tabs>
             </Box>
             <TabPanel value={value} index={0}>
-              <FriendList/>
+              <FriendList memberSeq={memberSeq}/>
             </TabPanel>
             <TabPanel value={value} index={1}>
-              <FriendRequestReceive/>
+              <FriendRequestReceive memberSeq={memberSeq}/>
             </TabPanel>
             <TabPanel value={value} index={2}>
-              <FriendRequestSend/>
+              <FriendRequestSend memberSeq={memberSeq}/>
             </TabPanel>
           </>
           :
@@ -154,7 +178,14 @@ export default function Friend(props) {
               {searchList !== null && searchList.map((friend) => {
                 return (
                   <li className="friend-search-result-list">
-                    {friend.memberSeq}
+                    {/* 친구 프로필, 이름, 닉네임 등 정보 */}
+                    <div>
+                      {friend.memberSeq}
+                    </div>
+                    {/* 친구 요청 버튼 */}
+                    <button onClick={requestFriend(friend.memberSeq)}>
+                      요청
+                    </button>
                   </li>
                 )
               })}

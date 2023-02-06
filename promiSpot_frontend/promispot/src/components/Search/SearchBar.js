@@ -4,7 +4,7 @@ import './SearchBar.scss';
 import { useEffect, useState } from 'react'; 
 import { useAxios } from '../../hooks/useAxios';
 
-export default function SearchBar({ GetAxiosQuery = null, handleInputFocus = null, clearQuery = null }) {
+export default function SearchBar({ GetAxiosQuery = null, HandleInputFocus = null, clearQuery = null }) {
   const [query, setQuery] = useState('')
 
   const onChange = (e) => {
@@ -16,11 +16,11 @@ export default function SearchBar({ GetAxiosQuery = null, handleInputFocus = nul
   }
 
   const onFocus = () => {
-    handleInputFocus(true)
+    HandleInputFocus(true)
   }
 
   const onBlur = () => {
-    // handleInputFocus(false)
+    // HandleInputFocus(false)
   }
 
   useEffect(() => {
