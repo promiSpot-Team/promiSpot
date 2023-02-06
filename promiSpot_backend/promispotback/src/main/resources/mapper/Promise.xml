@@ -16,13 +16,17 @@
 	
 	
 	<!-- 약속 하나 조회  -->
-	<select id="getPromise" parameterType="int" resultType="PromiseEntity"> 
+	<select id="getPromise" parameterType="int" resultType="PromiseDataEntity">
 		select * from promises where promise_seq = #{promiseSeq}
 	</select>
 	
 	<!-- 한 회원의 약속 전부 조회  -->
-	<select id="getPromiseList" parameterType="int" resultType="PromiseEntity"> 
-		select * from promises where member_seq = #{memberSeq}
+	<select id="getPromiseList" parameterType="int" resultType="PromiseDataEntity">
+		<!-- select * from promises where member_seq = #{memberSeq}select -->
+		select p.promise_seq, promise_title, promise_date, promise_vote_is_finish, promise_schedule_is_finish
+		from promises p join promises_members m
+		on p.promise_seq = m.promise_seq
+		where m.member_seq = #{memberSeq}
 	</select>
 	
 	

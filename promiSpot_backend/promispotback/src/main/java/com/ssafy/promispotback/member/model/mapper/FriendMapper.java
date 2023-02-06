@@ -26,7 +26,7 @@ public interface FriendMapper {
 	public int rejectFriend(int friendRequestSeq) throws SQLException;
 	
 	// 친구 정보 조회
-	public MemberEntity findFriend(String memberId) throws SQLException;
+	public List<MemberEntity> findFriend(String memberId) throws SQLException;
 	
 	// 친구 목록 조회
 	public List<MemberEntity> findFriendList(int memberSeq) throws SQLException;
