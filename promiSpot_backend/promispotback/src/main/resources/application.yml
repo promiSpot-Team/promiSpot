@@ -9,7 +9,7 @@ spring:
   # html path
   mvc:
     view:
-      prefix: /templates/
+      prefix: /api/templates/
       suffix: .html
     # library version matching
     pathmatch:
