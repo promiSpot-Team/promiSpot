@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 import com.ssafy.promispotback.member.model.entity.MemberEntity;
+import com.ssafy.promispotback.promise.model.entity.ParticipantEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -39,7 +40,7 @@ public class PromiseMemberController {
 			if(result != 0) {
 				return new ResponseEntity<String>("success", HttpStatus.OK);
 			} else {
-				return new ResponseEntity<String>("fail", HttpStatus.NO_CONTENT);
+				return new ResponseEntity<String>("fail", HttpStatus.ACCEPTED);
 			}
 			
 		} catch (Exception e) {
@@ -52,14 +53,14 @@ public class PromiseMemberController {
 	@GetMapping("get/{promiseSeq}/{memberSeq}")
 	public ResponseEntity<?> getPromiseMember(@PathVariable("promiseSeq") int promiseSeq, @PathVariable("memberSeq") int memberSeq) {
 		try {
-			PromiseMemberEntity promiseMember = promiseMemberService.getPromiseMember(promiseSeq, memberSeq);
+			ParticipantEntity promiseMember = promiseMemberService.getPromiseMember(promiseSeq, memberSeq);
 			
 			if (promiseMember != null) {
 				System.out.println("success work");
-				return new ResponseEntity<PromiseMemberEntity>(promiseMember, HttpStatus.OK);
+				return new ResponseEntity<ParticipantEntity>(promiseMember, HttpStatus.OK);
 			} else {
 				System.out.println("fail work");
-				return new ResponseEntity<String>("fail", HttpStatus.NO_CONTENT);
+				return new ResponseEntity<String>("fail", HttpStatus.ACCEPTED);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -73,15 +74,15 @@ public class PromiseMemberController {
 	public ResponseEntity<?> getPromiseMemberList(@PathVariable("promiseSeq") int promiseSeq) {
 		try {
 			
-			List<MemberEntity> promiseMemberList = promiseMemberService.getPromiseMemberList(promiseSeq);
+			List<ParticipantEntity> promiseMemberList = promiseMemberService.getPromiseMemberList(promiseSeq);
 			
 			
 			if (promiseMemberList != null) {
 				System.out.println("success work");
-				return new ResponseEntity<List<MemberEntity>>(promiseMemberList, HttpStatus.OK);
+				return new ResponseEntity<List<ParticipantEntity>>(promiseMemberList, HttpStatus.OK);
 			} else {
 				System.out.println("fail work");
-				return new ResponseEntity<String>("fail", HttpStatus.NO_CONTENT);
+				return new ResponseEntity<String>("fail", HttpStatus.ACCEPTED);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -101,7 +102,7 @@ public class PromiseMemberController {
 			if (result != 0) {
 				return new ResponseEntity<String>("success", HttpStatus.OK);
 			} else {
-				return new ResponseEntity<String>("fail", HttpStatus.NO_CONTENT);
+				return new ResponseEntity<String>("fail", HttpStatus.ACCEPTED);
 			}
 
 		} catch (Exception e) {
@@ -120,7 +121,7 @@ public class PromiseMemberController {
 			if (result != 0) {
 				return new ResponseEntity<String>("success", HttpStatus.OK);
 			} else {
-				return new ResponseEntity<String>("fail", HttpStatus.NO_CONTENT);
+				return new ResponseEntity<String>("fail", HttpStatus.ACCEPTED);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
