@@ -12,7 +12,7 @@ export default function FriendList({ memberSeq }) {
 
   const getFriendList = async () => {
     
-  // 친구 목록 불러오기
+  // 유저의 친구 목록 불러오기
     const response = await axios({
       url: `${SERVER_URL}/friends/${memberSeq}`,
       method: 'GET',
@@ -36,6 +36,15 @@ export default function FriendList({ memberSeq }) {
       <div className='friend-list-each-wrapper'>
       <ProfileInfoB imgName="KSH_Profile" nickName="도민준" id="KSH"/>
       </div>
+      {friendList && friendList.map((friend, idx) => {
+        return (
+          <ProfileInfoB 
+            key={idx}
+            imgName="KSH_Profile" 
+            nickName={friend.memberNick} 
+            id={friend.memberId}/>
+        )
+      })}
     </div>
   );
 }

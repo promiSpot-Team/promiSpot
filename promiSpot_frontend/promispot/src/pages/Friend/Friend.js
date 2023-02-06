@@ -12,8 +12,7 @@ import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import SearchBar from "../../components/Search/SearchBar";
 import Box from '@mui/material/Box';
-import {ImSearch} from "react-icons/im";
-import { useAxios } from '../../hooks/useAxios'
+import { ImSearch } from "react-icons/im";
 import { SERVER_URL } from '../../constants/constants'
 import axios from 'axios'
 import { useSelector } from 'react-redux'
@@ -57,12 +56,12 @@ export default function Friend(props) {
 
   const [value, setValue] = useState(0);
   const [showSearchResult, setShowSearchResult] = useState(false)
-  const [searchList, setSearchList] = useState(null)
+  const [searchList, setSearchList] = useState([])
   const [clearQuery, setClearQuery] = useState()
   const memberSeq = useSelector(state => state?.currentUserInfo?.memberSeq ? state.currentUserInfo.memberSeq : 0)
   
 
-  const [valid, setValid] = React.useState(false);
+  const [valid, setValid] = useState(false);
 
   const isValid = () => {
     console.log(valid);
@@ -92,20 +91,22 @@ export default function Friend(props) {
         method: 'GET',
         url: `${SERVER_URL}/friend/${query}`,
       })
-      if (response?.data !== 'fail') {
-        setSearchList([response.data])
+      // 검색된 결과가 있을 경우 searchList 업데이트
+      if (response.data !== 'fail') {
+        setSearchList(response.data)
       }
     } catch(err) {
+      setSearchList([])
       console.log(err)
     }
   }
 
-  // 부모컴포넌트(Friend.js)에서 자식 컴포넌트(Searchbar.js) 값 가져오기
+  // 부모컴포넌트(Friend.js)에서 자식 컴포넌트(Searchbar.js) 쿼리 값 가져오기
   const GetAxiosQuery = (query) => {
     setQuery(query)
   }
 
-  // 검색된 결과에서 친구 요청 보내기
+  // 검색된 친구 결과 리스트에서 친구 요청 보낼 친구 선택해서 요청 보내기
   const requestFriend = async (friendSeq) => { 
     try {
       const response = await axios({
@@ -116,10 +117,10 @@ export default function Friend(props) {
           friendRequestMember: friendSeq
         }
       })
+      console.log(response)
     } catch(err) {
       console.log(err)
     }
-
   }
 
   useEffect(() => {
@@ -131,7 +132,84 @@ export default function Friend(props) {
   }, [searchList])
   
   return (
-
+    <>
+      <div className="d-flex flex-column justify-content-center w-100 h-100">
+        <div className="d-flex flex-column justify-content-center align-items-center">
+        </div>
+      </div>
+      <BasicHeader2 text="친구 목록" />
+      <div className="friend-wrapper">
+        <div className="friend-search-wrapper">
+          <SearchBar GetAxiosQuery={GetAxiosQuery} HandleInputFocus={HandleInputFocus} clearQuery={clearQuery}/>
+        </div>
+        {/* <Link to = '/friend/list'>
+          <button onClick={() => setVisible1(!visible1)}>친구 리스트</button>
+        </Link> 
+        {visible1 && <FriendList/>}
+        <Link to = '/friend/respond'>
+          <button onClick={() => setVisible2(!visible2)}>받은 요청</button>
+        </Link> 
+        {visible2 && <FriendRequestReceive/>}
+        <Link to = '/friend/send'>
+          <button onClick={() => setVisible3(!visible3)}>보낸 요청</button>
+        </Link> 
+        {visible3 && <FriendRequestSend/>}
+        <div className="friend-content-wrapper">
+          {<FriendList/> */}
+      </div>
+      <Box sx={{ width: '100%' }}>
+        {!showSearchResult ?
+          <>
+            <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+              <Tabs value={value} onChange={handleChange} textColor="secondary" indicatorColor="secondary" aria-label="basic tabs example" centered>
+                <Tab label="내 친구" {...a11yProps(0)} />
+                <Tab label="받은 요청" {...a11yProps(1)} />
+                <Tab label="보낸 요청" {...a11yProps(2)} />
+              </Tabs>
+            </Box>
+            <TabPanel value={value} index={0}>
+              <FriendList memberSeq={memberSeq}/>
+            </TabPanel>
+            <TabPanel value={value} index={1}>
+              <FriendRequestReceive memberSeq={memberSeq}/>
+            </TabPanel>
+            <TabPanel value={value} index={2}>
+              <FriendRequestSend memberSeq={memberSeq}/>
+            </TabPanel>
+          </>
+          :
+          <>
+            <Box sx={{ borderBottom: 1, borderColor: 'divider', position: 'relative' }}>
+              <Tabs value={value} onChange={handleChange} textColor="secondary" indicatorColor="secondary" aria-label="basic tabs example" centered>
+                <Tab label="검색 결과" {...a11yProps(0)} onClick={clearInputQuery}/>
+              </Tabs>
+            </Box>
+            <TabPanel value={value} index={0}>
+              {searchList && searchList.map((friend, idx) => {
+                return (
+                  <div key={idx} className='profile-info-wrapper'>
+                    <div className='profile-info-img-wrapper'>
+                      <div className='profile-info-img'>
+                      <img src={require("../../img/IU_Profile.jpg")} width="40px"/></div>
+                    </div>
+                    <div className='profile-info-name-wrapper'>
+                      <div className='profile-info-nickname-wrapper'>{friend.memberNick}</div>
+                      <div className='profile-info-id-wrapper'>{friend.memberId}</div>
+                    </div>
+                    <div className='profile-info-button-wrapper'>
+                      <div className='profile-info-button' onClick={() => requestFriend(friend.memberSeq)}>
+                        <MiniButton text="요청"/>
+                      </div>
+                    </div>
+                  </div>
+                )
+              })}
+            </TabPanel>
+          </>
+        }
+      </Box> 
+      <TabBar />
+    </>
 
 //     <div className="d-flex flex-column justify-content-center w-100 h-100">
 
@@ -209,106 +287,6 @@ export default function Friend(props) {
 //       </Box>
 //         }
 //     </div>
-<>
-      <div className="d-flex flex-column justify-content-center w-100 h-100">
-        <div className="d-flex flex-column justify-content-center align-items-center">
-        </div>
-      </div>
-      <BasicHeader2 text="친구 목록" />
-      <div className="friend-wrapper">
-        <div className="friend-search-wrapper">
-          <SearchBar GetAxiosQuery={GetAxiosQuery} HandleInputFocus={HandleInputFocus} clearQuery={clearQuery}/>
-        </div>
-        {/* <Link to = '/friend/list'>
-          <button onClick={() => setVisible1(!visible1)}>친구 리스트</button>
-        </Link> 
-        {visible1 && <FriendList/>}
-        <Link to = '/friend/respond'>
-          <button onClick={() => setVisible2(!visible2)}>받은 요청</button>
-        </Link> 
-        {visible2 && <FriendRequestReceive/>}
-        <Link to = '/friend/send'>
-          <button onClick={() => setVisible3(!visible3)}>보낸 요청</button>
-        </Link> 
-        {visible3 && <FriendRequestSend/>}
-        <div className="friend-content-wrapper">
-          {<FriendList/> */}
-      </div>
-      <Box sx={{ width: '100%' }}>
-        {!showSearchResult ?
-          <>
-            <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-              <Tabs value={value} onChange={handleChange} textColor="secondary" indicatorColor="secondary" aria-label="basic tabs example" centered>
-                <Tab label="내 친구" {...a11yProps(0)} />
-                <Tab label="받은 요청" {...a11yProps(1)} />
-                <Tab label="보낸 요청" {...a11yProps(2)} />
-              </Tabs>
-            </Box>
-            <TabPanel value={value} index={0}>
-              <FriendList memberSeq={memberSeq}/>
-            </TabPanel>
-            <TabPanel value={value} index={1}>
-              <FriendRequestReceive memberSeq={memberSeq}/>
-            </TabPanel>
-            <TabPanel value={value} index={2}>
-              <FriendRequestSend memberSeq={memberSeq}/>
-            </TabPanel>
-          </>
-          :
-          <>
-            <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-              <Tabs value={value} onChange={handleChange} textColor="secondary" indicatorColor="secondary" aria-label="basic tabs example" centered>
-                <Tab label="검색 결과" {...a11yProps(0)} />
-          <p onClick={clearInputQuery}>X</p>
-              </Tabs>
-            </Box>
-            <TabPanel value={value} index={0}>
-              {searchList !== null && searchList.map((friend) => {
-                return (
-                  <div className='profile-info-wrapper'>
-                    <div className='profile-info-img-wrapper'>
-                      <div className='profile-info-img'>
-                      <img src={require("../../img/IU_Profile.jpg")} width="40px"/></div>
-                    </div>
-                    <div className='profile-info-name-wrapper'>
-                      <div className='profile-info-nickname-wrapper'>닉네임</div>
-                      <div className='profile-info-id-wrapper'>아이디</div>
-                    </div>
-                    <div className='profile-info-button-wrapper'>
-                      <div className='profile-info-button'><MiniButton text="요청"/></div>
-                    
-                    </div>
-                  </div>
-                )
-              })}
-            </TabPanel>
-            {/* <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-              <div className="friend-search-result-wrapper">
-                <p>검색 결과</p>
-                <p onClick={clearInputQuery}>X</p>
-              </div>
-            </Box>
-            <ul>
-              {searchList !== null && searchList.map((friend) => {
-                return (
-                  <li className="friend-search-result-list">
-                    {/* 친구 프로필, 이름, 닉네임 등 정보 */}
-                    <div>
-                      {friend.memberSeq}
-                    </div>
-                    {/* 친구 요청 버튼 */}
-                    <button onClick={requestFriend(friend.memberSeq)}>
-                      요청
-                    </button>
-                  </li>
-                )
-              })}
-            </ul>
-          
-        }*/}
-        </>
-}</Box> 
-      <TabBar />
-    </>
+    
   );
 }
