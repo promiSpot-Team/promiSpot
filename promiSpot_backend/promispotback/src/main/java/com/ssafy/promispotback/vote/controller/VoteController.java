@@ -3,6 +3,7 @@ package com.ssafy.promispotback.vote.controller;
 import java.sql.SQLException;
 import java.util.List;
 
+import com.ssafy.promispotback.vote.model.entity.VotePlaceEntity;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -42,7 +43,7 @@ public class VoteController {
 			if(result != 0) {
 				return new ResponseEntity<String>("success", HttpStatus.OK);
 			} else {
-				return new ResponseEntity<String>("fail", HttpStatus.NO_CONTENT);
+				return new ResponseEntity<String>("fail", HttpStatus.ACCEPTED);
 			}
 			
 		} catch (Exception e) {
@@ -59,14 +60,14 @@ public class VoteController {
 	@GetMapping("get/{voteSeq}")
 	public ResponseEntity<?> getCandidatePlace(@PathVariable("voteSeq") int voteSeq) {
 		try {
-			VoteEntity candidatePlace = voteService.getCandidatePlace(voteSeq);
+			VotePlaceEntity candidatePlace = voteService.getCandidatePlace(voteSeq);
 			
 			if (candidatePlace != null) {
 				System.out.println("success work");
-				return new ResponseEntity<VoteEntity>(candidatePlace, HttpStatus.OK);
+				return new ResponseEntity<VotePlaceEntity>(candidatePlace, HttpStatus.OK);
 			} else {
 				System.out.println("fail work");
-				return new ResponseEntity<String>("fail", HttpStatus.NO_CONTENT);
+				return new ResponseEntity<String>("fail", HttpStatus.ACCEPTED);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -81,14 +82,14 @@ public class VoteController {
 	public ResponseEntity<?> getCandidatePlaceList(@PathVariable("promiseSeq") int promiseSeq) {
 		try {
 			
-			List<VoteEntity> candidatePlaceList = voteService.getCandidatePlaceList(promiseSeq);
+			List<VotePlaceEntity> candidatePlaceList = voteService.getCandidatePlaceList(promiseSeq);
 			
 			if (candidatePlaceList != null) {
 				System.out.println("success work");
-				return new ResponseEntity<List<VoteEntity>>(candidatePlaceList, HttpStatus.OK);
+				return new ResponseEntity<List<VotePlaceEntity>>(candidatePlaceList, HttpStatus.OK);
 			} else {
 				System.out.println("fail work");
-				return new ResponseEntity<String>("fail", HttpStatus.NO_CONTENT);
+				return new ResponseEntity<String>("fail", HttpStatus.ACCEPTED);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -113,7 +114,7 @@ public class VoteController {
 			if (result != 0) {
 				return new ResponseEntity<String>("success", HttpStatus.OK);
 			} else {
-				return new ResponseEntity<String>("fail", HttpStatus.NO_CONTENT);
+				return new ResponseEntity<String>("fail", HttpStatus.ACCEPTED);
 			}
 
 		} catch (Exception e) {
@@ -133,7 +134,7 @@ public class VoteController {
 			if (result != 0) {
 				return new ResponseEntity<String>("success", HttpStatus.OK);
 			} else {
-				return new ResponseEntity<String>("fail", HttpStatus.NO_CONTENT);
+				return new ResponseEntity<String>("fail", HttpStatus.ACCEPTED);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -154,7 +155,7 @@ public class VoteController {
 				return new ResponseEntity<String>("1", HttpStatus.OK);
 			} else {
 				System.out.println("fail work");
-				return new ResponseEntity<String>("0", HttpStatus.NO_CONTENT);
+				return new ResponseEntity<String>("0", HttpStatus.ACCEPTED);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -172,7 +173,7 @@ public class VoteController {
 			if(result != 0) {
 				return new ResponseEntity<String>("success", HttpStatus.OK);
 			} else {
-				return new ResponseEntity<String>("fail", HttpStatus.NO_CONTENT);
+				return new ResponseEntity<String>("fail", HttpStatus.ACCEPTED);
 			}
 			
 		} catch (Exception e) {
@@ -192,7 +193,7 @@ public class VoteController {
 			if (result != 0) {
 				return new ResponseEntity<String>("success", HttpStatus.OK);
 			} else {
-				return new ResponseEntity<String>("fail", HttpStatus.NO_CONTENT);
+				return new ResponseEntity<String>("fail", HttpStatus.ACCEPTED);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -18,7 +18,7 @@ public class VoteEntity {
 	@ApiModelProperty(value = "장소번호")
 	private String placeId;
 	
-	@ApiModelProperty(value = "회원일렬번호")
+	@ApiModelProperty(value = "회원일련번호")
 	private int memberSeq;
 	
 	@ApiModelProperty(value = "득표수")

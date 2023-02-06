@@ -1,8 +1,11 @@
 package com.ssafy.promispotback.member.controller;
 
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import com.ssafy.promispotback.member.model.entity.RequestMemberEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -60,12 +63,12 @@ public class FriendController {
 	@GetMapping("/{memberSeq}/{order}")
 	public ResponseEntity<?> getRequestFriend(@RequestBody @ApiParam(value="회원일련번호, 받은0/보낸1", required=true) 
 		@PathVariable("memberSeq") int memberSeq, @PathVariable("order") int order){
-		
+
 		try {
-			List<MemberEntity> memberList = friendService.getRequestFriend(memberSeq, order);
-			if(memberList != null) {
-				return new ResponseEntity<List<MemberEntity>>(memberList, HttpStatus.OK);
-			}else {
+			List<RequestMemberEntity> memberList = friendService.getRequestFriend(memberSeq, order);
+			if(memberList != null) { // 친구 신청 목록 있음
+				return new ResponseEntity<List<RequestMemberEntity>>(memberList, HttpStatus.OK);
+			}else { // 없음
 				return new ResponseEntity<String>(FAIL, HttpStatus.ACCEPTED);
 			}
 		} catch (SQLException e) {

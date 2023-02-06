@@ -3,6 +3,7 @@ package com.ssafy.promispotback.member.model.service;
 import java.sql.SQLException;
 import java.util.List;
 
+import com.ssafy.promispotback.member.model.entity.RequestMemberEntity;
 import org.apache.ibatis.annotations.Param;
 
 import com.ssafy.promispotback.member.model.entity.FriendRequestEntity;
@@ -14,7 +15,7 @@ public interface FriendService {
 	public boolean requestFriend(FriendRequestEntity friendRequestEntity) throws SQLException;
 	
 	// 친구 신청 목록 조회 (나한테 온 친구 신청 보기)
-	public List<MemberEntity> getRequestFriend(@Param("memberSeq") int memberSeq
+	public List<RequestMemberEntity> getRequestFriend(@Param("memberSeq") int memberSeq
 			, @Param("order") int order) throws SQLException;
 	
 	// 친구 신청 승인
