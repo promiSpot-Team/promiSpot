@@ -20,12 +20,12 @@ import MyPage from "./pages/MyPage/MyPage";
 import Promise from "./pages/Promise/Promise";
 import Privacy from "./pages/Login/Privacy";
 import PlaceDetail from "./pages/PlaceMap/PlaceDetail";
-import Join2 from './pages/Login/Join2'
+import Join2 from "./pages/Login/Join2";
 import Card from "./components/Card/Card";
-import GetDetail from './pages/PlaceMap/GetDetail'
+import GetDetail from "./pages/PlaceMap/GetDetail";
 import Test from "./pages/Login/Test";
 import Test2 from "./pages/Login/Test2";
-import Chatting from './pages/PlaceMap/Chatting'
+import Chatting from "./pages/PlaceMap/Chatting";
 
 function App() {
   // const history = useHistory();
@@ -45,16 +45,16 @@ function App() {
       <Route path="/address">
         <Route path="search" element={<AddressSearch />} />
       </Route>
-      <Route path="/friend" element={<Friend />}/>
+      <Route path="/friend" element={<Friend />} />
       <Route path="/promise" element={<Promise />} />
       <Route path="/mypage" element={<MyPage />} />
       <Route path="/privacy" element={<Privacy />} />
       {/* <Route path="/join2" element={<Join2 />} /> */}
-      <Route path="/card" element={<Card/>}/>
-      <Route path="/join2" element={<Join2/>}/>
+      <Route path="/card" element={<Card />} />
+      <Route path="/join2" element={<Join2 />} />
       <Route path="/detail" element={<GetDetail />} />
-      <Route path="/test" element={<Test/>}/>
-      <Route path="/test2" element={<Test2/>}/>
+      <Route path="/test" element={<Test />} />
+      {/* <Route path="/test2" element={<Test2/>}/> */}
       <Route path="/chatting" element={<Chatting />} />
     </Routes>
   );
