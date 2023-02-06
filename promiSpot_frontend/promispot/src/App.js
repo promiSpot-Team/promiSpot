@@ -24,6 +24,7 @@ import Join2 from './pages/Login/Join2'
 import Card from "./components/Card/Card";
 import GetDetail from './pages/PlaceMap/GetDetail'
 import Test from "./pages/Login/Test";
+import Test2 from "./pages/Login/Test2";
 import Chatting from './pages/PlaceMap/Chatting'
 
 function App() {
@@ -53,6 +54,7 @@ function App() {
       <Route path="/join2" element={<Join2/>}/>
       <Route path="/detail" element={<GetDetail />} />
       <Route path="/test" element={<Test/>}/>
+      <Route path="/test2" element={<Test2/>}/>
       <Route path="/chatting" element={<Chatting />} />
     </Routes>
   );
