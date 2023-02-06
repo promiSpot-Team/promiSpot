@@ -57,7 +57,7 @@ spring:
   # mongoDB
   data:
     mongodb:
-      host: localhost
+      host: i8a109.p.ssafy.io
       port: 27017
       authentication-database: promispot
       database: promispot

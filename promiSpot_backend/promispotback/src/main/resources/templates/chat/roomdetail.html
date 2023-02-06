@@ -31,14 +31,15 @@
         <div class="input-group-append">
             <button class="btn btn-primary" type="button" @click="sendMessage">보내기</button>
         </div>
-
     </div>
+
     <ul class="list-group">
         <li class="list-group-item" v-for="message in messages">
             {{message.sender}} - {{message.message}}
         </li>
     </ul>
-    <div></div>
+
+
 </div>
 <!-- JavaScript -->
 <script src="/api/webjars/vue/2.5.16/dist/vue.min.js"></script>
