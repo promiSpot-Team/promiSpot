@@ -7,6 +7,7 @@ import store from '../../index'
 import axios from 'axios'
 import '../scss/NewPromiseF.scss'
 import { useSelector } from 'react-redux'
+import { SERVER_URL } from '../../constants/constants'
 
 export default function NewPromiseF() {
   const [modalOpen, setModalOpen] = useState(false);
@@ -14,10 +15,12 @@ export default function NewPromiseF() {
   const memberSeq = useSelector(state => state.currentUserInfo.memberSeq)
 
   const getFriendList = async () => {
+    
   // 처음 생성 될 때 약속장의 친구 목록 불러오기
     const response = await axios({
-      url: `friends/${memberSeq}`,
+      url: `/friends/${memberSeq}`,
       method: 'GET',
+      baseURL: `${SERVER_URL}`
     })
     setFriendList(response.data)
   }

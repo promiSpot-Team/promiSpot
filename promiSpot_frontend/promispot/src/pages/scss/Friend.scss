@@ -37,4 +37,22 @@
   }
 }
 
+.friend-search-result-wrapper {
+  height: 48px;
+  color: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 14px;
+  
+  p:first-child {
+    margin-left: 3vw;
+  }
+  p:last-child {
+    margin-right: 3vw;
+  }
+}
 
+.friend-search-result-list {
+  border: 1px solid skyblue;
+}
