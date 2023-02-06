@@ -1,9 +1,7 @@
 package com.ssafy.promispotback.promise.controller;
 
-import java.sql.SQLException;
 import java.util.List;
 
-import com.ssafy.promispotback.member.model.entity.MemberEntity;
 import com.ssafy.promispotback.promise.model.entity.ParticipantEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ssafy.promispotback.promise.dto.PromiseMemberModifyLeaderDto;
-import com.ssafy.promispotback.promise.model.entity.PromiseEntity;
 import com.ssafy.promispotback.promise.model.entity.PromiseMemberEntity;
 import com.ssafy.promispotback.promise.model.service.PromiseMemberService;
 
