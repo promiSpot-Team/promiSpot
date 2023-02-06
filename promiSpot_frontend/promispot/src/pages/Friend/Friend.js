@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import BasicHeader2 from "../../components/Header/BasicHeader2";
 // import SelectBar from "../../components/SelectBar/SelectBar";
 import TabBar from "../../components/TabBar/TabBar";
@@ -14,6 +14,7 @@ import Box from '@mui/material/Box';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
+  const [inputData, setInputData] = useState('');
 
   return (
     <div
@@ -53,6 +54,10 @@ export default function Friend(props) {
     setValue(newValue);
   };
 
+  const ParentFunction = (query) => {
+    console.log("query", query)
+  }
+
   return (
     <>
     <div className="d-flex flex-column justify-content-center w-100 h-100">
@@ -63,7 +68,8 @@ export default function Friend(props) {
     <BasicHeader2 text="친구 목록"/>
     <div className="friend-wrapper">
       <div className="friend-search-wrapper">
-      <SearchBar/></div>
+        <SearchBar ParentFunction={ParentFunction}/>
+      </div>
       {/* <Link to = '/friend/list'>
         <button onClick={() => setVisible1(!visible1)}>친구 리스트</button>
       </Link> 

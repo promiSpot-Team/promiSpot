@@ -1,22 +1,18 @@
+import { useState } from 'react';
 import SockJS from 'sockjs-client';
-import * as StompJs from '@stomp/stompjs';
+const Stomp = require('@stomp/stompjs')
 
 export default function Chatting() {
-  
-  const client = new StompJs.Client({
-    brokerURL: '/api/ws',
-    connectHeaders: {
-      login: 'user',
-      passcode: 'password',
-    },
-    debug: function (str) {
-      console.log(str);
-    },
-    reconnectDelay: 5000, //자동 재 연결
-    heartbeatIncoming: 4000,
-    heartbeatOutgoing: 4000,
-  });
-
+  const [chatData, setChatData] = useState({
+    roomId: '',
+    room: {},
+    sender: '',
+    message: '',
+    messages: []
+  })
+  const sock = new SockJS('/api/ws/chat')
+  const sw = Stomp.over(sock)
+  const reconnect = 0
 
 
   return (

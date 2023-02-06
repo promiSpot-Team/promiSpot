@@ -57,6 +57,11 @@ export const reducer = (state, action) => {
     case 'SAVE_ADDRESS_INFO':
       newState = Object.assign({}, state, {addressInfo: action.addressInfo})
       break
+
+    // 로그인 했을 때, access-token과 memberSeq 저장
+    case 'SAVE_CURRENT_USER_INFO':
+      newState = Object.assign({}, state, {currentUserInfo: action.currentUserInfo})
+      break
     }
   return newState
 }
