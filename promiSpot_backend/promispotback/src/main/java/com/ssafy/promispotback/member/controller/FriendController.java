@@ -119,9 +119,9 @@ public class FriendController {
 		@PathVariable("memberInfo") String memberInfo){
 		
 		try {
-			MemberEntity member = friendService.findFriend(memberInfo);
-			if(member != null) {
-				return new ResponseEntity<MemberEntity>(member, HttpStatus.OK);
+			List<MemberEntity> members = friendService.findFriend(memberInfo);
+			if(!members.isEmpty()) {
+				return new ResponseEntity<List<MemberEntity>>(members, HttpStatus.OK);
 			}else {
 				return new ResponseEntity<String>(FAIL, HttpStatus.ACCEPTED);
 			}

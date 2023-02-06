@@ -1,29 +1,9 @@
-import react, { useContext } from "react";
-import { Link } from "react-router-dom";
-import BasicButton from "../../components/Buttons/BasicButton";
-import Background from "../../components/Background/Background";
-// import Header from '../components/header/header';
-// import Footer from '../components/footer/footer';
-import "../scss/Start.scss";
+import React from 'react'
+import '../scss/Test.scss';
 
-function Start() {
-  
+export default function Test() {
   return (
-    <>
-      {/* <Background/> */}
-      <div className="start-wrapper">
-      <div className="container">
-    <span className="text first-text">함께</span>
-    <span className="text second-text">정하는</span>
-    <span className='text third-text'>약속장소</span>
-</div>
-        {/* <div className="start-logo-wrapper">
-          <img src={require("../../img/promispot_logo.png")} width="300px" />
-
-        </div> */}
-        
     <div className="svg-wrapper">
-    <img className = "img-wrapper" src={require("../../img/promispot_logo.png")} width="300px" />
     <svg viewBox="0 0 1000 1000" class="world" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" >
     <defs>
       <clipPath id="clip-path">
@@ -68,28 +48,5 @@ function Start() {
       <path class="hill" d="M108 547l347-159 183 159H108"/>
     </g>
   </svg></div>
-        <div className="start-btn-wrapper">
-          <div className="start-btn">
-            <Link to={"/login"} className="link">
-              <BasicButton
-                text="로그인"
-                onClick={() => console.log("로그인!")}
-              />
-            </Link>
-          </div>
-          <div className="start-btn">
-            <Link to={"/join"} className="link">
-              <BasicButton
-                text="회원가입"
-                onClick={() => console.log("회원가입!")}
-              />
-            </Link>
-          </div>
-          <div className="start-btn"></div>
-        </div>
-      </div>
-    </>
-  );
+  )
 }
-
-export default Start;

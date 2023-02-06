@@ -47,7 +47,7 @@
 	<select id="findFriend" parameterType="string" resultType="MemberEntity">
 		select member_nick, member_id, member_img_path, member_img_origin_name, member_img_server_name 
 		from members 
-		where member_id = #{memberInfo} or member_phone_num = #{memberInfo} 
+		where member_id like concat('%', #{memberInfo}, '%') or member_phone_num like concat('%', #{memberInfo}, '%')
 	</select>
 	
 	<!-- 친구 목록 조회 --> <!-- 수정 필요 -->

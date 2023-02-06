@@ -29,7 +29,7 @@ public class ChatRoomController {
     @GetMapping("/room")
     public String rooms(Model model) {
         System.out.println("채팅방 들어와짐");
-        return "/chat/room";
+        return "chat/room";
     }
     
     // 모든 채팅방 목록 반환

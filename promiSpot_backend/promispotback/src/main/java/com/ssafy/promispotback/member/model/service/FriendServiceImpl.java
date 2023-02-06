@@ -42,7 +42,7 @@ public class FriendServiceImpl implements FriendService {
 
 	// 친구 정보 조회
 	@Override
-	public MemberEntity findFriend(String memberId) throws SQLException {
+	public List<MemberEntity> findFriend(String memberId) throws SQLException {
 		return friendMapper.findFriend(memberId);
 	}//findFriend
 

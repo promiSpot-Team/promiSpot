@@ -55,6 +55,7 @@ spring:
     active: local
 
   # mongoDB
+
   data:
     mongodb:
       host: i8a109.p.ssafy.io
