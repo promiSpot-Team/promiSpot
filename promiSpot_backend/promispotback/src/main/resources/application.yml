@@ -55,14 +55,14 @@ spring:
     active: local
 
   # mongoDB
-  data:
-    mongodb:
-      host: localhost
-      port: 27017
-      authentication-database: promispot
-      database: promispot
-      username: promispot
-      password: asianautoever0125.
+#  data:
+#    mongodb:
+#      host: localhost
+#      port: 27017
+#      authentication-database: promispot
+#      database: promispot
+#      username: promispot
+#      password: asianautoever0125.
 
 
 

@@ -7,14 +7,20 @@ import Background from "../../components/Background/Background";
 import "../scss/Start.scss";
 
 function Start() {
+  
   return (
     <>
       {/* <Background/> */}
       <div className="start-wrapper">
-        <div className="start-logo-wrapper">
+      <div className="container">
+    <span className="text first-text">함께</span>
+    <span className="text second-text">정하는</span>
+    <span className='text third-text'>약속장소</span>
+</div>
+        {/* <div className="start-logo-wrapper">
           <img src={require("../../img/promispot_logo.png")} width="300px" />
 
-        </div>
+        </div> */}
         <div className="start-btn-wrapper">
           <div className="start-btn">
             <Link to={"/login"} className="link">
