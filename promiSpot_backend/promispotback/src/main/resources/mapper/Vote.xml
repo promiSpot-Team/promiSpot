@@ -30,8 +30,8 @@
 	<!-- 약속 장소 후보 수정(투표/투표취소) -->
 	<update id="modifyCandidatePlace" parameterType="voteEntity">
 		update votes
-		set vote_cnt = #{voteCnt}
-		where vote_id = #{voteId}
+		set vote_cnt = vote_cnt + #{voteCnt}
+		where vote_seq = #{voteSeq}
 	</update>
 	
 	
@@ -57,8 +57,8 @@
 	
 	<!-- 약속 장소 투표버튼 누르면 투표자 테이블에 추가 -->
 	<insert id="insertVoter" parameterType="voteMemberEntity">
-		insert into voters_members (promise_id, vote_id, member_seq, place_id)
-		values(#{promiseMemberId}, #{voteId}, #{memberSeq}, #{placeId})
+		insert into voters_members (vote_seq, member_seq)
+		values(#{voteSeq}, #{memberSeq})
 	</insert>
 	
 	<!-- 약속 장소 투표를 해제하면 투표자 테이블에서 삭제 -->

@@ -4,25 +4,11 @@ import { SERVER_URL } from '../../constants/constants'
 import axios from 'axios'
 import '../scss/Friend.scss';
 
-export default function FriendRequestReceive({ memberSeq }) {
+export default function FriendRequestReceive({ memberSeq, requestReceiveFriendList }) {
   const [requestFriendList, setRequestFriendList] = useState([]);
   const [isAccept, setIsAccept] = useState(null)
   const [friendRequestSeq, setFriendRequestSeq] = useState(-1)
-
-  // 현재 유저에게 온 친구 신청 목록 불러오기
-  const getFriendRequestReceive = async () => {
-    try {
-      const res = await axios({
-        method: 'GET',
-        url: `${SERVER_URL}/friend/${memberSeq}/0`,
-      })
-      if (res.data !== 'fail') {
-        setRequestFriendList(res.data)
-      }
-    } catch(err) {
-      setRequestFriendList([])
-    }
-  }
+  const [listIdx, setListIdx] = useState(-1)
 
   // 친구 요청 승인했을 때 
   const acceptFriendRequest = async() => {
@@ -31,6 +17,8 @@ export default function FriendRequestReceive({ memberSeq }) {
         method: 'PUT',
         url: `${SERVER_URL}/friend/request/${friendRequestSeq}`
       })
+      delete requestReceiveFriendList[listIdx]
+      setRequestFriendList(requestReceiveFriendList)
       console.log(res)
     } catch (err) {
       console.log(err)
@@ -51,16 +39,21 @@ export default function FriendRequestReceive({ memberSeq }) {
   }
 
   // <MiniButton>에서 승인/거절 버튼 눌렀을 때 각각 값 state에 저장
-  const IsAcceptOrReject = ({isAccept, friendRequestSeq}) => {
+  const IsAcceptOrReject = ({isAccept, friendRequestSeq, listIdx}) => {
+    console.log('??????')
     setIsAccept(isAccept)
     setFriendRequestSeq(friendRequestSeq)
+    setListIdx(listIdx)
   }
-  
-  // 페이지 불러올 때 유저에게 들어온 친구 요청 목록 불러오기
+
   useEffect(() => {
-    getFriendRequestReceive()
+    setRequestFriendList(requestReceiveFriendList)
   }, [])
 
+  useEffect(() => {
+    console.log(requestFriendList)
+  }, [requestFriendList])
+  
   // 수락 -> true -> 친구 신청 승인 
   // 거절 -> false -> 친구 신청 거절
   useEffect(() => {
@@ -75,15 +68,18 @@ export default function FriendRequestReceive({ memberSeq }) {
     <div className="friend-list-wrapper">
       <div className='friend-list-each-wrapper'>
         <ProfileInfoR IsAcceptOrReject={IsAcceptOrReject} friendRequestSeq={35} imgName="KYJ_Profile" nickName="세자빈" id="KYJ"/>
-        {requestFriendList && requestFriendList.map((friend, idx) => {
-          <ProfileInfoR 
-            key={idx}
-            // 수락인지 거절인지 true/false 판단하는 함수 
-            IsAcceptOrReject={IsAcceptOrReject} 
-            friendRequestSeq={friend.friendRequestSeq}
-            imgName="KYJ_Profile" 
-            nickName={friend.memberNick} 
-            id={friend.memberId}/>
+        {requestReceiveFriendList && requestReceiveFriendList.map((friend, idx) => {
+          return (
+            <ProfileInfoR 
+              key={idx}
+              // 수락인지 거절인지 true/false 판단하는 함수 
+              IsAcceptOrReject={() => IsAcceptOrReject(idx)} 
+              friendRequestSeq={friend.friendRequestSeq}
+              listIdx={listIdx}
+              imgName="KYJ_Profile" 
+              nickName={friend.memberNick} 
+              id={friend.memberId}/>
+          )
         })}
       </div>
     </div>

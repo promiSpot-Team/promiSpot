@@ -6,10 +6,12 @@ import { ko } from "date-fns/esm/locale";
 import { getMonth, getDate, getDay } from "date-fns";
 import { Link } from "react-router-dom";
 import '../scss/NewPromiseT.scss'
+import axios from 'axios'
 
 export default function NewPromiseT() {
   const [startDate, setStartDate] = useState(new Date());
 
+  
   return (
     <div className='new-promise-wrapper'>
       <div className='new-promise-text-wrapper'>

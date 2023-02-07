@@ -22,7 +22,7 @@ export default function MyPage() {
         method: 'GET',
         url: `${SERVER_URL}/member/${memberSeq}`,
       })
-      console.log("1", myInfoList);
+      console.log('결과 : ', res)
       if(res.data !== 'fail') {
         setMyInfoList([res.data])
       }
@@ -33,9 +33,14 @@ export default function MyPage() {
       }
     }
   }
-    useEffect(() => {
-      getMyInfo()
-    }, [])
+  useEffect(() => {
+    getMyInfo()
+  }, [])
+
+  console.log(1)
+  useEffect(() => {
+    console.log("myInfoList", myInfoList)
+  }, [myInfoList])
 
   return (
     <div className="mypage">
@@ -46,6 +51,40 @@ export default function MyPage() {
           <p>편집</p>
         </div>
       </div>
+      {myInfoList && myInfoList.map((item, idx) => {
+        return (
+          <div className="content">
+          <Link to="/address/search">
+            <div className="address" style={{ borderBottom: '1px solid #c4c4c4'}}>
+              <p >서울특별시 강남구 테헤란로 212</p>
+              <p>멀티캠퍼스 역삼</p>
+            </div>
+          </Link>
+          <div className="address">
+            <p>{item.memberInfo.memberNick}</p>
+            <p>닉네임</p>
+          </div>
+          <div className="address">
+            <p>{item.memberInfo.memberId}</p>
+            <p>아이디</p>
+          </div>
+          <div className="email">
+            {item.memberInfo.memberName}
+          </div>
+        </div>
+        )
+      })}
+      {/* {myInfoList && myInfoList.map((info) => {
+          return (<div>
+              <ProfileInfoS             
+             //   imgName="PBG_Profile"  
+            //   nickName={info.memberNick} 
+            //   id={info.memberId}/>
+            // <div>`${info.memberNick}`</div>
+            <div>{info.memberName}</div>
+            <div>{info.memberId}</div></div>
+          )
+        })} */}
       <div className="content">
         <Link to="/address/search">
           <div className="address" style={{ borderBottom: '1px solid #c4c4c4'}}>
@@ -68,17 +107,7 @@ export default function MyPage() {
       </div>
       <div>
         {myInfoList.memberNick}
-        {/* {myInfoList && myInfoList.map((info) => {
-          return (<div>
-              <ProfileInfoS             
-             //   imgName="PBG_Profile"  
-            //   nickName={info.memberNick} 
-            //   id={info.memberId}/>
-            // <div>`${info.memberNick}`</div>
-            <div>{info.memberName}</div>
-            <div>{info.memberId}</div></div>
-          )
-        })} */}
+        
       </div>
       <TabBar />
     </div>

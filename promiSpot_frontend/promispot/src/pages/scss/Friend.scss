@@ -113,5 +113,26 @@ $inner-shadow: inset 0.2em 0.2em 0.5em var(--greyLight-2),
   }
 }
 .friend-search-result-list {
-  border: 1px solid skyblue;
+  // border: 1px solid skyblue;
+  width: 100%;
+  height: 5.8vh;
+  // position: absolute;
+  // bottom: 1vh;
+  // left: 3vw;
+  color: gray;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 14px;
+
+  p:first-child {
+    // border: 1px solid blue;
+    margin-left: 4vw;
+  }
+  
+  p:last-child {
+    // border: 1px solid red;
+    margin-right: 4vw;
+
+  }
 }

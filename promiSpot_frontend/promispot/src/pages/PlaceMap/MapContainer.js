@@ -21,14 +21,6 @@ export default function MapContainer() {
   const stateRect = useSelector((state) => state.rect);
   const navigate = useNavigate()
 
-  // 페이지 불러올 때 한 번만 지도 그리기
-  useEffect(() => {
-    mapscript();
-  }, []);
-
-  // 마커나 프로필이 DB에 추가됐을 때
-  useEffect(() => {}, [mapdata]);
-
   // // 지도에 장소가 등록됐을 때
   // useEffect(() => {
   //   setmapCenter(stateMapCenterPosition)
@@ -68,10 +60,20 @@ export default function MapContainer() {
     marker.setMap(map)
   }
 
+  // 페이지 불러올 때 한 번만 지도 그리기
+  useEffect(() => {
+    mapscript();
+  }, []);
+
+  // 마커나 프로필이 DB에 추가됐을 때
+  useEffect(() => {}, [mapdata]);
+  
+  // 지도의 가장 자리가 바뀔 때
   useEffect(() => {
     setRect(stateRect);
   }, [stateRect]);
   
+  // 지도의 중심 위치 변경될 때
   useEffect(() => {
     markerPosition()
   }, [stateMapCenterPosition])

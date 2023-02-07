@@ -6,13 +6,15 @@ export default function ProfileInfo(props) {
 
   const {imgName, nickName, id} = props;
   const imgUrl = "/images/" + imgName + ".jpg";
+  const [isFinish, setIsFinish] = React.useState(false)
 
   const acceptRequest = () => {
     if (props.IsAcceptOrReject) {
       props.IsAcceptOrReject({
         isAccept: true, 
-        friendRequestSeq: props.friendRequestSeq
+        friendRequestSeq: props.friendRequestSeq,
       })
+      setIsFinish(true)
     }
   }
 
@@ -20,9 +22,14 @@ export default function ProfileInfo(props) {
     if (props.IsAcceptOrReject) {
       props.IsAcceptOrReject({
         isAccept: false, 
-        friendRequestSeq: props.friendRequestSeq
+        friendRequestSeq: props.friendRequestSeq,
       })
+      setIsFinish(true)
     }
+  }
+
+  if (isFinish) {
+    return null
   }
 
   return (
