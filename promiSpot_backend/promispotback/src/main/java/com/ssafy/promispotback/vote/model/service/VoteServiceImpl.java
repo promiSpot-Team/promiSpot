@@ -28,7 +28,7 @@ public class VoteServiceImpl implements VoteService{
 	
 	//약속 장소 후보 가져오기
 	@Override
-	public VotePlaceEntity getCandidatePlace(int voteSeq) throws SQLException {
+	public VoteEntity getCandidatePlace(int voteSeq) throws SQLException {
 		return voteMapper.getCandidatePlace(voteSeq);
 	}
 
@@ -42,8 +42,18 @@ public class VoteServiceImpl implements VoteService{
 	
 	//약속 장소 후보 수정(투표/투표취소)
 	@Override
-	public int modifyCandidatePlace(int voteSeq) throws SQLException {
-		return voteMapper.modifyCandidatePlace(voteSeq);
+	public int modifyCandidatePlace(int voteSeq, int memberSeq) throws SQLException {
+		if(isVoted(memberSeq, voteSeq) == 1){ // 이미 투표 했을 경우
+			if(voteMapper.modifyCandidatePlace(voteSeq, -1) == 1){
+				return removeVoter(memberSeq, voteSeq);
+			}
+			return 0;
+		}else{ // 투표 처음
+			if(voteMapper.modifyCandidatePlace(voteSeq, 1) == 1){
+				return insertVoter(new VoteMemberEntity(memberSeq, voteSeq));
+			}
+			return 0;
+		}
 	}
 
 	

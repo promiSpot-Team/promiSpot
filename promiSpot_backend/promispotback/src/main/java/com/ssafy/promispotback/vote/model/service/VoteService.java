@@ -15,13 +15,13 @@ public interface VoteService {
 	public int insertCandidatePlace(VoteEntity voteEntity) throws SQLException;
 	
 	//약속 장소 후보 가져오기
-	public VotePlaceEntity getCandidatePlace(int voteSeq) throws SQLException;
+	public VoteEntity getCandidatePlace(int voteSeq) throws SQLException;
 	
 	//약속 장소 후보들 가져오기 - 하나의 약속에 속한 모든 장소 후보들
 	public List<VotePlaceEntity> getCandidatePlaceList(int promiseSeq) throws SQLException;
 	
 	//약속 장소 후보 수정(투표/투표취소)
-	public int modifyCandidatePlace(int voteSeq) throws SQLException;
+	public int modifyCandidatePlace(@Param("voteSeq") int voteSeq, @Param("memberSeq") int memberSeq) throws SQLException;
 	
 	//약속 장소 후보 삭제
 	public int removeCandidatePlace(int voteSeq) throws SQLException;
