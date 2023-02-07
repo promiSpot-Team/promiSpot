@@ -35,7 +35,7 @@ export default function MyPage() {
         try {
           axios.defaults.headers.common['refresh-token'] = `${refreshToken}`
           var response = await axios({
-            url: '/refresh',
+            url: 'member/refresh',
             method: 'POST',
             baseURL: SERVER_URL,
             data : {

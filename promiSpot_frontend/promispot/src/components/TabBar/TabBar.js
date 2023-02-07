@@ -15,6 +15,7 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { ko } from "date-fns/esm/locale";
 import { getMonth, getDate, getDay } from "date-fns";
+import { weekdays } from "moment";
 
 export default function TabBar(props) {
   // 모달창 노출 여부 state
@@ -107,17 +108,21 @@ export default function TabBar(props) {
             <>
             <div className='new-promise-wrapper' onClick={(e) => console.log("out")}>
 
-      <div><InputForm id="promise_title" label="약속 제목" placeholder="2월 3일 일정"/> </div>
+      <div><InputForm id="promise_title" label="약속 제목" placeholder="일정"/> </div>
       
     <DatePicker
     	selected={startDate} 
       value={startDate}
 	onChange={(date) => {
-    d = new Date(date).toLocaleDateString('ko-KR');
+    d = new Date(date).toLocaleDateString('ko-KR', {year: 'numeric', month: 'long', day: 'numeric', weekday: 'long'});
     console.log(d);
     setStartDate(date);}}
+    // showTimeSelect
+    // timeFormat="HH:mm"
+    // timeIntervals={15}
+    // timeCaption="time"
         locale={ko}                   // 한글로 변경
-        dateFormat="yyyy.MM.dd (eee)" // 시간 포맷 변경
+        dateFormat="yyyy.MM.dd(eee) h:mm aa" // 시간 포맷 변경
         showPopperArrow={false}       // 화살표 변경
         minDate={new Date()}          // 오늘 날짜 전은 선택 못하게
         
