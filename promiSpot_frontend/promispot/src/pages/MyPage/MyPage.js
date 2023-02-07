@@ -11,10 +11,12 @@ export default function MyPage() {
   const [myInfoList, setMyInfoList] = useState([]);
   const memberSeq = useSelector(state => state?.currentUserInfo?.memberSeq)
   const accessToken = useSelector(state => state?.currentUserInfo?.accessToken)
+  const refreshToken = useSelector(state => state?.currentUserInfo?.refreshToken)
 
   const getMyInfo = async () => {
     try {
       axios.defaults.headers.common['access-token'] = `${accessToken}`
+      axios.defaults.headers.common['refresh-token'] = `${refreshToken}`
 
       const res = await axios({
         method: 'GET',
@@ -26,6 +28,9 @@ export default function MyPage() {
       }
     } catch(err) {
       setMyInfoList([])
+      if(err.rsponse.status === 401) {
+        
+      }
     }
   }
   useEffect(() => {

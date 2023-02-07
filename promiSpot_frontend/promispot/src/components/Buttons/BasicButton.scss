@@ -25,17 +25,17 @@
     box-shadow: inset 1px 1px 2px linear-gradient(-45deg, #ee7752, #f17373, #4d3c97, #6fa0e0), inset -1px -1px 2px #fff;
   }
 
-  @keyframes gradient {
-    0% {
-      background-position: 0% 50%;
-    }
-    50% {
-      background-position: 100% 50%;
-    }
-    100% {
-      background-position: 0% 50%;
-    }
-  }
 }
 
+@keyframes gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
 
