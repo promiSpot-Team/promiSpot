@@ -82,7 +82,7 @@ export default function Friend(props) {
     setClearQuery(!clearQuery)
   }
 
-  // 친구 검색 axios 요청
+  // 친구 아이디, 전화번호 검색 결과 가져오기
   const [query, setQuery] = useState('')
 
   const searchFriend = async () => {
@@ -114,12 +114,51 @@ export default function Friend(props) {
         url: `${SERVER_URL}/friend/request`,
         data: {
           memberSeq,
-          friendRequestMember: friendSeq
+          friendRequestMember: 41
         }
       })
+      const data = {
+        memberSeq, 
+        friendRequestMember: friendSeq
+      }
+      console.log("data", data)
       console.log(response)
     } catch(err) {
       console.log(err)
+    }
+  }
+
+  const [requestSendFriendList, setRequestSendFriendList] = useState([]);
+
+   // 현재 유저가 보낸 친구 신청 목록 불러오기
+   const getFriendRequestSend = async () => {
+    try {
+      const res = await axios({
+        method: 'GET',
+        url: `${SERVER_URL}/friend/${memberSeq}/1`,
+      })
+      if (res.data !== 'fail') {
+        setRequestSendFriendList(res.data)
+      }
+    } catch(err) {
+      setRequestSendFriendList([])
+    }
+  }
+
+  const [requestReceiveFriendList, setRequestReceiveFriendList] = useState([]);
+
+  // 현재 유저가 받은 친구 신청 목록 불러오기
+  const getFriendRequestReceive = async () => {
+    try {
+      const res = await axios({
+        method: 'GET',
+        url: `${SERVER_URL}/friend/${memberSeq}/0`,
+      })
+      if (res.data !== 'fail') {
+        setRequestReceiveFriendList(res.data)
+      }
+    } catch(err) {
+      setRequestReceiveFriendList([])
     }
   }
 
@@ -128,8 +167,16 @@ export default function Friend(props) {
   }, [query])
   
   useEffect(() => {
-    console.log(searchList)
+    console.log("searchList", searchList)
   }, [searchList])
+
+  useEffect(() => {
+    console.log('보낸', requestSendFriendList)
+  }, [requestSendFriendList])
+
+  useEffect(() => {
+    console.log('받은', requestReceiveFriendList)
+  }, [requestReceiveFriendList])
   
   return (
     <>
@@ -163,28 +210,33 @@ export default function Friend(props) {
             <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
               <Tabs value={value} onChange={handleChange} textColor="secondary" indicatorColor="secondary" aria-label="basic tabs example" centered>
                 <Tab label="내 친구" {...a11yProps(0)} />
-                <Tab label="받은 요청" {...a11yProps(1)} />
-                <Tab label="보낸 요청" {...a11yProps(2)} />
+                <Tab onClick={getFriendRequestReceive} label="받은 요청" {...a11yProps(1)} />
+                <Tab onClick={getFriendRequestSend} label="보낸 요청" {...a11yProps(2)} />
               </Tabs>
             </Box>
             <TabPanel value={value} index={0}>
               <FriendList memberSeq={memberSeq}/>
             </TabPanel>
             <TabPanel value={value} index={1}>
-              <FriendRequestReceive memberSeq={memberSeq}/>
+              <FriendRequestReceive memberSeq={memberSeq} requestReceiveFriendList={requestReceiveFriendList}/>
             </TabPanel>
             <TabPanel value={value} index={2}>
-              <FriendRequestSend memberSeq={memberSeq}/>
+              <FriendRequestSend memberSeq={memberSeq} requestSendFriendList={requestSendFriendList}/>
             </TabPanel>
           </>
           :
-          <>
+          <> 
             <Box sx={{ borderBottom: 1, borderColor: 'divider', position: 'relative' }}>
-              <Tabs value={value} onChange={handleChange} textColor="secondary" indicatorColor="secondary" aria-label="basic tabs example" centered>
-                <Tab label="검색 결과" {...a11yProps(0)} onClick={clearInputQuery}/>
-              </Tabs>
+              {/* <Tabs className="friend-search-result-list" textColor="secondary" indicatorColor="secondary" aria-label="basic tabs example">
+                <p>검색결과</p>
+                <p>X</p>
+              </Tabs> */}
+              <div className="friend-search-result-list">
+                <p>검색결과</p>
+                <p onClick={clearInputQuery}>X</p>
+              </div>
             </Box>
-            <TabPanel value={value} index={0}>
+            <TabPanel>
               {searchList && searchList.map((friend, idx) => {
                 return (
                   <div key={idx} className='profile-info-wrapper'>

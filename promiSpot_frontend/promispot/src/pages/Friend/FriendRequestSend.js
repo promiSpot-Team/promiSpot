@@ -7,13 +7,14 @@ import '../scss/Friend.scss';
 export default function FriendRequestSend({ memberSeq }) {
   const [requestFriendList, setRequestFriendList] = useState([]);
 
-  // 내가 신청한 친구 목록 불러오기
+  // 현재 유저가 보낸 친구 신청 목록 불러오기
   const getFriendRequestSend = async () => {
     try {
       const res = await axios({
         method: 'GET',
         url: `${SERVER_URL}/friend/${memberSeq}/1`,
       })
+      console.log("보낸", res)
       if (res.data !== 'fail') {
         setRequestFriendList(res.data)
       }
