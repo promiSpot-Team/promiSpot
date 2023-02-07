@@ -8,7 +8,6 @@ import { useSelector } from "react-redux";
 
 export default function FriendList({ memberSeq }) {
 
-
   return (
     <div className="friend-list-wrapper">
       <div className='friend-list-each-wrapper'>

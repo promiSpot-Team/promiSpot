@@ -6,7 +6,6 @@ import '../scss/Friend.scss';
 
 export default function FriendRequestSend({ memberSeq }) {
 
-
   return (
     <div className="friend-list-wrapper">
       <div className='friend-list-each-wrapper'>

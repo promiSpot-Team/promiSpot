@@ -8,17 +8,16 @@ export default function ProfileInfo(props) {
 
   const {imgName, nickName, id} = props;
   const imgUrl = "/images/" + imgName + ".jpg";
-  const [isFinish, setIsFinish] = React.useState(false)
+  const [isAccept, setIsAccept] = useState(null)
 
-  const acceptFriendRequest = async() => {
+  const acceptFriendRequest = async () => {
     try {
-      const res = await axios({
+      const response = await axios({
         method: 'PUT',
         url: `${SERVER_URL}/friend/request/${props.friendRequestSeq}`
       })
-      // setRequestFriendList(requestReceiveFriendList)
-      console.log(res)
-    } catch (err) {
+      console.log(response)
+    } catch(err) {
       console.log(err)
     }
   }
@@ -36,36 +35,14 @@ export default function ProfileInfo(props) {
   }
 
   const acceptRequest = () => {
-    if (props.IsAcceptOrReject) {
-      props.IsAcceptOrReject({
-        isAccept: true, 
-        friendRequestSeq: props.friendRequestSeq,
-      })
-      setIsFinish(true)
-    }
-  }
-
-  const rejectRequest = () => {
-    if (props.IsAcceptOrReject) {
-      props.IsAcceptOrReject({
-        isAccept: false, 
-        friendRequestSeq: props.friendRequestSeq,
-      })
-      setIsFinish(true)
-    }
+    setIsAccept(true)
   }
 
   useEffect(() => {
-    if (isFinish === true) {
+    if (isAccept == true) {
       acceptFriendRequest()
-    } else if (isFinish === false) {
-      rejectFriendRequest()
     }
-  }, [isFinish])
-
-  if (isFinish) {
-    return null
-  }
+  }, [isAccept])
 
   return (
     <div className='profile-info-wrapper'>
@@ -78,8 +55,8 @@ export default function ProfileInfo(props) {
         <div className='profile-info-id-wrapper'>{id}</div>
       </div>
       <div className='profile-info-button-wrapper'>
-        <div className='profile-info-button' onClick={setIsFinish(true)}><MiniButton text="수락"/></div>
-        <div className='profile-info-button' onClick={setIsFinish(false)}><MiniButton text="거절"/></div>
+        <div className='profile-info-button' onClick={acceptRequest}><MiniButton text="수락"/></div>
+        <div className='profile-info-button'><MiniButton text="거절"/></div>
         
       </div>
     </div>

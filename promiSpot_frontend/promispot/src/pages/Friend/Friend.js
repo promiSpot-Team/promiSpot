@@ -53,14 +53,7 @@ function a11yProps(index) {
 }
 
 export default function Friend(props) {
-
   const [value, setValue] = useState(0);
-  const [showSearchResult, setShowSearchResult] = useState(false)
-  const [searchList, setSearchList] = useState([])
-  const [clearQuery, setClearQuery] = useState()
-  const memberSeq = useSelector(state => state?.currentUserInfo?.memberSeq ? state.currentUserInfo.memberSeq : 0)
-  
-
   const [valid, setValid] = useState(false);
 
   const isValid = () => {
@@ -70,67 +63,55 @@ export default function Friend(props) {
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
-  };
+  }; 
 
-  const HandleInputFocus = (isFocus) => {
-    setShowSearchResult(isFocus)
+  const [inputData, setInputData] = useState('')
+  // input 값 변할 때마다 axios 요청
+  const changeInputData = (e) => {
+    getFriendSearchResult(e.target.value);
+    setInputData(e.target.value)
   }
 
-  const clearInputQuery = () => {
-    setShowSearchResult(false)
-    setSearchList(null)
-    setClearQuery(!clearQuery)
-  }
+  const [friendSearchResult, setFriendSearchResult] = useState(null);
 
-  // 친구 아이디, 전화번호 검색 결과 가져오기
-  const [query, setQuery] = useState('')
-
-  const searchFriend = async () => {
+  // 변경된 inputData 값으로 친구 목록 가져오기
+  const getFriendSearchResult = async (memberInfo) => {
     try {
       const response = await axios({
-        method: 'GET',
-        url: `${SERVER_URL}/friend/${query}`,
-      })
-      // 검색된 결과가 있을 경우 searchList 업데이트
-      if (response.data !== 'fail') {
-        setSearchList(response.data)
-      }
+        method: 'GET', 
+        url: `${SERVER_URL}/friend/${memberInfo}`,
+      })  
+      setFriendSearchResult(response.data)
     } catch(err) {
-      setSearchList([])
+      setFriendSearchResult(null)
       console.log(err)
     }
   }
 
-  // 부모컴포넌트(Friend.js)에서 자식 컴포넌트(Searchbar.js) 쿼리 값 가져오기
-  const GetAxiosQuery = (query) => {
-    setQuery(query)
-  }
+  // 친구 요청 보내기
+  // 내 친구 목록/받은 요청/보낸 요청에 다 memberSeq props로 넘겨주기
+  const memberSeq = useSelector(state => state.currentUserInfo.memberSeq)
 
-  useEffect(() => {
-    searchFriend()
-    console.log(query)
-  }, [query])
-
-  // 검색된 친구 결과 리스트에서 친구 요청 보낼 친구 선택해서 요청 보내기
-  const requestFriend = async (friendSeq) => { 
+  const sendFriendRequest = async (friendRequestMember) => {
     try {
       const response = await axios({
         method: 'POST', 
         url: `${SERVER_URL}/friend/request`,
         data: {
-          memberSeq,
-          friendRequestMember: 41
+          memberSeq, 
+          friendRequestMember
         }
       })
-      const data = {
-        memberSeq, 
-        friendRequestMember: friendSeq
-      }
-      console.log("data", data)
       console.log(response)
     } catch(err) {
       console.log(err)
     }
+  }
+
+  // 검색결과창 닫기
+  const closeSearchResult = () => {
+    setInputData('')
+    setFriendSearchResult(null)
   }
 
   return (
@@ -140,9 +121,20 @@ export default function Friend(props) {
         </div>
       </div>
       <BasicHeader2 text="친구 목록" />
+      
+      {/* <SearchBar /> */}
       <div className="friend-wrapper">
         <div className="friend-search-wrapper">
-          <SearchBar GetAxiosQuery={GetAxiosQuery} HandleInputFocus={HandleInputFocus} clearQuery={clearQuery}/>
+          {/* <SearchBar GetAxiosQuery={null}/> */}
+          <div className="search">
+            <input type="text" className="search__input" placeholder="Search..."
+              onChange={changeInputData}
+              value={inputData}
+            />
+            <div className="search__icon">
+              <ImSearch/>
+            </div>
+          </div>
         </div>
         {/* <Link to = '/friend/list'>
           <button onClick={() => setVisible1(!visible1)}>친구 리스트</button>
@@ -160,7 +152,7 @@ export default function Friend(props) {
           {<FriendList/> */}
       </div>
       <Box sx={{ width: '100%' }}>
-        {!showSearchResult ?
+        {friendSearchResult === null ? 
           <>
             <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
               <Tabs value={value} onChange={handleChange} textColor="secondary" indicatorColor="secondary" aria-label="basic tabs example" centered>
@@ -170,7 +162,7 @@ export default function Friend(props) {
               </Tabs>
             </Box>
             <TabPanel value={value} index={0}>
-              <FriendList memberSeq={memberSeq}/>
+              <FriendList/>
             </TabPanel>
             <TabPanel value={value} index={1}>
               <FriendRequestReceive memberSeq={memberSeq} />
@@ -188,11 +180,11 @@ export default function Friend(props) {
               </Tabs> */}
               <div className="friend-search-result-list">
                 <p>검색결과</p>
-                <p onClick={clearInputQuery}>X</p>
+                <p onClick={closeSearchResult}>X</p>
               </div>
             </Box>
-            <TabPanel value={value}>
-              {searchList && searchList.map((friend, idx) => {
+            {/* <TabPanel> */}
+              {friendSearchResult && friendSearchResult.map((friend, idx) => {
                 return (
                   <div key={idx} className='profile-info-wrapper'>
                     <div className='profile-info-img-wrapper'>
@@ -204,14 +196,14 @@ export default function Friend(props) {
                       <div className='profile-info-id-wrapper'>{friend.memberId}</div>
                     </div>
                     <div className='profile-info-button-wrapper'>
-                      <div className='profile-info-button' onClick={() => requestFriend(friend.memberSeq)}>
+                      <div className='profile-info-button' onClick={() => sendFriendRequest(friend.memberSeq)}>
                         <MiniButton text="요청"/>
                       </div>
                     </div>
                   </div>
                 )
               })}
-            </TabPanel>
+            {/* </TabPanel> */}
           </>
         }
       </Box> 
