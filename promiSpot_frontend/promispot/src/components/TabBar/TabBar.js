@@ -23,8 +23,8 @@ export default function TabBar(props) {
                 to={"/main"}
                 className="link"
                 style={{ textDecoration: "none" }}
-              ></Link>
-              <FaHome size="36" color="#ffffff" />
+              >
+              <FaHome size="36" color="#ffffff" /></Link>
             </div>
             <div className="navbar-left-icon">
               <Link to={"/friend"} className="link">

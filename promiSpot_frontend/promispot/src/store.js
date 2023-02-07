@@ -3,7 +3,10 @@ export const reducer = (state, action) => {
   // state의 초기값 설정
   if (state === undefined) {
     return {
-      memberSeq: 1,
+      currentUserInfo: {
+        memberSeq: 1,
+        accessToken: 'eyJ0eXAiOiJKV1QiLCJyZWdEYXRlIjoxNjc1NzQwMzEzODYzLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE2NzU3NDAzNzMsInN1YiI6ImFjY2Vzcy10b2tlbiIsIm1lbWJlcklkIjoiYWRtaW4ifQ.kBV9kreXH2FJWLf50MTCY-b3HOmU7evLN85bDayQ2nE',
+      },
       mapCenterPosition: {
         x: 37.5013, 
         y: 127.0397
