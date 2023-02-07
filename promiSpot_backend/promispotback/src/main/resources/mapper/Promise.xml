@@ -10,8 +10,9 @@
 
 	<!-- 약속 생성  -->
 	<insert id="createPromise" parameterType="promiseEntity">
-		insert into promises(promise_title, promise_date, promise_vote_is_finish, promise_schedule_is_finish)
-		values(#{promiseTitle}, #{promiseDate}, #{promiseVoteIsFinish}, #{promiseScheduleIsFinish})	
+		insert into promises(promise_title, promise_leader, promise_date, promise_time, promise_day, promise_vote_is_finish, promise_schedule_is_finish)
+		values(#{promiseTitle}, #{promiseLeader}, #{promiseDate}, #{promiseTime}, #{promiseDay},
+		    #{promiseVoteIsFinish}, #{promiseScheduleIsFinish})
 	</insert>
 	
 	
@@ -23,7 +24,8 @@
 	<!-- 한 회원의 약속 전부 조회  -->
 	<select id="getPromiseList" parameterType="int" resultType="PromiseDataEntity">
 		<!-- select * from promises where member_seq = #{memberSeq}select -->
-		select p.promise_seq, promise_title, promise_date, promise_vote_is_finish, promise_schedule_is_finish
+		select p.promise_seq, promise_title, promise_leader, promise_date, promise_time, promise_day,
+		       promise_vote_is_finish, promise_schedule_is_finish
 		from promises p join promises_members m
 		on p.promise_seq = m.promise_seq
 		where m.member_seq = #{memberSeq}
@@ -35,7 +37,10 @@
 		update promises
 		<trim prefix="set" suffixOverrides=",">
 			<if test="promiseTitle != null">promise_title = #{promiseTitle},</if>
+			<if test="promiseLeader != null">promise_leader = #{promiseLeader},</if>
 			<if test="promiseDate != null">promise_date = #{promiseDate},</if>
+			<if test="promiseTime != null">promise_time = #{promiseTime},</if>
+			<if test="promiseDay != null">promise_day = #{promiseDay},</if>
 			<if test="promiseVoteIsFinish != null">promise_vote_is_finish = #{promiseVoteIsFinish},</if>
 			<if test="promiseScheduleIsFinish != null">promise_schedule_is_finish = #{promiseScheduleIsFinish},</if>
 		</trim>
@@ -44,10 +49,22 @@
 
 
 	<!-- 약속 삭제 -->
-	<delete id="removeSchedule" parameterType="int">
+	<delete id="removePromise" parameterType="int">
 		delete from promises
 		where promise_seq = #{promiseSeq}
 	</delete>
+
+	<!--약속 투표 완료 토글 -->
+	<update id="modifyVote" parameterType="int">
+		update promises set `promise_vote_is_finish` = if(`promise_vote_is_finish` = 1, 0 , 1)
+		where promise_seq = #{promiseSeq}
+	</update>
+
+	<!-- 약속 스케쥴 완료 토글 -->
+	<update id="modifySchedule" parameterType="int">
+		update promises set `promise_schedule_is_finish` = if(`promise_schedule_is_finish` = 1, 0 , 1)
+		where promise_seq = #{promiseSeq}
+	</update>
 
 
 </mapper>

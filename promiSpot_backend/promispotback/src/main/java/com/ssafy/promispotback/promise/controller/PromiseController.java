@@ -68,27 +68,6 @@ public class PromiseController {
 		}
 	}
 	
-	
-	// 한 회원이 속한 약속 전부 조회
-	@GetMapping("getList/{memberSeq}")
-	public ResponseEntity<?> getPromiseList(@PathVariable("memberSeq") int memberSeq) {
-		try {
-			
-			List<PromiseDataEntity> promiseList = promiseService.getPromiseList(memberSeq);
-			
-			if (promiseList != null) {
-				System.out.println("success work");
-				return new ResponseEntity<List<PromiseDataEntity>>(promiseList, HttpStatus.OK);
-			} else {
-				System.out.println("fail work");
-				return new ResponseEntity<String>("fail", HttpStatus.ACCEPTED);
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-			return exceptionHandling(e);
-		}
-	}
-	
 	// 약속 수정 
 	@PutMapping("modify")
 	public ResponseEntity<?> modifyPromise(@RequestBody PromiseEntity promiseEntity) {
@@ -108,12 +87,13 @@ public class PromiseController {
 			return exceptionHandling(e);
 		}
 	}
-	
 
 	// 약속 삭제
 	@DeleteMapping("delete/{promiseSeq}")
 	public ResponseEntity<?> removePromise(@PathVariable("promiseSeq") int promiseSeq) {
-		
+
+		System.out.println(promiseSeq);
+
 		try {
 			int result = promiseService.removePromise(promiseSeq); 
 			if (result != 0) {
@@ -126,8 +106,58 @@ public class PromiseController {
 			return exceptionHandling(e);
 		}
 	}
-	
-	
+
+	// 한 회원이 속한 약속 전부 조회
+	@GetMapping("getList/{memberSeq}")
+	public ResponseEntity<?> getPromiseList(@PathVariable("memberSeq") int memberSeq) {
+		try {
+
+			List<PromiseDataEntity> promiseList = promiseService.getPromiseList(memberSeq);
+
+			if (promiseList != null) {
+				System.out.println("success work");
+				return new ResponseEntity<List<PromiseDataEntity>>(promiseList, HttpStatus.OK);
+			} else {
+				System.out.println("fail work");
+				return new ResponseEntity<String>("fail", HttpStatus.ACCEPTED);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			return exceptionHandling(e);
+		}
+	}
+
+	@PutMapping("modifyVote/{promiseSeq}")
+	public ResponseEntity<?> modifyVote(@PathVariable("promiseSeq") int promiseSeq) {
+
+		try {
+			int result = promiseService.modifyVote(promiseSeq);
+			if (result != 0) {
+				return new ResponseEntity<String>("success", HttpStatus.OK);
+			} else {
+				return new ResponseEntity<String>("fail", HttpStatus.ACCEPTED);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			return exceptionHandling(e);
+		}
+	}
+
+	@PutMapping("modifySchedule/{promiseSeq}")
+	public ResponseEntity<?> modifySchedule(@PathVariable("promiseSeq") int promiseSeq) {
+
+		try {
+			int result = promiseService.modifySchedule(promiseSeq);
+			if (result != 0) {
+				return new ResponseEntity<String>("success", HttpStatus.OK);
+			} else {
+				return new ResponseEntity<String>("fail", HttpStatus.ACCEPTED);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			return exceptionHandling(e);
+		}
+	}
 	
 	
 	// 에러 처리

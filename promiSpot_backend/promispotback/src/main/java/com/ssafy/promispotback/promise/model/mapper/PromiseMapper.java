@@ -25,6 +25,12 @@ public interface PromiseMapper {
 	
 	// 약속 삭제
 	public int removePromise(int promiseSeq) throws SQLException;
+
+	// 약속 투표 완료 토글
+	public int modifyVote(int promiseSeq) throws SQLException;
+
+	// 약속 스케쥴 완료 토글
+	public int modifySchedule(int promiseSeq) throws SQLException;
 	
 	
 	

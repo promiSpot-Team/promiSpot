@@ -15,8 +15,17 @@ public class PromiseDataEntity {
     @ApiModelProperty(value = "약속제목")
     private String promiseTitle;
 
+    @ApiModelProperty(value = "약속장")
+    private int promiseLeader;
+
     @ApiModelProperty(value = "약속날짜")
-    private Date promiseDate;
+    private String promiseDate;
+
+    @ApiModelProperty(value = "약속시간")
+    private String promiseTime;
+
+    @ApiModelProperty(value = "약속요일")
+    private String promiseDay;
 
     @ApiModelProperty(value = "약속투표완료")
     private int promiseVoteIsFinish;
@@ -29,11 +38,16 @@ public class PromiseDataEntity {
 
     public PromiseDataEntity() {}
 
-    public PromiseDataEntity(int promiseSeq, String promiseTitle, Date promiseDate, int promiseVoteIsFinish,
+
+    public PromiseDataEntity(int promiseSeq, String promiseTitle, int promiseLeader, String promiseDate,
+                             String promiseTime, String promiseDay, int promiseVoteIsFinish,
                              int promiseScheduleIsFinish, List<ParticipantEntity> participantList) {
         this.promiseSeq = promiseSeq;
         this.promiseTitle = promiseTitle;
+        this.promiseLeader = promiseLeader;
         this.promiseDate = promiseDate;
+        this.promiseTime = promiseTime;
+        this.promiseDay = promiseDay;
         this.promiseVoteIsFinish = promiseVoteIsFinish;
         this.promiseScheduleIsFinish = promiseScheduleIsFinish;
         ParticipantList = participantList;
@@ -55,12 +69,36 @@ public class PromiseDataEntity {
         this.promiseTitle = promiseTitle;
     }
 
-    public Date getPromiseDate() {
+    public int getPromiseLeader() {
+        return promiseLeader;
+    }
+
+    public void setPromiseLeader(int promiseLeader) {
+        this.promiseLeader = promiseLeader;
+    }
+
+    public String getPromiseDate() {
         return promiseDate;
     }
 
-    public void setPromiseDate(Date promiseDate) {
+    public void setPromiseDate(String promiseDate) {
         this.promiseDate = promiseDate;
+    }
+
+    public String getPromiseTime() {
+        return promiseTime;
+    }
+
+    public void setPromiseTime(String promiseTime) {
+        this.promiseTime = promiseTime;
+    }
+
+    public String getPromiseDay() {
+        return promiseDay;
+    }
+
+    public void setPromiseDay(String promiseDay) {
+        this.promiseDay = promiseDay;
     }
 
     public int getPromiseVoteIsFinish() {
@@ -88,24 +126,14 @@ public class PromiseDataEntity {
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        PromiseDataEntity that = (PromiseDataEntity) o;
-        return promiseSeq == that.promiseSeq && promiseVoteIsFinish == that.promiseVoteIsFinish && promiseScheduleIsFinish == that.promiseScheduleIsFinish && Objects.equals(promiseTitle, that.promiseTitle) && Objects.equals(promiseDate, that.promiseDate) && Objects.equals(ParticipantList, that.ParticipantList);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(promiseSeq, promiseTitle, promiseDate, promiseVoteIsFinish, promiseScheduleIsFinish, ParticipantList);
-    }
-
-    @Override
     public String toString() {
         return "PromiseDataEntity{" +
                 "promiseSeq=" + promiseSeq +
                 ", promiseTitle='" + promiseTitle + '\'' +
-                ", promiseDate=" + promiseDate +
+                ", promiseLeader=" + promiseLeader +
+                ", promiseDate='" + promiseDate + '\'' +
+                ", promiseTime='" + promiseTime + '\'' +
+                ", promiseDay='" + promiseDay + '\'' +
                 ", promiseVoteIsFinish=" + promiseVoteIsFinish +
                 ", promiseScheduleIsFinish=" + promiseScheduleIsFinish +
                 ", ParticipantList=" + ParticipantList +

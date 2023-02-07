@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import java.util.Iterator;
 import java.util.List;
 
+import com.ssafy.promispotback.promise.dto.PromiseMemberModifyLeaderDto;
 import com.ssafy.promispotback.promise.model.entity.PromiseDataEntity;
 import com.ssafy.promispotback.promise.model.mapper.PromiseMemberMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -58,13 +59,30 @@ public class PromiseServiceImpl implements PromiseService{
 		return promiseMapper.modifyPromise(promiseEntity);
 	}
 
+	@Override
+	public int modifyLeader(PromiseMemberModifyLeaderDto promiseMemberModifyLeaderDto) throws SQLException {
+		PromiseEntity promiseEntity = new PromiseEntity();
+		promiseEntity.setPromiseSeq(promiseMemberModifyLeaderDto.getPromiseSeq());
+		promiseEntity.setPromiseLeader(promiseMemberModifyLeaderDto.getAfterMemberSeq());
+
+		return promiseMapper.modifyPromise(promiseEntity);
+	}
+
 	// 약속 삭제
 	@Override
 	public int removePromise(int promiseSeq) throws SQLException {
 		return promiseMapper.removePromise(promiseSeq);
 	}
-	
-	
+
+	@Override
+	public int modifyVote(int promiseSeq) throws SQLException {
+		return promiseMapper.modifyVote(promiseSeq);
+	}
+
+	@Override
+	public int modifySchedule(int promiseSeq) throws SQLException {
+		return promiseMapper.modifySchedule(promiseSeq);
+	}
 
 
 }

@@ -12,19 +12,28 @@ import lombok.Data;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Data
 public class PromiseEntity {
-	
+
 	@ApiModelProperty(value = "약속일련번호")
 	private int promiseSeq;
-	
+
 	@ApiModelProperty(value = "약속제목")
 	private String promiseTitle;
-	
+
+	@ApiModelProperty(value = "약속장")
+	private int promiseLeader;
+
 	@ApiModelProperty(value = "약속날짜")
-	private Date promiseDate;
-	
+	private String promiseDate;
+
+	@ApiModelProperty(value = "약속시간")
+	private String promiseTime;
+
+	@ApiModelProperty(value = "약속요일")
+	private String promiseDay;
+
 	@ApiModelProperty(value = "약속투표완료")
 	private int promiseVoteIsFinish;
-	
+
 	@ApiModelProperty(value = "스케쥴완료")
 	private int promiseScheduleIsFinish;
 
@@ -33,12 +42,15 @@ public class PromiseEntity {
 		// TODO Auto-generated constructor stub
 	}
 
-	public PromiseEntity(int promiseSeq, String promiseTitle, Date promiseDate, int promiseVoteIsFinish,
-			int promiseScheduleIsFinish) {
-		super();
+	public PromiseEntity(int promiseSeq, String promiseTitle, int promiseLeader, String promiseDate,
+						 String promiseTime, String promiseDay,
+						 int promiseVoteIsFinish, int promiseScheduleIsFinish) {
 		this.promiseSeq = promiseSeq;
 		this.promiseTitle = promiseTitle;
+		this.promiseLeader = promiseLeader;
 		this.promiseDate = promiseDate;
+		this.promiseTime = promiseTime;
+		this.promiseDay = promiseDay;
 		this.promiseVoteIsFinish = promiseVoteIsFinish;
 		this.promiseScheduleIsFinish = promiseScheduleIsFinish;
 	}
@@ -59,12 +71,36 @@ public class PromiseEntity {
 		this.promiseTitle = promiseTitle;
 	}
 
-	public Date getPromiseDate() {
+	public int getPromiseLeader() {
+		return promiseLeader;
+	}
+
+	public void setPromiseLeader(int promiseLeader) {
+		this.promiseLeader = promiseLeader;
+	}
+
+	public String getPromiseDate() {
 		return promiseDate;
 	}
 
-	public void setPromiseDate(Date promiseDate) {
+	public void setPromiseDate(String promiseDate) {
 		this.promiseDate = promiseDate;
+	}
+
+	public String getPromiseTime() {
+		return promiseTime;
+	}
+
+	public void setPromiseTime(String promiseTime) {
+		this.promiseTime = promiseTime;
+	}
+
+	public String getPromiseDay() {
+		return promiseDay;
+	}
+
+	public void setPromiseDay(String promiseDay) {
+		this.promiseDay = promiseDay;
 	}
 
 	public int getPromiseVoteIsFinish() {
@@ -82,63 +118,4 @@ public class PromiseEntity {
 	public void setPromiseScheduleIsFinish(int promiseScheduleIsFinish) {
 		this.promiseScheduleIsFinish = promiseScheduleIsFinish;
 	}
-
-	@Override
-	public String toString() {
-		return "PromiseEntity [promiseSeq=" + promiseSeq + ", promiseTitle=" + promiseTitle + ", promiseDate="
-				+ promiseDate + ", promiseVoteIsFinish=" + promiseVoteIsFinish + ", promiseScheduleIsFinish="
-				+ promiseScheduleIsFinish + "]";
-	}
-
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((promiseDate == null) ? 0 : promiseDate.hashCode());
-		result = prime * result + promiseScheduleIsFinish;
-		result = prime * result + promiseSeq;
-		result = prime * result + ((promiseTitle == null) ? 0 : promiseTitle.hashCode());
-		result = prime * result + promiseVoteIsFinish;
-		return result;
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		PromiseEntity other = (PromiseEntity) obj;
-		if (promiseDate == null) {
-			if (other.promiseDate != null)
-				return false;
-		} else if (!promiseDate.equals(other.promiseDate))
-			return false;
-		if (promiseScheduleIsFinish != other.promiseScheduleIsFinish)
-			return false;
-		if (promiseSeq != other.promiseSeq)
-			return false;
-		if (promiseTitle == null) {
-			if (other.promiseTitle != null)
-				return false;
-		} else if (!promiseTitle.equals(other.promiseTitle))
-			return false;
-		if (promiseVoteIsFinish != other.promiseVoteIsFinish)
-			return false;
-		return true;
-	}
-	
-	
-	
-	
-	
-	
-	
-
-	
-	
-	
-	
 }

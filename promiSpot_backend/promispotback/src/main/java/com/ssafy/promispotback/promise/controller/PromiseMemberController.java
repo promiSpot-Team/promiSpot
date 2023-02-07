@@ -3,6 +3,8 @@ package com.ssafy.promispotback.promise.controller;
 import java.util.List;
 
 import com.ssafy.promispotback.promise.model.entity.ParticipantEntity;
+import com.ssafy.promispotback.promise.model.entity.PromiseEntity;
+import com.ssafy.promispotback.promise.model.service.PromiseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,6 +29,9 @@ public class PromiseMemberController {
 	
 	@Autowired
 	PromiseMemberService promiseMemberService;
+
+	@Autowired
+	PromiseService promiseService;
 	
 	// 약속 참여자 등록
 	@PostMapping("regist")
@@ -45,6 +50,29 @@ public class PromiseMemberController {
 			return exceptionHandling(e);
 		}	
 	}
+
+	// 약속 참여자 전체 조회
+	@GetMapping("getList/{promiseSeq}")
+	public ResponseEntity<?> getPromiseMemberList(@PathVariable("promiseSeq") int promiseSeq) {
+		try {
+
+			List<ParticipantEntity> promiseMemberList = promiseMemberService.getPromiseMemberList(promiseSeq);
+
+
+			if (promiseMemberList != null) {
+				System.out.println("success work");
+				return new ResponseEntity<List<ParticipantEntity>>(promiseMemberList, HttpStatus.OK);
+			} else {
+				System.out.println("fail work");
+				return new ResponseEntity<String>("fail", HttpStatus.ACCEPTED);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			return exceptionHandling(e);
+		}
+	}
+
+
 	
 	// 약속 참여자 한 명 조회
 	@GetMapping("get/{promiseSeq}/{memberSeq}")
@@ -65,20 +93,16 @@ public class PromiseMemberController {
 		}
 	}
 
-	
-	// 약속 참여자 전체 조회
-	@GetMapping("getList/{promiseSeq}")
-	public ResponseEntity<?> getPromiseMemberList(@PathVariable("promiseSeq") int promiseSeq) {
+
+	// 약속 참여자 삭제
+	@DeleteMapping("delete/{promiseSeq}/{memberSeq}")
+	public ResponseEntity<?> removePromiseMember(@PathVariable("promiseSeq") int promiseSeq, @PathVariable("memberSeq") int memberSeq) {
+
 		try {
-			
-			List<ParticipantEntity> promiseMemberList = promiseMemberService.getPromiseMemberList(promiseSeq);
-			
-			
-			if (promiseMemberList != null) {
-				System.out.println("success work");
-				return new ResponseEntity<List<ParticipantEntity>>(promiseMemberList, HttpStatus.OK);
+			int result = promiseMemberService.removePromiseMember(promiseSeq, memberSeq);
+			if (result != 0) {
+				return new ResponseEntity<String>("success", HttpStatus.OK);
 			} else {
-				System.out.println("fail work");
 				return new ResponseEntity<String>("fail", HttpStatus.ACCEPTED);
 			}
 		} catch (Exception e) {
@@ -94,7 +118,13 @@ public class PromiseMemberController {
 	public ResponseEntity<?> modifyPromiseMemberLeader(@RequestBody PromiseMemberModifyLeaderDto promiseMemberModifyLeaderdto) {
 		
 		try {
-			int result = promiseMemberService.modifyPromiseMemberLeader(promiseMemberModifyLeaderdto);
+
+			int result1 = promiseMemberService.modifyPromiseMemberLeader(promiseMemberModifyLeaderdto);
+
+
+			int result2 = promiseService.modifyLeader(promiseMemberModifyLeaderdto);
+
+			int result = result1 * result2;
 
 			if (result != 0) {
 				return new ResponseEntity<String>("success", HttpStatus.OK);
@@ -109,22 +139,7 @@ public class PromiseMemberController {
 	}
 	
 	
-	// 약속 참여자 삭제 
-	@DeleteMapping("delete/{promiseSeq}/{memberSeq}")
-	public ResponseEntity<?> removePromiseMember(@PathVariable("promiseSeq") int promiseSeq, @PathVariable("memberSeq") int memberSeq) {
-		
-		try {
-			int result = promiseMemberService.removePromiseMember(promiseSeq, memberSeq); 
-			if (result != 0) {
-				return new ResponseEntity<String>("success", HttpStatus.OK);
-			} else {
-				return new ResponseEntity<String>("fail", HttpStatus.ACCEPTED);
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-			return exceptionHandling(e);
-		}
-	}
+
 	
 	
 	
