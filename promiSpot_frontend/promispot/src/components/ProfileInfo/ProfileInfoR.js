@@ -1,5 +1,7 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import MiniButton from '../Buttons/MiniButton';
+import { SERVER_URL } from '../../constants/constants'
+import axios from 'axios'
 import './ProfileInfoR.scss';
 
 export default function ProfileInfo(props) {
@@ -7,6 +9,31 @@ export default function ProfileInfo(props) {
   const {imgName, nickName, id} = props;
   const imgUrl = "/images/" + imgName + ".jpg";
   const [isFinish, setIsFinish] = React.useState(false)
+
+  const acceptFriendRequest = async() => {
+    try {
+      const res = await axios({
+        method: 'PUT',
+        url: `${SERVER_URL}/friend/request/${props.friendRequestSeq}`
+      })
+      // setRequestFriendList(requestReceiveFriendList)
+      console.log(res)
+    } catch (err) {
+      console.log(err)
+    }
+  }
+
+  const rejectFriendRequest = async() => {
+    try {
+      const res = await axios({
+        method: 'DELETE',
+        url: `${SERVER_URL}/friend/request/${props.friendRequestSeq}`
+      })
+      console.log(res)
+    } catch (err) {
+      console.log(err)
+    }
+  }
 
   const acceptRequest = () => {
     if (props.IsAcceptOrReject) {
@@ -28,6 +55,14 @@ export default function ProfileInfo(props) {
     }
   }
 
+  useEffect(() => {
+    if (isFinish === true) {
+      acceptFriendRequest()
+    } else if (isFinish === false) {
+      rejectFriendRequest()
+    }
+  }, [isFinish])
+
   if (isFinish) {
     return null
   }
@@ -43,8 +78,8 @@ export default function ProfileInfo(props) {
         <div className='profile-info-id-wrapper'>{id}</div>
       </div>
       <div className='profile-info-button-wrapper'>
-        <div className='profile-info-button' onClick={acceptRequest}><MiniButton text="수락"/></div>
-        <div className='profile-info-button' onClick={rejectRequest}><MiniButton text="거절"/></div>
+        <div className='profile-info-button' onClick={setIsFinish(true)}><MiniButton text="수락"/></div>
+        <div className='profile-info-button' onClick={setIsFinish(false)}><MiniButton text="거절"/></div>
         
       </div>
     </div>

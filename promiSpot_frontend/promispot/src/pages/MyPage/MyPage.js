@@ -32,7 +32,6 @@ export default function MyPage() {
     getMyInfo()
   }, [])
 
-  console.log(1)
   useEffect(() => {
     console.log("myInfoList", myInfoList)
   }, [myInfoList])

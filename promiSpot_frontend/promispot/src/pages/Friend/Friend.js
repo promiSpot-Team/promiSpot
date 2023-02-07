@@ -106,6 +106,11 @@ export default function Friend(props) {
     setQuery(query)
   }
 
+  useEffect(() => {
+    searchFriend()
+    console.log(query)
+  }, [query])
+
   // 검색된 친구 결과 리스트에서 친구 요청 보낼 친구 선택해서 요청 보내기
   const requestFriend = async (friendSeq) => { 
     try {
@@ -128,56 +133,6 @@ export default function Friend(props) {
     }
   }
 
-  const [requestSendFriendList, setRequestSendFriendList] = useState([]);
-
-   // 현재 유저가 보낸 친구 신청 목록 불러오기
-   const getFriendRequestSend = async () => {
-    try {
-      const res = await axios({
-        method: 'GET',
-        url: `${SERVER_URL}/friend/${memberSeq}/1`,
-      })
-      if (res.data !== 'fail') {
-        setRequestSendFriendList(res.data)
-      }
-    } catch(err) {
-      setRequestSendFriendList([])
-    }
-  }
-
-  const [requestReceiveFriendList, setRequestReceiveFriendList] = useState([]);
-
-  // 현재 유저가 받은 친구 신청 목록 불러오기
-  const getFriendRequestReceive = async () => {
-    try {
-      const res = await axios({
-        method: 'GET',
-        url: `${SERVER_URL}/friend/${memberSeq}/0`,
-      })
-      if (res.data !== 'fail') {
-        setRequestReceiveFriendList(res.data)
-      }
-    } catch(err) {
-      setRequestReceiveFriendList([])
-    }
-  }
-
-  useEffect(() => {
-    searchFriend()
-  }, [query])
-  
-  useEffect(() => {
-    console.log("searchList", searchList)
-  }, [searchList])
-
-  useEffect(() => {
-    console.log('보낸', requestSendFriendList)
-  }, [requestSendFriendList])
-
-  useEffect(() => {
-    console.log('받은', requestReceiveFriendList)
-  }, [requestReceiveFriendList])
-  
   return (
     <>
       <div className="d-flex flex-column justify-content-center w-100 h-100">
@@ -210,18 +165,18 @@ export default function Friend(props) {
             <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
               <Tabs value={value} onChange={handleChange} textColor="secondary" indicatorColor="secondary" aria-label="basic tabs example" centered>
                 <Tab label="내 친구" {...a11yProps(0)} />
-                <Tab onClick={getFriendRequestReceive} label="받은 요청" {...a11yProps(1)} />
-                <Tab onClick={getFriendRequestSend} label="보낸 요청" {...a11yProps(2)} />
+                <Tab label="받은 요청" {...a11yProps(1)} />
+                <Tab label="보낸 요청" {...a11yProps(2)} />
               </Tabs>
             </Box>
             <TabPanel value={value} index={0}>
               <FriendList memberSeq={memberSeq}/>
             </TabPanel>
             <TabPanel value={value} index={1}>
-              <FriendRequestReceive memberSeq={memberSeq} requestReceiveFriendList={requestReceiveFriendList}/>
+              <FriendRequestReceive memberSeq={memberSeq} />
             </TabPanel>
             <TabPanel value={value} index={2}>
-              <FriendRequestSend memberSeq={memberSeq} requestSendFriendList={requestSendFriendList}/>
+              <FriendRequestSend memberSeq={memberSeq} />
             </TabPanel>
           </>
           :
@@ -236,7 +191,7 @@ export default function Friend(props) {
                 <p onClick={clearInputQuery}>X</p>
               </div>
             </Box>
-            <TabPanel>
+            <TabPanel value={value}>
               {searchList && searchList.map((friend, idx) => {
                 return (
                   <div key={idx} className='profile-info-wrapper'>

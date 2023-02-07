@@ -49,20 +49,17 @@ function Login() {
         url: `${SERVER_URL}/member/login`,
         data,
       })
-      
-      const accessToken = response.data['access-token']
-      const refreshToken = response.data['refresh-token']
-      const memberSeq = response.data.memberSeq
-      
+
+      // console.log(response.data)
+      // const accessToken = response.data['access-token']
+      // const refreshToken = response.data['refresh-token']
 
       // 로그인 성공시 메인 페이지로 이동하면서
       // 리덕스에 memberSeq 저장
       store.dispatch({
         type: 'SAVE_CURRENT_USER_INFO',
         currentUserInfo: {
-          accessToken,
-          refreshToken,
-          memberSeq
+          ...response.data
         }
       })
       navigate('/main')
