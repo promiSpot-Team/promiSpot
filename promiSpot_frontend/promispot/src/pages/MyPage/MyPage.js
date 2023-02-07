@@ -30,7 +30,7 @@ export default function MyPage() {
         setMyInfoList([res.data])
       }
     } catch(err) {
-      if(err.res.status === 400) {
+      if(err.response.status === 400) {
         console.log("in")
         try {
           axios.defaults.headers.common['refresh-token'] = `${refreshToken}`

@@ -11,7 +11,7 @@ export default function ProfileInfo(props) {
     <div className='profile-info-wrapper'>
       <div className='profile-info-img-wrapper'>
         <div className='profile-info-img'>
-        <img src={imgUrl} alt = {imgName} title = {imgName} width="35px" /></div>
+        <img src={imgUrl} alt = {imgName} title = {imgName} width="40px" /></div>
       </div>
       <div className='profile-info-name-wrapper'>
         <div className='profile-info-nickname-wrapper'>{nickName}</div>
