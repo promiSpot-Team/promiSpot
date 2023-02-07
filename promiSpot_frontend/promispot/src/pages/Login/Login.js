@@ -51,6 +51,7 @@ function Login() {
       })
       
       const accessToken = response.data['access-token']
+      const refreshToken = response.data['refresh-token']
       const memberSeq = response.data.memberSeq
       
 
@@ -60,6 +61,7 @@ function Login() {
         type: 'SAVE_CURRENT_USER_INFO',
         currentUserInfo: {
           accessToken,
+          refreshToken,
           memberSeq
         }
       })
