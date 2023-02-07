@@ -29,7 +29,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 
-@CrossOrigin
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
 @RequestMapping("/member")
 @Api("회원 컨트롤러  API")
@@ -205,14 +205,14 @@ public class MemberController {
 				resultMap.put("message", e.getMessage());
 				status = HttpStatus.INTERNAL_SERVER_ERROR;
 			}
-			
+
 		} else {
 			logger.error("사용 불가능 토큰");
 			resultMap.put("message", FAIL);
 			status = HttpStatus.UNAUTHORIZED;
 		}
 		return new ResponseEntity<Map<String, Object>>(resultMap, status);
-				
+
 	}//findMember
 	
 	/* 회원 목록 조회 */
