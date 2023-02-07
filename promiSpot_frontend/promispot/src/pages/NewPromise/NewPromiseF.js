@@ -14,6 +14,12 @@ export default function NewPromiseF() {
   const [friendList, setFriendList] = useState([])
   const memberSeq = useSelector(state => state?.currentUserInfo?.memberSeq ? state.currentUserInfo.memberSeq : 0)
 
+  const [showNextModal, setShowNextModal] = useState(false);
+
+  const changeModal = () => {
+    setShowNextModal(!showNextModal);
+  }
+
   const getFriendList = async () => {
     
    // 처음 생성 될 때 약속장의 친구 목록 불러오기
@@ -38,9 +44,9 @@ export default function NewPromiseF() {
 
   return (
     <div className='new-promise-wrapper'>
-      <div className='new-promise-text-wrapper'>
+      {/* <div className='new-promise-text-wrapper'>
         새로운 약속 생성
-      </div>
+      </div> */}
       <div className='new-promise-search-wrapper'>
       <SearchBar HandleInputFocus={HandleInputFocus}/>
       </div>
@@ -62,7 +68,7 @@ export default function NewPromiseF() {
           <img src={require("../../img/IU_Profile.jpg")} width="35px"/></div>
         </div>
         <div className='new-promise-under-btn-wrapper' onClick={() => setModalOpen(true)} >
-          다음
+          <button onClick={changeModal} >다음</button>
         </div>
       </div>{modalOpen && (<Modal closeModal={() => setModalOpen(!modalOpen)}><NewPromiseT/></Modal>)}
     </div>

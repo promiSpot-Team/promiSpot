@@ -36,3 +36,23 @@
 #modalCloseBtn:hover {
   cursor: pointer;
 }
+
+.new-promise-text-wrapper {
+  width: 100%;
+  display: flex;
+  align-items:center;
+  justify-content:left;
+  height: 10%;
+  margin-left:2%;
+  font-family: "Pretendard-Bold";
+  font-style: normal;
+  font-weight: 800;
+  font-size: 1.5em;
+}
+.new-promise-under-btn-wrapper {
+  // width: 100%;
+  display: grid;
+  // margin-right:
+  // float:right;
+  align-items: center;
+}
