@@ -6,12 +6,15 @@ import { SERVER_URL } from "../../constants/constants";
 import ProfileInfoS from '../../components/ProfileInfo/ProfileInfoS'
 import { useSelector } from 'react-redux'
 import '../scss/MyPage.scss'
+import store from "../../index";
 
 export default function MyPage() {
   const [myInfoList, setMyInfoList] = useState([]);
   const memberSeq = useSelector(state => state?.currentUserInfo?.memberSeq)
-  const accessToken = useSelector(state => state?.currentUserInfo?.accessToken)
+  var accessToken = useSelector(state => state?.currentUserInfo?.accessToken)
   const refreshToken = useSelector(state => state?.currentUserInfo?.refreshToken)
+  const memberId = useSelector(state => state?.currentUserInfo?.memberId)
+  const currentUserInfo = useSelector(state => state?.currentUserInfo)
 
   const getMyInfo = async () => {
     try {
@@ -27,15 +30,37 @@ export default function MyPage() {
         setMyInfoList([res.data])
       }
     } catch(err) {
-      setMyInfoList([])
-      if(err.rsponse.status === 401) {
-        
+      if(err.res.status === 400) {
+        console.log("in")
+        try {
+          axios.defaults.headers.common['refresh-token'] = `${refreshToken}`
+          var response = await axios({
+            url: '/refresh',
+            method: 'POST',
+            baseURL: SERVER_URL,
+            data : {
+              memberId
+            }
+          })
+
+          accessToken = response.data["access-token"]
+
+          store.dispatch({
+            type: 'REFRESH_ACCESS_TOKEN',
+            currentUserInfo: {
+              accessToken,
+              ...currentUserInfo
+            }
+          })
+        } catch(err) {
+          console.log(err)
+        }
       }
     }
   }
   useEffect(() => {
     getMyInfo()
-  }, [])
+  }, [accessToken])
 
   useEffect(() => {
     console.log("myInfoList", myInfoList)

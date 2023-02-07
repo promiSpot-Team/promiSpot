@@ -61,7 +61,11 @@ export const reducer = (state, action) => {
     case 'SAVE_CURRENT_USER_INFO':
       newState = Object.assign({}, state, {currentUserInfo: action.currentUserInfo})
       break
+
+    case 'REFRESH_ACCESS_TOKEN':
+      newState = Object.assign({}, state, {currentUserInfo: action.currentUserInfo})
     }
+
   return newState
 }
 
