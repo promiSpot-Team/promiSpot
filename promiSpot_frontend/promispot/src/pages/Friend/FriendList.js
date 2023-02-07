@@ -16,6 +16,15 @@ export default function FriendList({ memberSeq }) {
       <div className='friend-list-each-wrapper'>
       <ProfileInfoB imgName="KSH_Profile" nickName="도민준" id="KSH"/>
       </div>
+      {/* {friendList && friendList.map((friend, idx) => {
+        return (
+          <ProfileInfoB 
+            key={idx}
+            imgName="KSH_Profile" 
+            nickName={friend.memberNick} 
+            id={friend.memberId}/>
+        )
+      })} */}
     </div>
   );
 }

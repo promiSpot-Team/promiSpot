@@ -157,7 +157,7 @@ export default function Friend(props) {
             <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
               <Tabs value={value} onChange={handleChange} textColor="secondary" indicatorColor="secondary" aria-label="basic tabs example" centered>
                 <Tab label="내 친구" {...a11yProps(0)} />
-                <Tab label="받은 요청" {...a11yProps(1)}/>
+                <Tab label="받은 요청" {...a11yProps(1)} />
                 <Tab label="보낸 요청" {...a11yProps(2)} />
               </Tabs>
             </Box>
@@ -165,10 +165,10 @@ export default function Friend(props) {
               <FriendList/>
             </TabPanel>
             <TabPanel value={value} index={1}>
-              <FriendRequestReceive  memberSeq={memberSeq}/>
+              <FriendRequestReceive memberSeq={memberSeq} />
             </TabPanel>
             <TabPanel value={value} index={2}>
-              <FriendRequestSend />
+              <FriendRequestSend memberSeq={memberSeq} />
             </TabPanel>
           </>
           :

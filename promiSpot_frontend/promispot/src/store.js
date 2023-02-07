@@ -3,7 +3,6 @@ export const reducer = (state, action) => {
   // state의 초기값 설정
   if (state === undefined) {
     return {
-      memberSeq: 1,
       mapCenterPosition: {
         x: 37.5013, 
         y: 127.0397
@@ -62,7 +61,11 @@ export const reducer = (state, action) => {
     case 'SAVE_CURRENT_USER_INFO':
       newState = Object.assign({}, state, {currentUserInfo: action.currentUserInfo})
       break
+
+    case 'REFRESH_ACCESS_TOKEN':
+      newState = Object.assign({}, state, {currentUserInfo: action.currentUserInfo})
     }
+
   return newState
 }
 

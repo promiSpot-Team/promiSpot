@@ -10,6 +10,15 @@ export default function FriendRequestSend({ memberSeq }) {
     <div className="friend-list-wrapper">
       <div className='friend-list-each-wrapper'>
         <ProfileInfoS imgName="PBG_Profile" nickName="보거미" id="PBG"/>
+        {/* {requestFriendList && requestFriendList.map((friend, idx) => {
+          return (
+            <ProfileInfoS 
+              key={idx}
+              imgName="PBG_Profile" 
+              nickName={friend.memberNick} 
+              id={friend.memberId}/>
+          )
+        })} */}
       </div>
     </div>
   )

@@ -49,20 +49,22 @@ function Login() {
         url: `${SERVER_URL}/member/login`,
         data,
       })
-      
+
+      // console.log(response.data)
+      const memberSeq = response.data['memberSeq']
       const accessToken = response.data['access-token']
       const refreshToken = response.data['refresh-token']
-      const memberSeq = response.data.memberSeq
-      
+      const memberId = response.data['memberId']
 
       // 로그인 성공시 메인 페이지로 이동하면서
       // 리덕스에 memberSeq 저장
       store.dispatch({
         type: 'SAVE_CURRENT_USER_INFO',
         currentUserInfo: {
+          memberSeq,
           accessToken,
           refreshToken,
-          memberSeq
+          memberId
         }
       })
       navigate('/main')

@@ -83,7 +83,7 @@ function Start() {
           <img
             className="img-wrapper"
             src={require("../../img/promispot_logo.png")}
-            width="300px"
+            width="800px"
           />
           <svg
             viewBox="0 0 1000 1000"

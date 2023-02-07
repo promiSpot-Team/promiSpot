@@ -4,6 +4,7 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { ko } from "date-fns/esm/locale";
 import { getMonth, getDate, getDay } from "date-fns";
+import { Link } from "react-router-dom";
 import '../scss/NewPromiseT.scss'
 import axios from 'axios'
 
@@ -40,7 +41,9 @@ export default function NewPromiseT() {
     </DatePicker>
 
     <div className='new-promise-under-btn-wrapper'>
+    <Link to={"/map"} className="link">
       생성
+      </Link>
     </div>
 </div>
   )

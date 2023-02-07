@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import MiniButton from '../Buttons/MiniButton';
 import { SERVER_URL } from '../../constants/constants'
-import './ProfileInfoR.scss';
 import axios from 'axios'
+import './ProfileInfoR.scss';
 
 export default function ProfileInfo(props) {
 
@@ -18,6 +18,18 @@ export default function ProfileInfo(props) {
       })
       console.log(response)
     } catch(err) {
+      console.log(err)
+    }
+  }
+
+  const rejectFriendRequest = async() => {
+    try {
+      const res = await axios({
+        method: 'DELETE',
+        url: `${SERVER_URL}/friend/request/${props.friendRequestSeq}`
+      })
+      console.log(res)
+    } catch (err) {
       console.log(err)
     }
   }
