@@ -60,11 +60,11 @@ public class VoteController {
 	@GetMapping("get/{voteSeq}")
 	public ResponseEntity<?> getCandidatePlace(@PathVariable("voteSeq") int voteSeq) {
 		try {
-			VotePlaceEntity candidatePlace = voteService.getCandidatePlace(voteSeq);
+			VoteEntity candidatePlace = voteService.getCandidatePlace(voteSeq);
 			
 			if (candidatePlace != null) {
 				System.out.println("success work");
-				return new ResponseEntity<VotePlaceEntity>(candidatePlace, HttpStatus.OK);
+				return new ResponseEntity<VoteEntity>(candidatePlace, HttpStatus.OK);
 			} else {
 				System.out.println("fail work");
 				return new ResponseEntity<String>("fail", HttpStatus.ACCEPTED);
@@ -103,13 +103,12 @@ public class VoteController {
 	
 	
 	//약속 장소 후보 수정(투표/투표취소)
-	@PutMapping("modify/{voteSeq}")
-	public ResponseEntity<?> modifyCandidatePlace(@PathVariable("voteSeq") int voteSeq) {
+	@PutMapping("modify/{voteSeq}/{memberSeq}")
+	public ResponseEntity<?> modifyCandidatePlace(@PathVariable("voteSeq") int voteSeq, @PathVariable("memberSeq") int memberSeq) {
 		
 		try {
-			
-			int result = voteService.modifyCandidatePlace(voteSeq);
-			
+
+			int result = voteService.modifyCandidatePlace(voteSeq, memberSeq);
 
 			if (result != 0) {
 				return new ResponseEntity<String>("success", HttpStatus.OK);
@@ -163,7 +162,7 @@ public class VoteController {
 		}
 	}
 	
-	//약속 장소 투표버튼 누르면 투표자 테이블에 추가
+	// 약속 장소 투표버튼 누르면 투표자 테이블에 추가
 	@PostMapping("member/insert")
 	public ResponseEntity<?> insertVoter(@RequestBody VoteMemberEntity voteMemberEntity) {
 		try {
