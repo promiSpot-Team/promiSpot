@@ -10,7 +10,7 @@
 	<!-- 스케듈 생성  -->
 	<insert id="createSchedule" parameterType="ScheduleEntity">
 		insert into schedules
-		values(#{scheduleSeq}, #{promiseSeq}, #{placeId}, #{scheduleProcedure}, #{schedulePlaceIsFinish})	
+		values(null, #{promiseSeq}, #{placeId}, #{scheduleProcedure}, 0)
 	</insert>
 	
 	<!-- 스케듈 하나 조회  -->
@@ -31,7 +31,7 @@
 		update schedules
 		<trim prefix="set" suffixOverrides=",">
 			<if test="scheduleProcedure != null">schedule_procedure = #{scheduleProcedure},</if>
-			<if test="name != null">schedule_place_is_finish = #{schedulePlaceIsFinish},</if>
+			<if test="schedulePlaceIsFinish != null">schedule_place_is_finish = #{schedulePlaceIsFinish},</if>
 		</trim>
 		where schedule_seq = #{scheduleSeq}
 	</update>
