@@ -11,6 +11,7 @@ import PlaceSearch from "./PlaceSearch";
 const { kakao } = window;
 
 export default function MapContainer() {
+
   const [isSearchSelect, setIsSearchSelect] = useState(false)
   const stateMapCenterPosition = useSelector(
     (state) => state.mapCenterPosition
@@ -19,7 +20,15 @@ export default function MapContainer() {
   const [map, setMap] = useState(null);
   const [rect, setRect] = useState("");
   const stateRect = useSelector((state) => state.rect);
-  const navigate = useNavigate()
+  const navigate = useNavigate();
+
+  
+  const [valid, setValid] = useState(false);
+
+  const isValid = () => {
+    setValid(!valid);
+  }
+
 
   // // 지도에 장소가 등록됐을 때
   // useEffect(() => {
@@ -127,6 +136,15 @@ export default function MapContainer() {
     <div id="map-all-wrapper">
       <div id="map" className="map-wrapper">
         <Outlet />
+      </div>
+      <div className="map-button-wrapper">
+        {
+          !valid
+
+          ? <div className="map-button-vote" onClick={isValid}>first</div>
+
+          : <div className="map-button-vote"n>Second</div>
+        }
       </div>
       <div className="map-tab-wrapper">
         <TabBar2 />

@@ -26,6 +26,7 @@ import GetDetail from "./pages/PlaceMap/GetDetail";
 import Test from "./pages/Login/Test";
 import Test2 from "./pages/Login/Test2";
 import Chatting from "./pages/PlaceMap/Chatting";
+import Schedule from "./pages/PlaceMap/Schedule";
 import PrivateRoute from './PrivateRoute'
 
 function App() {
@@ -42,6 +43,7 @@ function App() {
         <Route path="search" element={<PlaceSearch />} />
         <Route path="recommend" element={<PlaceRecommend />} />
         <Route path=":placeId" element={<PlaceDetail />} />
+        <Route path="schedule" element={<Schedule/>}/>
       </Route>
       <Route path="/address">
         <Route path="search" element={<AddressSearch />} />
