@@ -49,6 +49,8 @@
 <script>
     //alert(document.title);
     // websocket & stomp initialize
+
+    // var를 const로 바꾸고
     var sock = new SockJS("/api/ws/chat");
     var ws = Stomp.over(sock);
     var reconnect = 0;
@@ -67,8 +69,11 @@
             this.sender = localStorage.getItem('wschat.sender');
             this.findRoom();
         },
+        // useState 초기값
+
         methods: {
             findRoom: function() {
+                // room 객체를 들고옴  roomId 와 name 을 들고옴
                 axios.get('/api/chat/room/'+this.roomId).then(response => { this.room = response.data; });
             },
             sendMessage: function() {
