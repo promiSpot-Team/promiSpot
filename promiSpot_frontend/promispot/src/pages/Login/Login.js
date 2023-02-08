@@ -10,7 +10,7 @@ import InputFormPWD from "../../components/InputForm/InputFormPWD";
 import { useAxios } from "../../hooks/useAxios";
 import { SERVER_URL } from '../../constants/constants'
 import { useDispatch } from 'react-redux'
-import { saveInfo } from '../../reducer/user'
+import { setToken } from '../../reducer/user'
 
 import axios from "axios";
 
@@ -64,7 +64,7 @@ function Login() {
         refreshToken,
         memberId
       }
-      dispatch(saveInfo(info))
+      dispatch(setToken(info))
       localStorage.setItem('isLogin', true)
       // // 로그인 성공시 메인 페이지로 이동하면서
       // // 리덕스에 memberSeq 저장

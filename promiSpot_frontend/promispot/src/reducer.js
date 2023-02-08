@@ -13,7 +13,7 @@ const initialState = {
   },
   addressInfo: {
     addressAddress: '',
-    addressX: 0,
+    addressX: 0, 
     addressY: 0
   }
 }

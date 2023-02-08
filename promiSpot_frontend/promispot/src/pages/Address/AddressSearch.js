@@ -7,14 +7,16 @@ import SearchBar from '../../components/Search/SearchBar2';
 import { KAKAO_MAP_URL, KAKAO_REST_API_KEY } from '../../constants/constants'
 import '../scss/Search_Bar.scss'
 import '../scss/Address.scss'
-import store from '../../store'
+import { setAddress } from '../../reducer/user'
 import { useNavigate } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
 
 export default function AddressSearch() {
   const [addressList, setAddressList] = useState([]);
   const navigate = useNavigate();
+  const dispatch = useDispatch()
 
-  const GetAxiosResponse = ({ response, error, loading}) => {
+  const GetAxiosResponse = ({ response, error, loading }) => {
     if (response?.data?.documents) {
       setAddressList(response.data.documents)
     }
@@ -30,31 +32,18 @@ export default function AddressSearch() {
   }
 
   const saveAddressInfo = (address) => {
-    store.dispatch({
-      type: 'SAVE_ADDRESS_INFO',
-      addressInfo: {
-        addressAddress: address.address.address_name,
-        addressX: address.address.x,
-        addressY: address.address.y,
-      }
-    })
+    const addressInfo = {
+      addressAddress: address.address.address_name,
+      addressX: address.address.x,
+      addressY: address.address.y,
+    }
+    dispatch(setAddress(addressInfo))
     navigate('/join2')
   }
 
   return (
     <div>
       <WhiteHeader text="주소 검색"/>
-      {/* <div className="search-bar-wrapper" style={{
-        textAlign: 'center',
-      }}>
-        <form onSubmit={onSubmit}
-        >
-          <input className="search-bar"
-          type="text" id="address" value={addressQeury} placeholder="주소" onChange={onChange}/>
-          <input type="submit" value="검색"/>
-
-        </form>
-      </div> */}
       <SearchBar GetAxiosResponse={GetAxiosResponse} config={config}/>
       <div className="address-result-top-div">
         <p>검색 결과</p>
