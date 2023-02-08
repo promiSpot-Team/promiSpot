@@ -2,6 +2,8 @@ import { React, useEffect, useState } from "react";
 import { Link, Outlet, useNavigate } from "react-router-dom";
 import { motion, Variants } from "framer-motion";
 import TabBar2 from "../../components/TabBar/TabBar2";
+import {FaVoteYea} from "react-icons/fa";
+import {BsCheckLg} from "react-icons/bs";
 import "../scss/Map_Container.scss";
 import mapdata from "../mapdata.json";
 import { useSelector } from "react-redux";
@@ -141,9 +143,11 @@ export default function MapContainer() {
         {
           !valid
 
-          ? <div className="map-button-vote" onClick={isValid}>first</div>
+          ? <button className="map-button-vote" onClick={isValid}>
+            <FaVoteYea size="40" color="#ffffff"/>
+          </button>
 
-          : <div className="map-button-vote"n>Second</div>
+          : <button className="map-button-vote"><BsCheckLg size="40" color="#ffffff"/></button>
         }
       </div>
       <div className="map-tab-wrapper">
