@@ -7,7 +7,7 @@ import SearchBar from '../../components/Search/SearchBar2';
 import { KAKAO_MAP_URL, KAKAO_REST_API_KEY } from '../../constants/constants'
 import '../scss/Search_Bar.scss'
 import '../scss/Address.scss'
-import store from '../../index'
+import store from '../../store'
 import { useNavigate } from 'react-router-dom'
 
 export default function AddressSearch() {

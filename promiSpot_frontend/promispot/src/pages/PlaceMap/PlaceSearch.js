@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import { motion } from "framer-motion"
 import { KAKAO_MAP_URL, KAKAO_REST_API_KEY } from '../../constants/constants'
 import SearchBar from '../../components/Search/SearchBar2'
-import store from '../../index'
+import store from '../../store'
 import { useSelector } from 'react-redux'
 import '../scss/Map_Container.scss'
 import '../scss/Search_Bar.scss'
