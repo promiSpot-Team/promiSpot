@@ -6,13 +6,15 @@ import {FaVoteYea} from "react-icons/fa";
 import {BsCheckLg} from "react-icons/bs";
 import "../scss/Map_Container.scss";
 import mapdata from "../mapdata.json";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import store from "../../store";
 import PlaceSearch from "./PlaceSearch";
+import { changeRect } from '../../reducer/map';
 
 const { kakao } = window;
 
 export default function MapContainer() {
+  const dispatch = useDispatch()
 
   const [isSearchSelect, setIsSearchSelect] = useState(false)
   const stateMapCenterPosition = useSelector(
@@ -100,17 +102,25 @@ export default function MapContainer() {
     var map = new kakao.maps.Map(container, options);
     setMap(map);
     var bounds = map.getBounds();
-    store.dispatch({
-      type: "CHANGE_MAP_RECT",
-      rect:
-        String(bounds.ha) +
-        "," +
-        String(bounds.qa) +
-        "," +
-        String(bounds.oa) +
-        "," +
-        String(bounds.pa),
-    });
+    var newRect = String(bounds.ha) +
+                  "," +
+                  String(bounds.qa) +
+                  "," +
+                  String(bounds.oa) +
+                  "," +
+                  String(bounds.pa)
+    dispatch(changeRect(newRect))
+    // store.dispatch({
+    //   type: "CHANGE_MAP_RECT",
+    //   rect:
+    //     String(bounds.ha) +
+    //     "," +
+    //     String(bounds.qa) +
+    //     "," +
+    //     String(bounds.oa) +
+    //     "," +
+    //     String(bounds.pa),
+    // });
   };
 
   // 지도가 그려진 후에 'dragend' 이벤트 인식
@@ -118,19 +128,27 @@ export default function MapContainer() {
     kakao.maps.event.addListener(map, "dragend", function () {
       // 지도의 영역이 변경될 때마다 가장자리 좌표값 변경된 거 보내주기
       var bounds = map.getBounds();
-      setRect(
-        String(bounds.ha) +
-          "," +
-          String(bounds.qa) +
-          "," +
-          String(bounds.oa) +
-          "," +
-          String(bounds.pa)
-      );
-      store.dispatch({
-        type: "CHANGE_MAP_RECT",
-        rect,
-      });
+      var newRect = String(bounds.ha) +
+                    "," +
+                    String(bounds.qa) +
+                    "," +
+                    String(bounds.oa) +
+                    "," +
+                    String(bounds.pa)
+      dispatch(changeRect(newRect))
+      // setRect(
+      //   String(bounds.ha) +
+      //     "," +
+      //     String(bounds.qa) +
+      //     "," +
+      //     String(bounds.oa) +
+      //     "," +
+      //     String(bounds.pa)
+      // );
+      // store.dispatch({
+      //   type: "CHANGE_MAP_RECT",
+      //   rect,
+      // });
     });
   }
 

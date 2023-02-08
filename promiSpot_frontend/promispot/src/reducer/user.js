@@ -49,6 +49,7 @@ export default function user(state = initialState, action) {
       })
     }
 
+    /* 주소 정보 저장 */
     case SET_ADDRESS: {
       return Object.assign({}, state, {
         addressInfo: action.addressInfo

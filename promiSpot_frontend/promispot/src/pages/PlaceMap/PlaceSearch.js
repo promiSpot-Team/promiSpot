@@ -4,9 +4,10 @@ import { motion } from "framer-motion"
 import { KAKAO_MAP_URL, KAKAO_REST_API_KEY } from '../../constants/constants'
 import SearchBar from '../../components/Search/SearchBar2'
 import store from '../../store'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import '../scss/Map_Container.scss'
 import '../scss/Search_Bar.scss'
+import { savePlaceList } from '../../reducer/map'
 
 export default function PlaceSearch() {
   const statePlaceList = useSelector((state) => state.placeList);
@@ -14,6 +15,7 @@ export default function PlaceSearch() {
   const [placeList, setPlaceList] = useState(statePlaceList);
   const navigate = useNavigate();
   const childRef = useRef();
+  const dispatch = useDispatch();
 
   const GetAxiosResponse = ({ response, error, loading }) => {
     if (response?.data?.documents) {
@@ -41,10 +43,11 @@ export default function PlaceSearch() {
   };
 
   function moveToPlaceDetail(place) {
-    store.dispatch({
-      type: "SAVE_PLACE_LIST",
-      placeList,
-    });
+    dispatch(savePlaceList(placeList))
+    // store.dispatch({
+    //   type: "SAVE_PLACE_LIST",
+    //   placeList,
+    // });
     navigate(`/map/${place.id}`, { state: place });
   }
 
