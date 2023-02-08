@@ -19,12 +19,12 @@ import {
   Checkbox
  } from "@mui/material/";
 import { SettingsInputAntenna, Visibility, VisibilityOff } from "@mui/icons-material";
-
+import { setJoinInfo, setAddress } from '../../reducer/user'
 import "../scss/Join2.scss";
+import { useDispatch } from 'react-redux'
 
 export default function Join2() {
-  const joinInfo = useSelector(state => state?.joinInfo ? state.joinInfo : null)
-
+  const joinInfo = useSelector(state => state?.user?.joinInfo ? state.user.joinInfo : null)
   const [state, setState] = useState({
     id: joinInfo.id,
     email: joinInfo.email,
@@ -33,8 +33,9 @@ export default function Join2() {
     nickName: joinInfo.nickName,
     phoneNumber: joinInfo.phoneNumber,
   })
-  const addressInfo = useSelector((state) => state.addressInfo)
-  
+  const addressInfo = useSelector((state) => state?.user?.addressInfo ? state.user.addressInfo : null)
+
+  console.log("addressInfo", addressInfo)
   const navigate = useNavigate();
   
   // 값이 입력될 때마다 변화하는 입력값 state객체에 저장
@@ -46,21 +47,18 @@ export default function Join2() {
     )
   };
 
+  console.log(state)
   // 비밀번호 폼 변수
   const [passwordState] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const handleClickShowPassword = () => setShowPassword((show) => !show);
-    
+  
+  const dispatch = useDispatch()
   // 주소 검색 페이지로 이동
   const moveToAddressSearch = () => {
     const newJoinInfo = {...joinInfo, ...state}
     // 주소 검색 페이지 이동 후 되돌아왔을 때에도 입력했던 정보 유지시키기 위함
-    store.dispatch({
-      type: 'SAVE_USER_JOIN_INFO',
-      joinInfo: {
-        ...newJoinInfo
-      }
-    })
+    dispatch(setJoinInfo(newJoinInfo))
     // 주소 검색 페이지로 이동
     navigate('/address/search')
   }
@@ -300,7 +298,7 @@ export default function Join2() {
               <InputFormRO
                 id="Address"
                 label="주소"
-                defaultvalue={addressInfo.addressAddress === '' ? 
+                defaultvalue={!addressInfo ? 
                 "아직 등록된 주소가 없습니다" : addressInfo.addressAddress}
               />
             {/* </Link> */}
