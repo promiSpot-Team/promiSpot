@@ -39,6 +39,8 @@ public class MemberController {
 
 	private static final String SUCCESS = "success";
 	private static final String FAIL = "fail";
+
+	private int a;
 	
 	@Autowired
 	private JwtService jwtService; 
