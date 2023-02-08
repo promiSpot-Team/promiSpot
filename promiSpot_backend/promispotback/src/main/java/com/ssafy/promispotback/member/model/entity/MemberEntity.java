@@ -67,8 +67,18 @@ public class MemberEntity {
 		this.memberAddressIsAgree = memberAddressIsAgree;
 		this.member_token = member_token;
 	}
-	
-	
+
+	public MemberEntity(int memberSeq, String memberPass, String memberName, String memberNick,
+						String memberPhoneNum, String memberImgPath, String memberImgOriginName, String memberImgServerName) {
+		this.memberSeq = memberSeq;
+		this.memberPass = memberPass;
+		this.memberName = memberName;
+		this.memberNick = memberNick;
+		this.memberPhoneNum = memberPhoneNum;
+		this.memberImgPath = memberImgPath;
+		this.memberImgOriginName = memberImgOriginName;
+		this.memberImgServerName = memberImgServerName;
+	}
 
 	public int getMemberSeq() {
 		return memberSeq;
