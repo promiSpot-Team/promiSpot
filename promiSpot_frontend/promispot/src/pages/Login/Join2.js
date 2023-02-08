@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux'
 import BasicHeader from "../../components/Header/BasicHeader1";
 import BasicButton from "../../components/Buttons/BasicButton";
 import InputFormRO from "../../components/InputForm/InputFormRO";
-import store from '../../index'
+import store from '../../store'
 import axios from 'axios'
 import { SERVER_URL } from '../../constants/constants'
 import { 
@@ -23,10 +23,8 @@ import { SettingsInputAntenna, Visibility, VisibilityOff } from "@mui/icons-mate
 import "../scss/Join2.scss";
 
 export default function Join2() {
-  // input 값 변경될 때마다 리덕스에 변경된 값 저장
-  // 페이지 첫 랜더링 될 때 저장된 값 불러오기
-  // 저장된 값이 '' 라면 defaultValue == null
-  const joinInfo = useSelector((state) => state.joinInfo)
+  const joinInfo = useSelector(state => state?.joinInfo ? state.joinInfo : null)
+
   const [state, setState] = useState({
     id: joinInfo.id,
     email: joinInfo.email,

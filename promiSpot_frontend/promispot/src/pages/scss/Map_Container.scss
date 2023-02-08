@@ -128,7 +128,7 @@ $inner-shadow: inset 0.2em 0.2em 0.5em var(--greyLight-2),
   position: absolute;
   width: 90%;
   height: 45%;
-  z-index: 999;
+  z-index: 998;
   bottom: 35px;
   // padding: 2vh;
   // text-align: center;
@@ -226,6 +226,157 @@ $inner-shadow: inset 0.2em 0.2em 0.5em var(--greyLight-2),
 }
 
 .map-tab-wrapper {
-  // display: flex;
+  display: flex;
   z-index: 999;
 }
+
+.map-all-wrapper {
+  display: absolute;
+  background-color: #ffffffe5;
+}
+
+.schedule-background-wrapper {
+  display: absolute;
+  width: 100%;
+  height: 10vh;
+  background-color: #ffffffe5;
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius:20px;
+  z-index: 999;
+}
+
+.map-button-wrapper {
+  position: relative;
+  z-index: 999;
+  width: 100%;
+  height: 100%;
+  top:0px;
+  .map-button-wrapper {
+    width: 10vh;
+    height: 10vh;
+  }
+}
+
+
+////////////////////////////////////////////////////////////////////
+
+// body {
+//   background: #1d1e21;
+//   color: white;
+//   font-family: "open sans";
+//   width: 100vw;
+//   height: 100vh;
+//   display: flex;
+//   align-items: center;
+//   justify-content: center;
+// }
+
+// * {
+//   box-sizing: border-box;
+// }
+
+// body {
+//   background: #1d1e21;
+//   color: white;
+//   font-family: "open sans";
+//   width: 100vw;
+//   height: 100vh;
+//   display: flex;
+//   align-items: center;
+//   justify-content: center;
+// }
+
+// * {
+//   box-sizing: border-box;
+// }
+
+// main {
+//   display: flex;
+//   max-width: 450px;
+//   margin: 0 auto;
+// }
+
+// .draggableArea {
+//   display: grid;
+//   grid-template-columns: repeat(3, 1fr);
+//   grid-gap: 16px;
+//   max-width: 240px;
+//   margin: 0px 20px;
+//   border: 2px solid white;
+//   padding: 20px;
+// }
+
+// .droppableArea {
+//   background: black;
+//   border: 2px solid blue;
+//   border-radius: 8px;
+//   padding: 20px;
+//   width: 215px;
+//   margin: 20px auto;
+//   position: relative;
+//   transition: border-color 100ms linear;
+//   display: flex;
+//   flex-wrap: wrap;
+//   justify-content: space-around;
+// }
+
+// .draggableEntity{
+//   	&::before{
+// 		content: attr(id)
+// 	}
+// }
+
+
+// .area-wrapper {
+//   display: flex;
+//   max-width: 450px;
+//   margin: 0 auto;
+//   .draggableArea {
+//     display: grid;
+//     grid-template-columns: repeat(3, 1fr);
+//     grid-gap: 16px;
+//     max-width: 240px;
+//     margin: 0px 20px;
+//     border: 2px solid white;
+//     padding: 20px;
+//   }
+  
+//   .droppableArea {
+//     background: black;
+//     border: 2px solid blue;
+//     border-radius: 8px;
+//     padding: 20px;
+//     width: 215px;
+//     margin: 20px auto;
+//     position: relative;
+//     transition: border-color 100ms linear;
+//     display: flex;
+//     flex-wrap: wrap;
+//     justify-content: space-around;
+//   }
+
+//   .draggableEntity{
+//       &::before{
+//       content: attr(id)
+//     }
+//   }
+// }
+
+
+// * {
+//   box-sizing: border-box;
+// }
+
+// html,
+// body,
+// #root {
+//   width: 100vw;
+//   height: 100vh;
+// }
+
+// #root {
+//   display: flex;
+//   justify-content: center;
+//   align-items: center;
+// }
+

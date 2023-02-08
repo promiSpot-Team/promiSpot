@@ -9,7 +9,8 @@ import InputFormRO from "../../components/InputForm/InputFormRO";
 import InputFormPWD from "../../components/InputForm/InputFormPWD";
 import { useAxios } from "../../hooks/useAxios";
 import { SERVER_URL } from '../../constants/constants'
-import store from '../../index'
+import { useDispatch } from 'react-redux'
+import { saveInfo } from '../../reducer/user'
 
 import axios from "axios";
 
@@ -24,6 +25,7 @@ import "../scss/Login.scss";
 
 function Login() {
   const navigate = useNavigate();
+  const dispatch = useDispatch()
   const [inputId, setInputId] = useState("");
   const [inputPw, setInputPw] = useState("");
 
@@ -50,23 +52,31 @@ function Login() {
         data,
       })
 
-      // console.log(response.data)
+      console.log('login', response.data)
       const memberSeq = response.data['memberSeq']
       const accessToken = response.data['access-token']
       const refreshToken = response.data['refresh-token']
       const memberId = response.data['memberId']
 
-      // 로그인 성공시 메인 페이지로 이동하면서
-      // 리덕스에 memberSeq 저장
-      store.dispatch({
-        type: 'SAVE_CURRENT_USER_INFO',
-        currentUserInfo: {
-          memberSeq,
-          accessToken,
-          refreshToken,
-          memberId
-        }
-      })
+      const info = {
+        memberSeq,
+        accessToken,
+        refreshToken,
+        memberId
+      }
+      dispatch(saveInfo(info))
+      localStorage.setItem('isLogin', true)
+      // // 로그인 성공시 메인 페이지로 이동하면서
+      // // 리덕스에 memberSeq 저장
+      // store.dispatch({
+      //   type: 'SAVE_CURRENT_USER_INFO',
+        // currentUserInfo: {
+        //   memberSeq,
+        //   accessToken,
+        //   refreshToken,
+        //   memberId
+        // }
+      // })
       navigate('/main')
     } catch(err) {
       console.log(err)

@@ -4,6 +4,7 @@ import TabBar from "../../components/TabBar/TabBar";
 import "../scss/Main.scss";
 
 export default function Main() {
+  
   return (
     <>
       <div className="main-info-wrapper">

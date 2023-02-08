@@ -1,59 +1,57 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import TabBar from "../../components/TabBar/TabBar";
 import { SERVER_URL } from "../../constants/constants";
 import ProfileInfoS from '../../components/ProfileInfo/ProfileInfoS'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
+import { reissueToken } from '../../reducer/user'
 import '../scss/MyPage.scss'
-import store from "../../index";
 
 export default function MyPage() {
   const [myInfoList, setMyInfoList] = useState([]);
-  const memberSeq = useSelector(state => state?.currentUserInfo?.memberSeq)
-  var accessToken = useSelector(state => state?.currentUserInfo?.accessToken)
-  const refreshToken = useSelector(state => state?.currentUserInfo?.refreshToken)
-  const memberId = useSelector(state => state?.currentUserInfo?.memberId)
-  const currentUserInfo = useSelector(state => state?.currentUserInfo)
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
+  const { 
+    memberId, 
+    memberSeq, 
+    accessToken, 
+    refreshToken 
+  } = useSelector(state => state.user.info)
 
+  // 내 정보 조회
   const getMyInfo = async () => {
     try {
       axios.defaults.headers.common['access-token'] = `${accessToken}`
       axios.defaults.headers.common['refresh-token'] = `${refreshToken}`
 
-      const res = await axios({
+      const response1 = await axios({
         method: 'GET',
         url: `${SERVER_URL}/member/${memberSeq}`,
       })
-      console.log('결과 : ', res)
-      if(res.data !== 'fail') {
-        setMyInfoList([res.data])
+      if(response1.data !== 'fail') {
+        setMyInfoList([response1.data])
       }
     } catch(err) {
-      if(err.response.status === 400) {
-        console.log("in")
+      // HTTP 401 권한없음 에러
+      if(err.response.status === 401 || err.response.status === 400) {
         try {
           axios.defaults.headers.common['refresh-token'] = `${refreshToken}`
-          var response = await axios({
-            url: 'member/refresh',
+          const response2 = await axios({
+            url: `${SERVER_URL}/member/refresh`,
             method: 'POST',
-            baseURL: SERVER_URL,
             data : {
               memberId
             }
           })
+          const newAccessToken = response2.data["access-token"]
+          
+          // 재발급 받은 토큰 store에 저장
+          dispatch(reissueToken(newAccessToken))
 
-          accessToken = response.data["access-token"]
-
-          store.dispatch({
-            type: 'REFRESH_ACCESS_TOKEN',
-            currentUserInfo: {
-              accessToken,
-              ...currentUserInfo
-            }
-          })
         } catch(err) {
           console.log(err)
+          navigate('/login')
         }
       }
     }
@@ -63,7 +61,7 @@ export default function MyPage() {
   }, [accessToken])
 
   useEffect(() => {
-    console.log("myInfoList", myInfoList)
+    // console.log("myInfoList", myInfoList)
   }, [myInfoList])
 
   return (
@@ -77,7 +75,7 @@ export default function MyPage() {
       </div>
       {myInfoList && myInfoList.map((item, idx) => {
         return (
-          <div className="content">
+          <div key={idx} className="content">
           <Link to="/address/search">
             <div className="address" style={{ borderBottom: '1px solid #c4c4c4'}}>
               <p >서울특별시 강남구 테헤란로 212</p>
