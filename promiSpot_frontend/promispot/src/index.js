@@ -25,4 +25,4 @@ root.render(
 );
 
 reportWebVitals();
-export default store
+export default store;
