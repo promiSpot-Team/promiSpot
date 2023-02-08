@@ -88,11 +88,11 @@ $circle-radius: 80px;
   justify-content: center;
   align-items: center;
   overflow: hidden;
-  background: linear-gradient(-45deg, #f09c82, #f19d9d, #6a5f9e, #97b7e0);
+  background: linear-gradient(45deg, #f09c82, #f19d9d, #6a5f9e, #97b7e0);
   animation: gradient 15s ease infinite;
   background-size: 200% 200%;
   z-index: 9;
-  box-shadow: 0 5px 5px rgba(189, 138, 209, 0.35);
+  box-shadow: 0 5px 5px rgba(176, 86, 212, 0.35);
   transition: height 0.3s;
 }
 

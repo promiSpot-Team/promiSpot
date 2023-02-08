@@ -27,7 +27,6 @@ import Test from "./pages/Login/Test";
 import Test2 from "./pages/Login/Test2";
 import Chatting from "./pages/PlaceMap/Chatting";
 import Schedule from "./pages/PlaceMap/Schedule";
-import PrivateRoute from './PrivateRoute'
 
 function App() {
   // const history = useHistory();
