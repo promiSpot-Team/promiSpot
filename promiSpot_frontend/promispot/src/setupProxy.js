@@ -22,8 +22,9 @@ module.exports = function (app) {
   );
 
   // 웹 소켓 프록시 설정
-  const { createProxyMiddleware } = require("http-proxy-middleware");
-  module.exports = (app) => {
-    app.use("/ws", createProxyMiddleware({ target: "http://localhost:9090/api", ws: true }));
-  };
+  // const { createProxyMiddleware } = require("http-proxy-middleware");
+  // module.exports = (app) => {
+  //   app.use("/ws", createProxyMiddleware({ target: "http://localhost:9090/api", ws: true }));
+  // };
+
 };
