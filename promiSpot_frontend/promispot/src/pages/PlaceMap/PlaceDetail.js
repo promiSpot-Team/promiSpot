@@ -1,7 +1,7 @@
 import React from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import BasicHeader from "../../components/Header/BasicHeader3";
-import store from "../../index";
+import store from "../../store";
 import getDetail from './GetDetail'
 
 export default function PlaceDetail() {

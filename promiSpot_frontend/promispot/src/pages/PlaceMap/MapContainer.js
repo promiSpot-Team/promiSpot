@@ -5,7 +5,7 @@ import TabBar2 from "../../components/TabBar/TabBar2";
 import "../scss/Map_Container.scss";
 import mapdata from "../mapdata.json";
 import { useSelector } from "react-redux";
-import store from "../../index";
+import store from "../../store";
 import PlaceSearch from "./PlaceSearch";
 
 const { kakao } = window;
