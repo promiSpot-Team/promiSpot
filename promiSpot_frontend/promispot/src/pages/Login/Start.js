@@ -9,13 +9,13 @@ import "../scss/Start.scss";
 function Start() {
   const [firstTitle, setFirstTitle] = useState("");
   const [firstCount, setFirstCount] = useState(0);
-  const completionWord1 = "함께";
-  const [secondTitle, setSecondTitle] = useState("");
-  const [secondCount, setSecondCount] = useState(0);
-  const completionWord2 = "정하는";
-  const [thirdTitle, setThirdTitle] = useState("");
-  const [thirdCount, setThirdCount] = useState(0);
-  const completionWord3 = "약속장소";
+  const completionWord1 = "함께\n정하는\n약속장소";
+  // const [secondTitle, setSecondTitle] = useState("");
+  // const [secondCount, setSecondCount] = useState(0);
+  // const completionWord2 = "정하는";
+  // const [thirdTitle, setThirdTitle] = useState("");
+  // const [thirdCount, setThirdCount] = useState(0);
+  // const completionWord3 = "약속장소";
 
   useEffect(() => {
     const typingInterval1 = setInterval(() => {
@@ -39,48 +39,48 @@ function Start() {
     };
   });
 
-  useEffect(() => {
-    const typingInterval2 = setInterval(() => {
-      setSecondTitle((prevTitleValue2) => {
-        let result2 = prevTitleValue2
-          ? prevTitleValue2 + completionWord2[secondCount]
-          : completionWord2[0];
-        setSecondCount(secondCount + 1);
+  // useEffect(() => {
+  //   const typingInterval2 = setInterval(() => {
+  //     setSecondTitle((prevTitleValue2) => {
+  //       let result2 = prevTitleValue2
+  //         ? prevTitleValue2 + completionWord2[secondCount]
+  //         : completionWord2[0];
+  //       setSecondCount(secondCount + 1);
 
-        if (secondCount >= completionWord2.length) {
-          setSecondCount(0);
-          setSecondTitle("");
-        }
+  //       if (secondCount >= completionWord2.length) {
+  //         setSecondCount(0);
+  //         setSecondTitle("");
+  //       }
 
-        return result2;
-      });
-    }, 300);
+  //       return result2;
+  //     });
+  //   }, 600);
 
-    return () => {
-      clearInterval(typingInterval2);
-    };
-  });
-  useEffect(() => {
-    const typingInterval3 = setInterval(() => {
-      setThirdTitle((prevTitleValue3) => {
-        let result3 = prevTitleValue3
-          ? prevTitleValue3 + completionWord3[thirdCount]
-          : completionWord3[0];
-        setThirdCount(thirdCount + 1);
+  //   return () => {
+  //     clearInterval(typingInterval2);
+  //   };
+  // });
+  // useEffect(() => {
+  //   const typingInterval3 = setInterval(() => {
+  //     setThirdTitle((prevTitleValue3) => {
+  //       let result3 = prevTitleValue3
+  //         ? prevTitleValue3 + completionWord3[thirdCount]
+  //         : completionWord3[0];
+  //       setThirdCount(thirdCount + 1);
 
-        if (thirdCount >= completionWord3.length) {
-          setThirdCount(0);
-          setThirdTitle("");
-        }
+  //       if (thirdCount >= completionWord3.length) {
+  //         setThirdCount(0);
+  //         setThirdTitle("");
+  //       }
 
-        return result3;
-      });
-    }, 300);
+  //       return result3;
+  //     });
+  //   }, 600);
 
-    return () => {
-      clearInterval(typingInterval3);
-    };
-  });
+  //   return () => {
+  //     clearInterval(typingInterval3);
+  //   };
+  // });
   return (
     <div class="start-scroll">
       <div className="start-wrapper">
@@ -96,11 +96,11 @@ function Start() {
           </div> */}
           <div className="main-title">
             <div className="main-title-first-text">{firstTitle}</div>
-          <div className="main-title-second-text">{secondTitle}</div>
-          <div className="main-title-third-text">{thirdTitle}</div>
+            {/* <div className="main-title-second-text">{secondTitle}</div> */}
+            {/* <div className="main-title-third-text">{thirdTitle}</div> */}
           </div>
-            {/* <div className="main-title-text">{secondTitle}</div> */}
-          
+          {/* <div className="main-title-text">{secondTitle}</div> */}
+
           {/* <h1 className="main-title"></h1> */}
           <span className="text first-text">함께</span>
           <span className="text second-text">정하는</span>
@@ -115,8 +115,9 @@ function Start() {
           <img
             className="img-wrapper"
             src={require("../../img/promispot_logo.png")}
-           /></div>
-          {/* <div class="back-wrapper">
+          />
+        </div>
+        {/* <div class="back-wrapper">
             <div class="circle1"></div>
           </div> */}
         <div className="svg-wrapper">
