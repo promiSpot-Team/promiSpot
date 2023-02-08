@@ -13,15 +13,15 @@ function Start() {
   const [secondTitle, setSecondTitle] = useState("");
   const [secondCount, setSecondCount] = useState(0);
   const completionWord2 = "정하는";
-  // const [firstTitle, setFirstTitle] = useState("");
-  // const [firstCount, setFirstCount] = useState(0);
-  // const completionWord3 = "함께";
+  const [thirdTitle, setThirdTitle] = useState("");
+  const [thirdCount, setThirdCount] = useState(0);
+  const completionWord3 = "약속장소";
 
   useEffect(() => {
     const typingInterval1 = setInterval(() => {
-      setFirstTitle((prevTitleValue) => {
-        let result = prevTitleValue
-          ? prevTitleValue + completionWord1[firstCount]
+      setFirstTitle((prevTitleValue1) => {
+        let result1 = prevTitleValue1
+          ? prevTitleValue1 + completionWord1[firstCount]
           : completionWord1[0];
         setFirstCount(firstCount + 1);
 
@@ -30,7 +30,7 @@ function Start() {
           setFirstTitle("");
         }
 
-        return result;
+        return result1;
       });
     }, 300);
 
@@ -41,9 +41,9 @@ function Start() {
 
   useEffect(() => {
     const typingInterval2 = setInterval(() => {
-      setSecondTitle((prevTitleValue) => {
-        let result = prevTitleValue
-          ? prevTitleValue + completionWord2[secondCount]
+      setSecondTitle((prevTitleValue2) => {
+        let result2 = prevTitleValue2
+          ? prevTitleValue2 + completionWord2[secondCount]
           : completionWord2[0];
         setSecondCount(secondCount + 1);
 
@@ -52,7 +52,7 @@ function Start() {
           setSecondTitle("");
         }
 
-        return result;
+        return result2;
       });
     }, 300);
 
@@ -60,17 +60,49 @@ function Start() {
       clearInterval(typingInterval2);
     };
   });
+  useEffect(() => {
+    const typingInterval3 = setInterval(() => {
+      setThirdTitle((prevTitleValue3) => {
+        let result3 = prevTitleValue3
+          ? prevTitleValue3 + completionWord3[thirdCount]
+          : completionWord3[0];
+        setThirdCount(thirdCount + 1);
+
+        if (thirdCount >= completionWord3.length) {
+          setThirdCount(0);
+          setThirdTitle("");
+        }
+
+        return result3;
+      });
+    }, 300);
+
+    return () => {
+      clearInterval(typingInterval3);
+    };
+  });
   return (
     <div class="start-scroll">
       <div className="start-wrapper">
         <div className="container">
-          <div className="main-title">
-            <div className="main-title-text">{firstTitle}</div>
-            {/* <div className="main-title-text">{secondTitle}</div> */}
+          {/* <div className="blink-1">
+            <h1>#99</h1>
           </div>
+          <div className="blink-2">
+            <h1>#98</h1>
+          </div>
+          <div className="blink-3">
+            <h1>#97</h1>
+          </div> */}
+          <div className="main-title">
+            <div className="main-title-first-text">{firstTitle}</div>
+          <div className="main-title-second-text">{secondTitle}</div>
+          <div className="main-title-third-text">{thirdTitle}</div>
+          </div>
+            {/* <div className="main-title-text">{secondTitle}</div> */}
+          
           {/* <h1 className="main-title"></h1> */}
           <span className="text first-text">함께</span>
-          {/* <h1 className="main-title">{secondTitle}</h1> */}
           <span className="text second-text">정하는</span>
           {/* <h1 className="main-title">{blogTitle}</h1> */}
           <span className="text third-text">약속장소</span>
@@ -79,12 +111,15 @@ function Start() {
           <img src={require("../../img/promispot_logo.png")} width="300px" />
 
         </div> */}
-        <div className="svg-wrapper">
+        <div className="img-wrapper">
           <img
             className="img-wrapper"
             src={require("../../img/promispot_logo.png")}
-            width="800px"
-          />
+           /></div>
+          {/* <div class="back-wrapper">
+            <div class="circle1"></div>
+          </div> */}
+        <div className="svg-wrapper">
           <svg
             viewBox="0 0 1000 1000"
             className="world"
@@ -118,7 +153,7 @@ function Start() {
 
               <symbol id="sky" viewBox="0 0 1000 1000">
                 <rect width="1000" height="1000" fill="url(#sky-gradient)" />
-                <circle id="sun" className="sun" cx="575" cy="265" r="62" />
+                <circle id="sun" className="sun" cx="600" cy="45vh" r="30" />
                 <use
                   width="10"
                   height="10"
