@@ -26,8 +26,5 @@ module.exports = function (app) {
   // module.exports = (app) => {
   //   app.use("/ws", createProxyMiddleware({ target: "http://localhost:9090/api", ws: true }));
   // };
-<<<<<<< HEAD
 
-=======
->>>>>>> e1c5a9a32ee676d63b7916a3650c99cc88fad4cc
 };

@@ -10,7 +10,7 @@ import { useSelector, useDispatch } from "react-redux";
 import store from "../../store";
 import PlaceSearch from "./PlaceSearch";
 import { changeRect } from '../../reducer/map';
-import Modal from "../../components/Modal/Modal";
+import Modal2 from "../../components/Modal/Modal2";
 
 const { kakao } = window;
 
@@ -180,7 +180,7 @@ export default function MapContainer() {
         <TabBar2 />
       </div>
       {modalOpen && (
-        <Modal closeModal={() => setModalOpen(!modalOpen)}>
+        <Modal2 closeModal={() => setModalOpen(!modalOpen)}>
           <div className="vote-done-wrapper">
             {/* <div className='new-promise-text-wrapper'>
         새로운 약속 생성
@@ -209,7 +209,7 @@ export default function MapContainer() {
               </div>
             </div>
           </div>
-        </Modal>
+        </Modal2>
       )}
     </div>
   );
