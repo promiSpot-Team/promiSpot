@@ -18,7 +18,7 @@ import {
   FormControlLabel,
   Checkbox
  } from "@mui/material/";
-import { SettingsInputAntenna, Visibility, VisibilityOff } from "@mui/icons-material";
+import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { setJoinInfo, setAddress } from '../../reducer/user'
 import "../scss/Join2.scss";
 import { useDispatch } from 'react-redux'
