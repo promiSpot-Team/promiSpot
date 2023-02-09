@@ -27,6 +27,7 @@ import Test from "./pages/Login/Test";
 import Test4 from "./pages/Login/Test4";
 import Chatting from "./pages/PlaceMap/Chatting";
 import Schedule from "./pages/PlaceMap/Schedule";
+import MyAddress from "./pages/MyPage/MyAddress";
 
 function App() {
   // const history = useHistory();
@@ -50,6 +51,7 @@ function App() {
       <Route path="/friend" element={<Friend />} />
       <Route path="/promise" element={<Promise />} />
       <Route path="/mypage" element={<MyPage />} />
+      <Route path="/myaddress" element={<MyAddress/>}/>
       <Route path="/privacy" element={<Privacy />} />
       {/* <Route path="/join2" element={<Join2 />} /> */}
       <Route path="/card" element={<Card />} />
