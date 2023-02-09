@@ -10,7 +10,7 @@ import { useSelector, useDispatch } from "react-redux";
 import store from "../../store";
 import PlaceSearch from "./PlaceSearch";
 import { changeRect } from '../../reducer/map';
-import Modal from "../../components/Modal/Modal";
+import Modal2 from "../../components/Modal/Modal2";
 
 const { kakao } = window;
 
@@ -171,16 +171,17 @@ export default function MapContainer() {
             <FaVoteYea size="40" color="#ffffff" />
           </button>
         ) : (
-          <button className="map-button-vote">
-            <BsFillCalendarCheckFill size="40" color="#ffffff" />
-          </button>
+          <div></div>
+          // <button className="map-button-vote">
+          //   <BsFillCalendarCheckFill size="40" color="#ffffff" />
+          // </button>
         )}
       </div>
       <div className="map-tab-wrapper">
         <TabBar2 />
       </div>
       {modalOpen && (
-        <Modal closeModal={() => setModalOpen(!modalOpen)}>
+        <Modal2 closeModal={() => setModalOpen(!modalOpen)}>
           <div className="vote-done-wrapper">
             {/* <div className='new-promise-text-wrapper'>
         새로운 약속 생성
@@ -198,12 +199,18 @@ export default function MapContainer() {
                 투표가 종료되었습니다
               </div>
               <div className="vote-done-btn-wrapper">
-                <button className="vote-done-btn-one-wrapper">Home</button>
-                <button className="vote-done-btn-two-wrapper">Schedule</button>
+                <div className="vote-done-top-sep-wrapper"></div>
+                  <Link className="vote-done-btn-one-wrapper" to={"/main"}>
+                    <button className="vote-done-btn-one-wrapper">Home</button>
+                  </Link>
+                <div className="vote-done-sep-wrapper"></div>
+                  <Link className="vote-done-btn-two-wrapper" to={"/map/schedule"}>
+                    <button className="vote-done-btn-two-wrapper" onClick={() => setModalOpen(false)}>Schedule</button>
+                  </Link>
               </div>
             </div>
           </div>
-        </Modal>
+        </Modal2>
       )}
     </div>
   );

@@ -24,7 +24,7 @@ import Join2 from "./pages/Login/Join2";
 import Card from "./components/Card/Card";
 import GetDetail from "./pages/PlaceMap/GetDetail";
 import Test from "./pages/Login/Test";
-import Test2 from "./pages/Login/Test2";
+import Test4 from "./pages/Login/Test4";
 import Chatting from "./pages/PlaceMap/Chatting";
 import Schedule from "./pages/PlaceMap/Schedule";
 import { useEffect } from 'react'
@@ -64,6 +64,7 @@ function App() {
       <Route path="/test" element={<Test />} />
       {/* <Route path="/test2" element={<Test2/>}/> */}
       <Route path="/chatting" element={<Chatting />} />
+      <Route path="/test4" element={<Test4/>}/>
     </Routes>
   );
 }
