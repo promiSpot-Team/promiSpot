@@ -7,7 +7,6 @@ import io.swagger.annotations.ApiModelProperty;
 import java.util.Objects;
 
 @ApiModel(value = "memberFriendEntity : 친구 검색 시 회원 정보", description = "회원이 친구 추가/친구 검색을 위해 검색했을 때 나타나는 정보.")
-@JsonInclude(JsonInclude.Include.NON_NULL)
 public class MemberFriendEntity {
     @ApiModelProperty(value = "회원일련번호")
     private int memberSeq;
