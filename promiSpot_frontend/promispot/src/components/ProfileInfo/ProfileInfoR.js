@@ -14,7 +14,7 @@ export default function ProfileInfo(props) {
   const processFriendRequest = async () => {
     try {
       const response = await axios({
-        method: axiosMethod,
+        method: "PUT",
         url: `${SERVER_URL}/friend/request/${props.friendRequestSeq}`
       })
       console.log(response)

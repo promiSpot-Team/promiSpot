@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import BasicHeader from "../../components/Header/BasicHeader1";
@@ -96,22 +96,37 @@ export default function Join2() {
       console.log(response2)
 
       // 회원가입 성공하면 리덕스에 저장된 임시 정보 제거
-      store.dispatch({
-        type: 'CLEAR_USER_JOIN_INFO',
-        joinInfo: {
-          id: '',
-          email: '', 
-          password:'',
-          name: '',
-          nickName:'', 
-          phoneNumber: ''
-        },
-        addressInfo: {
-          addressAddress: '',
-          addressX: 0,
-          addressY: 0
-        }
-      })
+      const newJoinInfo = {
+        id: '',
+        email: '', 
+        password:'',
+        name: '',
+        nickName:'', 
+        phoneNumber: ''
+      }
+      const newAddressInfo = {
+        addressAddress: '',
+        addressX: 0,
+        addressY: 0
+      }
+      dispatch(setJoinInfo(newJoinInfo))
+      dispatch(setAddress(newAddressInfo))
+      // store.dispatch({
+      //   type: 'CLEAR_USER_JOIN_INFO',
+      //   joinInfo: {
+      //     id: '',
+      //     email: '', 
+      //     password:'',
+      //     name: '',
+      //     nickName:'', 
+      //     phoneNumber: ''
+      //   },
+      //   addressInfo: {
+      //     addressAddress: '',
+      //     addressX: 0,
+      //     addressY: 0
+      //   }
+      // })
       
       // 로그인 페이지로 이동
       navigate("/login");
@@ -139,6 +154,26 @@ export default function Join2() {
     // 유효성 검사가 성공하면 axios 요청
     onhandlePost(joinData)
   }
+  
+  useEffect(() => {
+    return () => {
+      const newJoinInfo = {
+        id: '',
+        email: '', 
+        password:'',
+        name: '',
+        nickName:'', 
+        phoneNumber: ''
+      }
+      const newAddressInfo = {
+        addressAddress: '',
+        addressX: 0,
+        addressY: 0
+      }
+      dispatch(setJoinInfo(newJoinInfo))
+      dispatch(setAddress(newAddressInfo))
+    }
+  }, [])
 
   return (
     <div className="join-wrapper">
