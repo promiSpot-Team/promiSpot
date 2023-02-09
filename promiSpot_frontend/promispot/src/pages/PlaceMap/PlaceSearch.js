@@ -1,13 +1,16 @@
-import React, { useState, useRef, useEffect  }from 'react'
-import { useNavigate } from 'react-router-dom'
-import { motion } from "framer-motion"
-import { KAKAO_MAP_URL, KAKAO_REST_API_KEY } from '../../constants/constants'
-import SearchBar from '../../components/Search/SearchBar2'
-import store from '../../store'
-import { useSelector, useDispatch } from 'react-redux'
-import '../scss/Map_Container.scss'
-import '../scss/Search_Bar.scss'
-import { savePlaceList } from '../../reducer/map'
+import React, { useState, useRef, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { motion } from "framer-motion";
+import { KAKAO_MAP_URL, KAKAO_REST_API_KEY } from "../../constants/constants";
+import SearchBar from "../../components/Search/SearchBar2";
+import store from "../../store";
+import { useSelector, useDispatch } from "react-redux";
+import "../scss/Map_Container.scss";
+import "../scss/Search_Bar.scss";
+import { savePlaceList } from "../../reducer/map";
+
+// url을 가져오기 위한 import
+import { useLocation } from "react-router-dom";
 
 export default function PlaceSearch() {
   const statePlaceList = useSelector((state) => state.placeList);
@@ -17,9 +20,22 @@ export default function PlaceSearch() {
   const childRef = useRef();
   const dispatch = useDispatch();
 
+  const [promiseSeq, setPromiseSeq] = useState();
+  const location = useLocation();
+  useEffect(() => {
+    var path = location.pathname;
+    var parse = path.split("/");
+    var seq = parse[2];
+    setPromiseSeq(seq);
+  }, []);
+
+  useEffect(() => {
+    console.log(promiseSeq);
+  }, [promiseSeq]);
+
   const GetAxiosResponse = ({ response, error, loading }) => {
     if (response?.data?.documents) {
-      setPlaceList(response.data.documents)
+      setPlaceList(response.data.documents);
     }
   };
 
@@ -43,12 +59,12 @@ export default function PlaceSearch() {
   };
 
   function moveToPlaceDetail(place) {
-    dispatch(savePlaceList(placeList))
+    dispatch(savePlaceList(placeList));
     // store.dispatch({
     //   type: "SAVE_PLACE_LIST",
     //   placeList,
     // });
-    navigate(`/map/${place.id}`, { state: place });
+    navigate(`/map/${promiseSeq}/${place.id}`, { state: place });
   }
 
   return (
@@ -63,11 +79,7 @@ export default function PlaceSearch() {
       }}
     >
       <div className="place-search-bar-wrapper">
-        <SearchBar
-          GetAxiosResponse={GetAxiosResponse}
-          config={config}
-          ref={childRef}
-        />
+        <SearchBar GetAxiosResponse={GetAxiosResponse} config={config} ref={childRef} />
       </div>
       <div className="place-search-wrapper">
         <div className="place-search-result-wrapper">

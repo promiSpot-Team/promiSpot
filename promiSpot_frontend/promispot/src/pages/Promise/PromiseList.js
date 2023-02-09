@@ -5,15 +5,19 @@ import Card from "../../components/Card/Card";
 import { SERVER_URL } from "../../constants/constants";
 import "../scss/Promise.scss";
 
+import { useSelector } from "react-redux";
+
 export default function PromiseList() {
   // 서버에서 promiseList를 받아오기
 
   const [promiseList, setPromiseList] = useState(null);
+  const memberSeq = useSelector((state) => state.user.info.memberSeq);
 
+  // api 통신을 통해 회원아이디에 해당하는 promiseList 가져오기
   const searchPromiseList = async () => {
     const response = await axios({
       method: "GET",
-      url: `${SERVER_URL}/promise/getList/1`,
+      url: `${SERVER_URL}/promise/getList/${memberSeq}`,
     });
     if (response.data !== "fail") {
       setPromiseList(response.data);
