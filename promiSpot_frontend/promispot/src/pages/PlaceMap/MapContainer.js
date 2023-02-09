@@ -171,9 +171,10 @@ export default function MapContainer() {
             <FaVoteYea size="40" color="#ffffff" />
           </button>
         ) : (
-          <button className="map-button-vote">
-            <BsFillCalendarCheckFill size="40" color="#ffffff" />
-          </button>
+          <div></div>
+          // <button className="map-button-vote">
+          //   <BsFillCalendarCheckFill size="40" color="#ffffff" />
+          // </button>
         )}
       </div>
       <div className="map-tab-wrapper">
@@ -198,8 +199,14 @@ export default function MapContainer() {
                 투표가 종료되었습니다
               </div>
               <div className="vote-done-btn-wrapper">
-                <button className="vote-done-btn-one-wrapper">Home</button>
-                <button className="vote-done-btn-two-wrapper">Schedule</button>
+                <div className="vote-done-top-sep-wrapper"></div>
+                  <Link className="vote-done-btn-one-wrapper" to={"/main"}>
+                    <button className="vote-done-btn-one-wrapper">Home</button>
+                  </Link>
+                <div className="vote-done-sep-wrapper"></div>
+                  <Link className="vote-done-btn-two-wrapper" to={"/map/schedule"}>
+                    <button className="vote-done-btn-two-wrapper" onClick={() => setModalOpen(false)}>Schedule</button>
+                  </Link>
               </div>
             </div>
           </div>
