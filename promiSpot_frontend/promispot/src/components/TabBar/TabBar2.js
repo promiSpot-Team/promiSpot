@@ -1,14 +1,10 @@
 import React, { useEffect, useState } from "react";
-import "./TabBar2.scss";
-import Modal from "../Modal/Modal";
-import NewPromiseF from "../../pages/NewPromise/NewPromiseF";
-import { Link } from "react-router-dom";
-import { ImSearch } from "react-icons/im";
+import { BsChatLeftDotsFill, BsPersonCircle } from "react-icons/bs";
 import { FaHome } from "react-icons/fa";
+import { ImSearch } from "react-icons/im";
 import { MdRecommend } from "react-icons/md";
-import { BsPersonCircle } from "react-icons/bs";
-import { BsChatLeftDotsFill } from "react-icons/bs";
-
+import { Link } from "react-router-dom";
+import "./TabBar2.scss";
 import { useLocation } from "react-router-dom";
 
 export default function TabBar2(props) {
@@ -18,6 +14,7 @@ export default function TabBar2(props) {
   // url에서 promiseSeq 가져오기
   const [promiseSeq, setPromiseSeq] = useState();
   const location = useLocation();
+
   useEffect(() => {
     var path = location.pathname;
     var parse = path.split("/");
@@ -26,7 +23,7 @@ export default function TabBar2(props) {
   }, []);
 
   useEffect(() => {
-    console.log(promiseSeq);
+    // console.log(promiseSeq);
   }, [promiseSeq]);
 
   return (

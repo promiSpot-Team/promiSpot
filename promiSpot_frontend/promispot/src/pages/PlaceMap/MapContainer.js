@@ -1,16 +1,12 @@
 import { React, useEffect, useState } from "react";
-import { Link, Outlet, useNavigate } from "react-router-dom";
-import { motion, Variants } from "framer-motion";
-import TabBar2 from "../../components/TabBar/TabBar2";
 import { FaVoteYea } from "react-icons/fa";
-import { BsFillCalendarCheckFill } from "react-icons/bs";
-import "../scss/Map_Container.scss";
-import mapdata from "../mapdata.json";
-import { useSelector, useDispatch } from "react-redux";
-import store from "../../store";
-import PlaceSearch from "./PlaceSearch";
-import { changeRect } from '../../reducer/map';
+import { useDispatch, useSelector } from "react-redux";
+import { Link, Outlet, useNavigate } from "react-router-dom";
 import Modal2 from "../../components/Modal/Modal2";
+import TabBar2 from "../../components/TabBar/TabBar2";
+import { changeRect } from '../../reducer/map';
+import mapdata from "../mapdata.json";
+import "../scss/Map_Container.scss";
 
 import axios from "axios";
 import { SERVER_URL } from "../../constants/constants";
@@ -19,19 +15,27 @@ const { kakao } = window;
 
 export default function MapContainer() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const [isSearchSelect, setIsSearchSelect] = useState(false);
-  // const [isSearchSelect, setIsSearchSelect] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
+
+  /* 지도의 중심 위치 정보 redux에서 가져오기 */
   const stateMapCenterPosition = useSelector(
     (state) => state.map.centerXY
   );
-  console.log(stateMapCenterPosition)
+
+  // 지도 중심 위치 변수
   const [mapCenter, setmapCenter] = useState(stateMapCenterPosition);
+
+  // 지도 변수
   const [map, setMap] = useState(null);
+
+  // 지도 영역 변수
   const [rect, setRect] = useState("");
+
+  // 지도 영역 변수 redux에서 가져오기
   const stateRect = useSelector((state) => state.map.rect);
-  const navigate = useNavigate();
 
   const [valid, setValid] = useState(false);
 
@@ -56,6 +60,7 @@ export default function MapContainer() {
   useEffect(() => {
     searchMemberAddressList();
   }, []);
+
   useEffect(() => {
     console.log(memberAddressList);
   }, [memberAddressList]);
@@ -134,8 +139,11 @@ export default function MapContainer() {
     var { x, y } = stateMapCenterPosition;
     var markerPosition = await new kakao.maps.LatLng(y, x);
 
-    //  2. 1에서 받은 위치로 이동
-    map.panTo(markerPosition);
+    /* 지도 정보(map)가 생성된 후에 panTo를 사용해야 함 */
+    if (map) {
+      //  2. 1에서 받은 위치로 이동
+      map.panTo(markerPosition);
+    }
 
     //  3. 1에서 받은 위치에 마커 표시
     var marker = await new kakao.maps.Marker({
@@ -181,18 +189,8 @@ export default function MapContainer() {
       String(bounds.oa) +
       "," +
       String(bounds.pa);
+    // 변경된 정보 저장
     dispatch(changeRect(newRect));
-    // store.dispatch({
-    //   type: "CHANGE_MAP_RECT",
-    //   rect:
-    //     String(bounds.ha) +
-    //     "," +
-    //     String(bounds.qa) +
-    //     "," +
-    //     String(bounds.oa) +
-    //     "," +
-    //     String(bounds.pa),
-    // });
   };
 
   // 지도가 그려진 후에 'dragend' 이벤트 인식
@@ -209,19 +207,6 @@ export default function MapContainer() {
         "," +
         String(bounds.pa);
       dispatch(changeRect(newRect));
-      // setRect(
-      //   String(bounds.ha) +
-      //     "," +
-      //     String(bounds.qa) +
-      //     "," +
-      //     String(bounds.oa) +
-      //     "," +
-      //     String(bounds.pa)
-      // );
-      // store.dispatch({
-      //   type: "CHANGE_MAP_RECT",
-      //   rect,
-      // });
     });
   }
 

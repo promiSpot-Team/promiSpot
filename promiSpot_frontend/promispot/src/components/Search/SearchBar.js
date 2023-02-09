@@ -1,8 +1,6 @@
-import React from 'react';
-import {ImSearch} from "react-icons/im";
+import React, { useEffect, useState } from 'react';
+import { ImSearch } from "react-icons/im";
 import './SearchBar.scss';
-import { useEffect, useState } from 'react'; 
-import { useAxios } from '../../hooks/useAxios';
 
 export default function SearchBar({ GetAxiosQuery = null }) {
   const [query, setQuery] = useState('')

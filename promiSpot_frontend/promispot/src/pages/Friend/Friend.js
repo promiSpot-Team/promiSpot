@@ -1,22 +1,20 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import BasicHeader2 from "../../components/Header/BasicHeader2";
 // import SelectBar from "../../components/SelectBar/SelectBar";
+import Box from '@mui/material/Box';
+import Tab from '@mui/material/Tab';
+import Tabs from '@mui/material/Tabs';
+import axios from 'axios';
+import PropTypes from 'prop-types';
+import { ImSearch } from "react-icons/im";
+import { useSelector } from 'react-redux';
+import MiniButton from "../../components/Buttons/MiniButton";
 import TabBar from "../../components/TabBar/TabBar";
-import FriendList from "./FriendList";
+import { SERVER_URL } from '../../constants/constants';
 import '../scss/Friend.scss';
+import FriendList from "./FriendList";
 import FriendRequestReceive from "./FriendRequestReceive";
 import FriendRequestSend from "./FriendRequestSend";
-import FriendSearchList from "./FriendSearchList";
-import PropTypes from 'prop-types';
-import Tabs from '@mui/material/Tabs';
-import Tab from '@mui/material/Tab';
-import SearchBar from "../../components/Search/SearchBar";
-import Box from '@mui/material/Box';
-import { ImSearch } from "react-icons/im";
-import { SERVER_URL } from '../../constants/constants'
-import axios from 'axios'
-import { useSelector } from 'react-redux'
-import MiniButton from "../../components/Buttons/MiniButton";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -75,12 +73,12 @@ export default function Friend(props) {
     setInputData(e.target.value)
   }
 
-  // 변경된 inputData 값으로 친구 목록 가져오기
+  // 변경된 inputData 값으로 친구 검색 결과 목록 가져오기
   const getFriendSearchResult = async (memberInfo) => {
     try {
       const response = await axios({
         method: 'GET', 
-        url: `${SERVER_URL}/friend/${memberInfo}`,
+        url: `${SERVER_URL}/friend/${memberSeq}/${memberInfo}`,
       })  
       if (response.data === 'fail') {
         setFriendSearchResult([])
@@ -93,8 +91,8 @@ export default function Friend(props) {
     }
   }
 
-  // 친구 요청 보내기
-  // 내 친구 목록/받은 요청/보낸 요청에 다 memberSeq props로 넘겨주기
+  /* 친구 요청 보내기
+  내 친구 목록/받은 요청/보낸 요청에 다 memberSeq props로 넘겨주기 */
   const memberSeq = useSelector(state => state.user.info.memberSeq)
 
   const sendFriendRequest = async (friendRequestMember) => {
@@ -111,6 +109,8 @@ export default function Friend(props) {
       
       // 요청 보낸 친구 목록에 이미 존재한다면 => 요청 취소
       if (toWho.includes(friendRequestMember)) {
+        /*  요청 취소하면서 목록에서 제거
+        요청 보낸 친구 목록에 있는 번호과 현재 누른 버튼의 친구 번호가 일치하는 경우 제외 */
         const newWho = toWho.filter((who) => {
           return who !== friendRequestMember
         })
@@ -118,25 +118,22 @@ export default function Friend(props) {
 
       // 요청 보낸 친구 목록에 존재하지 않는다면 => 요청
       } else {
-        console.log('존재X')
         const newWho = [...toWho, friendRequestMember]
         setToWho(newWho)
       }
-
-      console.log(toWho)
     } catch(err) {
       console.log(err)
     }
   }
 
-  // 검색결과창 닫기
+  /* 검색결과창 닫기 */
   const closeSearchResult = () => {
     setInputData('')
     setFriendSearchResult([])
   }
 
+  /* 친구 검색 결과 리스트 값이 변할 때마다 실행되는 함수 */
   useEffect(() => {
-    console.log(friendSearchResult)
   }, [friendSearchResult])
 
   return (

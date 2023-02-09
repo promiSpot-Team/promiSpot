@@ -1,21 +1,19 @@
+import { getDate, getMonth } from "date-fns";
+import { ko } from "date-fns/esm/locale";
 import React, { useState } from "react";
-import "./TabBar.scss";
-import Modal from "../Modal/Modal";
-import NewPromiseF from "../../pages/NewPromise/NewPromiseF";
-import { Link } from "react-router-dom";
-import { MdPersonSearch } from "react-icons/md";
-import { FaHome } from "react-icons/fa";
-import { HiUserGroup } from "react-icons/hi";
-import { BsPersonCircle } from "react-icons/bs";
-import { ImPlus } from "react-icons/im";
-import SearchBar from "../../components/Search/SearchBar";
-import ProfileInfo from "../../components/ProfileInfo/ProfileInfo";
-import InputForm from "../../components/InputForm/InputForm";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import { ko } from "date-fns/esm/locale";
-import { getMonth, getDate, getDay } from "date-fns";
-import { weekdays } from "moment";
+import { BsPersonCircle } from "react-icons/bs";
+import { FaHome } from "react-icons/fa";
+import { HiUserGroup } from "react-icons/hi";
+import { ImPlus } from "react-icons/im";
+import { MdPersonSearch } from "react-icons/md";
+import { Link } from "react-router-dom";
+import InputForm from "../../components/InputForm/InputForm";
+import ProfileInfo from "../../components/ProfileInfo/ProfileInfo";
+import SearchBar from "../../components/Search/SearchBar";
+import Modal from "../Modal/Modal";
+import "./TabBar.scss";
 
 export default function TabBar(props) {
   // 모달창 노출 여부 state
@@ -31,11 +29,16 @@ export default function TabBar(props) {
 
   const [startDate, setStartDate] = useState(new Date());
 
+  /* 친구 리스트 변수 선언 */ 
   const [friendList, setFriendList] = useState([]);
-
+  
+  /* 자식 컴포넌트에서 친구 리스트 data 가져와서 변수에 할당 */ 
   const importFriendList = (data) => {
     setFriendList(data)
   }
+
+  /* 약속 생성 axios */
+
   return (
     <>
       <div className="wrapper">
@@ -100,9 +103,9 @@ export default function TabBar(props) {
                       id="IU"
                     />
                   </div>
-                  {friendList.length > 0 && friendList.map((friend) => {
+                  {friendList.length > 0 && friendList.map((friend, idx) => {
                     return (
-                      <div className="new-promise-profile-wrapper">
+                      <div key={idx} className="new-promise-profile-wrapper">
                         <ProfileInfo
                           imgName="IU_Profile"
                           nickName={friend.memberNick}

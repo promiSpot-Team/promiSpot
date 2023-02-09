@@ -33,12 +33,15 @@ export default function PlaceSearch() {
     console.log(promiseSeq);
   }, [promiseSeq]);
 
+  /* hooks/useAxios.js 에서 받아오는 axios의 response 값 
+    여기서는 장소의 검색 결과 리스트 */
   const GetAxiosResponse = ({ response, error, loading }) => {
     if (response?.data?.documents) {
       setPlaceList(response.data.documents);
     }
   };
 
+  /* 상위컴포넌트(/map)에서 지도가 드래그 될 때마다 검색 결과 변경 */
   useEffect(() => {
     childRef.current.whileDragMapHandle();
     
@@ -47,10 +50,12 @@ export default function PlaceSearch() {
     }
   }, []);
 
+  /* 지도 반경이 변화될 때마다 <SearchBar />에 변경된 검색 결과 반영 */
   useEffect(() => {
     childRef.current.whileDragMapHandle();
   }, [stateRect]);
 
+  /* hooks/useAxios.js 에 보내는 config */
   const config = {
     method: "GET",
     baseURL: `${KAKAO_MAP_URL}/v2/local/search/keyword`,
@@ -62,6 +67,7 @@ export default function PlaceSearch() {
     },
   };
 
+  /* 변경된 위치에 따른 변경된 검색 결과 저장 */
   function moveToPlaceDetail(place) {
     dispatch(savePlaceList(placeList));
     // store.dispatch({
@@ -70,7 +76,7 @@ export default function PlaceSearch() {
     // });
     navigate(`/map/${promiseSeq}/${place.id}`, { state: place });
   }
-
+  
   return (
     <motion.div
       className="place-modal-wrapper"

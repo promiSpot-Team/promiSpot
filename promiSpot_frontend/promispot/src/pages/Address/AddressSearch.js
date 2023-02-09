@@ -1,27 +1,26 @@
-import React, { useState, useEffect } from 'react'
-import FormControl from "@mui/material/FormControl";
-import TextField from "@mui/material/TextField";
-import BasicButton from "../../components/Buttons/BasicButton";
+import React, { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import WhiteHeader from '../../components/Header/BasicHeader1';
 import SearchBar from '../../components/Search/SearchBar2';
-import { KAKAO_MAP_URL, KAKAO_REST_API_KEY } from '../../constants/constants'
-import '../scss/Search_Bar.scss'
-import '../scss/Address.scss'
-import { setAddress } from '../../reducer/user'
-import { useNavigate } from 'react-router-dom'
-import { useDispatch } from 'react-redux'
+import { KAKAO_MAP_URL, KAKAO_REST_API_KEY } from '../../constants/constants';
+import { setAddress } from '../../reducer/user';
+import '../scss/Address.scss';
+import '../scss/Search_Bar.scss';
 
 export default function AddressSearch() {
   const [addressList, setAddressList] = useState([]);
   const navigate = useNavigate();
   const dispatch = useDispatch()
 
+  /* /hooks/useAxios.js 에서 axios의 response 값을 가져오는 함수 */
   const GetAxiosResponse = ({ response, error, loading }) => {
     if (response?.data?.documents) {
       setAddressList(response.data.documents)
     }
   }
   
+  /* /hooks/useAxios.js로 보내는 config 객체 선언 */
   const config = {
     method: 'GET', 
     baseURL: `${KAKAO_MAP_URL}/v2/local/search/address`,
@@ -31,6 +30,7 @@ export default function AddressSearch() {
     },
   }
 
+  /* 리덕스(/reduer/map)에 주소 정보 저장 */
   const saveAddressInfo = (address) => {
     const addressInfo = {
       addressAddress: address.address.address_name,
@@ -38,14 +38,16 @@ export default function AddressSearch() {
       addressY: address.address.y,
     }
     dispatch(setAddress(addressInfo))
-    navigate('/join2')
+    navigate(-1)
   }
 
   useEffect(() => {
+    /* 페이지 언마운트 될 때 실행 */
     return () => {
       console.log('bye')
     }
   })
+
   return (
     <div>
       <WhiteHeader text="주소 검색"/>

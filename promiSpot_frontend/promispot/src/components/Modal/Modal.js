@@ -14,6 +14,8 @@ export default function Modal(props) {
 
   const [friendList, setFriendList] = useState([])
 
+  /* <TabBar /> 하위 컴포넌트 */
+  /* 약속 잡을 때 내 친구 목록 불러오기 */
   const getFriendList = async () => {
     try {
       const response = await axios({
@@ -32,6 +34,7 @@ export default function Modal(props) {
     getFriendList()
   }, [])
 
+  /* <TabBar /> 로 friendList 넘겨주기 */ 
   useEffect(() => {
     importFriendList(friendList)
   }, [friendList])
