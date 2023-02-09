@@ -11,32 +11,34 @@ import { SERVER_URL } from '../../constants/constants'
 
 export default function NewPromiseF() {
   const [modalOpen, setModalOpen] = useState(false);
-  const [friendList, setFriendList] = useState([])
-  const memberSeq = useSelector(state => state?.currentUserInfo?.memberSeq ? state.currentUserInfo.memberSeq : 0)
-
+  const memberSeq = useSelector(state => state?.user?.info?.memberSeq ? state.user.info.memberSeq : 0)
+  
   const [showNextModal, setShowNextModal] = useState(false);
-
+  
   const changeModal = () => {
     setShowNextModal(!showNextModal);
   }
-
+  
+  const [friendList, setFriendList] = useState([])
   const getFriendList = async () => {
     
-   // 처음 생성 될 때 약속장의 친구 목록 불러오기
+    // 처음 생성 될 때 약속장의 친구 목록 불러오기
     const response = await axios({
       url: `${SERVER_URL}/friends/${memberSeq}`,
       method: 'GET'
     })
+    console.log(response.data)
     setFriendList(response.data)
   }
+  
+  useEffect(() => {
+    getFriendList()
+  }, [])
 
   const HandleInputFocus = () => {
     // console.log(data)
   }
 
-  useEffect(() => {
-    getFriendList()
-  }, [])
 
   useEffect(() => {
     console.log("friendList", friendList)

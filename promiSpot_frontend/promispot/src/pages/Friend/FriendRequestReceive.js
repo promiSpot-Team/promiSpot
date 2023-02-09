@@ -7,9 +7,8 @@ import '../scss/Friend.scss';
 export default function FriendRequestReceive({ memberSeq }) {
   const [friendRequestList, setFriendRequestList] = useState(null)
 
-  console.log()
   // 받은 친구 요청 가져오기
-  const getFriendRequestList = async () => {
+  const getReceiveFriendRequest = async () => {
     try {
       const response = await axios({
         method: 'GET', 
@@ -24,16 +23,21 @@ export default function FriendRequestReceive({ memberSeq }) {
   }
 
   useEffect(() => {
-    getFriendRequestList() 
+    getReceiveFriendRequest() 
   }, [])
 
   return (
     <div className="friend-list-wrapper">
       <div className='friend-list-each-wrapper'>
-        <ProfileInfoR imgName="KYJ_Profile" nickName="세자빈" id="KYJ"/>
+
+        {/* 더미 데이터 */}
+        {/* <ProfileInfoR imgName="KYJ_Profile" nickName="세자빈" id="KYJ"/> */}
+        
         {friendRequestList && friendRequestList.map((friend, idx) => {
           return (
-            <ProfileInfoR imgName="KYJ_Profile" 
+            <ProfileInfoR 
+              key={idx}
+              imgName="KYJ_Profile" 
               nickName={friend.memberNick} 
               id={friend.memberId}
               friendRequestSeq={friend.friendRequestSeq}/>

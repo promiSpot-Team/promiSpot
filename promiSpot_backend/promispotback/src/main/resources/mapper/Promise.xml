@@ -8,8 +8,9 @@
 <mapper namespace="com.ssafy.promispotback.promise.model.mapper.PromiseMapper">
 
 
-	<!-- 약속 생성  -->
-	<insert id="createPromise" parameterType="promiseEntity">
+	<!-- 약속 생성
+	 약속 생성 후 생성된 키값 가져오기 useGeneratedKeys="true" keyProperty="promiseSeq" -->
+	<insert id="createPromise" parameterType="PromiseEntity" useGeneratedKeys="true" keyProperty="promiseSeq">
 		insert into promises(promise_title, promise_leader, promise_date, promise_time, promise_day, promise_vote_is_finish, promise_schedule_is_finish)
 		values(#{promiseTitle}, #{promiseLeader}, #{promiseDate}, #{promiseTime}, #{promiseDay},
 		    #{promiseVoteIsFinish}, #{promiseScheduleIsFinish})
