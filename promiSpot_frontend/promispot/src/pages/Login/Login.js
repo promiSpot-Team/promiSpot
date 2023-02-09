@@ -34,7 +34,6 @@ function Login() {
   const handleInputPw = (e) => {
     setInputPw(e.target.value);
   };
-  console.log(1)
 
   const loginHandle = async(data) => {
     try {
