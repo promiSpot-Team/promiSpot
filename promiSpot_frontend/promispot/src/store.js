@@ -4,6 +4,7 @@ import { persistReducer } from 'redux-persist'
 import storage from 'redux-persist/lib/storage'
 // import storageSession from 'redux-persist/lib/storage/session'
 import user from './reducer/user'
+import map from './reducer/map'
 
 const persistConfig = {
   key: 'root',
@@ -13,7 +14,8 @@ const persistConfig = {
 } 
 
 const rootReducer = combineReducers({
-  user
+  user,
+  map
 })
 
 const persistedReducer = persistReducer(persistConfig, rootReducer)

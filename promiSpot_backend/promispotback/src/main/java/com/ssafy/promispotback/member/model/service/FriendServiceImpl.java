@@ -1,9 +1,12 @@
 package com.ssafy.promispotback.member.model.service;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import com.ssafy.promispotback.member.model.entity.RequestMemberEntity;
+import com.ssafy.promispotback.member.model.entity.MemberFriendEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,7 +16,7 @@ import com.ssafy.promispotback.member.model.mapper.FriendMapper;
 
 @Service
 public class FriendServiceImpl implements FriendService {
-	
+
 	@Autowired
 	private FriendMapper friendMapper;
 
@@ -41,10 +44,26 @@ public class FriendServiceImpl implements FriendService {
 		return friendMapper.rejectFriend(friendRequestSeq) == 1;
 	}//rejectFriend
 
-	// 친구 정보 조회
+	// 친구 정보 리스트 조회 (친구 검색했을 떼 나오는 목록)
 	@Override
-	public List<MemberEntity> findFriend(String memberId) throws SQLException {
-		return friendMapper.findFriend(memberId);
+	public List<MemberFriendEntity> findFriend(int memberSeq, String memberInfo) throws SQLException {
+		List<MemberEntity> members = friendMapper.findFriend(memberSeq, memberInfo);
+		List<MemberFriendEntity> memberFriends = new ArrayList<>();
+		Iterator<MemberEntity> it = members.listIterator();
+
+		while(it.hasNext()){
+			MemberEntity member = it.next();
+			MemberFriendEntity friend = new MemberFriendEntity(member.getMemberSeq()
+					, member.getMemberId()
+					, member.getMemberNick()
+					, member.getMemberPhoneNum()
+					, member.getMemberImgPath()
+					, member.getMemberImgServerName()
+					, friendMapper.isFriend(memberSeq, member.getMemberSeq())
+			);
+			memberFriends.add(friend);
+		}
+		return memberFriends;
 	}//findFriend
 
 	// 친구 목록 조회

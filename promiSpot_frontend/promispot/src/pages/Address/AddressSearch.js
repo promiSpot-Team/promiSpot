@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import FormControl from "@mui/material/FormControl";
 import TextField from "@mui/material/TextField";
 import BasicButton from "../../components/Buttons/BasicButton";
@@ -41,6 +41,11 @@ export default function AddressSearch() {
     navigate('/join2')
   }
 
+  useEffect(() => {
+    return () => {
+      console.log('bye')
+    }
+  })
   return (
     <div>
       <WhiteHeader text="주소 검색"/>

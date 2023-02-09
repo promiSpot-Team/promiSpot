@@ -30,6 +30,12 @@ export default function TabBar(props) {
   };
 
   const [startDate, setStartDate] = useState(new Date());
+
+  const [friendList, setFriendList] = useState([]);
+
+  const importFriendList = (data) => {
+    setFriendList(data)
+  }
   return (
     <>
       <div className="wrapper">
@@ -76,6 +82,7 @@ export default function TabBar(props) {
             title="새로운 약속 생성"
             button="✖"
             closeModal={() => setModalOpen(!modalOpen)}
+            importFriendList={importFriendList}
           >
             {!nextModal ? (
               <>
@@ -93,27 +100,18 @@ export default function TabBar(props) {
                       id="IU"
                     />
                   </div>
-                  <div className="new-promise-profile-wrapper">
-                    <ProfileInfo
-                      imgName="KSH_Profile"
-                      nickName="도민준"
-                      id="KSH"
-                    />
-                  </div>
-                  <div className="new-promise-profile-wrapper">
-                    <ProfileInfo
-                      imgName="KYJ_Profile"
-                      nickName="세자빈"
-                      id="KYJ"
-                    />
-                  </div>
-                  <div className="new-promise-profile-wrapper">
-                    <ProfileInfo
-                      imgName="PBG_Profile"
-                      nickName="보거미"
-                      id="PBG"
-                    />
-                  </div>
+                  {friendList.length > 0 && friendList.map((friend) => {
+                    return (
+                      <div className="new-promise-profile-wrapper">
+                        <ProfileInfo
+                          imgName="IU_Profile"
+                          nickName={friend.memberNick}
+                          id={friend.memberId}
+                          friendSeq={friend.memberSeq}
+                        />
+                      </div>
+                    )
+                  })}
                   <div className="new-promise-under-wrapper">
                     <div className="new-promise-under-images-wrapper">
                       <div className="new-promise-under-img">
