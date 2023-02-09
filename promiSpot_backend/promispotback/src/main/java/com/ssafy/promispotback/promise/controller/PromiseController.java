@@ -40,6 +40,7 @@ public class PromiseController {
 			int result = promiseService.createPromise(promiseEntity);
 			
 			if(result != 0) {
+				result = promiseEntity.getPromiseSeq();
 				resultMap.put("message", "success");
 				resultMap.put("promiseSeq", result);
 				return new ResponseEntity<Map<String, Object>>(resultMap, HttpStatus.OK);
@@ -53,8 +54,6 @@ public class PromiseController {
 			return exceptionHandling(e);
 		}	
 	}
-	
-	
 	
 	// 약속 조회 
 	@GetMapping("get/{promiseSeq}")
