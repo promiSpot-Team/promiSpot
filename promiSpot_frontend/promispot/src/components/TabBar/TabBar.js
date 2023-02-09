@@ -8,13 +8,15 @@ import { FaHome } from "react-icons/fa";
 import { HiUserGroup } from "react-icons/hi";
 import { ImPlus } from "react-icons/im";
 import { MdPersonSearch } from "react-icons/md";
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import InputForm from "../../components/InputForm/InputForm";
 import ProfileInfo from "../../components/ProfileInfo/ProfileInfo";
 import SearchBar from "../../components/Search/SearchBar";
 import Modal from "../Modal/Modal";
 import "./TabBar.scss";
-import { useSelector } from "react-redux";
+import axios from 'axios'
+import { SERVER_URL } from "../../constants/constants";
 
 export default function TabBar(props) {
   // 모달창 노출 여부 state
@@ -38,10 +40,43 @@ export default function TabBar(props) {
     setFriendList(data)
   }
 
-  /* 약속에 추가된 친구 목록 가져오기 */
+  /* 약속에 추가된 친구 목록 리덕스에서 가져오기 */
   const promiseFriendList = useSelector(state => state.promise.friendList)
 
   /* 약속 생성 axios */
+  const createPromise = async () => {
+    try {
+      /* 약속 생성 */
+      const response1 = await axios({
+        method: 'POST', 
+        url: `${SERVER_URL}/promise/createPromise`,
+        data: {
+          "promiseTitle" : "예시",
+          "promiseLeader" : 1,
+          "promiseDate" : "2023년 2월 17일",
+          "promiseTime" : "02:00PM",
+          "promiseDay" : "월요일",
+          "promiseVoteIsFinish" : 0,
+          "promiseScheduleIsFinish" : 0
+        }
+      })
+      /* promiseSeq 값 받기 */
+      const promiseSeq = response1.data.promiseSeq
+
+      /* 약속 친구 추가 */
+      const response2 = await axios({
+        method: 'POST', 
+        url: `${SERVER_URL}/promise/member/regist`,
+        data: {
+          promiseSeq,
+          memberSeq: 4, 
+          promiseMemberIsLeader: 0,
+        }
+      })
+    } catch(err) {
+      console.log(err)
+    }
+  }
 
   return (
     <>
@@ -180,10 +215,10 @@ export default function TabBar(props) {
                     inline
                   ></DatePicker>
 
-                  <div className="new-promise-under-btn-wrapper">
-                    <Link to={"/map"} className="link">
+                  <div onClick={createPromise} className="new-promise-under-btn-wrapper">
+                    {/* <Link to={"/map"} className="link">
                       생성
-                    </Link>
+                    </Link> */}
                   </div>
                 </div>
               </>
