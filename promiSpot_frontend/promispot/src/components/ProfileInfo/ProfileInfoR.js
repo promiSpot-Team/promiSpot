@@ -10,6 +10,7 @@ export default function ProfileInfo(props) {
   const imgUrl = "/images/" + imgName + ".jpg";
   const [isAccept, setIsAccept] = useState(null)
 
+  console.log('확인', props)
   const acceptFriendRequest = async () => {
     try {
       const response = await axios({

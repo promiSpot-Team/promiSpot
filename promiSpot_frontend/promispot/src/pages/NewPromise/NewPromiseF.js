@@ -12,7 +12,7 @@ import { SERVER_URL } from '../../constants/constants'
 export default function NewPromiseF() {
   const [modalOpen, setModalOpen] = useState(false);
   const [friendList, setFriendList] = useState([])
-  const memberSeq = useSelector(state => state?.currentUserInfo?.memberSeq ? state.currentUserInfo.memberSeq : 0)
+  const memberSeq = useSelector(state => state?.user?.info?.memberSeq ? state.user.info.memberSeq : 0)
 
   const [showNextModal, setShowNextModal] = useState(false);
 

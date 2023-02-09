@@ -90,7 +90,7 @@ export default function Friend(props) {
 
   // 친구 요청 보내기
   // 내 친구 목록/받은 요청/보낸 요청에 다 memberSeq props로 넘겨주기
-  const memberSeq = useSelector(state => state.currentUserInfo.memberSeq)
+  const memberSeq = useSelector(state => state.user.info.memberSeq)
 
   const sendFriendRequest = async (friendRequestMember) => {
     try {

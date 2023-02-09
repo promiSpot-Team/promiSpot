@@ -10,8 +10,8 @@ import '../scss/Search_Bar.scss'
 import { savePlaceList } from '../../reducer/map'
 
 export default function PlaceSearch() {
-  const statePlaceList = useSelector((state) => state.placeList);
-  const stateRect = useSelector((state) => state.rect);
+  const statePlaceList = useSelector((state) => state.map.placeList);
+  const stateRect = useSelector((state) => state.map.rect);
   const [placeList, setPlaceList] = useState(statePlaceList);
   const navigate = useNavigate();
   const childRef = useRef();
@@ -25,6 +25,10 @@ export default function PlaceSearch() {
 
   useEffect(() => {
     childRef.current.whileDragMapHandle();
+    
+    return () => {
+      console.log(localStorage.getItem(''))
+    }
   }, []);
 
   useEffect(() => {
