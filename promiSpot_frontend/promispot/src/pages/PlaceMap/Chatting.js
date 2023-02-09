@@ -1,6 +1,7 @@
 import { useRef, useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-// import * as StompJs from "@stomp/stompjs";
+import * as StompJs from "@stomp/stompjs";
+
 import { SERVER_URL } from "../../constants/constants";
 
 const spawn = require("child_process").spawn;
@@ -16,16 +17,16 @@ export default function Chatting() {
   const { apply_id } = 1; // 채널을 구분하는 식별자를 URL 파라미터로 받는다.
   const client = useRef({});
 
-  // const connect = () => {
-  //   client.current = new StompJs.Client({
-  //     brokerURL: "ws://localhost:9090/api/ws",
-  //     onConnect: () => {
-  //       console.log("success");
-  //       subscribe();
-  //     },
-  //   });
-  //   client.current.activate();
-  // };
+  const connect = () => {
+    client.current = new StompJs.Client({
+      brokerURL: "ws://localhost:9090/api/ws",
+      onConnect: () => {
+        console.log("success");
+        subscribe();
+      },
+    });
+    client.current.activate();
+  };
 
   // 메시지를 발행하는 코드
   const publish = (chat) => {
@@ -34,7 +35,7 @@ export default function Chatting() {
     client.current.publish({
       destination: "/pub/chat",
       body: JSON.stringify({
-        channelId: apply_id,
+        channelId: 1,
         writerId: 1,
         chat: chat,
       }),
@@ -45,9 +46,12 @@ export default function Chatting() {
 
   // 채널을 구독하고 구독 중인 채널에서 메시지가 왔을 때 처리하는 코드
   const subscribe = () => {
-    client.current.subscribe("/sub/chat/" + apply_id, (body) => {
+    client.current.subscribe("/sub/chat/" + 1, (body) => {
       const json_body = JSON.parse(body.body);
-      setChatList((_chat_list) => [..._chat_list, json_body]);
+
+      setChatList((prev) => [...prev, json_body]);
+
+      console.log(chatList);
     });
   };
 
@@ -63,27 +67,34 @@ export default function Chatting() {
   const handleSubmit = (event, chat) => {
     // 보내기 버튼 눌렀을 때 publish
     event.preventDefault();
-    console.log(chat);
+
     publish(chat);
   };
 
   useEffect(() => {
-    // connect();
+    connect();
 
     return () => disconnect();
   }, []);
 
   return (
-    <div>
-      <div className={"chat-list"}>{chatList}</div>
+    <div style={{ position: "absolute", zIndex: 999 }}>
+      <h1>chatting</h1>
+
+      <ul>
+        {chatList.length > 0 &&
+          chatList.map((one) => {
+            return (
+              <div>
+                {one.writerId} : {one.chat}
+              </div>
+            );
+          })}
+      </ul>
+
       <form onSubmit={(event) => handleSubmit(event, chat)}>
         <div>
-          <input
-            type={"text"}
-            name={"chatInput"}
-            onChange={handleChange}
-            value={chat}
-          />
+          <input type={"text"} name={"chatInput"} onChange={handleChange} value={chat} />
         </div>
         <input type={"submit"} value={"의견 보내기"} />
       </form>
