@@ -18,6 +18,7 @@ export default function ProfileInfo(props) {
         url: `${SERVER_URL}/friend/request/${props.friendRequestSeq}`
       })
       console.log(response)
+      setClearRequest(true)
     } catch(err) {
       console.log(err)
     }
@@ -32,9 +33,9 @@ export default function ProfileInfo(props) {
       processFriendRequest()
     }
   }, [axiosMethod])
-
+  
   if (clearRequest === true) {
-
+    return null
   }
 
   return (

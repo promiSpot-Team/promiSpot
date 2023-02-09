@@ -16,7 +16,6 @@ export default function FriendList({ memberSeq }) {
         method: 'GET', 
         url: `${SERVER_URL}/friend/friends/${memberSeq}`
       })
-      console.log("내 친구 목록 조회하기 ", response)
       setFriendList(response.data)
     } catch(err) {
       if (err.response.status === 404) {
@@ -49,6 +48,13 @@ export default function FriendList({ memberSeq }) {
             id={friend.memberId}/>
         )
       })}
+      <div style={{
+        width: '100%',
+        height: '10vh', 
+        color: 'white',
+      }}>
+        asdf
+      </div>
     </div>
   );
 }
