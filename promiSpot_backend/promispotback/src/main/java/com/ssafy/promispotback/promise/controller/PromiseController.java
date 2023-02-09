@@ -1,7 +1,9 @@
 package com.ssafy.promispotback.promise.controller;
 
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.ssafy.promispotback.promise.model.entity.PromiseDataEntity;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,15 +32,21 @@ public class PromiseController {
 	PromiseService promiseService;
 
 	// 약속 생성
-	@PostMapping("create")
+	@PostMapping("/create")
 	public ResponseEntity<?> createPromise(@RequestBody PromiseEntity promiseEntity) {
+		System.out.println("ddd");
+		Map<String, Object> resultMap = new HashMap<>();
 		try {
 			int result = promiseService.createPromise(promiseEntity);
 			
 			if(result != 0) {
-				return new ResponseEntity<String>("success", HttpStatus.OK);
+				result = promiseEntity.getPromiseSeq();
+				resultMap.put("message", "success");
+				resultMap.put("promiseSeq", result);
+				return new ResponseEntity<Map<String, Object>>(resultMap, HttpStatus.OK);
 			} else {
-				return new ResponseEntity<String>("fail", HttpStatus.ACCEPTED);
+				resultMap.put("message", "fail");
+				return new ResponseEntity<Map<String, Object>>(resultMap, HttpStatus.OK);
 			}
 			
 		} catch (Exception e) {
@@ -46,8 +54,6 @@ public class PromiseController {
 			return exceptionHandling(e);
 		}	
 	}
-	
-	
 	
 	// 약속 조회 
 	@GetMapping("get/{promiseSeq}")

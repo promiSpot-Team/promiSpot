@@ -12,12 +12,15 @@ import PlaceSearch from "./PlaceSearch";
 import { changeRect } from '../../reducer/map';
 import Modal2 from "../../components/Modal/Modal2";
 
+import axios from "axios";
+import { SERVER_URL } from "../../constants/constants";
+
 const { kakao } = window;
 
 export default function MapContainer() {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
-  const [isSearchSelect, setIsSearchSelect] = useState(false)
+  const [isSearchSelect, setIsSearchSelect] = useState(false);
   // const [isSearchSelect, setIsSearchSelect] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
   const stateMapCenterPosition = useSelector(
@@ -35,6 +38,72 @@ export default function MapContainer() {
   const isValid = () => {
     setValid(!valid);
   };
+
+  // 로그인한 회원 정보 가져오기
+  const memberSeq = useSelector((state) => state.user.info.memberSeq);
+
+  // 로그인한 회원의 등록한 주소들 가져오기
+  const [memberAddressList, setMemberAddressList] = useState(null);
+  const searchMemberAddressList = async () => {
+    const response = await axios({
+      method: "GET",
+      url: `${SERVER_URL}/address/addressList/${memberSeq}`,
+    });
+    if (response.data !== "fail") {
+      setMemberAddressList(response.data);
+    }
+  };
+  useEffect(() => {
+    searchMemberAddressList();
+  }, []);
+  useEffect(() => {
+    console.log(memberAddressList);
+  }, [memberAddressList]);
+
+  // 등록한 주소 중 하나 선택하기
+  const [selectAddress, setSelectAddress] = useState();
+  const addressSelect = (e) => {
+    setSelectAddress(e.target.value);
+  };
+  useEffect(() => {
+    console.log(selectAddress);
+  }, [selectAddress]);
+
+  // 사람 프로필 마커 찍기
+  mapdata.users.forEach((user) => {
+    var customOverlay = new kakao.maps.CustomOverlay({
+      position: new kakao.maps.LatLng(37.5013, 127.0399),
+      content: `<div class="map-user-profile"><img src=${user.profile_url}></div>`,
+      xAnchor: 0.3,
+      yAnnchor: 0.91,
+    });
+
+    customOverlay.setMap(map);
+  });
+
+  // 장소 마커 찍기
+  mapdata.places.forEach((place) => {
+    var customOverlay = new kakao.maps.CustomOverlay({
+      position: new kakao.maps.LatLng(place.place_y, place.place_x),
+      content: `<div class="pin"></div><div class="pulse"></div>`,
+      xAnchor: 0.3,
+      yAnchor: 0.91,
+    });
+
+    customOverlay.setMap(map);
+
+    // 마커 그리기
+    // const marker = new kakao.maps.Marker({
+    //   map: map,
+    //   clickable: true,
+    //   position: new kakao.maps.LatLng(place.place_y, place.place_x),
+    //   placeName: place.place_name
+    // })
+
+    // kakao.maps.event.addListener(marker, 'click', () => {
+    //   console.log('click!')
+    // })
+  });
 
   // // 지도에 장소가 등록됐을 때
   // useEffect(() => {
@@ -104,14 +173,15 @@ export default function MapContainer() {
     var map = new kakao.maps.Map(container, options);
     setMap(map);
     var bounds = map.getBounds();
-    var newRect = String(bounds.ha) +
-                  "," +
-                  String(bounds.qa) +
-                  "," +
-                  String(bounds.oa) +
-                  "," +
-                  String(bounds.pa)
-    dispatch(changeRect(newRect))
+    var newRect =
+      String(bounds.ha) +
+      "," +
+      String(bounds.qa) +
+      "," +
+      String(bounds.oa) +
+      "," +
+      String(bounds.pa);
+    dispatch(changeRect(newRect));
     // store.dispatch({
     //   type: "CHANGE_MAP_RECT",
     //   rect:
@@ -130,14 +200,15 @@ export default function MapContainer() {
     kakao.maps.event.addListener(map, "dragend", function () {
       // 지도의 영역이 변경될 때마다 가장자리 좌표값 변경된 거 보내주기
       var bounds = map.getBounds();
-      var newRect = String(bounds.ha) +
-                    "," +
-                    String(bounds.qa) +
-                    "," +
-                    String(bounds.oa) +
-                    "," +
-                    String(bounds.pa)
-      dispatch(changeRect(newRect))
+      var newRect =
+        String(bounds.ha) +
+        "," +
+        String(bounds.qa) +
+        "," +
+        String(bounds.oa) +
+        "," +
+        String(bounds.pa);
+      dispatch(changeRect(newRect));
       // setRect(
       //   String(bounds.ha) +
       //     "," +
@@ -156,6 +227,18 @@ export default function MapContainer() {
 
   return (
     <div id="map-all-wrapper">
+      {/* 회원이 지정한 주소를 가져와 선택하게 하는 DIV */}
+      <div>출발 주소 선택</div>
+      <div>
+        {/* <select onChange={addressSelect} value={selectAddress}>
+          {memberAddressList.map((address) => (
+            <option value={address} key={address.addressSeq}>
+              {address.nick}
+            </option>
+          ))}
+        </select> */}
+      </div>
+
       <div id="map" className="map-wrapper">
         <Outlet />
       </div>
@@ -195,9 +278,7 @@ export default function MapContainer() {
               </div>
             </div>
             <div>
-              <div className="vote-done-text-wrapper">
-                투표가 종료되었습니다
-              </div>
+              <div className="vote-done-text-wrapper">투표가 종료되었습니다</div>
               <div className="vote-done-btn-wrapper">
                 <div className="vote-done-top-sep-wrapper"></div>
                   <Link className="vote-done-btn-one-wrapper" to={"/main"}>

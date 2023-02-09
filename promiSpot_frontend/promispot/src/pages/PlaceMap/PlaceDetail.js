@@ -1,10 +1,9 @@
 import React from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import BasicHeader from "../../components/Header/BasicHeader3";
-import getDetail from './GetDetail'
-import { setPlace } from '../../reducer/map'
+import getDetail from "./GetDetail";
+import { setPlace } from "../../reducer/map";
 import { useDispatch } from "react-redux";
-
 
 export default function PlaceDetail() {
   const navigate = useNavigate();
@@ -14,7 +13,10 @@ export default function PlaceDetail() {
 
   // 장소 등록하기를 누르면 지도에 표시하기
   const registerPlaceToMap = () => {
-    dispatch(setPlace(place))
+    dispatch(setPlace(place));
+
+    console.log(place);
+
     // store.dispatch({
     //   type: "REGISTER_PLACE_TO_MAP",
     //   mapCenterPosition: {

@@ -28,9 +28,15 @@ import Test4 from "./pages/Login/Test4";
 import Chatting from "./pages/PlaceMap/Chatting";
 import Schedule from "./pages/PlaceMap/Schedule";
 import MyAddress from "./pages/MyPage/MyAddress";
+import { useEffect } from 'react'
 
 function App() {
   // const history = useHistory();
+  useEffect(() => {
+    return () => {
+      window.localStorage.clear()
+    }
+  })
   return (
     <Routes>
       <Route path="/" element={<Start />} />
@@ -39,11 +45,12 @@ function App() {
       {/* <Route path="/form" component={Form} /> */}
       <Route path="/main" element={<Main />} />
       {/* <Route component={NotFound} /> */}
-      <Route path="/map" element={<MapContainer />}>
+      <Route path="/map/:promiseSeq" element={<MapContainer />}>
         <Route path="search" element={<PlaceSearch />} />
         <Route path="recommend" element={<PlaceRecommend />} />
         <Route path=":placeId" element={<PlaceDetail />} />
-        <Route path="schedule" element={<Schedule/>}/>
+        <Route path="schedule" element={<Schedule />} />
+        <Route path="chatting" element={<Chatting />} />
       </Route>
       <Route path="/address">
         <Route path="search" element={<AddressSearch />} />
@@ -58,6 +65,7 @@ function App() {
       <Route path="/join2" element={<Join2 />} />
       <Route path="/detail" element={<GetDetail />} />
       <Route path="/test" element={<Test />} />
+
       {/* <Route path="/test2" element={<Test2/>}/> */}
       <Route path="/chatting" element={<Chatting />} />
       <Route path="/test4" element={<Test4/>}/>
