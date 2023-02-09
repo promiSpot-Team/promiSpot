@@ -30,8 +30,11 @@ public class PromiseController {
 	PromiseService promiseService;
 
 	// 약속 생성
-	@PostMapping("create")
+	@PostMapping("/create")
 	public ResponseEntity<?> createPromise(@RequestBody PromiseEntity promiseEntity) {
+
+		System.out.println("work 작동중 ");
+
 		try {
 			int result = promiseService.createPromise(promiseEntity);
 			

@@ -2,15 +2,11 @@ package com.ssafy.promispotback.promise.model.entity;
 
 import java.util.Date;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import lombok.Data;
 
 @ApiModel(value = "PromiseEntity : 약속", description = "약속 정보를 나타낸다.")
-@JsonInclude(JsonInclude.Include.NON_NULL)
-@Data
 public class PromiseEntity {
 
 	@ApiModelProperty(value = "약속일련번호")
@@ -118,4 +114,6 @@ public class PromiseEntity {
 	public void setPromiseScheduleIsFinish(int promiseScheduleIsFinish) {
 		this.promiseScheduleIsFinish = promiseScheduleIsFinish;
 	}
+
+
 }
