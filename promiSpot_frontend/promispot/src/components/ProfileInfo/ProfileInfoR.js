@@ -8,13 +8,13 @@ export default function ProfileInfo(props) {
 
   const {imgName, nickName, id} = props;
   const imgUrl = "/images/" + imgName + ".jpg";
-  const [isAccept, setIsAccept] = useState(null)
+  const [axiosMethod, setAxiosMethod] = useState('')
+  const [clearRequest, setClearRequest] = useState(false)
 
-  console.log('확인', props)
-  const acceptFriendRequest = async () => {
+  const processFriendRequest = async () => {
     try {
       const response = await axios({
-        method: 'PUT',
+        method: axiosMethod,
         url: `${SERVER_URL}/friend/request/${props.friendRequestSeq}`
       })
       console.log(response)
@@ -23,27 +23,19 @@ export default function ProfileInfo(props) {
     }
   }
 
-  const rejectFriendRequest = async() => {
-    try {
-      const res = await axios({
-        method: 'DELETE',
-        url: `${SERVER_URL}/friend/request/${props.friendRequestSeq}`
-      })
-      console.log(res)
-    } catch (err) {
-      console.log(err)
-    }
-  }
-
-  const acceptRequest = () => {
-    setIsAccept(true)
+  const onClick = (method) => {
+    setAxiosMethod(method)
   }
 
   useEffect(() => {
-    if (isAccept == true) {
-      acceptFriendRequest()
+    if (axiosMethod === 'PUT' || axiosMethod === 'DELETE') {
+      processFriendRequest()
     }
-  }, [isAccept])
+  }, [axiosMethod])
+
+  if (clearRequest === true) {
+
+  }
 
   return (
     <div className='profile-info-wrapper'>
@@ -56,8 +48,8 @@ export default function ProfileInfo(props) {
         <div className='profile-info-id-wrapper'>{id}</div>
       </div>
       <div className='profile-info-button-wrapper'>
-        <div className='profile-info-button' onClick={acceptRequest}><MiniButton text="수락"/></div>
-        <div className='profile-info-button'><MiniButton text="거절"/></div>
+        <div className='profile-info-button' onClick={() => onClick('PUT')}><MiniButton text="수락"/></div>
+        <div className='profile-info-button' onClick={() => onClick('DELETE')}><MiniButton text="거절"/></div>
         
       </div>
     </div>

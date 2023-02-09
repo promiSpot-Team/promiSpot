@@ -6,7 +6,6 @@ export default function ProfileInfo(props) {
   const {imgName, nickName, id} = props;
   const imgUrl = "/images/" + imgName + ".jpg";
 
-  console.log(props)
   return (
     <div className='profile-info-wrapper'>
       <div className='profile-info-img-wrapper'>

@@ -29,10 +29,15 @@ export default function FriendRequestReceive({ memberSeq }) {
   return (
     <div className="friend-list-wrapper">
       <div className='friend-list-each-wrapper'>
-        <ProfileInfoR imgName="KYJ_Profile" nickName="세자빈" id="KYJ"/>
+        
+        {/* 더미 데이터 */}
+        {/* <ProfileInfoR imgName="KYJ_Profile" nickName="세자빈" id="KYJ"/> */}
+        
         {friendRequestList && friendRequestList.map((friend, idx) => {
           return (
-            <ProfileInfoR imgName="KYJ_Profile" 
+            <ProfileInfoR 
+              key={idx}
+              imgName="KYJ_Profile" 
               nickName={friend.memberNick} 
               id={friend.memberId}
               friendRequestSeq={friend.friendRequestSeq}/>

@@ -53,8 +53,11 @@ function a11yProps(index) {
 }
 
 export default function Friend(props) {
+  const [friendSearchResult, setFriendSearchResult] = useState([]);
+  
   const [value, setValue] = useState(0);
   const [valid, setValid] = useState(false);
+  const [toWho, setToWho] = useState([]);
 
   const isValid = () => {
     console.log(valid);
@@ -72,8 +75,6 @@ export default function Friend(props) {
     setInputData(e.target.value)
   }
 
-  const [friendSearchResult, setFriendSearchResult] = useState(null);
-
   // 변경된 inputData 값으로 친구 목록 가져오기
   const getFriendSearchResult = async (memberInfo) => {
     try {
@@ -81,9 +82,13 @@ export default function Friend(props) {
         method: 'GET', 
         url: `${SERVER_URL}/friend/${memberInfo}`,
       })  
-      setFriendSearchResult(response.data)
+      if (response.data === 'fail') {
+        setFriendSearchResult([])
+      } else {
+        setFriendSearchResult(response.data)
+      }
     } catch(err) {
-      setFriendSearchResult(null)
+      setFriendSearchResult([])
       console.log(err)
     }
   }
@@ -103,6 +108,22 @@ export default function Friend(props) {
         }
       })
       console.log(response)
+      
+      // 요청 보낸 친구 목록에 이미 존재한다면 => 요청 취소
+      if (toWho.includes(friendRequestMember)) {
+        const newWho = toWho.filter((who) => {
+          return who !== friendRequestMember
+        })
+        setToWho(newWho)
+
+      // 요청 보낸 친구 목록에 존재하지 않는다면 => 요청
+      } else {
+        console.log('존재X')
+        const newWho = [...toWho, friendRequestMember]
+        setToWho(newWho)
+      }
+
+      console.log(toWho)
     } catch(err) {
       console.log(err)
     }
@@ -111,8 +132,12 @@ export default function Friend(props) {
   // 검색결과창 닫기
   const closeSearchResult = () => {
     setInputData('')
-    setFriendSearchResult(null)
+    setFriendSearchResult([])
   }
+
+  useEffect(() => {
+    console.log(friendSearchResult)
+  }, [friendSearchResult])
 
   return (
     <>
@@ -152,7 +177,7 @@ export default function Friend(props) {
           {<FriendList/> */}
       </div>
       <Box sx={{ width: '100%' }}>
-        {friendSearchResult === null ? 
+        {friendSearchResult.length === 0 ? 
           <>
             <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
               <Tabs value={value} onChange={handleChange} textColor="secondary" indicatorColor="secondary" aria-label="basic tabs example" centered>
@@ -162,7 +187,7 @@ export default function Friend(props) {
               </Tabs>
             </Box>
             <TabPanel value={value} index={0}>
-              <FriendList/>
+              <FriendList memberSeq={memberSeq}/>
             </TabPanel>
             <TabPanel value={value} index={1}>
               <FriendRequestReceive memberSeq={memberSeq} />
@@ -184,7 +209,7 @@ export default function Friend(props) {
               </div>
             </Box>
             {/* <TabPanel> */}
-              {friendSearchResult && friendSearchResult.map((friend, idx) => {
+              {friendSearchResult.map((friend, idx) => {
                 return (
                   <div key={idx} className='profile-info-wrapper'>
                     <div className='profile-info-img-wrapper'>
@@ -197,7 +222,9 @@ export default function Friend(props) {
                     </div>
                     <div className='profile-info-button-wrapper'>
                       <div className='profile-info-button' onClick={() => sendFriendRequest(friend.memberSeq)}>
-                        <MiniButton text="요청"/>
+                        <MiniButton 
+                          text={toWho.includes(friend.memberSeq)? "요청 취소" : "요청"}
+                          />
                       </div>
                     </div>
                   </div>
