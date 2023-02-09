@@ -1,7 +1,7 @@
 import React from 'react';
 import { BsPersonPlusFill } from 'react-icons/bs';
 import './ProfileInfo.scss';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { setPromiseFriend } from '../../reducer/promise'
 
 export default function ProfileInfo(props) {
@@ -9,9 +9,11 @@ export default function ProfileInfo(props) {
   const { imgName, nickName, id, friendSeq = null } = props;
   const imgUrl = "/images/" + imgName + ".jpg";
 
-  /* 약속에 친구 추가하기 -> 리덕스에 임시 저장 */
+  /* 약속에 친구 추가하기 -> reducer/promise.js의 setPromiseFriend 함수 실행 */
   const dispatch = useDispatch()
+  const promiseFriendList = useSelector(state => state.promise.friendList)
   const addPromiseFriend = () => {
+    console.log(friendSeq)
     dispatch(setPromiseFriend(friendSeq))
   }
 

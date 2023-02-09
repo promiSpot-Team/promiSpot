@@ -50,9 +50,7 @@ function a11yProps(index) {
   };
 }
 
-export default function Friend(props) {
-  const [friendSearchResult, setFriendSearchResult] = useState([]);
-  
+export default function Friend(props) {  
   const [value, setValue] = useState(0);
   const [valid, setValid] = useState(false);
   const [toWho, setToWho] = useState([]);
@@ -66,24 +64,32 @@ export default function Friend(props) {
     setValue(newValue);
   }; 
 
-  const [inputData, setInputData] = useState('')
   // input 값 변할 때마다 axios 요청
+  const [inputData, setInputData] = useState('')
   const changeInputData = (e) => {
-    getFriendSearchResult(e.target.value);
     setInputData(e.target.value)
   }
+  
+  useEffect(() => {
+    if (inputData && inputData !== '') {
+      getFriendSearchResult(inputData);
+    }
+  }, [inputData])
 
   // 변경된 inputData 값으로 친구 검색 결과 목록 가져오기
+  const [friendSearchResult, setFriendSearchResult] = useState([]);
+
   const getFriendSearchResult = async (memberInfo) => {
     try {
       const response = await axios({
         method: 'GET', 
-        url: `${SERVER_URL}/friend/${memberSeq}/${memberInfo}`,
+        url: `${SERVER_URL}/friend/search/${memberSeq}/${memberInfo}`,
       })  
       if (response.data === 'fail') {
         setFriendSearchResult([])
       } else {
         setFriendSearchResult(response.data)
+        console.log(response.data)
       }
     } catch(err) {
       setFriendSearchResult([])
@@ -97,16 +103,6 @@ export default function Friend(props) {
 
   const sendFriendRequest = async (friendRequestMember) => {
     try {
-      const response = await axios({
-        method: 'POST', 
-        url: `${SERVER_URL}/friend/request`,
-        data: {
-          memberSeq, 
-          friendRequestMember
-        }
-      })
-      console.log(response)
-      
       // 요청 보낸 친구 목록에 이미 존재한다면 => 요청 취소
       if (toWho.includes(friendRequestMember)) {
         /*  요청 취소하면서 목록에서 제거
@@ -118,6 +114,16 @@ export default function Friend(props) {
 
       // 요청 보낸 친구 목록에 존재하지 않는다면 => 요청
       } else {
+        const response = await axios({
+          method: 'POST', 
+          url: `${SERVER_URL}/friend/request`,
+          data: {
+            memberSeq, 
+            friendRequestMember
+          }
+        })
+        console.log(response)
+        
         const newWho = [...toWho, friendRequestMember]
         setToWho(newWho)
       }
@@ -218,11 +224,22 @@ export default function Friend(props) {
                       <div className='profile-info-id-wrapper'>{friend.memberId}</div>
                     </div>
                     <div className='profile-info-button-wrapper'>
-                      <div className='profile-info-button' onClick={() => sendFriendRequest(friend.memberSeq)}>
-                        <MiniButton 
-                          text={toWho.includes(friend.memberSeq)? "요청 취소" : "요청"}
-                          />
-                      </div>
+
+                      {/* 친구가 아닌 경우 -> 요청 버튼
+                          이미 친구인 경우 -> 요청 버튼 X  */}
+                      {!friend.isFriend ? 
+                        <div className='profile-info-button' 
+                          onClick={() => sendFriendRequest(friend.memberSeq)}>
+                          
+                          {/* 이미 요청을 한 경우 -> 요청 취소
+                              아직 요청하지 않은 경우 -> 요청 */}
+                          <MiniButton 
+                            text={toWho.includes(friend.memberSeq)? "요청 취소" : "요청"}
+                            />
+                        </div>
+                      :
+                        null
+                      }
                     </div>
                   </div>
                 )

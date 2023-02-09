@@ -14,6 +14,7 @@ import ProfileInfo from "../../components/ProfileInfo/ProfileInfo";
 import SearchBar from "../../components/Search/SearchBar";
 import Modal from "../Modal/Modal";
 import "./TabBar.scss";
+import { useSelector } from "react-redux";
 
 export default function TabBar(props) {
   // 모달창 노출 여부 state
@@ -36,6 +37,9 @@ export default function TabBar(props) {
   const importFriendList = (data) => {
     setFriendList(data)
   }
+
+  /* 약속에 추가된 친구 목록 가져오기 */
+  const promiseFriendList = useSelector(state => state.promise.friendList)
 
   /* 약속 생성 axios */
 
@@ -91,18 +95,20 @@ export default function TabBar(props) {
               <>
                 <div className="new-promise-wrapper">
                   {/* <div className='new-promise-text-wrapper'>
-        새로운 약속 생성
-      </div> */}
+                        새로운 약속 생성
+                      </div> */}
                   <div className="new-promise-search-wrapper">
                     <SearchBar HandleInputFocus={HandleInputFocus} />
                   </div>
+                  
+                  {/* 임시 데이터
                   <div className="new-promise-profile-wrapper">
                     <ProfileInfo
                       imgName="IU_Profile"
                       nickName="국힙원탑"
                       id="IU"
                     />
-                  </div>
+                  </div> */}
                   {friendList.length > 0 && friendList.map((friend, idx) => {
                     return (
                       <div key={idx} className="new-promise-profile-wrapper">

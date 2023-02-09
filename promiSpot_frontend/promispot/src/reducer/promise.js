@@ -14,7 +14,11 @@ export default function user(state = initialState, action) {
   switch (action.type) {
     /* 약속에 친구 추가한 목록 저장 */ 
     case SET_PROMISE_FRIEND: {
-      const newFriendList = [...state.friendList, action.friend]
+      const newFriendList = state.friendList.includes(action.friend) ? 
+      state.frinedList.filter((friend) => {
+        return friend !== action.friend
+      })
+      : [...state.friendList, action.friend]
       return Object.assign({}, state, {
         ...state, friendList: newFriendList
       })
