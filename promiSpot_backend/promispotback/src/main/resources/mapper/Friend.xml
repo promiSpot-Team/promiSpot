@@ -33,7 +33,7 @@
 	<!-- 친구 신청 승인 -->
 	<update id="approvalFriend" parameterType="int">
 		update friend_request 
-		set freind_request_is_agree = 1 
+		set friend_request_is_agree = 1
 		where friend_request_seq = #{friendRequestSeq} 
 	</update>
 	
