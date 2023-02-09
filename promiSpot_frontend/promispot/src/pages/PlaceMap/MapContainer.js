@@ -21,12 +21,13 @@ export default function MapContainer() {
   // const [isSearchSelect, setIsSearchSelect] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
   const stateMapCenterPosition = useSelector(
-    (state) => state.mapCenterPosition
+    (state) => state.map.centerXY
   );
+  console.log(stateMapCenterPosition)
   const [mapCenter, setmapCenter] = useState(stateMapCenterPosition);
   const [map, setMap] = useState(null);
   const [rect, setRect] = useState("");
-  const stateRect = useSelector((state) => state.rect);
+  const stateRect = useSelector((state) => state.map.rect);
   const navigate = useNavigate();
 
   const [valid, setValid] = useState(false);
