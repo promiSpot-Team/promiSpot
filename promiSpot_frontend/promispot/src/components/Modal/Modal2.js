@@ -1,26 +1,25 @@
-import React from 'react';
-import './Modal2.scss';
+import React from "react";
+import "./Modal2.scss";
 
-export default function Modal(props) {
+export default function Modal2(props) {
+  const { title, button } = props;
+
   function closeModal() {
     props.closeModal();
   }
+
   return (
-    <><div id="modal-container">
-    <div class="modal-background">
-      <div class="modal">
-        <h2>I'm a Modal</h2>
-        <p>Hear me roar.</p>
-        <svg class="modal-svg" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" preserveAspectRatio="none">
-                  <rect x="0" y="0" fill="none" width="226" height="162" rx="3" ry="3"></rect>
-                </svg>
+    <div className="Modal" onClick={closeModal}>
+      <div className="modalBody" onClick={(e) => e.stopPropagation()}>
+        <div className="new-promise-text-wrapper">{title}</div>
+        <button id="modalCloseBtn" onClick={closeModal}>
+          {button}
+        </button>
+        {props.children}
+      </div>
+      <div className="new-promise-under-btn-wrapper">
+        <button>다음</button>
       </div>
     </div>
-  </div>
-  <div class="content">
-    <div class="buttons">
-      <div id="two" class="button">Revealing</div>
-    </div>
-  </div></>
-  )
+  );
 }
