@@ -9,7 +9,7 @@
 
 
 	<!-- 약속 생성  -->
-	<insert id="createPromise" parameterType="promiseEntity">
+	<insert id="createPromise" parameterType="promiseEntity" useGeneratedKeys="true" keyProperty="promise_seq">
 		insert into promises(promise_title, promise_leader, promise_date, promise_time, promise_day, promise_vote_is_finish, promise_schedule_is_finish)
 		values(#{promiseTitle}, #{promiseLeader}, #{promiseDate}, #{promiseTime}, #{promiseDay},
 		    #{promiseVoteIsFinish}, #{promiseScheduleIsFinish})

@@ -9,8 +9,6 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 @ApiModel(value = "PromiseEntity : 약속", description = "약속 정보를 나타낸다.")
-@JsonInclude(JsonInclude.Include.NON_NULL)
-@Data
 public class PromiseEntity {
 
 	@ApiModelProperty(value = "약속일련번호")
