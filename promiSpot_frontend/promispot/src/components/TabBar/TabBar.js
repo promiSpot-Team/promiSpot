@@ -33,7 +33,6 @@ export default function TabBar(props) {
   const navigate = useNavigate()
 
   /* 날짜랑 제목으로 약속 생성하기 */
-
   /* <InputForm />에서 약속 제목 입력값 받아오기 */
   const getInputPromiseTitle = (data) => {
     setPromiseTitle(data)
@@ -81,7 +80,11 @@ export default function TabBar(props) {
 
   /* 약속에 추가된 친구 목록 리덕스에서 가져오기 */
   const promiseFriendList = useSelector(state => state.promise.friendList)
+  
+  /* memberSeq 가져오기 */
   const memberSeq = useSelector(state => state.user.info.memberSeq)
+
+  /* 약속 제목 변수 */
   const [promiseTitle, setPromiseTitle] = useState('약속1')
 
   /* 약속 생성 axios */
@@ -114,7 +117,7 @@ export default function TabBar(props) {
           promiseMemberIsLeader: 0 
         }
       })
-      /* 현재 약속 생성을 누르는 유저 = 약속장의 데이터 추가 */
+      /* 현재 약속 생성을 누르는 유저인 약속장의 데이터 추가 */
       newFriend.push({
         promiseSeq,
         memberSeq,
@@ -127,7 +130,7 @@ export default function TabBar(props) {
         url: `${SERVER_URL}/promise/member/regist`,
         data: newFriend
       })
-      /* 약속 친구까지 추가되면 맵 생성 */
+      /* 약속 친구까지 추가되면 약속 페이지(지도)로 이동 */
       if (response2.data === 'success') {
         navigate(`/map/${promiseSeq}`)
       }
