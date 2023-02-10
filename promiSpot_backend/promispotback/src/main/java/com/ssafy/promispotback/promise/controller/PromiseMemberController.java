@@ -35,9 +35,9 @@ public class PromiseMemberController {
 	
 	// 약속 참여자 등록
 	@PostMapping("regist")
-	public ResponseEntity<?> registPromiseMember(@RequestBody PromiseMemberEntity promiseMemberEntity) {
+	public ResponseEntity<?> registPromiseMember(@RequestBody List<PromiseMemberEntity> promiseMemberList) {
 		try {
-			int result = promiseMemberService.registPromiseMember(promiseMemberEntity);
+			int result = promiseMemberService.registPromiseMember(promiseMemberList);
 			
 			if(result != 0) {
 				return new ResponseEntity<String>("success", HttpStatus.OK);

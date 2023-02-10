@@ -2,6 +2,7 @@ package com.ssafy.promispotback.promise.model.mapper;
 
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Map;
 
 import com.ssafy.promispotback.promise.model.entity.ParticipantEntity;
 import org.apache.ibatis.annotations.Mapper;
@@ -14,7 +15,7 @@ public interface PromiseMemberMapper {
 	
 	
 	// 약속 참여자 등록
-	public int registPromiseMember(PromiseMemberEntity promiseMemberEntity) throws SQLException;
+	public int registPromiseMember(List<PromiseMemberEntity> promiseMemberList) throws SQLException;
 	
 	
 	// 약속 참여자 한 명 조회

@@ -1,7 +1,9 @@
 package com.ssafy.promispotback.promise.model.service;
 
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.ssafy.promispotback.promise.model.entity.ParticipantEntity;
 import io.lettuce.core.dynamic.annotation.Param;
@@ -23,8 +25,10 @@ public class PromiseMemberServiceImpl implements PromiseMemberService{
 	
 	// 약속 참여자 등록
 	@Override
-	public int registPromiseMember(PromiseMemberEntity promiseMemberEntity) throws SQLException {
-		return promiseMemberMapper.registPromiseMember(promiseMemberEntity);
+	public int registPromiseMember(List<PromiseMemberEntity> promiseMemberList) throws SQLException {
+		Map<String, Object> map = new HashMap<>();
+		map.put("memberList", promiseMemberList);
+		return promiseMemberMapper.registPromiseMember(promiseMemberList);
 	}
 
 	
