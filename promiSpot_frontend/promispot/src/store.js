@@ -9,9 +9,8 @@ import promise from './reducer/promise'
 
 const persistConfig = {
   key: 'root',
-  version: 1,
+  // version: 1,
   storage,
-  blacklist: ['promise']
   // storage: storageSession,
 } 
 

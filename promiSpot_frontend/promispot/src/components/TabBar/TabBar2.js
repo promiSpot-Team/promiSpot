@@ -37,9 +37,9 @@ export default function TabBar2(props) {
               </Link>
             </div>
             <div className="navbar-left-icon">
-              <Link to={`/map/${promiseSeq}/search`} className="link">
-                <ImSearch size="36" color="#ffffff" />
-              </Link>
+              {/* <Link to={`/map/${promiseSeq}/search`} className="link"> */}
+                <ImSearch size="36" color="#ffffff" onClick={() => console.log(1)}/>
+              {/* </Link> */}
             </div>
           </div>
           <div className="navbar-right">

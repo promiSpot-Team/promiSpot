@@ -99,8 +99,10 @@ export default function Friend(props) {
 
   /* 친구 요청 보내기
   내 친구 목록/받은 요청/보낸 요청에 다 memberSeq props로 넘겨주기 */
-  const memberSeq = useSelector(state => state.user.info.memberSeq)
+  const memberSeq = useSelector(state => state?.user?.info?.memberSeq)
 
+  console.log('memberSeq', memberSeq)
+  
   const sendFriendRequest = async (friendRequestMember) => {
     try {
       // 요청 보낸 친구 목록에 이미 존재한다면 => 요청 취소

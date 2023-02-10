@@ -28,15 +28,16 @@ import Test4 from "./pages/Login/Test4";
 import Chatting from "./pages/PlaceMap/Chatting";
 import Schedule from "./pages/PlaceMap/Schedule";
 import MyAddress from "./pages/MyPage/MyAddress";
-import { useEffect } from 'react'
+import { useEffect } from "react";
+import EditInfo from "./pages/MyPage/EditInfo";
 
 function App() {
   // const history = useHistory();
-  useEffect(() => {
-    return () => {
-      window.localStorage.clear()
-    }
-  })
+  // useEffect(() => {
+  //   return () => {
+  //     window.localStorage.clear()
+  //   }
+  // })
   return (
     <Routes>
       <Route path="/" element={<Start />} />
@@ -46,7 +47,7 @@ function App() {
       <Route path="/main" element={<Main />} />
       {/* <Route component={NotFound} /> */}
       <Route path="/map/:promiseSeq" element={<MapContainer />}>
-        <Route path="search" element={<PlaceSearch />} />
+        {/* <Route path="search" element={<PlaceSearch />} /> */}
         <Route path="recommend" element={<PlaceRecommend />} />
         <Route path=":placeId" element={<PlaceDetail />} />
         <Route path="schedule" element={<Schedule />} />
@@ -58,7 +59,8 @@ function App() {
       <Route path="/friend" element={<Friend />} />
       <Route path="/promise" element={<Promise />} />
       <Route path="/mypage" element={<MyPage />} />
-      <Route path="/myaddress" element={<MyAddress/>}/>
+      <Route path="/myaddress" element={<MyAddress />} />
+      <Route path="/editinfo" element={<EditInfo />} />
       <Route path="/privacy" element={<Privacy />} />
       {/* <Route path="/join2" element={<Join2 />} /> */}
       <Route path="/card" element={<Card />} />
@@ -68,7 +70,7 @@ function App() {
 
       {/* <Route path="/test2" element={<Test2/>}/> */}
       <Route path="/chatting" element={<Chatting />} />
-      <Route path="/test4" element={<Test4/>}/>
+      <Route path="/test4" element={<Test4 />} />
     </Routes>
   );
 }

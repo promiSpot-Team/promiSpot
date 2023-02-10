@@ -11,7 +11,7 @@ export default function PlaceDetail() {
   const place = location.state;
   const dispatch = useDispatch();
 
-  // 장소 등록하기를 누르면 지도에 표시하기
+  /* 장소 '등록하기' 버튼 누르면 지도에 등록하면서 약속 장소 후보로 등록 */
   const registerPlaceToMap = () => {
     dispatch(setPlace(place));
 
