@@ -14,7 +14,7 @@ export default function ProfileInfo(props) {
   const promiseFriendList = useSelector(state => state.promise.friendList)
   const addPromiseFriend = () => {
     console.log(friendSeq)
-    dispatch(setPromiseFriend(friendSeq))
+    // dispatch(setPromiseFriend(friendSeq))
   }
 
   return (

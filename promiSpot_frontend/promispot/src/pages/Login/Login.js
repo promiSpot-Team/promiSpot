@@ -7,20 +7,20 @@ import BasicButton from "../../components/Buttons/BasicButton";
 import WhiteHeader from "../../components/Header/BasicHeader1";
 import { SERVER_URL } from '../../constants/constants';
 import { setToken } from '../../reducer/user';
-
 import axios from "axios";
-
 import {
   FormControl, TextField
 } from "@mui/material/";
 import "../scss/Login.scss";
+import { useSelector } from 'react-redux';
 
 function Login() {
   const navigate = useNavigate();
   const dispatch = useDispatch()
+
   const [inputId, setInputId] = useState("");
   const [inputPw, setInputPw] = useState("");
-
+  
   // 비밀번호 관련 설정
   const [passwordState] = useState("");
   const [showPassword, setShowPassword] = useState(false);
@@ -35,6 +35,7 @@ function Login() {
     setInputPw(e.target.value);
   };
 
+  /* 로그인 axios 요청 */
   const loginHandle = async(data) => {
     try {
       const response = await axios({
@@ -55,19 +56,9 @@ function Login() {
         refreshToken,
         memberId
       }
+      /* 리덕스에 토큰 저장 + isLogin = true */
       dispatch(setToken(info))
-      localStorage.setItem('isLogin', true)
-      // // 로그인 성공시 메인 페이지로 이동하면서
-      // // 리덕스에 memberSeq 저장
-      // store.dispatch({
-      //   type: 'SAVE_CURRENT_USER_INFO',
-        // currentUserInfo: {
-        //   memberSeq,
-        //   accessToken,
-        //   refreshToken,
-        //   memberId
-        // }
-      // })
+
       navigate('/main')
     } catch(err) {
       console.log(err)
@@ -95,6 +86,15 @@ function Login() {
   const handleNavigate = () => {
     navigate(-1);
   };
+
+  const isLogin = useSelector(state => state.user.isLogin)
+  
+  /* 이미 로그인 된 상태면 무조건 메인페이지로 이동 */
+  React.useEffect(() => {
+    if (isLogin) {
+      navigate('/main')
+    }  
+  }, [])
 
   return (
     <div className="login-wrapper">
