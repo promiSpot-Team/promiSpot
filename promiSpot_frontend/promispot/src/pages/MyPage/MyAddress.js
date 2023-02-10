@@ -11,7 +11,7 @@ import "../scss/MyPage.scss";
 export default function MyAddress() {
   const [myAddressList, setMyAddressList] = useState([]);
   const [axiosMethod, setAxiosMethod] = useState("");
-  const [addressNum, setAddressNum] = useState("");
+  const [addressNum, setAddressNum] = useState();
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { memberSeq, addressSeq } = useSelector((state) => state.user.info);
@@ -40,6 +40,11 @@ export default function MyAddress() {
     } catch (err) {
       console.log(err);
     }
+  };
+
+  const handleChange_addressSeq = (e) => {
+    e.preventDefault();
+    setAddressNum(e.tagrget.value);
   };
 
   useEffect(() => {
@@ -72,7 +77,9 @@ export default function MyAddress() {
               <button
                 onClick={() => {
                   onClick("DELETE");
+                  handleChange_addressSeq();
                 }}
+                value={item.addressSeq}
               >
                 삭제
               </button>

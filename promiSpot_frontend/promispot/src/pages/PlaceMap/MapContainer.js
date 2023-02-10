@@ -43,6 +43,24 @@ export default function MapContainer() {
     setValid(!valid);
   };
 
+///////////////////////////////////// 민정 ////////////////////////////////////////////////////////
+const [promiseMemberList, setPromiseMemberList] = useState([])
+  const getPromiseMembers = async () => {
+    try {
+      const response = await axios({
+        method: 'GET',
+        url: `${SERVER_URL}/promise/member/getList/17`
+      })    
+      setPromiseMemberList(response.data)
+      console.log(promiseMemberList)
+    } catch (err) {
+      console.log(err.response.status)
+    }//catch
+  }
+  useEffect(() => {
+    getPromiseMembers()
+  }, [])
+////////////////////////////////////////////////////////////////////////////////////////////////
   // 로그인한 회원 정보 가져오기
   const memberSeq = useSelector((state) => state.user.info.memberSeq);
 
