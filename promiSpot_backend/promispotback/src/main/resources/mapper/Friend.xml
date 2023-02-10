@@ -61,7 +61,7 @@
 
 	<!-- 친구 목록 조회 --> <!-- 수정 필요 -->
 	<select id="findFriendList" parameterType="int" resultType="MemberEntity">
-		select member_nick, member_id, member_img_path, member_img_origin_name, member_img_server_name
+		select member_nick, member_id, member_img_path, member_img_origin_name, member_img_server_name, friend_friend as member_seq
 		from members m join friends f
 							on m.member_seq = f.friend_friend
 		where f.member_seq = #{memberSeq}
