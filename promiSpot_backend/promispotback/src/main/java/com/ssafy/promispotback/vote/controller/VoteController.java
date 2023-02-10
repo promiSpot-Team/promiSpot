@@ -1,7 +1,9 @@
 package com.ssafy.promispotback.vote.controller;
 
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.ssafy.promispotback.vote.model.entity.VotePlaceEntity;
 import org.apache.ibatis.annotations.Param;
@@ -37,13 +39,17 @@ public class VoteController {
 	//약속 장소 후보 등록
 	@PostMapping("insert")
 	public ResponseEntity<?> insertCandidatePlace(@RequestBody VoteEntity voteEntity) {
+		Map<String, Object> resultMap = new HashMap<>();
 		try {
 			int result = voteService.insertCandidatePlace(voteEntity);
 			
 			if(result != 0) {
-				return new ResponseEntity<String>("success", HttpStatus.OK);
+				resultMap.put("message", "success");
+				resultMap.put("voteSeq", voteEntity.getVoteSeq()); // 자동 생성된 pk 값 담아주기
+				return new ResponseEntity<Map<String, Object>>(resultMap, HttpStatus.OK);
 			} else {
-				return new ResponseEntity<String>("fail", HttpStatus.ACCEPTED);
+				resultMap.put("message", "fail");
+				return new ResponseEntity<Map<String, Object>>(resultMap, HttpStatus.ACCEPTED);
 			}
 			
 		} catch (Exception e) {
