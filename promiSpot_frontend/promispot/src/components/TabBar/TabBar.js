@@ -16,6 +16,10 @@ import "react-datepicker/dist/react-datepicker.css";
 import { ko } from "date-fns/esm/locale";
 import { getMonth, getDate, getDay } from "date-fns";
 import { weekdays } from "moment";
+import axios from 'axios'
+import { SERVER_URL } from "../../constants/constants";
+import { setPromiseFriend } from '../../reducer/promise'
+import { useDispatch } from "react-redux";
 
 export default function TabBar(props) {
   // 모달창 노출 여부 state
@@ -36,6 +40,25 @@ export default function TabBar(props) {
   const importFriendList = (data) => {
     setFriendList(data)
   }
+
+
+  const tmpFunction = async () => {
+    const res = await axios({
+      method: 'POST', 
+      url: `${SERVER_URL}/promise/create`,
+      data: {
+        "promiseTitle" : "예시",    
+        "promiseLeader" : 1,    
+        "promiseDate" : "2023년 2월 13일",    
+        "promiseTime" : "02:00PM",    
+        "promiseDay" : "월요일",    
+        "promiseVoteIsFinish" : 0,    
+        "promiseScheduleIsFinish" : 0
+      }
+    })
+    console.log(res)
+  }
+
   return (
     <>
       <div className="wrapper">
@@ -100,9 +123,9 @@ export default function TabBar(props) {
                       id="IU"
                     />
                   </div>
-                  {friendList.length > 0 && friendList.map((friend) => {
+                  {friendList.length > 0 && friendList.map((friend, idx) => {
                     return (
-                      <div className="new-promise-profile-wrapper">
+                      <div key={idx} className="new-promise-profile-wrapper">
                         <ProfileInfo
                           imgName="IU_Profile"
                           nickName={friend.memberNick}
@@ -171,10 +194,10 @@ export default function TabBar(props) {
                     inline
                   ></DatePicker>
 
-                  <div className="new-promise-under-btn-wrapper">
-                    <Link to={"/map"} className="link">
+                  <div onClick={tmpFunction} className="new-promise-under-btn-wrapper">
+                    {/* <Link to={"/map"} className="link"> */}
                       생성
-                    </Link>
+                    {/* </Link> */}
                   </div>
                 </div>
               </>
