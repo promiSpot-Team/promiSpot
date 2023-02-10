@@ -9,9 +9,12 @@
 
 
 	<!-- 약속 참여자 등록 -->
-	<insert id="registPromiseMember" parameterType="PromiseMemberEntity">
+	<insert id="registPromiseMember" parameterType="java.util.List">
 		insert into promises_members(promise_seq, member_seq, promise_member_is_leader)
-		values(#{promiseSeq}, #{memberSeq}, #{promiseMemberIsLeader})
+		values
+		<foreach collection="list" item="item" separator=",">
+				(#{item.promiseSeq}, #{item.memberSeq}, #{item.promiseMemberIsLeader})
+		</foreach>
 	</insert>
 
 
