@@ -21,9 +21,15 @@
 	
 	<!-- 회원정보수정 -->
 	<update id="modifyMember" parameterType="MemberEntity">
-		update members 
-		set member_nick = #{memberNick}, member_pass = #{memberPass}, member_img_path = #{memberImgPath}
-		, member_img_origin_name = #{memberImgOriginName}, member_img_server_name = #{memberImgServerName}
+		update members
+		<trim prefix="set" suffixOverrides=",">
+			<if test="memberNick != null">member_nick = #{memberNick},</if>
+			<if test="memberPass != null">member_pass = #{memberPass},</if>
+			<if test="memberPhoneNum != null">member_phone_num = #{memberPhoneNum},</if>
+			<if test="memberImgPath != null">member_img_path = #{memberImgPath},</if>
+			<if test="memberImgOriginName != null">member_img_origin_name = #{memberImgOriginName},</if>
+			<if test="memberImgServerName != null">member_img_server_name = #{memberImgServerName},</if>
+		</trim>
 		where member_seq = #{memberSeq} 
 	</update>
 	
