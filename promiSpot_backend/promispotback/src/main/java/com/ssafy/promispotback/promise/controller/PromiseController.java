@@ -34,7 +34,7 @@ public class PromiseController {
 	// 약속 생성
 	@PostMapping("/create")
 	public ResponseEntity<?> createPromise(@RequestBody PromiseEntity promiseEntity) {
-		System.out.println("ddd");
+//		System.out.println("ddd");
 		Map<String, Object> resultMap = new HashMap<>();
 		try {
 			int result = promiseService.createPromise(promiseEntity);
