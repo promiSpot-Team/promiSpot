@@ -5,7 +5,7 @@
 <mapper namespace="com.ssafy.promispotback.vote.model.mapper.VoteMapper">
 
 	<!-- 약속 장소 후보 등록 -->
-	<insert id="insertCandidatePlace" parameterType="voteEntity">
+	<insert id="insertCandidatePlace" parameterType="voteEntity" useGeneratedKeys="true" keyProperty="voteSeq">
 		insert into votes (promise_seq, place_id, member_seq, vote_cnt)
 		values(#{promiseSeq}, #{placeId}, #{memberSeq}, 0)
 	</insert>

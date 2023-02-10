@@ -5,20 +5,21 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import BasicButton from "../../components/Buttons/BasicButton";
 import WhiteHeader from "../../components/Header/BasicHeader1";
-import { SERVER_URL } from "../../constants/constants";
-import { setToken } from "../../reducer/user";
-
+import { SERVER_URL } from '../../constants/constants';
+import { setToken } from '../../reducer/user';
 import axios from "axios";
-
-import { FormControl, TextField } from "@mui/material/";
+import {
+  FormControl, TextField
+} from "@mui/material/";
 import "../scss/Login.scss";
+import { useSelector } from 'react-redux';
 
 function Login() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [inputId, setInputId] = useState("");
   const [inputPw, setInputPw] = useState("");
-
+  
   // 비밀번호 관련 설정
   const [passwordState] = useState("");
   const [showPassword, setShowPassword] = useState(false);
@@ -101,6 +102,15 @@ function Login() {
   const handleNavigate = () => {
     navigate(-1);
   };
+
+  const isLogin = useSelector(state => state.user.isLogin)
+  
+  /* 이미 로그인 된 상태면 무조건 메인페이지로 이동 */
+  React.useEffect(() => {
+    if (isLogin) {
+      navigate('/main')
+    }  
+  }, [])
 
   return (
     <div className="login-wrapper">

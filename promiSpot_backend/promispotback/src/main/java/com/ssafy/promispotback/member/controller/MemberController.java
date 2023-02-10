@@ -141,29 +141,21 @@ public class MemberController {
 	/* 회원 정보 수정 */
 	@ApiOperation(value = "회원 정보 수정 ", notes = "회원 정보를 수정한다. 그리고 DB 수정 성공여부에 따라 'success' 또는 'fail' 문자열을 반환한다.", response = String.class)
 	@PostMapping("/{memberSeq}")
-	public ResponseEntity<?> modifyMember(
-			@RequestParam(value="memberSeq",required = false) int memberSeq,
-			@RequestParam(value="memberId",required = false) String memberId,
-			@RequestParam(value="memberPass",required = false) String memberPass,
-			@RequestParam(value="memberName",required = false) String memberName,
-			@RequestParam(value="memberNick",required = false) String memberNick,
-			@RequestParam(value="memberPhoneNum",required = false) String memberPhoneNum,
-			@RequestParam(value="file",required = false) MultipartFile multipartFile
-	) {
+	public ResponseEntity<?> modifyMember(@RequestBody MemberEntity memberEntity, @PathVariable int memberSeq) {
 
-		FileEntity file = new FileEntity();
-		// 이미지 파일이 있다면.
-		if(!multipartFile.isEmpty()) {
-			try {
-				file = memberService.saveFile(multipartFile);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		}//if
-
-		MemberEntity memberEntity = new MemberEntity(memberSeq, memberPass, memberName, memberNick, memberPhoneNum
-				, file.getImgPath(), file.getImgOriginName(), file.getImgServerName());
-
+//		FileEntity file = new FileEntity();
+//		// 이미지 파일이 있다면.
+//		if(!multipartFile.isEmpty()) {
+//			try {
+//				file = memberService.saveFile(multipartFile);
+//			} catch (Exception e) {
+//				e.printStackTrace();
+//			}
+//		}//if
+//
+//		MemberEntity memberEntity = new MemberEntity(memberSeq, memberPass, memberName, memberNick, memberPhoneNum
+//				, file.getImgPath(), file.getImgOriginName(), file.getImgServerName());
+		memberEntity.setMemberSeq(memberSeq);
 		try {
 			if(memberService.modifyMember(memberEntity)) {
 				System.out.println("memberModify SUCCESS!");
