@@ -1,5 +1,5 @@
-import React from 'react';
-import { BsPersonPlusFill } from 'react-icons/bs';
+import React, { useState } from 'react';
+import { BsPersonPlusFill, BsPersonDashFill } from 'react-icons/bs';
 import './ProfileInfo.scss';
 import { useDispatch, useSelector } from 'react-redux';
 import { setPromiseFriend } from '../../reducer/promise'
@@ -11,10 +11,22 @@ export default function ProfileInfo(props) {
 
   /* 약속에 친구 추가하기 -> reducer/promise.js의 setPromiseFriend 함수 실행 */
   const dispatch = useDispatch()
-  const promiseFriendList = useSelector(state => state.promise.friendList)
+
+  /* 이미 추가된 경우/아직 추가되지 않은 경우 구분할 변수 */
+  const [isAdd, setIsAdd] = useState(false)
+
+  /* 약속에 친구 추가하기 */
   const addPromiseFriend = () => {
+    setIsAdd(!isAdd)
+    // console.log(friendSeq)
+    dispatch(setPromiseFriend(friendSeq))
+  }
+
+  /* 약속에서 친구 제거하기 */
+  const removePromiseFriend = () => {
+    setIsAdd(!isAdd)
     console.log(friendSeq)
-    // dispatch(setPromiseFriend(friendSeq))
+    dispatch(setPromiseFriend(friendSeq))
   }
 
   return (
@@ -27,8 +39,13 @@ export default function ProfileInfo(props) {
         <div className='profile-info-nickname-wrapper'>{nickName}</div>
         <div className='profile-info-id-wrapper'>{id}</div>
       </div>
-      <div className='profile-info-icon-wrapper' onClick={addPromiseFriend}>
-        <BsPersonPlusFill/>
+      <div className='profile-info-icon-wrapper'>
+        {/* 아직 추가되지 않은 경우 추가 버튼 | 이미 추가된 경우 삭제 버튼 */}
+        {!isAdd ? 
+          <BsPersonPlusFill onClick={addPromiseFriend}/>
+        :
+          <BsPersonDashFill onClick={removePromiseFriend} />
+        }
       </div>
     </div>
   )

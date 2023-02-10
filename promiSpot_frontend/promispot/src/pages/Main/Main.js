@@ -16,16 +16,17 @@ export default function Main() {
 
   const dispatch = useDispatch()
 
-  const logOut = async () => {
-    const response = await axios({
-      method: 'GET', 
-      url: `${SERVER_URL}/member/logout/${memberSeq}`
-    })
+  const logOut = async (e) => {
+    // e.preventDefault()
+    // const response = await axios({
+    //   method: 'GET', 
+    //   url: `${SERVER_URL}/member/logout/${memberSeq}`
+    // })
 
-    /* 로그아웃 성공하면 세션 스토리지에 user info 삭제하기 */
-    if (response.data.message === 'success') {
-      dispatch(clearToken())
-    }
+    // /* 로그아웃 성공하면 세션 스토리지에 user info 삭제하기 */
+    // if (response.data.message === 'success') {
+    //   dispatch(clearToken())
+    // }
   }
   return (
     <>

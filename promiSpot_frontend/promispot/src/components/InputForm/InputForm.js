@@ -4,7 +4,11 @@ import './InputForm.module.scss';
 
 export default function InputForm(props) {
 
-  const { id, label, placeholder, type, read } = props;
+  const { id, label, placeholder, type, read, getInputPromiseTitle = null } = props;
+
+  const onChange = (e) => {
+    getInputPromiseTitle(e.target.value)
+  }
 
   return (
     <TextField className='input-form-wrapper'
@@ -16,6 +20,7 @@ export default function InputForm(props) {
       variant="standard"
       fontFamily="Pretendard-Bold"
       margin="dense"
+      onChange={onChange}
     />
   )
 }
