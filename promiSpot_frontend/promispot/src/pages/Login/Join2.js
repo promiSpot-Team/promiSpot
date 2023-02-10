@@ -18,13 +18,17 @@ import {
   FormControlLabel,
   Checkbox
  } from "@mui/material/";
-import { SettingsInputAntenna, Visibility, VisibilityOff } from "@mui/icons-material";
+import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { setJoinInfo, setAddress } from '../../reducer/user'
 import "../scss/Join2.scss";
 import { useDispatch } from 'react-redux'
 
 export default function Join2() {
+  /* 리덕스에 저장된 값 불러오기 */
+  const addressInfo = useSelector((state) => state?.user?.addressInfo ? state.user.addressInfo : null)
   const joinInfo = useSelector(state => state?.user?.joinInfo ? state.user.joinInfo : null)
+  
+  /* 초기 변수 선언 */
   const [state, setState] = useState({
     id: joinInfo.id,
     email: joinInfo.email,
@@ -33,9 +37,7 @@ export default function Join2() {
     nickName: joinInfo.nickName,
     phoneNumber: joinInfo.phoneNumber,
   })
-  const addressInfo = useSelector((state) => state?.user?.addressInfo ? state.user.addressInfo : null)
-
-  console.log("addressInfo", addressInfo)
+  
   const navigate = useNavigate();
   
   // 값이 입력될 때마다 변화하는 입력값 state객체에 저장
@@ -110,7 +112,7 @@ export default function Join2() {
         addressY: 0
       }
       dispatch(setJoinInfo(newJoinInfo))
-      dispatch(setAddress(newAddressInfo))
+      dispatch(setAddress(null))
       // store.dispatch({
       //   type: 'CLEAR_USER_JOIN_INFO',
       //   joinInfo: {
@@ -135,6 +137,9 @@ export default function Join2() {
     }
   }
 
+  useEffect(() => {
+    console.log("addressInfo", addressInfo)
+  }, [addressInfo])
   // form의 onSubmit 이벤트
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -156,6 +161,7 @@ export default function Join2() {
   }
   
   useEffect(() => {
+    /* 페이지 언마운트 될 때 실행 */
     return () => {
       const newJoinInfo = {
         id: '',
@@ -165,16 +171,17 @@ export default function Join2() {
         nickName:'', 
         phoneNumber: ''
       }
-      const newAddressInfo = {
-        addressAddress: '',
-        addressX: 0,
-        addressY: 0
-      }
+      // const newAddressInfo = {
+      //   addressAddress: '',
+      //   addressX: 0,
+      //   addressY: 0
+      // }
       dispatch(setJoinInfo(newJoinInfo))
-      dispatch(setAddress(newAddressInfo))
+      dispatch(setAddress(null))
     }
   }, [])
 
+  
   return (
     <div className="join-wrapper">
       <BasicHeader text="회원가입" />

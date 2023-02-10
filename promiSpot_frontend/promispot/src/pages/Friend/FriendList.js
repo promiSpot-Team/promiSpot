@@ -1,15 +1,13 @@
-import { Button } from "@mui/material";
-import React, { useState, useEffect } from "react";
+import axios from 'axios';
+import React, { useEffect, useState } from "react";
 import ProfileInfoB from "../../components/ProfileInfo/ProfileInfoB";
+import { SERVER_URL } from '../../constants/constants';
 import '../scss/Friend.scss';
-import axios from 'axios'
-import { SERVER_URL } from '../../constants/constants'
-import { useSelector } from "react-redux";
-import { BsCartCheck } from "react-icons/bs";
 
 export default function FriendList({ memberSeq }) {
   const [friendList, setFriendList] = useState([])
 
+  /* 내 친구 목록 불러오기 */
   const getFriendList = async () => {
     try {
       const response = await axios({
@@ -48,13 +46,6 @@ export default function FriendList({ memberSeq }) {
             id={friend.memberId}/>
         )
       })}
-      <div style={{
-        width: '100%',
-        height: '10vh', 
-        color: 'white',
-      }}>
-        asdf
-      </div>
     </div>
   );
 }

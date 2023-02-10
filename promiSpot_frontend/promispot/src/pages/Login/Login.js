@@ -1,25 +1,17 @@
-import React, { useState } from "react";
-import { useNavigate, Link } from "react-router-dom";
-import {  Input,  InputLabel,  IconButton,  InputAdornment} from "@mui/material/";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
+import { IconButton, Input, InputAdornment, InputLabel } from "@mui/material/";
+import React, { useState } from "react";
+import { useDispatch } from 'react-redux';
+import { useNavigate } from "react-router-dom";
 import BasicButton from "../../components/Buttons/BasicButton";
 import WhiteHeader from "../../components/Header/BasicHeader1";
-import InputForm from "../../components/InputForm/InputForm";
-import InputFormRO from "../../components/InputForm/InputFormRO";
-import InputFormPWD from "../../components/InputForm/InputFormPWD";
-import { useAxios } from "../../hooks/useAxios";
-import { SERVER_URL } from '../../constants/constants'
-import { useDispatch } from 'react-redux'
-import { setToken } from '../../reducer/user'
+import { SERVER_URL } from '../../constants/constants';
+import { setToken } from '../../reducer/user';
 
 import axios from "axios";
 
 import {
-  FormControl,
-  FormControlLabel,
-  Checkbox,
-  FormHelperText,
-  TextField,
+  FormControl, TextField
 } from "@mui/material/";
 import "../scss/Login.scss";
 
@@ -42,7 +34,6 @@ function Login() {
   const handleInputPw = (e) => {
     setInputPw(e.target.value);
   };
-  console.log(1)
 
   const loginHandle = async(data) => {
     try {

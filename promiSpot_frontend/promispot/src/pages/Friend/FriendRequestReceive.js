@@ -7,7 +7,7 @@ import '../scss/Friend.scss';
 export default function FriendRequestReceive({ memberSeq }) {
   const [friendRequestList, setFriendRequestList] = useState(null)
 
-  // 받은 친구 요청 가져오기
+  /* 받은 친구 요청 가져오기 */
   const getReceiveFriendRequest = async () => {
     try {
       const response = await axios({

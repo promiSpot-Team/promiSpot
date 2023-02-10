@@ -7,7 +7,7 @@ import '../scss/Friend.scss';
 export default function FriendRequestSend({ memberSeq }) {
   const [friendRequestList, setFriendRequestList] = useState(null)
   
-  // 보낸 친구 요청 가져오기
+  /* 보낸 친구 요청 가져오기 */
   const getSendFriendRequest = async () => {
     try {
       const response = await axios({
@@ -29,7 +29,7 @@ export default function FriendRequestSend({ memberSeq }) {
   return (
     <div className="friend-list-wrapper">
       <div className='friend-list-each-wrapper'>
-        <ProfileInfoS imgName="PBG_Profile" nickName="보거미" id="PBG"/>
+        {/* <ProfileInfoS imgName="PBG_Profile" nickName="보거미" id="PBG"/> */}
         {friendRequestList && friendRequestList.map((friend, idx) => {
           return (
             <ProfileInfoS 

@@ -1,25 +1,22 @@
+import { getDate, getMonth } from "date-fns";
+import { ko } from "date-fns/esm/locale";
 import React, { useState } from "react";
-import "./TabBar.scss";
-import Modal from "../Modal/Modal";
-import NewPromiseF from "../../pages/NewPromise/NewPromiseF";
-import { Link } from "react-router-dom";
-import { MdPersonSearch } from "react-icons/md";
-import { FaHome } from "react-icons/fa";
-import { HiUserGroup } from "react-icons/hi";
-import { BsPersonCircle } from "react-icons/bs";
-import { ImPlus } from "react-icons/im";
-import SearchBar from "../../components/Search/SearchBar";
-import ProfileInfo from "../../components/ProfileInfo/ProfileInfo";
-import InputForm from "../../components/InputForm/InputForm";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import { ko } from "date-fns/esm/locale";
-import { getMonth, getDate, getDay } from "date-fns";
-import { weekdays } from "moment";
+import { BsPersonCircle } from "react-icons/bs";
+import { FaHome } from "react-icons/fa";
+import { HiUserGroup } from "react-icons/hi";
+import { ImPlus } from "react-icons/im";
+import { MdPersonSearch } from "react-icons/md";
+import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
+import InputForm from "../../components/InputForm/InputForm";
+import ProfileInfo from "../../components/ProfileInfo/ProfileInfo";
+import SearchBar from "../../components/Search/SearchBar";
+import Modal from "../Modal/Modal";
+import "./TabBar.scss";
 import axios from 'axios'
 import { SERVER_URL } from "../../constants/constants";
-import { setPromiseFriend } from '../../reducer/promise'
-import { useDispatch } from "react-redux";
 
 export default function TabBar(props) {
   // 모달창 노출 여부 state
@@ -35,28 +32,50 @@ export default function TabBar(props) {
 
   const [startDate, setStartDate] = useState(new Date());
 
+  /* 친구 리스트 변수 선언 */ 
   const [friendList, setFriendList] = useState([]);
-
+  
+  /* 자식 컴포넌트에서 친구 리스트 data 가져와서 변수에 할당 */ 
   const importFriendList = (data) => {
     setFriendList(data)
   }
 
+  /* 약속에 추가된 친구 목록 리덕스에서 가져오기 */
+  const promiseFriendList = useSelector(state => state.promise.friendList)
 
-  const tmpFunction = async () => {
-    const res = await axios({
-      method: 'POST', 
-      url: `${SERVER_URL}/promise/create`,
-      data: {
-        "promiseTitle" : "예시",    
-        "promiseLeader" : 1,    
-        "promiseDate" : "2023년 2월 13일",    
-        "promiseTime" : "02:00PM",    
-        "promiseDay" : "월요일",    
-        "promiseVoteIsFinish" : 0,    
-        "promiseScheduleIsFinish" : 0
-      }
-    })
-    console.log(res)
+  /* 약속 생성 axios */
+  const createPromise = async () => {
+    try {
+      /* 약속 생성 */
+      const response1 = await axios({
+        method: 'POST', 
+        url: `${SERVER_URL}/promise/createPromise`,
+        data: {
+          "promiseTitle" : "예시",
+          "promiseLeader" : 1,
+          "promiseDate" : "2023년 2월 17일",
+          "promiseTime" : "02:00PM",
+          "promiseDay" : "월요일",
+          "promiseVoteIsFinish" : 0,
+          "promiseScheduleIsFinish" : 0
+        }
+      })
+      /* promiseSeq 값 받기 */
+      const promiseSeq = response1.data.promiseSeq
+
+      /* 약속 친구 추가 */
+      const response2 = await axios({
+        method: 'POST', 
+        url: `${SERVER_URL}/promise/member/regist`,
+        data: {
+          promiseSeq,
+          memberSeq: 4, 
+          promiseMemberIsLeader: 0,
+        }
+      })
+    } catch(err) {
+      console.log(err)
+    }
   }
 
   return (
@@ -111,18 +130,20 @@ export default function TabBar(props) {
               <>
                 <div className="new-promise-wrapper">
                   {/* <div className='new-promise-text-wrapper'>
-        새로운 약속 생성
-      </div> */}
+                        새로운 약속 생성
+                      </div> */}
                   <div className="new-promise-search-wrapper">
                     <SearchBar HandleInputFocus={HandleInputFocus} />
                   </div>
+                  
+                  {/* 임시 데이터
                   <div className="new-promise-profile-wrapper">
                     <ProfileInfo
                       imgName="IU_Profile"
                       nickName="국힙원탑"
                       id="IU"
                     />
-                  </div>
+                  </div> */}
                   {friendList.length > 0 && friendList.map((friend, idx) => {
                     return (
                       <div key={idx} className="new-promise-profile-wrapper">
@@ -194,10 +215,10 @@ export default function TabBar(props) {
                     inline
                   ></DatePicker>
 
-                  <div onClick={tmpFunction} className="new-promise-under-btn-wrapper">
-                    {/* <Link to={"/map"} className="link"> */}
+                  <div onClick={createPromise} className="new-promise-under-btn-wrapper">
+                    {/* <Link to={"/map"} className="link">
                       생성
-                    {/* </Link> */}
+                    </Link> */}
                   </div>
                 </div>
               </>

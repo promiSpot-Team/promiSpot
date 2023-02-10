@@ -5,17 +5,20 @@ import storage from 'redux-persist/lib/storage'
 // import storageSession from 'redux-persist/lib/storage/session'
 import user from './reducer/user'
 import map from './reducer/map'
+import promise from './reducer/promise'
 
 const persistConfig = {
   key: 'root',
   version: 1,
-  storage
+  storage,
+  blacklist: ['promise']
   // storage: storageSession,
 } 
 
 const rootReducer = combineReducers({
   user,
-  map
+  map,
+  promise
 })
 
 const persistedReducer = persistReducer(persistConfig, rootReducer)

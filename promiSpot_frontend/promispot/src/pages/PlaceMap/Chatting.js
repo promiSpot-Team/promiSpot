@@ -19,6 +19,7 @@ export default function Chatting() {
 
   const connect = () => {
     client.current = new StompJs.Client({
+      // brokerURL: "ws://i8a109.p.ssafy.io:9090/api/ws",
       brokerURL: "ws://localhost:9090/api/ws",
       onConnect: () => {
         console.log("success");
