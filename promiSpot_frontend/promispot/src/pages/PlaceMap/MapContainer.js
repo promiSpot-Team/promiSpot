@@ -7,7 +7,7 @@ import TabBar2 from "../../components/TabBar/TabBar2";
 import { changeRect } from '../../reducer/map';
 import mapdata from "../mapdata.json";
 import "../scss/Map_Container.scss";
-
+import PlaceSearch from './PlaceSearch'
 import axios from "axios";
 import { SERVER_URL } from "../../constants/constants";
 
@@ -210,6 +210,11 @@ export default function MapContainer() {
     });
   }
 
+  const [isOpen, setIsOpen] = useState(false)
+  const openSearch = () => {
+    setIsOpen(!isOpen)
+  }
+
   return (
     <div id="map-all-wrapper">
       {/* 회원이 지정한 주소를 가져와 선택하게 하는 DIV */}
@@ -223,8 +228,9 @@ export default function MapContainer() {
           ))}
         </select> */}
       </div>
-
+        <button onClick={openSearch}>열기</button>
       <div id="map" className="map-wrapper">
+        {isOpen ? <PlaceSearch style={{ zIndex: 999 }}/>: null }
         <Outlet />
       </div>
       <div className="map-button-wrapper">
