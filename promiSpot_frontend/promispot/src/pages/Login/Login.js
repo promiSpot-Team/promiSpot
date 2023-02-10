@@ -1,7 +1,7 @@
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { IconButton, Input, InputAdornment, InputLabel } from "@mui/material/";
 import React, { useState } from "react";
-import { useDispatch } from 'react-redux';
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import BasicButton from "../../components/Buttons/BasicButton";
 import WhiteHeader from "../../components/Header/BasicHeader1";
@@ -16,8 +16,7 @@ import { useSelector } from 'react-redux';
 
 function Login() {
   const navigate = useNavigate();
-  const dispatch = useDispatch()
-
+  const dispatch = useDispatch();
   const [inputId, setInputId] = useState("");
   const [inputPw, setInputPw] = useState("");
   
@@ -35,47 +34,64 @@ function Login() {
     setInputPw(e.target.value);
   };
 
-  /* 로그인 axios 요청 */
-  const loginHandle = async(data) => {
+  const loginHandle = async (data) => {
     try {
       const response = await axios({
-        method: 'POST', 
+        method: "POST",
         url: `${SERVER_URL}/member/login`,
         data,
-      })
+      });
 
-      console.log('login', response.data)
-      const memberSeq = response.data['memberSeq']
-      const accessToken = response.data['access-token']
-      const refreshToken = response.data['refresh-token']
-      const memberId = response.data['memberId']
+      console.log("login", response.data);
+      const memberSeq = response.data["memberSeq"];
+      const accessToken = response.data["access-token"];
+      const refreshToken = response.data["refresh-token"];
+      const memberId = response.data["memberId"];
+      const memberPhoneNum = response.data["memberPhoneNum"];
+      const memberPass = response.data["memberPass"];
+      const memberName = response.data["memberName"];
+      const memberNick = response.data["memberNick"];
 
       const info = {
         memberSeq,
         accessToken,
         refreshToken,
-        memberId
-      }
-      /* 리덕스에 토큰 저장 + isLogin = true */
-      dispatch(setToken(info))
-
-      navigate('/main')
-    } catch(err) {
-      console.log(err)
+        memberId,
+        memberPhoneNum,
+        memberPass,
+        memberName,
+        memberNick,
+      };
+      dispatch(setToken(info));
+      localStorage.setItem("isLogin", true);
+      // // 로그인 성공시 메인 페이지로 이동하면서
+      // // 리덕스에 memberSeq 저장
+      // store.dispatch({
+      //   type: 'SAVE_CURRENT_USER_INFO',
+      // currentUserInfo: {
+      //   memberSeq,
+      //   accessToken,
+      //   refreshToken,
+      //   memberId
+      // }
+      // })
+      navigate("/main");
+    } catch (err) {
+      console.log(err);
     }
-  }
+  };
 
   // 로그인 버튼 클릭시 로그인 요청
   const handleLogin = (e) => {
     e.preventDefault();
-  
+
     const loginData = new FormData(e.currentTarget);
     const data = {
-      memberId: loginData.get('id'),
-      memberPass: loginData.get('password')
-    }
-    loginHandle(data)
-  }
+      memberId: loginData.get("id"),
+      memberPass: loginData.get("password"),
+    };
+    loginHandle(data);
+  };
 
   // const handleMouseDownPassword = (
   //   event: React.MouseEvent<HTMLButtonElement>
@@ -103,7 +119,8 @@ function Login() {
         <form className="login-input-wrapper" onSubmit={handleLogin}>
           <FormControl sx={{ width: "70%" }} variant="standard">
             {/* <InputForm id="id" label="아이디" placeholder="UserName" /> */}
-            <TextField className='input-form-wrapper'
+            <TextField
+              className="input-form-wrapper"
               id="id"
               label="아이디"
               name="id"
@@ -144,8 +161,8 @@ function Login() {
           <div className="login-btn-wrapper">
             <div className="login-btn">
               {/* <Link to={"/main"} className="link"> */}
-                {/* <BasicButton text="로그인" onClick={() => onClickLogin} /> */}
-                <BasicButton text="로그인" />
+              {/* <BasicButton text="로그인" onClick={() => onClickLogin} /> */}
+              <BasicButton text="로그인" />
               {/* </Link> */}
             </div>
           </div>
