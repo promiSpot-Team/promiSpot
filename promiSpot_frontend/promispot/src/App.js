@@ -33,11 +33,11 @@ import EditInfo from "./pages/MyPage/EditInfo";
 
 function App() {
   // const history = useHistory();
-  useEffect(() => {
-    return () => {
-      window.localStorage.clear();
-    };
-  });
+  // useEffect(() => {
+  //   return () => {
+  //     window.localStorage.clear()
+  //   }
+  // })
   return (
     <Routes>
       <Route path="/" element={<Start />} />
@@ -47,7 +47,7 @@ function App() {
       <Route path="/main" element={<Main />} />
       {/* <Route component={NotFound} /> */}
       <Route path="/map/:promiseSeq" element={<MapContainer />}>
-        <Route path="search" element={<PlaceSearch />} />
+        {/* <Route path="search" element={<PlaceSearch />} /> */}
         <Route path="recommend" element={<PlaceRecommend />} />
         <Route path=":placeId" element={<PlaceDetail />} />
         <Route path="schedule" element={<Schedule />} />
