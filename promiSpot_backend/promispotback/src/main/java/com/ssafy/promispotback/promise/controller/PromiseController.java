@@ -34,19 +34,18 @@ public class PromiseController {
 	// 약속 생성
 	@PostMapping("/create")
 	public ResponseEntity<?> createPromise(@RequestBody PromiseEntity promiseEntity) {
-		System.out.println("ddd");
+//		System.out.println("ddd");
 		Map<String, Object> resultMap = new HashMap<>();
 		try {
 			int result = promiseService.createPromise(promiseEntity);
 			
-			if(result != 0) {
-				result = promiseEntity.getPromiseSeq();
+			if(result != 0) { // 생성 완료 시
 				resultMap.put("message", "success");
-				resultMap.put("promiseSeq", result);
+				resultMap.put("promiseSeq", promiseEntity.getPromiseSeq()); // 자동 생성된 pk 값 담아주기
 				return new ResponseEntity<Map<String, Object>>(resultMap, HttpStatus.OK);
-			} else {
+			} else { // 생성 실패
 				resultMap.put("message", "fail");
-				return new ResponseEntity<Map<String, Object>>(resultMap, HttpStatus.OK);
+				return new ResponseEntity<Map<String, Object>>(resultMap, HttpStatus.ACCEPTED);
 			}
 			
 		} catch (Exception e) {
