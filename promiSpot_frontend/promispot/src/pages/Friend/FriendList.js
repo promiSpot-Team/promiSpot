@@ -26,6 +26,8 @@ export default function FriendList({ memberSeq }) {
     getFriendList()
   }, [])
 
+  console.log('asdf', friendList)
+
   return (
     <div className="friend-list-wrapper">
       
@@ -41,7 +43,7 @@ export default function FriendList({ memberSeq }) {
         return (
           <ProfileInfoB 
             key={idx}
-            imgName="KSH_Profile" 
+            imgUrl={friend.memberImgPath} 
             nickName={friend.memberNick} 
             id={friend.memberId}/>
         )

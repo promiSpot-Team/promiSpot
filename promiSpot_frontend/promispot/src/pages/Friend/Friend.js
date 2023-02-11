@@ -219,7 +219,7 @@ export default function Friend(props) {
                   <div key={idx} className='profile-info-wrapper'>
                     <div className='profile-info-img-wrapper'>
                       <div className='profile-info-img'>
-                      <img src={require("../../img/IU_Profile.jpg")} width="40px"/></div>
+                      <img src={friend.memberImgPath} width="40px"/></div>
                     </div>
                     <div className='profile-info-name-wrapper'>
                       <div className='profile-info-nickname-wrapper'>{friend.memberNick}</div>

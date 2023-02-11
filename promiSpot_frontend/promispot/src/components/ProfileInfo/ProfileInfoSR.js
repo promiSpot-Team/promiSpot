@@ -4,14 +4,14 @@ import './ProfileInfoSR.scss';
 
 export default function ProfileInfo(props) {
 
-  const {imgName, nickName, id, isValid} = props;
-  const imgUrl = "/images/" + imgName + ".jpg";
+  const {imgUrl, nickName, id, isValid} = props;
+  // const imgUrl = "/images/" + imgName + ".jpg";
 
   return (
     <div className='profile-info-wrapper'>
       <div className='profile-info-img-wrapper'>
         <div className='profile-info-img'>
-        <img src={imgUrl} alt = {imgName} title = {imgName} width="40px"/></div>
+        <img src={imgUrl} alt = {nickName} title = {nickName} width="40px"/></div>
       </div>
       <div className='profile-info-name-wrapper'>
         <div className='profile-info-nickname-wrapper'>{nickName}</div>
