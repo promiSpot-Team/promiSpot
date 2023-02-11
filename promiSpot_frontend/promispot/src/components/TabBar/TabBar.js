@@ -33,7 +33,6 @@ export default function TabBar(props) {
   const navigate = useNavigate();
 
   /* 날짜랑 제목으로 약속 생성하기 */
-
   /* <InputForm />에서 약속 제목 입력값 받아오기 */
   const getInputPromiseTitle = (data) => {
     setPromiseTitle(data);

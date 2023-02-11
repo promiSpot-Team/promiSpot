@@ -7,9 +7,10 @@ import TabBar2 from "../../components/TabBar/TabBar2";
 import { changeRect } from '../../reducer/map';
 import mapdata from "../mapdata.json";
 import "../scss/Map_Container.scss";
-import PlaceSearch from './PlaceSearch'
 import axios from "axios";
 import { SERVER_URL } from "../../constants/constants";
+import PlaceSearch from './PlaceSearch';
+import PlaceRecommend from "./PlaceRecommend";
 
 const { kakao } = window;
 
@@ -228,9 +229,16 @@ const [promiseMemberList, setPromiseMemberList] = useState([])
     });
   }
 
-  const [isOpen, setIsOpen] = useState(false)
-  const openSearch = () => {
-    setIsOpen(!isOpen)
+  // <TabBar2 />에서 검색 클릭 했을 때 true/false 값 가져오기
+  const [searchOpen, setSearchOpen] = useState(false);
+  const catchClickSearch = (isOpen) => {
+    setSearchOpen(isOpen)
+  }
+
+  const [recommendOpen, setRecommendOpen] = useState(false);
+  // <TabBar2 />에서 검색 클릭 했을 때 true/false 값 가져오기
+  const catchClickRecommend = (isOpen) => {
+    setRecommendOpen(isOpen)
   }
 
   return (
@@ -246,9 +254,18 @@ const [promiseMemberList, setPromiseMemberList] = useState([])
           ))}
         </select> */}
       </div>
-        <button onClick={openSearch}>열기</button>
       <div id="map" className="map-wrapper">
-        {isOpen ? <PlaceSearch style={{ zIndex: 999 }}/>: null }
+        {/* 검색창 껐다 끄기 토클 */}
+        {searchOpen && !recommendOpen?
+          <PlaceSearch /> 
+        :
+          null
+        }
+        {!searchOpen && recommendOpen?
+          <PlaceRecommend /> 
+        :
+          null
+        }
         <Outlet />
       </div>
       <div className="map-button-wrapper">
@@ -270,7 +287,12 @@ const [promiseMemberList, setPromiseMemberList] = useState([])
         )}
       </div>
       <div className="map-tab-wrapper">
-        <TabBar2 />
+        <TabBar2
+          // 검색 클릭 했을 때 
+          catchClickSearch={catchClickSearch}
+          // 추천 클릭 했을 때
+          catchClickRecommend={catchClickRecommend}
+        />
       </div>
       {modalOpen && (
         <Modal2 closeModal={() => setModalOpen(!modalOpen)}>

@@ -7,6 +7,7 @@ import { Link } from "react-router-dom";
 import "./TabBar.scss";
 import { useLocation } from "react-router-dom";
 
+// 지도 페이지에 들어가는 TabBar2
 export default function TabBar2(props) {
   // 모달창 노출 여부 state
   const [modalOpen, setModalOpen] = useState(false);
@@ -25,6 +26,30 @@ export default function TabBar2(props) {
   useEffect(() => {
     // console.log(promiseSeq);
   }, [promiseSeq]);
+  
+  /* 장소 검색/추천 토글 */
+  const [openSearch, setOpenSearch] = useState(false);
+  const [openRecommend, setOpenRecommend] = useState(false);
+  
+  // 장소 검색 클릭 
+  const onClickSearch = () => {
+    setOpenRecommend(false)
+    setOpenSearch(!openSearch)
+  }
+
+  useEffect(() => {
+    props.catchClickSearch(openSearch)
+  }, [openSearch])
+
+  // 장소 추천 클릭
+  const onClickRecommend = () => {
+    setOpenSearch(false)
+    setOpenRecommend(!openRecommend)
+  }
+
+  useEffect(() => {
+    props.catchClickRecommend(openRecommend)
+  }, [openRecommend])
 
   return (
     <>
@@ -54,10 +79,10 @@ export default function TabBar2(props) {
           </div>
           <div className="navbar-right">
             <div className="navbar-right-icon">
-              <Link to={`/map/${promiseSeq}/recommend`} className="link">
-                <MdRecommend size="36" color="#ffffff" />
+              {/* <Link to={`/map/${promiseSeq}/recommend`} className="link"> */}
+                <MdRecommend size="36" color="#ffffff" onClick={onClickRecommend} />
                 <div className="navbar-right-icon-txt">Recommend</div>
-              </Link>
+              {/* </Link> */}
             </div>
             <div className="navbar-right-icon">
               <Link to={"/mypage"} className="link">
