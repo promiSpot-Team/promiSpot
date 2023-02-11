@@ -127,22 +127,22 @@ $inner-shadow: inset 0.2em 0.2em 0.5em var(--greyLight-2),
   // box-sizing: border-box;
   position: absolute;
   width: 90%;
-  height: 45%;
+  height: 40%;
   z-index: 998;
   bottom: 35px;
   // padding: 2vh;
   // text-align: center;
   background-color: rgb(255, 255, 255);
-  border-radius: 2vh;
+  border-radius: 2vh; 
   box-shadow: 0 2vh 3vh 0 rgba(34, 36, 38, 0.15);
-  justify-content: center;
-  display: grid;
+  // justify-content: center;
+  // display: grid;
 
   .place-search-bar-wrapper {
     height: 20%;
     display: grid;
     justify-content: center;
-    padding-top: 7%;
+    padding-top: 4%;
     width: 95%;
     .search {
       display: flex;

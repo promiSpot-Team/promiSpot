@@ -4,6 +4,7 @@ import BasicHeader from "../../components/Header/BasicHeader3";
 import getDetail from "./GetDetail";
 import { setPlace } from "../../reducer/map";
 import { useDispatch } from "react-redux";
+import GetDetail from './GetDetail'
 
 export default function PlaceDetail() {
   const navigate = useNavigate();
@@ -11,6 +12,7 @@ export default function PlaceDetail() {
   const place = location.state;
   const dispatch = useDispatch();
 
+  console.log(place)
   /* 장소 '등록하기' 버튼 누르면 지도에 등록하면서 약속 장소 후보로 등록 */
   const registerPlaceToMap = () => {
     dispatch(setPlace(place));
@@ -28,8 +30,11 @@ export default function PlaceDetail() {
 
   return (
     <div className="place-modal-wrapper">
-      <BasicHeader text={place.place_name} />
+      <div style={{ height: '9vh'}}>
+        <BasicHeader text={place.place_name} />
+      </div>
       <div>
+        <GetDetail place={place} />
         <button
           onClick={registerPlaceToMap}
           style={{

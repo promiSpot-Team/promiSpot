@@ -1,15 +1,17 @@
-import { React, useEffect, useState } from "react";
+import axios from "axios";
+import { React, useEffect, useRef, useState } from "react";
 import { FaVoteYea } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, Outlet, useNavigate, useLocation } from "react-router-dom";
 import Modal2 from "../../components/Modal/Modal2";
 import TabBar2 from "../../components/TabBar/TabBar2";
+import { SERVER_URL } from "../../constants/constants";
 import { changeRect } from '../../reducer/map';
 import mapdata from "../mapdata.json";
 import "../scss/Map_Container.scss";
-import PlaceSearch from './PlaceSearch'
-import axios from "axios";
-import { SERVER_URL } from "../../constants/constants";
+import PlaceRecommend from "./PlaceRecommend";
+import PlaceSearch from './PlaceSearch';
+import { Content } from "antd/es/layout/layout";
 
 const { kakao } = window;
 
@@ -66,6 +68,7 @@ const [promiseMemberList, setPromiseMemberList] = useState([])
     }//catch
   }
   useEffect(() => {
+<<<<<<< HEAD
     if (promiseSeq) {
       getPromiseMembers()
     }
@@ -78,6 +81,13 @@ const [promiseMemberList, setPromiseMemberList] = useState([])
   }, [promiseMemberList])
 /////////////////////////////////////// 민정 끝/////////////////////////////////////////////////////////
   
+=======
+    getPromiseMembers()
+  }, [])
+////////////////////////////////////////////////////////////////////////////////////////////////
+  
+
+>>>>>>> d149123ebd57f4b5d6f37d0a1168ca06c013a249
   // 로그인한 회원 정보 가져오기
   const memberSeq = useSelector((state) => state.user.info.memberSeq);
 
@@ -95,44 +105,76 @@ const [promiseMemberList, setPromiseMemberList] = useState([])
   useEffect(() => {
     searchMemberAddressList();
   }, []);
-
   useEffect(() => {
     console.log(memberAddressList);
   }, [memberAddressList]);
-
+  
   // 등록한 주소 중 하나 선택하기
   const [selectAddress, setSelectAddress] = useState();
   const addressSelect = (e) => {
-    setSelectAddress(e.target.value);
+    setSelectAddress(JSON.parse(e.currentTarget.value));
   };
+
+  // 선택한 주소를 지도에 마커를 찍게 해준다. 
+  const [memberCustomOverlay, setMemberCustomOverlay] = useState();
+  
   useEffect(() => {
-    console.log(selectAddress);
+    if (selectAddress) {
+
+      // 선택을 바꿀 때 기존의 찍힌 마커를 지워주는 작업 
+      if (memberCustomOverlay) {
+        memberCustomOverlay.setMap(null);  
+      }
+
+      const profile_url = "https://cdn.lorem.space/images/face/.cache/150x150/nrd-ZmmAnliy1d4-unsplash.jpg";
+      if (selectAddress) {
+        var customOverlay = new kakao.maps.CustomOverlay({
+          position: new kakao.maps.LatLng(selectAddress.addressX, selectAddress.addressY),
+          content: `<div class="map-user-profile"><img src=${profile_url}></div>`,
+          xAnchor: 0.3,
+          yAnnchor: 0.91,
+        });
+
+        setMemberCustomOverlay(customOverlay);
+
+        customOverlay.setMap(map); 
+      } 
+    }
+    
   }, [selectAddress]);
 
-  // 사람 프로필 마커 찍기
-  mapdata.users.forEach((user) => {
-    var customOverlay = new kakao.maps.CustomOverlay({
-      position: new kakao.maps.LatLng(37.5013, 127.0399),
-      content: `<div class="map-user-profile"><img src=${user.profile_url}></div>`,
-      xAnchor: 0.3,
-      yAnnchor: 0.91,
-    });
 
-    customOverlay.setMap(map);
-  });
+
+
+
+
+
+
+
+  // 사람 프로필 마커 찍기
+  // mapdata.users.forEach((user) => {
+  //   var customOverlay = new kakao.maps.CustomOverlay({
+  //     position: new kakao.maps.LatLng(37.5013, 127.0399),
+  //     content: `<div class="map-user-profile"><img src=${user.profile_url}></div>`,
+  //     xAnchor: 0.3,
+  //     yAnnchor: 0.91,
+  //   });
+
+  //   customOverlay.setMap(map);
+  // });
 
   // 장소 마커 찍기
-  mapdata.places.forEach((place) => {
-    var customOverlay = new kakao.maps.CustomOverlay({
-      position: new kakao.maps.LatLng(place.place_y, place.place_x),
-      content: `<div class="pin"></div><div class="pulse"></div>`,
-      xAnchor: 0.3,
-      yAnchor: 0.91,
-    });
+  // mapdata.places.forEach((place) => {
+  //   var customOverlay = new kakao.maps.CustomOverlay({
+  //     position: new kakao.maps.LatLng(place.place_y, place.place_x),
+  //     content: `<div class="pin"></div><div class="pulse"></div>`,
+  //     xAnchor: 0.3,
+  //     yAnchor: 0.91,
+  //   });
 
-    customOverlay.setMap(map);
+  //   customOverlay.setMap(map);
 
-    // 마커 그리기
+    // // 마커 그리기
     // const marker = new kakao.maps.Marker({
     //   map: map,
     //   clickable: true,
@@ -141,9 +183,10 @@ const [promiseMemberList, setPromiseMemberList] = useState([])
     // })
 
     // kakao.maps.event.addListener(marker, 'click', () => {
+    //   // 마커 클릭했을 때 실행될 함수
     //   console.log('click!')
     // })
-  });
+  // });
 
   // // 지도에 장소가 등록됐을 때
   // useEffect(() => {
@@ -245,27 +288,48 @@ const [promiseMemberList, setPromiseMemberList] = useState([])
     });
   }
 
-  const [isOpen, setIsOpen] = useState(false)
-  const openSearch = () => {
-    setIsOpen(!isOpen)
+  // <TabBar2 />에서 검색 클릭 했을 때 true/false 값 가져오기
+  const [searchOpen, setSearchOpen] = useState(false);
+  const catchClickSearch = (isOpen) => {
+    setSearchOpen(isOpen)
+  }
+
+  // <TabBar2 />에서 추천 클릭 했을 때 true/false 값 가져오기
+  const [recommendOpen, setRecommendOpen] = useState(false);
+  const catchClickRecommend = (isOpen) => {
+    setRecommendOpen(isOpen)
   }
 
   return (
     <div id="map-all-wrapper">
+      
       {/* 회원이 지정한 주소를 가져와 선택하게 하는 DIV */}
       <div>출발 주소 선택</div>
       <div>
-        {/* <select onChange={addressSelect} value={selectAddress}>
-          {memberAddressList.map((address) => (
-            <option value={address} key={address.addressSeq}>
-              {address.nick}
-            </option>
-          ))}
-        </select> */}
+        <select onChange={addressSelect}>
+          {memberAddressList !== null && memberAddressList.map((address) => {
+            return (
+              // <option key={address.addressSeq} value={`${address.addressX}_${address.addressY}`}> {address.addressNick} </option>
+              <option key={address.addressSeq} value={JSON.stringify(address)}> {address.addressNick} </option>
+            )
+          })}
+        </select>
       </div>
-        <button onClick={openSearch}>열기</button>
+      <button>출발지로 선택</button>
+      
+
       <div id="map" className="map-wrapper">
-        {isOpen ? <PlaceSearch style={{ zIndex: 999 }}/>: null }
+        {/* 검색창 껐다 끄기 토클 */}
+        {searchOpen && !recommendOpen?
+          <PlaceSearch /> 
+        :
+          null
+        }
+        {!searchOpen && recommendOpen?
+          <PlaceRecommend /> 
+        :
+          null
+        }
         <Outlet />
       </div>
       <div className="map-button-wrapper">
@@ -287,7 +351,12 @@ const [promiseMemberList, setPromiseMemberList] = useState([])
         )}
       </div>
       <div className="map-tab-wrapper">
-        <TabBar2 />
+        <TabBar2
+          // 검색 클릭 했을 때 
+          catchClickSearch={catchClickSearch}
+          // 추천 클릭 했을 때
+          catchClickRecommend={catchClickRecommend}
+        />
       </div>
       {modalOpen && (
         <Modal2 closeModal={() => setModalOpen(!modalOpen)}>

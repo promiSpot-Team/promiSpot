@@ -78,10 +78,10 @@ public class AddressController {
 	
 	// 회원 주소 수정
 	@ApiOperation(value = "회원 주소 수정", notes = "회원 주소 수정. DB 수정 성공여부에 따라 'success' 또는 'fail' 문자열을 반환한다. ", response = String.class)
-	@PutMapping
+	@PutMapping("/{addressSeq}")
 	public ResponseEntity<?> modifyAddress(@RequestBody @ApiParam(value="회원 주소", required=true) 
-		AddressEntity addressEntity){
-		
+		AddressEntity addressEntity, @ApiParam(value="회원 주소 시퀀스", required=true) @PathVariable("addressSeq") int addressSeq){
+		addressEntity.setAddressSeq(addressSeq);
 		try {
 			if(addressService.modifyAddress(addressEntity)) {
 				return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
