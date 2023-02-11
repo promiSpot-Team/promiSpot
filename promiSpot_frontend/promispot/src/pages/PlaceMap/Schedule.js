@@ -7,12 +7,15 @@ import '../scss/Map_Container.scss'
 
 export default function Schedule() {
 
+
 return (
   <div className='schedule-wrapper'>
     <div className='schedule-background-wrapper'>
     {/* <DndProvider backend={HTML5Backend}>
       <DragDrop/>
     </DndProvider> */}
+      <button className="draggable" draggable="true">🦊</button>
+    <button className="draggable" draggable="true">🐸</button>
     </div>
     <div className='map-button-wrapper'>
       <button className="map-button-schedule">

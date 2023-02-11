@@ -14,9 +14,9 @@
 	<!-- 회원가입 -->
 	<insert id="registMember" parameterType="MemberEntity">
 		insert into members(member_id, member_pass, member_name, member_nick, member_phone_num 
-		, member_img_path, member_img_origin_name, member_img_server_name, member_address_is_agree)   
+		, member_img_path, member_img_origin_name, member_img_server_name, member_address_is_agree, member_email)
 		values(#{memberId}, #{memberPass}, #{memberName}, #{memberNick}, #{memberPhoneNum}
-		, null, null, null, #{memberAddressIsAgree})
+		, #{memberImgPath}, #{memberImgOriginName}, #{memberImgServerName}, #{memberAddressIsAgree}, #{memberEmail})
 	</insert>
 	
 	<!-- 회원정보수정 -->
