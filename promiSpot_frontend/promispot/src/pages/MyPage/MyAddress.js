@@ -7,6 +7,7 @@ import ProfileInfoS from "../../components/ProfileInfo/ProfileInfoS";
 import { useSelector, useDispatch } from "react-redux";
 import { reissueToken } from "../../reducer/user";
 import "../scss/MyPage.scss";
+import BasicHeader from "../../components/Header/BasicHeader1";
 
 export default function MyAddress() {
   const [myAddressList, setMyAddressList] = useState([]);
@@ -23,7 +24,6 @@ export default function MyAddress() {
         url: `${SERVER_URL}/address/addressList/${memberSeq}`,
       });
       if (response1.data !== "fail") {
-        console.log("is in?");
         setMyAddressList(response1.data);
       }
     } catch (err) {
@@ -31,11 +31,26 @@ export default function MyAddress() {
     }
   };
 
-  const deleteMyAddress = async () => {
+  const deleteMyAddress = async (addressSeq) => {
     try {
+      console.log(addressSeq);
       const response2 = await axios({
         method: axiosMethod,
         url: `${SERVER_URL}/address/${addressSeq}`,
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const modifyAddress = async (addressSeq) => {
+    try {
+      const response3 = await axios({
+        method: axiosMethod,
+        url: `${SERVER_URL}/address/${addressSeq}`,
+        data: {
+          addressIsPrimary: 1,
+        },
       });
     } catch (err) {
       console.log(err);
@@ -56,6 +71,8 @@ export default function MyAddress() {
   useEffect(() => {
     if (axiosMethod === "DELETE") {
       deleteMyAddress();
+    } else if (axiosMethod === "PUT") {
+      modifyAddress();
     }
   }, [axiosMethod]);
 
@@ -63,28 +80,46 @@ export default function MyAddress() {
     setAxiosMethod(method);
   };
 
-  function goAddress() {
-    window.location.replace("/address/search");
+  const sendAddress = (num) => {
+    setAddressNum(num);
+  };
+
+  function goMyAddress() {
+    window.location.replace("/myaddress");
   }
 
   return (
     <div>
+      <BasicHeader text="주소 목록"></BasicHeader>
+      <button>추가</button>
       {myAddressList &&
         myAddressList.map((item, idx) => {
           return (
-            <div key={idx}>
-              {item.addressAdress}
-              <button
-                onClick={() => {
-                  onClick("DELETE");
-                  handleChange_addressSeq();
-                }}
-                value={item.addressSeq}
-              >
-                삭제
-              </button>
-              <button>기본 주소로 설정</button>
-            </div>
+            <>
+              <div></div>
+              <div key={idx}>
+                {item.addressNick}
+                {item.addressAdress}
+                <button
+                  onClick={() => {
+                    onClick("DELETE");
+                    deleteMyAddress(item.addressSeq);
+                    goMyAddress();
+                  }}
+                  value={item.addressSeq}
+                >
+                  삭제
+                </button>
+                <button
+                  onClick={() => {
+                    onClick("POST");
+                    deleteMyAddress(item.addressSeq);
+                  }}
+                >
+                  수정
+                </button>
+              </div>
+            </>
           );
         })}
     </div>
