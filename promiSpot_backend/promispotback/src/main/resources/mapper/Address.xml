@@ -21,9 +21,14 @@
 	
 	<!-- 회원 주소 수정 -->
 	<update id="modifyAddress" parameterType="AddressEntity">
-		update addresses 
-		set address_address=#{addressAddress}, address_nick=#{addressNick}, address_x=#{addressX}
-		, address_y=#{addressY}, address_is_primary=#{addressIsPrimary} 
+		update addresses
+		<trim prefix="set" suffixOverrides=",">
+			<if test="addressAddress != null">address_address = #{addressAddress},</if>
+			<if test="addressNick != null">address_nick = #{addressNick},</if>
+			<if test="addressX != null">address_x = #{addressX},</if>
+			<if test="addressY != null">address_y = #{addressY},</if>
+			<if test="addressIsPrimary != null">address_is_primary = #{addressIsPrimary},</if>
+		</trim>
 		where address_seq = #{addressSeq} 
 	</update>
 	
