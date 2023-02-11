@@ -163,7 +163,7 @@ const [promiseMemberList, setPromiseMemberList] = useState([])
     //   // 마커 클릭했을 때 실행될 함수
     //   console.log('click!')
     // })
-  });
+  // });
 
   // // 지도에 장소가 등록됐을 때
   // useEffect(() => {
