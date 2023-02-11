@@ -51,6 +51,7 @@ function Login() {
       const memberPass = response.data["memberPass"];
       const memberName = response.data["memberName"];
       const memberNick = response.data["memberNick"];
+      const memberImgPath = response.data["memberImgPath"];
 
       const info = {
         memberSeq,
@@ -61,20 +62,11 @@ function Login() {
         memberPass,
         memberName,
         memberNick,
+        memberImgPath
       };
       dispatch(setToken(info));
       localStorage.setItem("isLogin", true);
-      // // 로그인 성공시 메인 페이지로 이동하면서
-      // // 리덕스에 memberSeq 저장
-      // store.dispatch({
-      //   type: 'SAVE_CURRENT_USER_INFO',
-      // currentUserInfo: {
-      //   memberSeq,
-      //   accessToken,
-      //   refreshToken,
-      //   memberId
-      // }
-      // })
+
       navigate("/main");
     } catch (err) {
       console.log(err);
