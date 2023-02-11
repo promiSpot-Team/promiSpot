@@ -1,16 +1,16 @@
+import axios from "axios";
 import { React, useEffect, useState } from "react";
 import { FaVoteYea } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, Outlet, useNavigate } from "react-router-dom";
 import Modal2 from "../../components/Modal/Modal2";
 import TabBar2 from "../../components/TabBar/TabBar2";
+import { SERVER_URL } from "../../constants/constants";
 import { changeRect } from '../../reducer/map';
 import mapdata from "../mapdata.json";
 import "../scss/Map_Container.scss";
-import axios from "axios";
-import { SERVER_URL } from "../../constants/constants";
-import PlaceSearch from './PlaceSearch';
 import PlaceRecommend from "./PlaceRecommend";
+import PlaceSearch from './PlaceSearch';
 
 const { kakao } = window;
 
@@ -116,7 +116,7 @@ const [promiseMemberList, setPromiseMemberList] = useState([])
 
     customOverlay.setMap(map);
 
-    // 마커 그리기
+    // // 마커 그리기
     // const marker = new kakao.maps.Marker({
     //   map: map,
     //   clickable: true,
@@ -125,6 +125,7 @@ const [promiseMemberList, setPromiseMemberList] = useState([])
     // })
 
     // kakao.maps.event.addListener(marker, 'click', () => {
+    //   // 마커 클릭했을 때 실행될 함수
     //   console.log('click!')
     // })
   });
@@ -235,8 +236,8 @@ const [promiseMemberList, setPromiseMemberList] = useState([])
     setSearchOpen(isOpen)
   }
 
+  // <TabBar2 />에서 추천 클릭 했을 때 true/false 값 가져오기
   const [recommendOpen, setRecommendOpen] = useState(false);
-  // <TabBar2 />에서 검색 클릭 했을 때 true/false 값 가져오기
   const catchClickRecommend = (isOpen) => {
     setRecommendOpen(isOpen)
   }

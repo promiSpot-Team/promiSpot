@@ -11,16 +11,19 @@ const SearchBar2 = forwardRef(({ onClick, GetAxiosResponse, config }, ref) => {
   const onChange = (e) => {
     e.preventDefault();
     setQuery(e.target.value)
-    if (query && query !== '') {
-      console.log('1')
+  } 
+
+  /* query 값이 변할 때만 axios 요청 */
+  useEffect(() => {
+    if (query !== '') {
       operation({
         ...config, 
         params: {
         ...config.params,
-        query: e.target.value}
+        query}
       });
     }
-  } 
+  }, [query])
 
   /* axios의 response 값이 변화할 때만 부모 컴포넌트에 결과값 넘겨주기 */
   useEffect(() => {
