@@ -6,6 +6,7 @@ export default function GetDetail(props) {
   const { address_name, category_name, phone, place_name, place_url, road_addres_name } = props.place
   // console.log("props", props)
   /* axios 관련 처리 */
+  console.log(category_name.split(' > '))
   const [Img, setData] = useState(undefined)
   const [Star, setStar] = useState(undefined)
   const [error, setError] = useState('');
