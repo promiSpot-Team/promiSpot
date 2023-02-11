@@ -2,7 +2,7 @@ import axios from "axios";
 import { React, useEffect, useRef, useState } from "react";
 import { FaVoteYea } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, Outlet, useNavigate } from "react-router-dom";
+import { Link, Outlet, useNavigate, useLocation } from "react-router-dom";
 import Modal2 from "../../components/Modal/Modal2";
 import TabBar2 from "../../components/TabBar/TabBar2";
 import { SERVER_URL } from "../../constants/constants";
@@ -45,26 +45,49 @@ export default function MapContainer() {
     setValid(!valid);
   };
 
-///////////////////////////////////// 민정 ////////////////////////////////////////////////////////
+///////////////////////////////////// 민정 시작////////////////////////////////////////////////////////
+const location = useLocation();
+const [promiseSeq, setPromiseSeq] = useState();
+useEffect(() => {
+  var path = location.pathname;
+  var parse = path.split("/");
+  var seq = parse[2];
+  setPromiseSeq(seq);
+}, []);
+
 const [promiseMemberList, setPromiseMemberList] = useState([])
   const getPromiseMembers = async () => {
     try {
       const response = await axios({
         method: 'GET',
-        url: `${SERVER_URL}/promise/member/getList/17`
-      })    
+        url: `${SERVER_URL}/promise/member/getList/${promiseSeq}`
+      });   
       setPromiseMemberList(response.data)
-      console.log(promiseMemberList)
     } catch (err) {
       console.log(err.response.status)
     }//catch
   }
   useEffect(() => {
+<<<<<<< HEAD
+    if (promiseSeq) {
+      getPromiseMembers()
+    }
+  }, [promiseSeq])
+  useEffect(() => {
+    if (promiseMemberList) {
+      // console.log(promiseMemberList)     
+    }
+    // getPromiseMembers()
+  }, [promiseMemberList])
+/////////////////////////////////////// 민정 끝/////////////////////////////////////////////////////////
+  
+=======
     getPromiseMembers()
   }, [])
 ////////////////////////////////////////////////////////////////////////////////////////////////
   
 
+>>>>>>> d149123ebd57f4b5d6f37d0a1168ca06c013a249
   // 로그인한 회원 정보 가져오기
   const memberSeq = useSelector((state) => state.user.info.memberSeq);
 
@@ -357,7 +380,7 @@ const [promiseMemberList, setPromiseMemberList] = useState([])
                     <button className="vote-done-btn-one-wrapper">Home</button>
                   </Link>
                 <div className="vote-done-sep-wrapper"></div>
-                  <Link className="vote-done-btn-two-wrapper" to={"/map/schedule"}>
+                  <Link className="vote-done-btn-two-wrapper" to={`/map/${promiseSeq}/schedule`}>
                     <button className="vote-done-btn-two-wrapper" onClick={() => setModalOpen(false)}>Schedule</button>
                   </Link>
               </div>

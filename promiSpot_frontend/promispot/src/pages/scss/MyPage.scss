@@ -60,18 +60,18 @@
 
 .mypage {
   width: 100%;
-  height: 100%;
+  // height: 100%;
 }
 
 .content {
   width: 100%;
-  height: 100%;
+  // height: 100%;
   position: relative;
 
   .my-content-img {
     width: 100%;
     justify-content: center;
-    padding-top: 20%;
+    padding-top: 10vh;
     display: flex;
     .my-content-img-real {
       width: 100px;
@@ -86,7 +86,7 @@
 
   .my-content-name {
     width: 100%;
-    padding-top: 5%;
+    padding-top: 2.5vh;
     justify-content: center;
     display: flex;
     font-size: 30px;
@@ -99,16 +99,65 @@
     position: relative;
     justify-content: right;
     align-items: end;
-    padding-top: 5%;
+    padding-top: 2.5vh;
     right: 20px;
     .my-content-edit-btn {
       width: 10%;
-      height: 5%;
+      height: 5vh;
       justify-content: right;
+      padding-bottom: 2.5vh;
       // border-radius: 10px;
       border: none;
       background: none;
       font-size: 20px;
+    }
+  }
+  .my-content-line {
+    width: 100%;
+    height: 2px;
+    background-color: rgba(204, 204, 204, 0.541);
+  }
+  .my-content-address-wrapper {
+    width: 100%;
+    padding: 5% 0 5% 0;
+    background-color: rgba(230, 230, 230, 0.466);
+    .my-content-address {
+      display: grid;
+      width: 100%;
+      text-decoration: none;
+      .my-content-address-nick {
+        margin-left: 7%;
+        font-size: 20px;
+        font-weight: 600;
+        padding-bottom: 5px;
+      }
+      .my-content-address-real {
+        margin-left: 7%;
+        font-size: 19px;
+      }
+    }
+    .my-content-address-icon {
+      position: absolute;
+      padding-top: 15px;
+      right: 5px;
+    }
+  }
+  .my-content-info-wrapper {
+    width: 100%;
+    padding: 4% 0 4% 0;
+    .my-content-info {
+      width: 100%;
+      .my-content-info-title {
+        margin-left: 7%;
+        font-size: 20px;
+        font-weight: 600;
+        color: rgb(104, 104, 104);
+        padding-bottom: 5px;
+      }
+      .my-content-info-txt {
+        margin-left: 7%;
+        font-size: 19px;
+      }
     }
   }
 }
