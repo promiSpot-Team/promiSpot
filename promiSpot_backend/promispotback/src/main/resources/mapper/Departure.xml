@@ -10,8 +10,8 @@
 
 	<!-- 회원별 출발 장소 저장 -->
 	<insert id="insertDeparture" parameterType="DepartureEntity">
-		insert into departure(promise_seq, member_seq, departure_x, departure_y)
-		values(#{promiseSeq}, #{memberSeq}, #{departureX}, #{departureY})
+		insert into departure(promise_seq, member_seq, member_name, departure_x, departure_y)
+		values(#{promiseSeq}, #{memberSeq}, #{memberName}, #{departureX}, #{departureY})
 	</insert>
 
 	<!-- 약속별 회원별 출발 장소 하나 조회  -->

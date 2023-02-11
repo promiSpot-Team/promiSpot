@@ -12,6 +12,9 @@ public class DepartureEntity {
     @ApiModelProperty(value = "회원일련번호")
     private int memberSeq;
 
+    @ApiModelProperty(value = "이름")
+    private String memberName;
+
     @ApiModelProperty(value = "경도")
     private String departureX;
 
@@ -21,9 +24,10 @@ public class DepartureEntity {
     public DepartureEntity() {
     }
 
-    public DepartureEntity(int promiseSeq, int memberSeq, String departureX, String departureY) {
+    public DepartureEntity(int promiseSeq, int memberSeq, String memberName, String departureX, String departureY) {
         this.promiseSeq = promiseSeq;
         this.memberSeq = memberSeq;
+        this.memberName = memberName;
         this.departureX = departureX;
         this.departureY = departureY;
     }
@@ -42,6 +46,14 @@ public class DepartureEntity {
 
     public void setMemberSeq(int memberSeq) {
         this.memberSeq = memberSeq;
+    }
+
+    public String getMemberName() {
+        return memberName;
+    }
+
+    public void setMemberName(String memberName) {
+        this.memberName = memberName;
     }
 
     public String getDepartureX() {

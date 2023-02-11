@@ -30,9 +30,11 @@ spring:
     # DataBase Connection
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: root
-    password: asianautoever0125.
+    password: ssafy
+    # password: asianautoever0125.
     type: org.apache.commons.dbcp2.BasicDataSource
-    url: jdbc:mysql://i8a109.p.ssafy.io:3306/promispot?serverTimezone=UTC&useUniCode=yes&characterEncoding=UTF-8
+    url: jdbc:mysql://localhost:3306/promispot?serverTimezone=UTC&useUniCode=yes&characterEncoding=UTF-8
+    # url: jdbc:mysql://i8a109.p.ssafy.io:3306/promispot?serverTimezone=UTC&useUniCode=yes&characterEncoding=UTF-8
 
 
 
