@@ -161,24 +161,24 @@ export default function Join2() {
   }
   
   useEffect(() => {
-    /* 페이지 언마운트 될 때 실행 */
-    return () => {
-      const newJoinInfo = {
-        id: '',
-        email: '', 
-        password:'',
-        name: '',
-        nickName:'', 
-        phoneNumber: ''
-      }
-      // const newAddressInfo = {
-      //   addressAddress: '',
-      //   addressX: 0,
-      //   addressY: 0
-      // }
-      dispatch(setJoinInfo(newJoinInfo))
-      dispatch(setAddress(null))
-    }
+    // /* 페이지 언마운트 될 때 실행 */
+    // return () => {
+    //   const newJoinInfo = {
+    //     id: '',
+    //     email: '', 
+    //     password:'',
+    //     name: '',
+    //     nickName:'', 
+    //     phoneNumber: ''
+    //   }
+    //   // const newAddressInfo = {
+    //   //   addressAddress: '',
+    //   //   addressX: 0,
+    //   //   addressY: 0
+    //   // }
+    //   dispatch(setJoinInfo(newJoinInfo))
+    //   dispatch(setAddress(null))
+    // }
   }, [])
 
   
