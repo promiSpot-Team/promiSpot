@@ -85,15 +85,7 @@ const [promiseMemberList, setPromiseMemberList] = useState([])
   useEffect(() => {
     console.log(memberAddressList);
   }, [memberAddressList]);
-
-  // 2번 멀티캠퍼스
-  // x = 37.50124267032
-  // y = 127.02777501083
   
-  // 3번 
-  // 우장산역
-  
-
   // 등록한 주소 중 하나 선택하기
   const [selectAddress, setSelectAddress] = useState();
   const addressSelect = (e) => {
@@ -110,9 +102,6 @@ const [promiseMemberList, setPromiseMemberList] = useState([])
       if (memberCustomOverlay) {
         memberCustomOverlay.setMap(null);  
       }
-
-
-      
 
       const profile_url = "https://cdn.lorem.space/images/face/.cache/150x150/nrd-ZmmAnliy1d4-unsplash.jpg";
       if (selectAddress) {

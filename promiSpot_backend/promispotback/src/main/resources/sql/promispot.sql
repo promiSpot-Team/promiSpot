@@ -139,6 +139,18 @@ CREATE TABLE `addresses` (
                              primary key(address_seq)
 );
 
+
+DROP TABLE IF EXISTS `departure`;
+
+CREATE TABLE `departure` (
+                             `promise_seq`	BIGINT	NOT NULL,
+                             `member_seq`	BIGINT	NOT NULL,
+                             `departure_x`	VARCHAR(20)	NULL,
+                             `departure_y`	VARCHAR(20)	NULL,
+                             primary key(promise_seq, member_seq)
+);
+
+
 -- 친구 성립 트리거
 DELIMITER $$
 CREATE TRIGGER friend_trigger
