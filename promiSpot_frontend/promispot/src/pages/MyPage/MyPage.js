@@ -7,6 +7,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { editInfo, reissueToken } from "../../reducer/user";
 import "../scss/MyPage.scss";
 import MyAddress from "./MyAddress";
+import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 import { FormControl, TextField } from "@mui/material";
 
 export default function MyPage({ history }) {
@@ -102,7 +103,8 @@ export default function MyPage({ history }) {
         url: `${SERVER_URL}/address/addressList/${memberSeq}`,
       });
       if (response3.data !== "fail") {
-        setMyAddressList([response3.data]);
+        setMyAddressList(response3.data);
+        console.log(response3.data);
       }
     } catch (err) {
       console.log(err);
@@ -115,7 +117,6 @@ export default function MyPage({ history }) {
     const editData = new FormData(e.currentTarget);
     const data = {
       memberNick: editData.get("nickName"),
-      memberPhoneNum: editData.get("phoneNumber"),
     };
     // console.log(memberNick);
     editMyInfo(data);
@@ -129,6 +130,10 @@ export default function MyPage({ history }) {
   });
 
   useEffect(() => {
+    getMyAddress();
+  }, []);
+
+  useEffect(() => {
     // console.log("myInfoList", myInfoList)
   }, [myInfoList]);
 
@@ -138,6 +143,10 @@ export default function MyPage({ history }) {
   function goMyPage() {
     window.location.replace("/mypage");
   }
+
+  const goAddress = () => {
+    navigate("/myaddress");
+  };
 
   return (
     <div className="mypage">
@@ -165,22 +174,68 @@ export default function MyPage({ history }) {
                       편집
                     </button>
                   </div>
-                  <div>
-                    {" "}
+                  <div
+                    className="my-content-address-wrapper"
+                    onClick={goAddress}
+                  >
                     {myAddressList &&
-                      myAddressList.map((item, idx) => {
-                        return <div></div>;
+                      myAddressList.map((address) => {
+                        return (
+                          <>
+                            <div key={address.addressSeq}>
+                              {address.addressIsPrimary === 1 ? (
+                                <div className="my-content-address">
+                                  <div className="my-content-address-nick">
+                                    {address.addressNick}
+                                  </div>
+                                  <div className="my-content-address-real">
+                                    {address.addressAdress}
+                                  </div>
+                                  <div className="my-content-address-icon">
+                                    <IoIosArrowForward size="3vh" />
+                                  </div>
+                                </div>
+                              ) : null}
+                            </div>
+                          </>
+                        );
                       })}
                   </div>
-                  <div className="address">
-                    <p>닉네임</p>
-                    <p>{item.memberInfo.memberNick}</p>
+                  <div className="my-content-info-wrapper">
+                    <div className="my-content-info">
+                      <div className="my-content-info-title">닉네임</div>
+                      <div className="my-content-info-txt">
+                        {item.memberInfo.memberNick}
+                      </div>
+                    </div>
                   </div>
-                  <div className="address">
-                    <p>아이디</p>
-                    <p>{item.memberInfo.memberId}</p>
+                  <div className="my-content-line"></div>
+                  <div className="my-content-info-wrapper">
+                    <div className="my-content-info">
+                      <div className="my-content-info-title">아이디</div>
+                      <div className="my-content-info-txt">
+                        {item.memberInfo.memberId}
+                      </div>
+                    </div>
                   </div>
-                  <div className="logout-btn"></div>
+                  <div className="my-content-line"></div>
+                  <div className="my-content-info-wrapper">
+                    <div className="my-content-info">
+                      <div className="my-content-info-title">이메일</div>
+                      <div className="my-content-info-txt">
+                        {item.memberInfo.memberEmail}
+                      </div>
+                    </div>
+                  </div>
+                  <div className="my-content-line"></div>
+                  <div className="my-content-info-wrapper">
+                    <div className="my-content-info">
+                      <div className="my-content-info-title">전화번호</div>
+                      <div className="my-content-info-txt">
+                        {item.memberInfo.memberPhoneNum}
+                      </div>
+                    </div>
+                  </div>
                 </div>
               );
             })}
@@ -209,22 +264,6 @@ export default function MyPage({ history }) {
                       >
                         {/* <div onClick={clearText}>삭제</div> */}
                       </TextField>
-                    </FormControl>
-                    <FormControl sx={{ width: "70%" }} variant="standard">
-                      <TextField
-                        className="input-form-wrapper"
-                        id="phoneNumber"
-                        label="전화번호"
-                        placeholder={item.memberInfo.memberPhoneNum}
-                        name="phoneNumber"
-                        multiline
-                        variant="standard"
-                        fontFamily="Pretendard-Bold"
-                        // defaultValue={item.memberInfo.memberPhoneNum}
-                        margin="dense"
-                        // defaultValue={item.memberInfo.memberNick}
-                        // onChange={handleEditChange}
-                      />
                     </FormControl>
                     <div onClick={goMyPage}>
                       <button>수정</button>
