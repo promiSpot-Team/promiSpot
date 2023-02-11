@@ -14,8 +14,17 @@ def getDetail(url):
   driver.implicitly_wait(10)
   place_name = driver.find_element(By.XPATH, '//*[@id="mArticle"]/div[1]/div[1]/div[2]/div/h2').text
   place_star = driver.find_element(By.XPATH, '//*[@id="mArticle"]/div[1]/div[1]/div[2]/div/div/a[1]/span[1]').text
-  place_img = driver.find_element(By.XPATH, '//*[@id="mArticle"]/div[1]/div[1]/div[1]/a/span[1]').value_of_css_property('background-image')[5:-2]
-  
+
+  x_path_list = [
+    '//*[@id="mArticle"]/div[1]/div[1]/div[1]/a/span[1]',
+    '//*[@id="mArticle"]/div[4]/div[2]/ul/li[1]/a',
+    '//*[@id="mArticle"]/div[5]/div[2]/ul/li[1]/a'
+  ]
+  for x_path in x_path_list:
+    place_img = driver.find_element(By.XPATH, x_path).value_of_css_property('background-image')[5:-2]
+    if place_img != '': 
+      break
+
   place_info = {
     "placeName": place_name,
     "placeStar": place_star,
