@@ -21,4 +21,7 @@ public class WebSocketController {
 
         simpMessageSendingOperations.convertAndSend("/sub/chat/" + chatDto.getChannelId(), chatDto);
     }
+
+
+
 }

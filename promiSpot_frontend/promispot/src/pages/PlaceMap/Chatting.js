@@ -49,9 +49,7 @@ export default function Chatting() {
   const subscribe = () => {
     client.current.subscribe("/sub/chat/" + 1, (body) => {
       const json_body = JSON.parse(body.body);
-
       setChatList((prev) => [...prev, json_body]);
-
       console.log(chatList);
     });
   };

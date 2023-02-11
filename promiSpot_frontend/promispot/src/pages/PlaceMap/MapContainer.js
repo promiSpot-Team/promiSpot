@@ -1,4 +1,4 @@
-import { React, useEffect, useState } from "react";
+import { React, useEffect, useRef, useState } from "react";
 import { FaVoteYea } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, Outlet, useNavigate } from "react-router-dom";
@@ -11,6 +11,7 @@ import axios from "axios";
 import { SERVER_URL } from "../../constants/constants";
 import PlaceSearch from './PlaceSearch';
 import PlaceRecommend from "./PlaceRecommend";
+import { Content } from "antd/es/layout/layout";
 
 const { kakao } = window;
 
@@ -62,6 +63,8 @@ const [promiseMemberList, setPromiseMemberList] = useState([])
     getPromiseMembers()
   }, [])
 ////////////////////////////////////////////////////////////////////////////////////////////////
+  
+
   // 로그인한 회원 정보 가져오기
   const memberSeq = useSelector((state) => state.user.info.memberSeq);
 
@@ -79,55 +82,98 @@ const [promiseMemberList, setPromiseMemberList] = useState([])
   useEffect(() => {
     searchMemberAddressList();
   }, []);
-
   useEffect(() => {
     console.log(memberAddressList);
   }, [memberAddressList]);
 
+  // 2번 멀티캠퍼스
+  // x = 37.50124267032
+  // y = 127.02777501083
+  
+  // 3번 
+  // 우장산역
+  
+
   // 등록한 주소 중 하나 선택하기
   const [selectAddress, setSelectAddress] = useState();
   const addressSelect = (e) => {
-    setSelectAddress(e.target.value);
+    setSelectAddress(JSON.parse(e.currentTarget.value));
   };
+
+  // 선택한 주소를 지도에 마커를 찍게 해준다. 
+  const [memberCustomOverlay, setMemberCustomOverlay] = useState();
+  
   useEffect(() => {
-    console.log(selectAddress);
+    if (selectAddress) {
+
+      // 선택을 바꿀 때 기존의 찍힌 마커를 지워주는 작업 
+      if (memberCustomOverlay) {
+        memberCustomOverlay.setMap(null);  
+      }
+
+
+      
+
+      const profile_url = "https://cdn.lorem.space/images/face/.cache/150x150/nrd-ZmmAnliy1d4-unsplash.jpg";
+      if (selectAddress) {
+        var customOverlay = new kakao.maps.CustomOverlay({
+          position: new kakao.maps.LatLng(selectAddress.addressX, selectAddress.addressY),
+          content: `<div class="map-user-profile"><img src=${profile_url}></div>`,
+          xAnchor: 0.3,
+          yAnnchor: 0.91,
+        });
+
+        setMemberCustomOverlay(customOverlay);
+
+        customOverlay.setMap(map); 
+      } 
+    }
+    
   }, [selectAddress]);
 
-  // 사람 프로필 마커 찍기
-  mapdata.users.forEach((user) => {
-    var customOverlay = new kakao.maps.CustomOverlay({
-      position: new kakao.maps.LatLng(37.5013, 127.0399),
-      content: `<div class="map-user-profile"><img src=${user.profile_url}></div>`,
-      xAnchor: 0.3,
-      yAnnchor: 0.91,
-    });
 
-    customOverlay.setMap(map);
-  });
+
+
+
+
+
+
+
+  // 사람 프로필 마커 찍기
+  // mapdata.users.forEach((user) => {
+  //   var customOverlay = new kakao.maps.CustomOverlay({
+  //     position: new kakao.maps.LatLng(37.5013, 127.0399),
+  //     content: `<div class="map-user-profile"><img src=${user.profile_url}></div>`,
+  //     xAnchor: 0.3,
+  //     yAnnchor: 0.91,
+  //   });
+
+  //   customOverlay.setMap(map);
+  // });
 
   // 장소 마커 찍기
-  mapdata.places.forEach((place) => {
-    var customOverlay = new kakao.maps.CustomOverlay({
-      position: new kakao.maps.LatLng(place.place_y, place.place_x),
-      content: `<div class="pin"></div><div class="pulse"></div>`,
-      xAnchor: 0.3,
-      yAnchor: 0.91,
-    });
+  // mapdata.places.forEach((place) => {
+  //   var customOverlay = new kakao.maps.CustomOverlay({
+  //     position: new kakao.maps.LatLng(place.place_y, place.place_x),
+  //     content: `<div class="pin"></div><div class="pulse"></div>`,
+  //     xAnchor: 0.3,
+  //     yAnchor: 0.91,
+  //   });
 
-    customOverlay.setMap(map);
+  //   customOverlay.setMap(map);
 
-    // 마커 그리기
-    // const marker = new kakao.maps.Marker({
-    //   map: map,
-    //   clickable: true,
-    //   position: new kakao.maps.LatLng(place.place_y, place.place_x),
-    //   placeName: place.place_name
-    // })
+  //   // 마커 그리기
+  //   // const marker = new kakao.maps.Marker({
+  //   //   map: map,
+  //   //   clickable: true,
+  //   //   position: new kakao.maps.LatLng(place.place_y, place.place_x),
+  //   //   placeName: place.place_name
+  //   // })
 
-    // kakao.maps.event.addListener(marker, 'click', () => {
-    //   console.log('click!')
-    // })
-  });
+  //   // kakao.maps.event.addListener(marker, 'click', () => {
+  //   //   console.log('click!')
+  //   // })
+  // });
 
   // // 지도에 장소가 등록됐을 때
   // useEffect(() => {
@@ -243,17 +289,22 @@ const [promiseMemberList, setPromiseMemberList] = useState([])
 
   return (
     <div id="map-all-wrapper">
+      
       {/* 회원이 지정한 주소를 가져와 선택하게 하는 DIV */}
       <div>출발 주소 선택</div>
       <div>
-        {/* <select onChange={addressSelect} value={selectAddress}>
-          {memberAddressList.map((address) => (
-            <option value={address} key={address.addressSeq}>
-              {address.nick}
-            </option>
-          ))}
-        </select> */}
+        <select onChange={addressSelect}>
+          {memberAddressList !== null && memberAddressList.map((address) => {
+            return (
+              // <option key={address.addressSeq} value={`${address.addressX}_${address.addressY}`}> {address.addressNick} </option>
+              <option key={address.addressSeq} value={JSON.stringify(address)}> {address.addressNick} </option>
+            )
+          })}
+        </select>
       </div>
+      <button>출발지로 선택</button>
+      
+
       <div id="map" className="map-wrapper">
         {/* 검색창 껐다 끄기 토클 */}
         {searchOpen && !recommendOpen?
