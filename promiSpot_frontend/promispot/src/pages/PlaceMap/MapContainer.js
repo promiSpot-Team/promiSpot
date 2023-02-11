@@ -68,26 +68,11 @@ const [promiseMemberList, setPromiseMemberList] = useState([])
     }//catch
   }
   useEffect(() => {
-<<<<<<< HEAD
-    if (promiseSeq) {
-      getPromiseMembers()
-    }
-  }, [promiseSeq])
-  useEffect(() => {
-    if (promiseMemberList) {
-      // console.log(promiseMemberList)     
-    }
-    // getPromiseMembers()
-  }, [promiseMemberList])
-/////////////////////////////////////// 민정 끝/////////////////////////////////////////////////////////
-  
-=======
     getPromiseMembers()
   }, [])
 ////////////////////////////////////////////////////////////////////////////////////////////////
   
 
->>>>>>> d149123ebd57f4b5d6f37d0a1168ca06c013a249
   // 로그인한 회원 정보 가져오기
   const memberSeq = useSelector((state) => state.user.info.memberSeq);
 
