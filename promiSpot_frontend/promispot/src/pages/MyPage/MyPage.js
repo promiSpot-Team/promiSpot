@@ -4,7 +4,7 @@ import { Link, Navigate, Outlet, useNavigate } from "react-router-dom";
 import TabBar from "../../components/TabBar/TabBar";
 import { SERVER_URL } from "../../constants/constants";
 import { useSelector, useDispatch } from "react-redux";
-import { editInfo, reissueToken } from "../../reducer/user";
+import { editInfo, reissueToken } from "../../Redux/reducer/user";
 import "../scss/MyPage.scss";
 import MyAddress from "./MyAddress";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";

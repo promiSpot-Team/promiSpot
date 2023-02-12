@@ -12,6 +12,7 @@ const persistConfig = {
   // version: 1,
   storage,
   // storage: storageSession,
+  blacklist: ['promise']
 } 
 
 const rootReducer = combineReducers({

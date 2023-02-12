@@ -26,16 +26,26 @@ const initialState = {
     nickName: "",
     phoneNumber: "",
   },
+  info: null
 };
 
 /* 리듀서 선언 */
 export default function user(state = initialState, action) {
   switch (action.type) {
     /* 로그인 성공하면 토큰 저장 */
+    /* 로그아웃(info === null)이면 토큰 삭제 */
     case SET_TOKEN: {
-      return Object.assign({}, state, {
-        info: action.info,
-      });
+      if (action.info !== null) {
+        return Object.assign({}, state, {
+          info: action.info,
+          isLogin: true
+        });
+      } else {
+        return Object.assign({}, state, {
+          info: null,
+          isLogin: false
+        })
+      }
     }
 
     /* 토큰 재발급 */

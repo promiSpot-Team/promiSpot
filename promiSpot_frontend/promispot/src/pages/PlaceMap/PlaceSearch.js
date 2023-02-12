@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import SearchBar from "../../components/Search/SearchBar2";
 import { KAKAO_MAP_URL, KAKAO_REST_API_KEY } from "../../constants/constants";
-import { savePlaceList } from "../../reducer/map";
+import { savePlaceList } from "../../Redux/reducer/map";
 import "../scss/Map_Container.scss";
 import "../scss/Search_Bar.scss";
 

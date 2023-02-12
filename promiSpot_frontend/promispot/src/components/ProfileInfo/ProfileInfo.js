@@ -2,12 +2,12 @@ import React, { useState } from 'react';
 import { BsPersonPlusFill, BsPersonDashFill } from 'react-icons/bs';
 import './ProfileInfo.scss';
 import { useDispatch, useSelector } from 'react-redux';
-import { setPromiseFriend } from '../../reducer/promise'
+import { setPromiseFriend } from '../../Redux/reducer/promise'
 
 export default function ProfileInfo(props) {
 
-  const { imgName, nickName, id, friendSeq = null } = props;
-  const imgUrl = "/images/" + imgName + ".jpg";
+  const { imgUrl, nickName, id, friendSeq = null } = props;
+  // const imgUrl = "/images/" + imgName + ".jpg";
 
   /* 약속에 친구 추가하기 -> reducer/promise.js의 setPromiseFriend 함수 실행 */
   const dispatch = useDispatch()
@@ -33,7 +33,7 @@ export default function ProfileInfo(props) {
     <div className='profile-info-wrapper'>
       <div className='profile-info-img-wrapper'>
         <div className='profile-info-img'>
-        <img src={imgUrl} alt = {imgName} title = {imgName} width="40px" /></div>
+        <img src={imgUrl} alt = {nickName} title = {nickName} width="40px" /></div>
       </div>
       <div className='profile-info-name-wrapper'>
         <div className='profile-info-nickname-wrapper'>{nickName}</div>

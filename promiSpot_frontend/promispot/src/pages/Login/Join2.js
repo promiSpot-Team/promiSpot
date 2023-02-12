@@ -4,7 +4,6 @@ import { useSelector } from 'react-redux'
 import BasicHeader from "../../components/Header/BasicHeader1";
 import BasicButton from "../../components/Buttons/BasicButton";
 import InputFormRO from "../../components/InputForm/InputFormRO";
-import store from '../../store'
 import axios from 'axios'
 import { SERVER_URL } from '../../constants/constants'
 import { 
@@ -19,7 +18,7 @@ import {
   Checkbox
  } from "@mui/material/";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
-import { setJoinInfo, setAddress } from '../../reducer/user'
+import { setJoinInfo, setAddress } from '../../Redux/reducer/user'
 import "../scss/Join2.scss";
 import { useDispatch } from 'react-redux'
 
@@ -156,8 +155,23 @@ export default function Join2() {
       memberNick: data.get("nickName"),
       memberPhoneNum: data.get("phoneNumber"),
     }
+    const { memberId, memberEmail, memberPass, memberName, memberNick, memberPhoneNum } = joinData
 
     // 유효성 검사
+
+    // // 비밀번호 유효성 체크
+    // const passwordRegex =
+    //   /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,25}$/;
+    // if (!passwordRegex.test(password))
+    //   setPasswordState(
+    //     "숫자+영문자+특수문자 조합으로 8자리 이상 입력해주세요!"
+    //   );
+    // else setPasswordState("");
+
+    // // 비밀번호 같은지 체크
+    // if (password !== rePassword)
+    //   setPasswordError("비밀번호가 일치하지 않습니다.");
+    // else setPasswordError("");
 
     // 유효성 검사가 성공하면 axios 요청
     onhandlePost(joinData)

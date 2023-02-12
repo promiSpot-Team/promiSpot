@@ -5,28 +5,28 @@ import Info from "../../components/Info/Info";
 import TabBar from "../../components/TabBar/TabBar";
 import { SERVER_URL } from '../../constants/constants';
 import "../scss/Main.scss";
-import { clearToken } from '../../reducer/user'
+import { setToken } from '../../Redux/reducer/user'
 
 export default function Main() {
   const memberSeq = useSelector(state => state?.user?.info?.memberSeq)
 
-  if (!memberSeq) {
-    window.location.replace('/login')
-  }
+  // if (!memberSeq) {
+  //   window.location.replace('/login')
+  // }
 
   const dispatch = useDispatch()
 
   const logOut = async (e) => {
-    // e.preventDefault()
-    // const response = await axios({
-    //   method: 'GET', 
-    //   url: `${SERVER_URL}/member/logout/${memberSeq}`
-    // })
+    e.preventDefault()
+    const response = await axios({
+      method: 'GET', 
+      url: `${SERVER_URL}/member/logout/${memberSeq}`
+    })
 
-    // /* 로그아웃 성공하면 세션 스토리지에 user info 삭제하기 */
-    // if (response.data.message === 'success') {
-    //   dispatch(clearToken())
-    // }
+    /* 로그아웃 성공하면 로컬 스토리지에 user info 삭제하기 */
+    if (response.data.message === 'success') {
+      dispatch(setToken(null))
+    }
   }
   return (
     <>
