@@ -82,7 +82,7 @@ function Start() {
   //   };
   // });
   return (
-    <div class="start-scroll">
+    <div className="start-scroll">
       <div className="start-wrapper">
         <div className="container">
           {/* <div className="blink-1">
@@ -117,8 +117,8 @@ function Start() {
             src={require("../../img/promispot_logo.png")}
           />
         </div>
-        {/* <div class="back-wrapper">
-            <div class="circle1"></div>
+        {/* <div className="back-wrapper">
+            <div className="circle1"></div>
           </div> */}
         <div className="svg-wrapper">
           <svg

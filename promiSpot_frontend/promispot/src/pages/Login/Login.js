@@ -66,7 +66,7 @@ function Login() {
       };
       dispatch(setToken(info));
       sessionStorage.setItem("info", JSON.stringify(info))
-      // localStorage.setItem("isLogin", true);
+      localStorage.setItem("isLogin", true);
       navigate("/main");
     } catch (err) {
       console.log(err);
@@ -97,12 +97,12 @@ function Login() {
 
   const isLogin = useSelector(state => state.user.isLogin)
   
-  /* 이미 로그인 된 상태면 무조건 메인페이지로 이동 */
-  React.useEffect(() => {
-    if (isLogin) {
-      navigate('/main')
-    }  
-  }, [])
+  // /* 이미 로그인 된 상태면 무조건 메인페이지로 이동 */
+  // React.useEffect(() => {
+  //   if (isLogin) {
+  //     navigate('/main')
+  //   }  
+  // }, [])
 
   return (
     <div className="login-wrapper">

@@ -2,6 +2,7 @@ import { Route, Routes } from "react-router-dom";
 import "./App.css";
 import Card from "./components/Card/Card";
 import AddressSearch from "./pages/Address/AddressSearch";
+import AddressSearch2 from "./pages/Address/AddressSearch2";
 import Friend from "./pages/Friend/Friend";
 import Join from "./pages/Login/Join";
 import Join2 from "./pages/Login/Join2";
@@ -23,16 +24,20 @@ import Schedule from "./pages/PlaceMap/Schedule";
 import Promise from "./pages/Promise/Promise";
 import PrivateRoute from './Route/PrivateRoute';
 import PublicRoute from './Route/PublicRoute';
+import NotFound from './Route/NotFound';
 
 function App() {
 
   return (
     <Routes>
+      {/* 로그인 안 해야 접근 가능 */}
       <Route element={<PublicRoute />}>
         <Route path="/" element={<Start />} />
         <Route path="/login" element={<Login />} />
         <Route path="/join" element={<Join2 />} />
+        <Route path="/search" element={<AddressSearch2 />} />
       </Route>
+      {/* 로그인 해야 접근 가능 */}
       <Route element={<PrivateRoute />}>
         {/* <Route path="/form" component={Form} /> */}
         <Route path="/main" element={<Main />} />
@@ -55,7 +60,7 @@ function App() {
         <Route path="/privacy" element={<Privacy />} />
         {/* <Route path="/join2" element={<Join2 />} /> */}
         <Route path="/card" element={<Card />} />
-        <Route path="/join2" element={<Join2 />} />
+        {/* <Route path="/join2" element={<Join2 />} /> */}
         <Route path="/detail" element={<GetDetail />} />
         <Route path="/test" element={<Test />} />
 
@@ -63,6 +68,7 @@ function App() {
         <Route path="/chatting" element={<Chatting />} />
         <Route path="/test4" element={<Test4 />} />
       </Route>
+        <Route path='*' element={<NotFound />} />
     </Routes>
   );
 }

@@ -181,8 +181,8 @@ export default function MyPage({ history }) {
                     {myAddressList &&
                       myAddressList.map((address) => {
                         return (
-                          <>
-                            <div key={address.addressSeq}>
+                          <div key={address.addressSeq}>
+                            <div>
                               {address.addressIsPrimary === 1 ? (
                                 <div className="my-content-address">
                                   <div className="my-content-address-nick">
@@ -197,7 +197,7 @@ export default function MyPage({ history }) {
                                 </div>
                               ) : null}
                             </div>
-                          </>
+                          </div>
                         );
                       })}
                   </div>
@@ -245,7 +245,7 @@ export default function MyPage({ history }) {
           {myInfoList &&
             myInfoList.map((item, idx) => {
               return (
-                <div>
+                <div key={idx}>
                   <form className="join-input-wrapper" onSubmit={handleSubmit}>
                     <FormControl sx={{ width: "70%" }} variant="standard">
                       <TextField
