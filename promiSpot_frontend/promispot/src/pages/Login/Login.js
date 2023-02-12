@@ -4,22 +4,21 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import BasicButton from "../../components/Buttons/BasicButton";
-import WhiteHeader from "../../components/Header/BasicHeader1";
-import { SERVER_URL } from '../../constants/constants';
-import { setToken } from '../../Redux/reducer/user';
+import BasicHeader from "../../components/Header/BasicHeader1";
+import { SERVER_URL } from "../../constants/constants";
+import { setToken } from "../../Redux/reducer/user";
+import { IoIosArrowBack } from "react-icons/io";
 import axios from "axios";
-import {
-  FormControl, TextField
-} from "@mui/material/";
+import { FormControl, TextField } from "@mui/material/";
 import "../scss/Login.scss";
-import { useSelector } from 'react-redux';
+import { useSelector } from "react-redux";
 
 function Login() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [inputId, setInputId] = useState("");
   const [inputPw, setInputPw] = useState("");
-  
+
   // 비밀번호 관련 설정
   const [passwordState] = useState("");
   const [showPassword, setShowPassword] = useState(false);
@@ -62,7 +61,7 @@ function Login() {
         memberPass,
         memberName,
         memberNick,
-        memberImgPath
+        memberImgPath,
       };
       dispatch(setToken(info));
       sessionStorage.setItem("info", JSON.stringify(info))
@@ -95,18 +94,27 @@ function Login() {
     navigate(-1);
   };
 
-  const isLogin = useSelector(state => state.user.isLogin)
-  
-  // /* 이미 로그인 된 상태면 무조건 메인페이지로 이동 */
-  // React.useEffect(() => {
-  //   if (isLogin) {
-  //     navigate('/main')
-  //   }  
-  // }, [])
+  const isLogin = useSelector((state) => state.user.isLogin);
+
+  /* 이미 로그인 된 상태면 무조건 메인페이지로 이동 */
+  React.useEffect(() => {
+    if (isLogin) {
+      navigate("/main");
+    }
+  }, []);
+
+  const goStart = () => {
+    navigate("/");
+  };
 
   return (
     <div className="login-wrapper">
-      <WhiteHeader text="로그인" />
+      <div className="basic-header-1-wrapper">
+        <div className="basic-header-1-vector-wrapper" onClick={goStart}>
+          <IoIosArrowBack size="3vh" />
+        </div>
+        <div className="basic-header-1-text-wrapper">로그인</div>
+      </div>
       <div className="login-content-wrapper">
         <form className="login-input-wrapper" onSubmit={handleLogin}>
           <FormControl sx={{ width: "70%" }} variant="standard">

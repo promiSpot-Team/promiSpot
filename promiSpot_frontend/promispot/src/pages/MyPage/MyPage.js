@@ -9,6 +9,8 @@ import "../scss/MyPage.scss";
 import MyAddress from "./MyAddress";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 import { FormControl, TextField } from "@mui/material";
+import BasicButton from "../../components/Buttons/BasicButton";
+import { setToken } from "../../Redux/reducer/user";
 
 export default function MyPage({ history }) {
   const [myInfoList, setMyInfoList] = useState([]);
@@ -31,15 +33,22 @@ export default function MyPage({ history }) {
   //   setEditNick(e.target.value);
   // };
 
-  const {
-    memberId,
-    memberSeq,
-    memberPhoneNum,
-    memberName,
-    memberNick,
-    accessToken,
-    refreshToken,
-  } = useSelector((state) => state.user.info);
+  const { memberId, memberSeq, accessToken, refreshToken } = useSelector(
+    (state) => state.user.info
+  );
+
+  const logOut = async (e) => {
+    e.preventDefault();
+    const response = await axios({
+      method: "GET",
+      url: `${SERVER_URL}/member/logout/${memberSeq}`,
+    });
+
+    /* 로그아웃 성공하면 로컬 스토리지에 user info 삭제하기 */
+    if (response.data.message === "success") {
+      dispatch(setToken(null));
+    }
+  };
 
   // 내 정보 조회
   const getMyInfo = async () => {
@@ -159,9 +168,10 @@ export default function MyPage({ history }) {
                   <div className="my-content-img">
                     <img
                       className="my-content-img-real"
-                      src={require("../../img/IU_Profile.jpg")}
-                      width="100px"
+                      src={item.memberInfo.memberImgPath}
+                      width="80px"
                     />
+                    <div></div>
                   </div>
                   <div className="my-content-name">
                     {item.memberInfo.memberName}
@@ -235,6 +245,12 @@ export default function MyPage({ history }) {
                         {item.memberInfo.memberPhoneNum}
                       </div>
                     </div>
+                  </div>
+                  <div className="my-content-line-2"></div>
+                  <div className="my-content-logout-btn-wrapper">
+                    <button className="basicButton" onClick={logOut}>
+                      로그아웃
+                    </button>
                   </div>
                 </div>
               );

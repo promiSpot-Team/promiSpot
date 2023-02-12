@@ -71,6 +71,7 @@ export default function MapContainer() {
   ////////////////////////////////////////////////////////////////////////////////////////////////
 
   // 로그인한 회원 정보 가져오기
+  const member = useSelector((state) => state.user.info);
   const memberSeq = useSelector((state) => state.user.info.memberSeq);
 
   // 로그인한 회원의 등록한 주소들 가져오기
@@ -87,6 +88,7 @@ export default function MapContainer() {
   useEffect(() => {
     searchMemberAddressList();
   }, []);
+  // 멤버에 속한 주소가 잘 들어왔는지 확인하는 함수 
   useEffect(() => {
     console.log(memberAddressList);
   }, [memberAddressList]);
@@ -99,7 +101,6 @@ export default function MapContainer() {
 
   // 선택한 주소를 지도에 마커를 찍게 해준다.
   const [memberCustomOverlay, setMemberCustomOverlay] = useState();
-
   useEffect(() => {
     if (selectAddress) {
       // 선택을 바꿀 때 기존의 찍힌 마커를 지워주는 작업
@@ -119,36 +120,64 @@ export default function MapContainer() {
           xAnchor: 0.3,
           yAnnchor: 0.91,
         });
-
         setMemberCustomOverlay(customOverlay);
-
         customOverlay.setMap(map);
       }
     }
   }, [selectAddress]);
 
-  // 사람 프로필 마커 찍기
-  // mapdata.users.forEach((user) => {
-  //   var customOverlay = new kakao.maps.CustomOverlay({
-  //     position: new kakao.maps.LatLng(37.5013, 127.0399),
-  //     content: `<div class="map-user-profile"><img src=${user.profile_url}></div>`,
-  //     xAnchor: 0.3,
-  //     yAnnchor: 0.91,
-  //   });
+  // 약속별 회원들이 등록한 출발지를 가져오는 함수 
+  const [departureList, setDepartureList] = new useState();
 
-  //   customOverlay.setMap(map);
-  // });
 
-  // 장소 마커 찍기
-  // mapdata.places.forEach((place) => {
-  //   var customOverlay = new kakao.maps.CustomOverlay({
-  //     position: new kakao.maps.LatLng(place.place_y, place.place_x),
-  //     content: `<div class="pin"></div><div class="pulse"></div>`,
-  //     xAnchor: 0.3,
-  //     yAnchor: 0.91,
-  //   });
+  const searchDepartureList = async () => {
 
-  //   customOverlay.setMap(map);
+    if (promiseSeq) {
+      const response = await axios({
+        method: "GET",
+        url: `${SERVER_URL}/departure/getList/${promiseSeq}`,
+      });
+      if (response.data !== "fail") {
+        setDepartureList(response.data);
+      } 
+    }
+  };
+  useEffect(() => {
+    searchDepartureList();
+  }, []); // 빈괄호는 처음 한 번만 실행한다는 뜻이다. 
+  useEffect(() => {
+    console.log(departureList);
+  }, [departureList]);
+
+
+  // 출발지를 DB에 저장하게 하는 함수
+  // stomp 통신을 통해 다른 사용자에게도 보여줘야한다.
+  const onhandleDeparturePost = async () => {
+    const intPromiseSeq = parseInt(promiseSeq, 10);
+    const sendData = {
+      "promiseSeq": intPromiseSeq,
+      "memberSeq": memberSeq,
+      "memberName": member.memberName,
+      "departureX": selectAddress.addressX,
+      "departureY": selectAddress.addressY
+    }
+    console.log(sendData);
+    try {
+      const response = await axios({
+        url: '/departure/insert',
+        method: 'POST',
+        baseURL: SERVER_URL,
+        data: sendData
+      });
+      
+      console.log(response);
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+
+
 
   // // 마커 그리기
   // const marker = new kakao.maps.Marker({
@@ -297,7 +326,7 @@ export default function MapContainer() {
             })}
         </select>
       </div>
-      <button>출발지로 선택</button>
+      <button onClick={onhandleDeparturePost}>출발지로 선택</button>
 
       <div id="map" className="map-wrapper">
         {/* 검색창 껐다 끄기 토클 */}

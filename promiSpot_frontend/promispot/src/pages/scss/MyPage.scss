@@ -71,11 +71,11 @@
   .my-content-img {
     width: 100%;
     justify-content: center;
-    padding-top: 10vh;
+    padding-top: 7vh;
     display: flex;
     .my-content-img-real {
-      width: 100px;
-      height: 100px;
+      width: 80px;
+      height: 80px;
       object-fit: cover;
       border-radius: 100%;
       overflow: hidden;
@@ -86,10 +86,10 @@
 
   .my-content-name {
     width: 100%;
-    padding-top: 2.5vh;
+    padding-top: 2vh;
     justify-content: center;
     display: flex;
-    font-size: 30px;
+    font-size: 25px;
     font-weight: 600;
   }
 
@@ -106,10 +106,11 @@
       height: 5vh;
       justify-content: right;
       padding-bottom: 2.5vh;
+      text-decoration: underline;
       // border-radius: 10px;
       border: none;
       background: none;
-      font-size: 20px;
+      font-size: 18px;
     }
   }
   .my-content-line {
@@ -117,47 +118,58 @@
     height: 2px;
     background-color: rgba(204, 204, 204, 0.541);
   }
+  .my-content-line-2 {
+    width: 100%;
+    height: 2px;
+    background-color: rgba(204, 204, 204, 0.288);
+  }
   .my-content-address-wrapper {
     width: 100%;
-    padding: 5% 0 5% 0;
+    padding: 4% 0 4% 0;
     background-color: rgba(230, 230, 230, 0.466);
     .my-content-address {
       display: grid;
       width: 100%;
       text-decoration: none;
       .my-content-address-nick {
-        margin-left: 7%;
-        font-size: 20px;
+        margin-left: 6%;
+        font-size: 19px;
         font-weight: 600;
         padding-bottom: 5px;
       }
       .my-content-address-real {
-        margin-left: 7%;
-        font-size: 19px;
+        margin-left: 6%;
+        font-size: 18px;
       }
     }
     .my-content-address-icon {
       position: absolute;
-      padding-top: 15px;
+      padding-top: 12px;
       right: 5px;
     }
   }
   .my-content-info-wrapper {
     width: 100%;
-    padding: 4% 0 4% 0;
+    padding: 3% 0 3% 0;
     .my-content-info {
       width: 100%;
       .my-content-info-title {
-        margin-left: 7%;
-        font-size: 20px;
+        margin-left: 6%;
+        font-size: 19px;
         font-weight: 600;
         color: rgb(104, 104, 104);
         padding-bottom: 5px;
       }
       .my-content-info-txt {
-        margin-left: 7%;
-        font-size: 19px;
+        margin-left: 6%;
+        font-size: 18px;
       }
     }
+  }
+  .my-content-logout-btn-wrapper {
+    width: 100%;
+    justify-content: center;
+    padding-top: 3vh;
+    display: flex;
   }
 }
