@@ -37,6 +37,7 @@ export default function MyPage({ history }) {
     memberPhoneNum,
     memberName,
     memberNick,
+    memberImgPath,
     accessToken,
     refreshToken,
   } = useSelector((state) => state.user.info);
@@ -159,9 +160,10 @@ export default function MyPage({ history }) {
                   <div className="my-content-img">
                     <img
                       className="my-content-img-real"
-                      src={require("../../img/IU_Profile.jpg")}
+                      src={item.memberInfo.memberImgPath}
                       width="100px"
                     />
+                    <div></div>
                   </div>
                   <div className="my-content-name">
                     {item.memberInfo.memberName}
