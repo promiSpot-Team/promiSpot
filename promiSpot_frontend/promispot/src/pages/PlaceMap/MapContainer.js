@@ -53,21 +53,25 @@ export default function MapContainer() {
     setPromiseSeq(seq);
   }, []);
 
-  const [promiseMemberList, setPromiseMemberList] = useState([]);
-  const getPromiseMembers = async () => {
-    try {
-      const response = await axios({
-        method: "GET",
-        url: `${SERVER_URL}/promise/member/getList/${promiseSeq}`,
-      });
-      setPromiseMemberList(response.data);
-    } catch (err) {
-      console.log(err.response.status);
-    } //catch
-  };
-  useEffect(() => {
-    getPromiseMembers();
-  }, []);
+
+
+  // const [promiseMemberList, setPromiseMemberList] = useState([]);
+  // const getPromiseMembers = async () => {
+  //   try {
+  //     const response = await axios({
+  //       method: "GET",
+  //       url: `${SERVER_URL}/promise/member/getList/${promiseSeq}`,
+  //     });
+  //     setPromiseMemberList(response.data);
+  //   } catch (err) {
+  //     console.log(err.response.status);
+  //   } //catch
+  // };
+  // useEffect(() => {
+  //   getPromiseMembers();
+  // }, []);
+
+
   ////////////////////////////////////////////////////////////////////////////////////////////////
 
   // 로그인한 회원 정보 가져오기
@@ -89,9 +93,9 @@ export default function MapContainer() {
     searchMemberAddressList();
   }, []);
   // 멤버에 속한 주소가 잘 들어왔는지 확인하는 함수 
-  useEffect(() => {
-    console.log(memberAddressList);
-  }, [memberAddressList]);
+  // useEffect(() => {
+  //   console.log(memberAddressList);
+  // }, [memberAddressList]);
 
   // 등록한 주소 중 하나 선택하기
   const [selectAddress, setSelectAddress] = useState();
@@ -128,10 +132,7 @@ export default function MapContainer() {
 
   // 약속별 회원들이 등록한 출발지를 가져오는 함수 
   const [departureList, setDepartureList] = new useState();
-
-
   const searchDepartureList = async () => {
-
     if (promiseSeq) {
       const response = await axios({
         method: "GET",
@@ -144,15 +145,50 @@ export default function MapContainer() {
   };
   useEffect(() => {
     searchDepartureList();
-  }, []); // 빈괄호는 처음 한 번만 실행한다는 뜻이다. 
+  }, [promiseSeq]); // 빈괄호는 처음 한 번만 실행한다는 뜻이다.
+  
+  
+  // 전에 출발지들을 저장하는 변수 
+  const [beforeDepartureList, setBeforeDepartureList] = new useState();
+  
+  // 회원별 출발지가 변경되면 맵에 마커를 찍어줍니다. 
   useEffect(() => {
-    console.log(departureList);
-  }, [departureList]);
 
+    const profile_url =
+    "https://cdn.lorem.space/images/face/.cache/150x150/nrd-ZmmAnliy1d4-unsplash.jpg";
+
+    if (beforeDepartureList) {
+      beforeDepartureList.forEach((beforeDeparture) => {
+        beforeDeparture.setMap(null);
+      })
+    }
+
+
+    setBeforeDepartureList([]);
+    // departureList의 데이터로 마커 찍기 
+    if (departureList) {
+      console.log("현재 출발장소 리스트")
+      console.log(departureList);
+      departureList.forEach((departure) => {
+        var customOverlay = new kakao.maps.CustomOverlay({
+          position: new kakao.maps.LatLng(departure.departureX, departure.departureY),
+          content: `<div class="map-user-profile"><img src=${profile_url}></div>`,
+          xAnchor: 0.3,
+          yAnnchor: 0.91
+        });
+
+        setBeforeDepartureList((prev) => [...prev, customOverlay]);
+        customOverlay.setMap(map);
+      });
+    }
+
+
+  }, [departureList]);
 
   // 출발지를 DB에 저장하게 하는 함수
   // stomp 통신을 통해 다른 사용자에게도 보여줘야한다.
   const onhandleDeparturePost = async () => {
+
     const intPromiseSeq = parseInt(promiseSeq, 10);
     const sendData = {
       "promiseSeq": intPromiseSeq,
@@ -169,12 +205,16 @@ export default function MapContainer() {
         baseURL: SERVER_URL,
         data: sendData
       });
-      
-      console.log(response);
     } catch (err) {
       console.log(err);
     }
+
+    // 출발지를 등록하면 DB에서 새로운 출발지를 받아와서 마커들을 찍어준다.
+    searchDepartureList();
+
   }
+
+
 
 
 
@@ -193,7 +233,7 @@ export default function MapContainer() {
   // })
   // });
 
-  // // 지도에 장소가 등록됐을 때
+  // 지도에 장소가 등록됐을 때
   // useEffect(() => {
   //   setmapCenter(stateMapCenterPosition)
   //   function panTo() {
@@ -201,9 +241,7 @@ export default function MapContainer() {
   //     if (map) {
   //       // 1. 등록된 장소로 지도 중심 위치 이동
   //       map.panTo(moveLatLon);
-
   //       // 2. 장소 마커로 표시하기
-
   //       var markerPosition  = new kakao.maps.LatLng(mapCenter.y, mapCenter.x);
   //       var marker = new kakao.maps.Marker({
   //           position: markerPosition
