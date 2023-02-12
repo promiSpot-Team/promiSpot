@@ -40,6 +40,7 @@ export default function Join2() {
     name: joinInfo.name,
     nickName: joinInfo.nickName,
     phoneNumber: joinInfo.phoneNumber,
+    addressIsAgree: joinInfo.addressIsArgree,
   });
 
   const navigate = useNavigate();
@@ -62,11 +63,11 @@ export default function Join2() {
   const moveToAddressSearch = () => {
     const newJoinInfo = { ...joinInfo, ...state };
     // 주소 검색 페이지 이동 후 되돌아왔을 때에도 입력했던 정보 유지시키기 위함
-    localStorage.setItem('tmpJoinInfo', JSON.stringify(newJoinInfo))
+    localStorage.setItem("tmpJoinInfo", JSON.stringify(newJoinInfo));
     // dispatch(setJoinInfo(newJoinInfo))
     // 주소 검색 페이지로 이동
-    navigate('/search')
-  }
+    navigate("/search");
+  };
 
   // 개인 정보 수집 및 이용 동의 체크박스 설정
   const [checked, setChecked] = useState(false);
@@ -82,7 +83,6 @@ export default function Join2() {
       });
 
       const memberImgPath = randomImg.data.results[0].picture.large;
-
       // 아이디, 비밀번호, 이메일, 이름, 닉네임, 전화번호 보내기
       const response = await axios({
         url: "/member",
@@ -102,7 +102,15 @@ export default function Join2() {
           ...addressInfo,
         },
       });
-      console.log(response2);
+
+      const response3 = await axios({
+        url: "/address",
+        method: "POST",
+        baseURL: SERVER_URL,
+        data: { addressInfo },
+      });
+
+      console.log(addressInfo);
 
       // 회원가입 성공하면 리덕스에 저장된 임시 정보 제거
       const newJoinInfo = {
@@ -112,14 +120,15 @@ export default function Join2() {
         name: "",
         nickName: "",
         phoneNumber: "",
+        addressIsArgree: "",
       };
       const newAddressInfo = {
         addressAddress: "",
         addressX: 0,
-        addressY: 0
-      }
-      dispatch(setJoinInfo(newJoinInfo))
-      dispatch(setAddress(null))
+        addressY: 0,
+      };
+      dispatch(setJoinInfo(newJoinInfo));
+      dispatch(setAddress(null));
 
       // 로그인 페이지로 이동
       navigate("/login");
@@ -143,7 +152,9 @@ export default function Join2() {
       memberName: data.get("name"),
       memberNick: data.get("nickName"),
       memberPhoneNum: data.get("phoneNumber"),
+      memberAddressIsArgree: data.get("addressIsAgree"),
     };
+    console.log(joinData);
     const {
       memberId,
       memberEmail,
@@ -151,6 +162,7 @@ export default function Join2() {
       memberName,
       memberNick,
       memberPhoneNum,
+      memberAddressIsArgree,
     } = joinData;
 
     // 유효성 검사
@@ -384,6 +396,7 @@ export default function Join2() {
           {/* 개인 정보 수집 및 이용 약관 동의 체크박스 */}
           <div className="join-inputs">
             <FormControlLabel
+              id="addressIsAgree"
               control={<Checkbox onChange={handleAgree} color="primary" />}
               label="개인 정보 수집 및 이용 약관 동의"
               margin="normal"
