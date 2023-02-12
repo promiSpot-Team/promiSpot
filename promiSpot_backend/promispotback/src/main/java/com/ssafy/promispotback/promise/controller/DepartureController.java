@@ -22,17 +22,26 @@ public class DepartureController {
     DepartureService departureService;
 
     // 약속별 회원의 출발 장소 저장
+    // 이미 저장되 있다면 수정 진행
     @PostMapping("/insert")
     public ResponseEntity<?> insertDeparture(@RequestBody DepartureEntity departureEntity) {
-        Map<String, Object> resultMap = new HashMap<>();
         try {
-            int result = departureService.insertDeparture(departureEntity);
+
+            int result = 0;
+
+            // 이미 선택되어 있는지 판단
+            if(departureService.getDeparture(departureEntity.getPromiseSeq(), departureEntity.getMemberSeq()) == null) {
+                // 선택되어 있지 않다면 저장
+                result = departureService.insertDeparture(departureEntity);
+            } else {
+                // 선택되어 있다면 변경
+                result = departureService.modifyDeparture(departureEntity);
+            }
 
             if(result != 0) { // 생성 완료 시
-                resultMap.put("message", "success");
                 return new ResponseEntity<String>("success", HttpStatus.OK);
             } else { // 생성 실패
-                resultMap.put("message", "fail");
+
                 return new ResponseEntity<String>("fail", HttpStatus.ACCEPTED);
             }
 
