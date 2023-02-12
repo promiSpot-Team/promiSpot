@@ -64,8 +64,8 @@ function Login() {
         memberImgPath,
       };
       dispatch(setToken(info));
-      sessionStorage.setItem("info", JSON.stringify(info));
-      // localStorage.setItem("isLogin", true);
+      sessionStorage.setItem("info", JSON.stringify(info))
+      localStorage.setItem("isLogin", true);
       navigate("/main");
     } catch (err) {
       console.log(err);

@@ -62,10 +62,11 @@ export default function Join2() {
   const moveToAddressSearch = () => {
     const newJoinInfo = { ...joinInfo, ...state };
     // 주소 검색 페이지 이동 후 되돌아왔을 때에도 입력했던 정보 유지시키기 위함
-    dispatch(setJoinInfo(newJoinInfo));
+    localStorage.setItem('tmpJoinInfo', JSON.stringify(newJoinInfo))
+    // dispatch(setJoinInfo(newJoinInfo))
     // 주소 검색 페이지로 이동
-    navigate("/address/search");
-  };
+    navigate('/search')
+  }
 
   // 개인 정보 수집 및 이용 동의 체크박스 설정
   const [checked, setChecked] = useState(false);
@@ -115,26 +116,10 @@ export default function Join2() {
       const newAddressInfo = {
         addressAddress: "",
         addressX: 0,
-        addressY: 0,
-      };
-      dispatch(setJoinInfo(newJoinInfo));
-      dispatch(setAddress(null));
-      // store.dispatch({
-      //   type: 'CLEAR_USER_JOIN_INFO',
-      //   joinInfo: {
-      //     id: '',
-      //     email: '',
-      //     password:'',
-      //     name: '',
-      //     nickName:'',
-      //     phoneNumber: ''
-      //   },
-      //   addressInfo: {
-      //     addressAddress: '',
-      //     addressX: 0,
-      //     addressY: 0
-      //   }
-      // })
+        addressY: 0
+      }
+      dispatch(setJoinInfo(newJoinInfo))
+      dispatch(setAddress(null))
 
       // 로그인 페이지로 이동
       navigate("/login");

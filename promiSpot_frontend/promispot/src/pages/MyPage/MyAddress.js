@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, Navigate } from "react-router-dom";
 import TabBar from "../../components/TabBar/TabBar";
 import { SERVER_URL } from "../../constants/constants";
 import ProfileInfoS from "../../components/ProfileInfo/ProfileInfoS";
@@ -91,13 +91,15 @@ export default function MyAddress() {
   return (
     <div>
       <BasicHeader text="주소 목록"></BasicHeader>
-      <button>추가</button>
+      <Link to='/address/search'>
+        <button>추가</button>
+      </Link>
       {myAddressList &&
         myAddressList.map((item, idx) => {
           return (
-            <>
+            <div key={idx}>
               <div></div>
-              <div key={idx}>
+              <div>
                 {item.addressNick}
                 {item.addressAdress}
                 <button
@@ -119,7 +121,7 @@ export default function MyAddress() {
                   수정
                 </button>
               </div>
-            </>
+            </div>
           );
         })}
     </div>
