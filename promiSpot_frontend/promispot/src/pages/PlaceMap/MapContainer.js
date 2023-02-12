@@ -88,6 +88,7 @@ export default function MapContainer() {
   useEffect(() => {
     searchMemberAddressList();
   }, []);
+  // 멤버에 속한 주소가 잘 들어왔는지 확인하는 함수 
   useEffect(() => {
     console.log(memberAddressList);
   }, [memberAddressList]);
@@ -125,7 +126,32 @@ export default function MapContainer() {
     }
   }, [selectAddress]);
 
+  // 약속별 회원들이 등록한 출발지를 가져오는 함수 
+  const [departureList, setDepartureList] = new useState();
+
+
+  const searchDepartureList = async () => {
+
+    if (promiseSeq) {
+      const response = await axios({
+        method: "GET",
+        url: `${SERVER_URL}/departure/getList/${promiseSeq}`,
+      });
+      if (response.data !== "fail") {
+        setDepartureList(response.data);
+      } 
+    }
+  };
+  useEffect(() => {
+    searchDepartureList();
+  }, []); // 빈괄호는 처음 한 번만 실행한다는 뜻이다. 
+  useEffect(() => {
+    console.log(departureList);
+  }, [departureList]);
+
+
   // 출발지를 DB에 저장하게 하는 함수
+  // stomp 통신을 통해 다른 사용자에게도 보여줘야한다.
   const onhandleDeparturePost = async () => {
     const intPromiseSeq = parseInt(promiseSeq, 10);
     const sendData = {
@@ -135,9 +161,7 @@ export default function MapContainer() {
       "departureX": selectAddress.addressX,
       "departureY": selectAddress.addressY
     }
-
     console.log(sendData);
-
     try {
       const response = await axios({
         url: '/departure/insert',
