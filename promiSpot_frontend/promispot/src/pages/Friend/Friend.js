@@ -89,7 +89,7 @@ export default function Friend(props) {
         setFriendSearchResult([])
       } else {
         setFriendSearchResult(response.data)
-        console.log(response.data)
+        console.log('친구 목록', response.data)
       }
     } catch(err) {
       setFriendSearchResult([])

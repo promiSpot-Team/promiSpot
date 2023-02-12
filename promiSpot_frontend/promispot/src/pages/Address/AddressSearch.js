@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import WhiteHeader from '../../components/Header/BasicHeader1';
 import SearchBar from '../../components/Search/SearchBar2';
 import { KAKAO_MAP_URL, KAKAO_REST_API_KEY } from '../../constants/constants';
-import { setAddress } from '../../reducer/user';
+import { setAddress } from '../../Redux/reducer/user';
 import '../scss/Address.scss';
 import '../scss/Search_Bar.scss';
 

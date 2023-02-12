@@ -2,7 +2,7 @@ import React from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import BasicHeader from "../../components/Header/BasicHeader3";
 import getDetail from "./GetDetail";
-import { setPlace } from "../../reducer/map";
+import { setPlace } from "../../Redux/reducer/map";
 import { useDispatch } from "react-redux";
 import GetDetail from './GetDetail'
 

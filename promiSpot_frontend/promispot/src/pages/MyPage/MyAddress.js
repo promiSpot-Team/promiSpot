@@ -5,7 +5,7 @@ import TabBar from "../../components/TabBar/TabBar";
 import { SERVER_URL } from "../../constants/constants";
 import ProfileInfoS from "../../components/ProfileInfo/ProfileInfoS";
 import { useSelector, useDispatch } from "react-redux";
-import { reissueToken } from "../../reducer/user";
+import { reissueToken } from "../../Redux/reducer/user";
 import "../scss/MyPage.scss";
 import BasicHeader from "../../components/Header/BasicHeader1";
 

@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 import BasicButton from "../../components/Buttons/BasicButton";
 import WhiteHeader from "../../components/Header/BasicHeader1";
 import { SERVER_URL } from '../../constants/constants';
-import { setToken } from '../../reducer/user';
+import { setToken } from '../../Redux/reducer/user';
 import axios from "axios";
 import {
   FormControl, TextField
@@ -65,8 +65,8 @@ function Login() {
         memberImgPath
       };
       dispatch(setToken(info));
-      localStorage.setItem("isLogin", true);
-
+      sessionStorage.setItem("info", JSON.stringify(info))
+      // localStorage.setItem("isLogin", true);
       navigate("/main");
     } catch (err) {
       console.log(err);

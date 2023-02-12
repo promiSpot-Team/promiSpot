@@ -15,7 +15,7 @@ import InputForm from "../../components/InputForm/InputForm";
 import ProfileInfo from "../../components/ProfileInfo/ProfileInfo";
 import SearchBar from "../../components/Search/SearchBar";
 import { SERVER_URL } from "../../constants/constants";
-import { clearPromiseFriend } from "../../reducer/promise";
+import { clearPromiseFriend } from "../../Redux/reducer/promise";
 import Modal from "../Modal/Modal";
 import "./TabBar.scss";
 
@@ -226,7 +226,7 @@ export default function TabBar(props) {
                       return (
                         <div key={idx} className="new-promise-profile-wrapper">
                           <ProfileInfo
-                            imgName="IU_Profile"
+                            imgUrl={friend.memberImgPath}
                             nickName={friend.memberNick}
                             id={friend.memberId}
                             friendSeq={friend.memberSeq}
