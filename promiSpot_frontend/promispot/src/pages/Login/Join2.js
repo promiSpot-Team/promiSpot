@@ -73,6 +73,8 @@ export default function Join2() {
   const [checked, setChecked] = useState(false);
   const handleAgree = (event) => {
     setChecked(event.target.checked);
+
+    console.log(checked);
   };
 
   // async awiat axios 요청
@@ -88,7 +90,11 @@ export default function Join2() {
         url: "/member",
         method: "POST",
         baseURL: SERVER_URL,
-        data: { ...data, memberImgPath },
+        data: {
+          ...data,
+          memberAddressIsAgree: checked === false ? 0 : 1,
+          memberImgPath,
+        },
       });
       // 회원정보 받기
       const { memberSeq } = response.data;
@@ -107,7 +113,14 @@ export default function Join2() {
         url: "/address",
         method: "POST",
         baseURL: SERVER_URL,
-        data: { addressInfo },
+        data: {
+          memberSeq,
+          addressAdress: data.addressAdress,
+          addressX: data.addressX,
+          addressY: data.addressY,
+          addressNick: data.addressNick,
+          addressIsPrimary: data.addressIsPrimary,
+        },
       });
 
       console.log(addressInfo);
@@ -123,7 +136,7 @@ export default function Join2() {
         addressIsArgree: "",
       };
       const newAddressInfo = {
-        addressAddress: "",
+        addressAdress: "",
         addressX: 0,
         addressY: 0,
       };
@@ -152,7 +165,12 @@ export default function Join2() {
       memberName: data.get("name"),
       memberNick: data.get("nickName"),
       memberPhoneNum: data.get("phoneNumber"),
-      memberAddressIsArgree: data.get("addressIsAgree"),
+      memberAddressIsArgree: checked === false ? 0 : 1,
+      addressAdress: addressInfo.addressAddress,
+      addressX: addressInfo.addressX,
+      addressY: addressInfo.addressY,
+      addressNick: "내 집",
+      addressIsPrimary: 1,
     };
     console.log(joinData);
     const {
@@ -163,6 +181,11 @@ export default function Join2() {
       memberNick,
       memberPhoneNum,
       memberAddressIsArgree,
+      addressAdress,
+      addressX,
+      addressY,
+      addressNick,
+      addressIsPrimary,
     } = joinData;
 
     // 유효성 검사
