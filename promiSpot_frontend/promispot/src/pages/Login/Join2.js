@@ -49,7 +49,6 @@ export default function Join2() {
     )
   };
 
-  console.log(state)
   // 비밀번호 폼 변수
   const [passwordState] = useState("");
   const [showPassword, setShowPassword] = useState(false);
@@ -73,15 +72,19 @@ export default function Join2() {
 
   // async awiat axios 요청
   const onhandlePost = async (data) => {
-    const postData = { ...data }
-    console.log(postData)
     try {
+      const randomImg = await axios({
+        url: 'https://randomuser.me/api/'
+      })
+
+      const memberImgPath = randomImg.data.results[0].picture.large
+
       // 아이디, 비밀번호, 이메일, 이름, 닉네임, 전화번호 보내기
       const response = await axios({
         url: '/member',
         method: 'POST',
         baseURL: SERVER_URL,
-        data
+        data: {...data, memberImgPath}
       })
       // 회원정보 받기
       const { memberSeq } = response.data
@@ -138,7 +141,7 @@ export default function Join2() {
   }
 
   useEffect(() => {
-    console.log("addressInfo", addressInfo)
+    // console.log("addressInfo", addressInfo)
   }, [addressInfo])
   // form의 onSubmit 이벤트
   const handleSubmit = (e) => {
@@ -160,26 +163,26 @@ export default function Join2() {
     onhandlePost(joinData)
   }
   
-  // useEffect(() => {
-  //   /* 페이지 언마운트 될 때 실행 */
-  //   return () => {
-  //     const newJoinInfo = {
-  //       id: '',
-  //       email: '', 
-  //       password:'',
-  //       name: '',
-  //       nickName:'', 
-  //       phoneNumber: ''
-  //     }
-  //     // const newAddressInfo = {
-  //     //   addressAddress: '',
-  //     //   addressX: 0,
-  //     //   addressY: 0
-  //     // }
-  //     dispatch(setJoinInfo(newJoinInfo))
-  //     dispatch(setAddress(null))
-  //   }
-  // }, [])
+  useEffect(() => {
+    // /* 페이지 언마운트 될 때 실행 */
+    // return () => {
+    //   const newJoinInfo = {
+    //     id: '',
+    //     email: '', 
+    //     password:'',
+    //     name: '',
+    //     nickName:'', 
+    //     phoneNumber: ''
+    //   }
+    //   // const newAddressInfo = {
+    //   //   addressAddress: '',
+    //   //   addressX: 0,
+    //   //   addressY: 0
+    //   // }
+    //   dispatch(setJoinInfo(newJoinInfo))
+    //   dispatch(setAddress(null))
+    // }
+  }, [])
 
   
   return (

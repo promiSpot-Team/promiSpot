@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ssafy.promispotback.promise.model.mapper.DepartureMapper">
+
+
+	<!-- 회원별 출발 장소 저장 -->
+	<insert id="insertDeparture" parameterType="DepartureEntity">
+		insert into departure(promise_seq, member_seq, member_name, departure_x, departure_y)
+		values(#{promiseSeq}, #{memberSeq}, #{memberName}, #{departureX}, #{departureY})
+	</insert>
+
+	<!-- 약속별 회원별 출발 장소 하나 조회  -->
+	<select id="getDeparture" resultType="DepartureEntity">
+		select * from departure where promise_seq = #{promiseSeq} and member_seq = #{memberSeq}
+	</select>
+
+	<!-- 약속별 회원들의 출발 장소 전부 조회 -->
+	<select id="getDepartureList" resultType="DepartureEntity">
+		select * from departure where promise_seq = #{promiseSeq}
+	</select>
+
+	<!-- 약속별 회원별 출발 장소 전부 변경 -->
+	<update id="modifyDeparture" parameterType="DepartureEntity">
+		update departure
+		<trim prefix="set" suffixOverrides=",">
+			<if test="departureX != null"> departure_x = #{departureX},</if>
+			<if test="departureY != null"> departure_y = #{departureY},</if>
+		</trim>
+		where promise_seq = #{promiseSeq}
+		and member_seq = #{memberSeq}
+	</update>
+
+	<!-- 약속별 회원별 출발 장소 삭제 -->
+	<delete id="removeDeparture">
+		delete from departure
+		where promise_seq = #{promiseSeq}
+		and member_seq = #{memberSeq}
+	</delete>
+
+
+
+
+
+
+
+
+
+
+</mapper>

@@ -34,7 +34,7 @@ export default function FriendRequestSend({ memberSeq }) {
           return (
             <ProfileInfoS 
               key={idx}
-              imgName="PBG_Profile" 
+              imgUrl={friend.memberImgPath} 
               nickName={friend.memberNick} 
               id={friend.memberId}
               friendRequestMember={friend.memberSeq}/>

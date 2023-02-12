@@ -37,7 +37,7 @@ export default function FriendRequestReceive({ memberSeq }) {
           return (
             <ProfileInfoR 
               key={idx}
-              imgName="KYJ_Profile" 
+              imgUrl={friend.memberImgPath} 
               nickName={friend.memberNick} 
               id={friend.memberId}
               friendRequestSeq={friend.friendRequestSeq}/>

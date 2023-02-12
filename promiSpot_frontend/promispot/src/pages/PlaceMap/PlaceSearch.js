@@ -1,13 +1,12 @@
-import React, { useState, useRef, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
-import { KAKAO_MAP_URL, KAKAO_REST_API_KEY } from "../../constants/constants";
+import React, { useEffect, useRef, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import SearchBar from "../../components/Search/SearchBar2";
-import store from "../../store";
-import { useSelector, useDispatch } from "react-redux";
+import { KAKAO_MAP_URL, KAKAO_REST_API_KEY } from "../../constants/constants";
+import { savePlaceList } from "../../reducer/map";
 import "../scss/Map_Container.scss";
 import "../scss/Search_Bar.scss";
-import { savePlaceList } from "../../reducer/map";
 
 // url을 가져오기 위한 import
 import { useLocation } from "react-router-dom";

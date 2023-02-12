@@ -71,7 +71,7 @@ export default function TabBar2(props) {
               <ImSearch
                 size="36"
                 color="#ffffff"
-                onClick={() => console.log(1)}
+                onClick={onClickSearch}
               />
               <div className="navbar-left-icon-txt">Search</div>
               {/* </Link> */}
