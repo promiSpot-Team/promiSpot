@@ -5,7 +5,7 @@ import TabBar from "../../components/TabBar/TabBar";
 import { SERVER_URL } from "../../constants/constants";
 import ProfileInfoS from "../../components/ProfileInfo/ProfileInfoS";
 import { useSelector, useDispatch } from "react-redux";
-import { reissueToken } from "../../Redux/reducer/user";
+import { reissueToken, setAddress } from "../../Redux/reducer/user";
 import "../scss/MyPage.scss";
 import BasicHeader from "../../components/Header/BasicHeader1";
 
@@ -16,6 +16,11 @@ export default function MyAddress() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { memberSeq, addressSeq } = useSelector((state) => state.user.info);
+
+  const addressInfo = useSelector((state) =>
+    state?.user?.addressInfo ? state.user.addressInfo : null
+  );
+  console.log(addressInfo);
 
   const getMyAddress = async () => {
     try {
@@ -57,6 +62,46 @@ export default function MyAddress() {
     }
   };
 
+  const addAddress = async (data) => {
+    try {
+      const response4 = await axios({
+        url: "/address",
+        method: "POST",
+        baseURL: SERVER_URL,
+        data: {
+          memberSeq,
+          addressAddress: data.addressAddress,
+          addressX: data.addressX,
+          addressY: data.addressY,
+          addressNick: data.addressNick,
+          addressIsPrimary: data.addressIsPrimary,
+        },
+      });
+      dispatch(setAddress(null));
+
+      navigate("/myaddress");
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  useEffect(() => {}, [addressInfo]);
+
+  const addressHandleSubmit = (e) => {
+    e.preventDefault();
+
+    const data = new FormData(e.currentTarget);
+    const addressData = {
+      addressAddress: addressInfo.addressAddress,
+      addressX: addressInfo.addressX,
+      addressY: addressInfo.addressY,
+      addressNick: "주소",
+      addressIsPrimary: 0,
+    };
+    console.log(addressData);
+    addAddress(addressData);
+  };
+
   const handleChange_addressSeq = (e) => {
     e.preventDefault();
     setAddressNum(e.tagrget.value);
@@ -88,12 +133,23 @@ export default function MyAddress() {
     window.location.replace("/myaddress");
   }
 
+  function goAddAddress() {
+    window.location.replace("/address/search");
+  }
+
   return (
     <div>
       <BasicHeader text="주소 목록"></BasicHeader>
-      <Link to='/address/search'>
-        <button>추가</button>
-      </Link>
+      <button
+        onClick={() => {
+          goAddAddress();
+        }}
+      >
+        추가
+      </button>
+      <form onSubmit={addressHandleSubmit}>
+        <button></button>
+      </form>
       {myAddressList &&
         myAddressList.map((item, idx) => {
           return (
@@ -101,7 +157,7 @@ export default function MyAddress() {
               <div></div>
               <div>
                 {item.addressNick}
-                {item.addressAdress}
+                {item.addressAddress}
                 <button
                   onClick={() => {
                     onClick("DELETE");
