@@ -4,7 +4,7 @@ import BasicHeader from "../../components/Header/BasicHeader3";
 import getDetail from "./GetDetail";
 import { setPlace } from "../../Redux/reducer/map";
 import { useDispatch } from "react-redux";
-import GetDetail from './GetDetail'
+import GetDetail from "./GetDetail";
 
 export default function PlaceDetail() {
   const navigate = useNavigate();
@@ -12,7 +12,7 @@ export default function PlaceDetail() {
   const place = location.state;
   const dispatch = useDispatch();
 
-  console.log(place)
+  console.log(place);
   /* 장소 '등록하기' 버튼 누르면 지도에 등록하면서 약속 장소 후보로 등록 */
   const registerPlaceToMap = () => {
     dispatch(setPlace(place));
@@ -30,7 +30,11 @@ export default function PlaceDetail() {
 
   return (
     <div className="place-modal-wrapper">
+<<<<<<< Updated upstream
       <div>
+=======
+      <div style={{ height: "9vh" }}>
+>>>>>>> Stashed changes
         <BasicHeader text={place.place_name} />
       </div>
       <div>
@@ -39,7 +43,7 @@ export default function PlaceDetail() {
           onClick={registerPlaceToMap}
           style={{
             position: "absolute",
-            bottom: 0,
+            bottom: "5vh",
             right: 0,
             backgroundColor: "white",
             border: "1px solid #c4c4c4",

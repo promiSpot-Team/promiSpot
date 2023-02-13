@@ -4,6 +4,9 @@ import * as StompJs from "@stomp/stompjs";
 
 import { SERVER_URL } from "../../constants/constants";
 
+import { useLocation } from "react-router-dom";
+import { useSelector } from "react-redux";
+
 const spawn = require("child_process").spawn;
 
 export default function Chatting() {
@@ -13,9 +16,12 @@ export default function Chatting() {
   // 메시지를 발행하는 코드
   const [chat, setChat] = useState(""); // 입력되는 채팅
 
+  const member = useSelector((state) => state.user.info);
+
   // const { apply_id } = useParams();
   const { apply_id } = 1; // 채널을 구분하는 식별자를 URL 파라미터로 받는다.
   const client = useRef({});
+  const location = useLocation();
 
   const connect = () => {
     client.current = new StompJs.Client({
@@ -33,12 +39,17 @@ export default function Chatting() {
   const publish = (chat) => {
     if (!client.current.connected) return;
 
+    var path = location.pathname;
+    var parse = path.split("/");
+    var promiseSeq = parse[2];
+
     client.current.publish({
-      destination: "/pub/chat",
+      destination: "/pub/chatting",
       body: JSON.stringify({
-        channelId: 1,
-        writerId: 1,
-        chat: chat,
+        promiseSeq: promiseSeq,
+        senderSeq: member.memberSeq,
+        senderName: member.memberName,
+        message: chat,
       }),
     });
 
@@ -47,10 +58,14 @@ export default function Chatting() {
 
   // 채널을 구독하고 구독 중인 채널에서 메시지가 왔을 때 처리하는 코드
   const subscribe = () => {
-    client.current.subscribe("/sub/chat/" + 1, (body) => {
+    var path = location.pathname;
+    var parse = path.split("/");
+    var promiseSeq = parse[2];
+
+    client.current.subscribe(`/sub/chatting/${promiseSeq}`, (body) => {
       const json_body = JSON.parse(body.body);
       setChatList((prev) => [...prev, json_body]);
-      console.log("구독 메시지 받아옴");
+      console.log("구독 메시지 받아오기");
     });
   };
 
@@ -83,7 +98,7 @@ export default function Chatting() {
           chatList.map((one) => {
             return (
               <div>
-                {one.writerId} : {one.chat}
+                {one.senderName} : {one.message}
               </div>
             );
           })}
