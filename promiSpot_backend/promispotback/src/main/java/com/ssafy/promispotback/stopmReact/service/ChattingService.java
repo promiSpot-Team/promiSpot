@@ -15,6 +15,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 @Component
@@ -31,6 +32,10 @@ public class ChattingService {
     // chatting 불러오기
     public List<ChattingModel> getChattingtList(Integer promiseSeq) {
         return chattingRepository.findByPromiseSeq(promiseSeq);
+    }
+
+    public List<ChattingModel> getChattingModelsByPromiseSeq(Integer promiseSeq, Integer limit) {
+        return chattingRepository.findByPromiseSeq(promiseSeq).stream().limit(limit).collect(Collectors.toList());
     }
 
 
