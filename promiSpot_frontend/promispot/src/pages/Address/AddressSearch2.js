@@ -47,29 +47,29 @@ export default function AddressSearch() {
     navigate(-1);
   };
 
-  const addAddress = async (address) => {
-    try {
-      console.log(address);
-      const response4 = await axios({
-        url: "/address",
-        method: "POST",
-        baseURL: SERVER_URL,
-        data: {
-          memberSeq,
-          addressAddress: address.addressAddress,
-          addressX: address.addressX,
-          addressY: address.addressY,
-          addressNick: address.addressNick,
-          addressIsPrimary: address.addressIsPrimary,
-        },
-      });
-      dispatch(setAddress(null));
+  // const addAddress = async (address) => {
+  //   try {
+  //     console.log(address);
+  //     const response4 = await axios({
+  //       url: "/address",
+  //       method: "POST",
+  //       baseURL: SERVER_URL,
+  //       data: {
+  //         memberSeq,
+  //         addressAddress: address.addressAddress,
+  //         addressX: address.addressX,
+  //         addressY: address.addressY,
+  //         addressNick: address.addressNick,
+  //         addressIsPrimary: address.addressIsPrimary,
+  //       },
+  //     });
+  //     dispatch(setAddress(null));
 
-      navigate("/myaddress");
-    } catch (err) {
-      console.log(err);
-    }
-  };
+  //     navigate("/myaddress");
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // };
 
   return (
     <div>
@@ -90,7 +90,7 @@ export default function AddressSearch() {
               <p className="address-result-text">{address.address_name}</p>
               <button
                 className="address-result-btn"
-                onClick={() => addAddress(address)}
+                // onClick={() => addAddress(address)}
               >
                 선택
               </button>
