@@ -9,8 +9,6 @@ import Join2 from "./pages/Login/Join2";
 import Login from "./pages/Login/Login";
 import Privacy from "./pages/Login/Privacy";
 import Start from "./pages/Login/Start";
-import Test from "./pages/Login/Test";
-import Test4 from "./pages/Login/Test4";
 import Main from "./pages/Main/Main";
 import EditInfo from "./pages/MyPage/EditInfo";
 import MyAddress from "./pages/MyPage/MyAddress";
@@ -29,7 +27,6 @@ import NotFound from "./Route/NotFound";
 function App() {
   return (
     <Routes>
-      
       {/* 로그인 안 해야 접근 가능 */}
       <Route element={<PublicRoute />}>
         <Route path="/" element={<Start />} />
@@ -62,11 +59,9 @@ function App() {
         <Route path="/card" element={<Card />} />
         {/* <Route path="/join2" element={<Join2 />} /> */}
         <Route path="/detail" element={<GetDetail />} />
-        <Route path="/test" element={<Test />} />
 
         {/* <Route path="/test2" element={<Test2/>}/> */}
         <Route path="/chatting" element={<Chatting />} />
-        <Route path="/test4" element={<Test4 />} />
       </Route>
       <Route path="*" element={<NotFound />} />
     </Routes>
