@@ -175,7 +175,9 @@ insert into members values
                         (null, "member1", "1234", "김동언", "회원닉네임1", "member1@naver.com", "01050261111", "", "", "", 1, null),
                         (null, "member2", "1234", "김수형", "회원닉네임2", "member2@naver.com", "01054431111", "", "", "", 1, null),
                         (null, "member3", "1234", "이민정", "회원닉네임3", "member3@naver.com", "01042371111", "", "", "", 1, null),
-                        (null, "member4", "1234", "최윤지", "회원닉네임4", "member4@naver.com", "01075771111", "", "", "", 1, null);
+                        (null, "member4", "1234", "최윤지", "회원닉네임4", "member4@naver.com", "01075771111", "", "", "", 1, null),
+                        (null, "consultant", "1234", "컨설턴트", "컨설턴트님", "consultant@naver.com", "01011112222", "", "", "", 1, null),
+                        (null, "coach", "1234", "코치", "코치", "coach@naver.com", "01050261111", "", "", "", 1, NULL);
 
 
 -- 주소 더미 데이터

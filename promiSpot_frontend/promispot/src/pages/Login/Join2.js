@@ -29,11 +29,10 @@ export default function Join2() {
     state?.user?.addressInfo ? state.user.addressInfo : null
   );
 
-  console.log('주소!', addressInfo)
+  console.log("주소!", addressInfo);
   const joinInfo = useSelector((state) =>
     state?.user?.joinInfo ? state.user.joinInfo : null
   );
-
 
   /* 초기 변수 선언 */
   const [state, setState] = useState({
@@ -67,7 +66,7 @@ export default function Join2() {
     const newJoinInfo = { ...joinInfo, ...state };
     // 주소 검색 페이지 이동 후 되돌아왔을 때에도 입력했던 정보 유지시키기 위함
     // sessionStorage.setItem("tmpJoinInfo", JSON.stringify(newJoinInfo));
-    dispatch(setJoinInfo(newJoinInfo))
+    dispatch(setJoinInfo(newJoinInfo));
     // 주소 검색 페이지로 이동
     navigate("/search");
   };
@@ -230,8 +229,8 @@ export default function Join2() {
       //   addressY: 0
       // }
       // dispatch(setJoinInfo(newJoinInfo))
-      dispatch(setAddress(null))
-    }
+      dispatch(setAddress(null));
+    };
   }, []);
 
   const goStart = () => {
@@ -415,7 +414,7 @@ export default function Join2() {
               defaultvalue={
                 !addressInfo
                   ? "아직 등록된 주소가 없습니다"
-                  : addressInfo.addressAdress
+                  : addressInfo.addressAddress
               }
             />
             {/* </Link> */}

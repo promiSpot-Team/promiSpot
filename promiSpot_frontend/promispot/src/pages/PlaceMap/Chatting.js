@@ -50,7 +50,7 @@ export default function Chatting() {
     client.current.subscribe("/sub/chat/" + 1, (body) => {
       const json_body = JSON.parse(body.body);
       setChatList((prev) => [...prev, json_body]);
-      console.log(chatList);
+      console.log("구독 메시지 받아옴");
     });
   };
 
@@ -66,13 +66,11 @@ export default function Chatting() {
   const handleSubmit = (event, chat) => {
     // 보내기 버튼 눌렀을 때 publish
     event.preventDefault();
-
     publish(chat);
   };
 
   useEffect(() => {
     connect();
-
     return () => disconnect();
   }, []);
 
