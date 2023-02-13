@@ -1,46 +1,46 @@
-.card-wrapper {
-  height: 20vh;
-  // width: 100%;
-  border-radius:20px;
-  background-color: #f1f1f1;
-  box-shadow: 0px 0px 5px #fff, 0px 0px 5px #babecc;
-  align-items: center;
-  padding: 5px;
-  align-items: stretch;
-  .card-contents-wrapper{
-    padding: 15px;
-    height: 12vh;
-    .card-top-wrapper {
-      display: flex;
-      justify-content: space-between;
-      .card-header-wrapper {
-        display: grid;
-        .card-date-wrapper {
-          font-weight:800;
-          font-size:20px;
-        }
+// .card-wrapper {
+//   height: 20vh;
+//   // width: 100%;
+//   border-radius:20px;
+//   background-color: #f1f1f1;
+//   box-shadow: 0px 0px 5px #fff, 0px 0px 5px #babecc;
+//   align-items: center;
+//   padding: 5px;
+//   align-items: stretch;
+//   .card-contents-wrapper{
+//     padding: 15px;
+//     height: 12vh;
+//     .card-top-wrapper {
+//       display: flex;
+//       justify-content: space-between;
+//       .card-header-wrapper {
+//         display: grid;
+//         .card-date-wrapper {
+//           font-weight:800;
+//           font-size:20px;
+//         }
   
-        .card-time-wrapper {
-          margin-top: 5px;
-        }
+//         .card-time-wrapper {
+//           margin-top: 5px;
+//         }
   
-      }
-      .card-title-wrapper {
-        text-align: right;
-        display: flex;
-        font-weight: 800;
-        font-size: 25px;
-      }
+//       }
+//       .card-title-wrapper {
+//         text-align: right;
+//         display: flex;
+//         font-weight: 800;
+//         font-size: 25px;
+//       }
   
-      .card-img-wrapper {
+//       .card-img-wrapper {
   
-      }
-    }
+//       }
+//     }
   
-  }
-  .card-outbtn-wrapper {
-    text-align:end;
-    justify-content: space-between;
-    padding-right: 10px;
-  }
-}
+//   }
+//   .card-outbtn-wrapper {
+//     text-align:end;
+//     justify-content: space-between;
+//     padding-right: 10px;
+//   }
+// }

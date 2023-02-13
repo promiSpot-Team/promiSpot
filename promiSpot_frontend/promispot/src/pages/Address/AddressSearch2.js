@@ -37,6 +37,7 @@ export default function AddressSearch() {
       addressX: address.address.x,
       addressY: address.address.y,
     }
+    // sessionStorage.setItem('addressInfo', JSON.stringify(addressInfo))
     dispatch(setAddress(addressInfo))
     navigate(-1)
   }

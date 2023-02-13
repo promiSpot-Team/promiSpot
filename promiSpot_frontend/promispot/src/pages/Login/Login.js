@@ -41,7 +41,11 @@ function Login() {
         data,
       });
 
-      console.log("login", response.data);
+      if (response.data.message === 'fail') {
+        throw new Error()
+        alert('없는 회원')
+      }
+      console.log("login", response.data.message);
       const memberSeq = response.data["memberSeq"];
       const accessToken = response.data["access-token"];
       const refreshToken = response.data["refresh-token"];
@@ -68,7 +72,8 @@ function Login() {
       localStorage.setItem("isLogin", true);
       navigate("/main");
     } catch (err) {
-      console.log(err);
+      console.log(err)
+      alert('로그인 실패')
     }
   };
 

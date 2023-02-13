@@ -35,7 +35,7 @@ function App() {
         <Route path="/" element={<Start />} />
         <Route path="/login" element={<Login />} />
         <Route path="/join" element={<Join2 />} />
-        <Route path="/search" element={<AddressSearch2 />} />
+        <Route path="/search" element={<AddressSearch />} />
       </Route>
       {/* 로그인 해야 접근 가능 */}
       <Route element={<PrivateRoute />}>
@@ -50,7 +50,7 @@ function App() {
           <Route path="chatting" element={<Chatting />} />
         </Route>
         <Route path="/address">
-          <Route path="search" element={<AddressSearch />} />
+          <Route path="search" element={<AddressSearch2 />} />
         </Route>
         <Route path="/friend" element={<Friend />} />
         <Route path="/promise" element={<Promise />} />
