@@ -82,6 +82,9 @@ public class AddressController {
 	public ResponseEntity<?> modifyAddress(@RequestBody @ApiParam(value="회원 주소", required=true) 
 		AddressEntity addressEntity, @ApiParam(value="회원 주소 시퀀스", required=true) @PathVariable("addressSeq") int addressSeq){
 		addressEntity.setAddressSeq(addressSeq);
+
+		System.out.println(addressEntity.toString());
+
 		try {
 			if(addressService.modifyAddress(addressEntity)) {
 				return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);

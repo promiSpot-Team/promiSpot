@@ -22,12 +22,11 @@ import PlaceDetail from "./pages/PlaceMap/PlaceDetail";
 import PlaceRecommend from "./pages/PlaceMap/PlaceRecommend";
 import Schedule from "./pages/PlaceMap/Schedule";
 import Promise from "./pages/Promise/Promise";
-import PrivateRoute from './Route/PrivateRoute';
-import PublicRoute from './Route/PublicRoute';
-import NotFound from './Route/NotFound';
+import PrivateRoute from "./Route/PrivateRoute";
+import PublicRoute from "./Route/PublicRoute";
+import NotFound from "./Route/NotFound";
 
 function App() {
-
   return (
     <Routes>
       
@@ -47,9 +46,9 @@ function App() {
           {/* <Route path="search" element={<PlaceSearch />} /> */}
           <Route path="recommend" element={<PlaceRecommend />} />
           <Route path=":placeId" element={<PlaceDetail />} />
-          <Route path="schedule" element={<Schedule />} />
           <Route path="chatting" element={<Chatting />} />
         </Route>
+        <Route path="/schedule/:promiseSeq" element={<Schedule />} />
         <Route path="/address">
           <Route path="search" element={<AddressSearch2 />} />
         </Route>
@@ -69,7 +68,7 @@ function App() {
         <Route path="/chatting" element={<Chatting />} />
         <Route path="/test4" element={<Test4 />} />
       </Route>
-        <Route path='*' element={<NotFound />} />
+      <Route path="*" element={<NotFound />} />
     </Routes>
   );
 }

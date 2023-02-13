@@ -118,7 +118,7 @@ export default function Join2() {
         baseURL: SERVER_URL,
         data: {
           memberSeq,
-          addressAdress: data.addressAdress,
+          addressAddress: data.addressAddress,
           addressX: data.addressX,
           addressY: data.addressY,
           addressNick: data.addressNick,
@@ -139,9 +139,11 @@ export default function Join2() {
         addressIsArgree: "",
       };
       const newAddressInfo = {
-        addressAdress: "",
+        addressAddress: "",
         addressX: 0,
         addressY: 0,
+        addressNick: "",
+        addressIsPrimary: 0,
       };
       dispatch(setJoinInfo(newJoinInfo));
       dispatch(setAddress(null));
@@ -169,7 +171,7 @@ export default function Join2() {
       memberNick: data.get("nickName"),
       memberPhoneNum: data.get("phoneNumber"),
       memberAddressIsArgree: checked === false ? 0 : 1,
-      addressAdress: addressInfo.addressAddress,
+      addressAddress: addressInfo.addressAddress,
       addressX: addressInfo.addressX,
       addressY: addressInfo.addressY,
       addressNick: "내 집",
@@ -184,7 +186,7 @@ export default function Join2() {
       memberNick,
       memberPhoneNum,
       memberAddressIsArgree,
-      addressAdress,
+      addressAddress,
       addressX,
       addressY,
       addressNick,

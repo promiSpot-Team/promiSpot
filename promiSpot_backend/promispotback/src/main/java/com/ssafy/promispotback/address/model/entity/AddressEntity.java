@@ -51,8 +51,6 @@ public class AddressEntity {
 		this.addressIsPrimary = addressIsPrimary;
 	}
 
-
-
 	public int getAddressSeq() {
 		return addressSeq;
 	}
@@ -69,12 +67,12 @@ public class AddressEntity {
 		this.memberSeq = memberSeq;
 	}
 
-	public String getAddressAdress() {
+	public String getAddressAddress() {
 		return addressAddress;
 	}
 
-	public void setAddressAdress(String addressAdress) {
-		this.addressAddress = addressAdress;
+	public void setAddressAddress(String addressAddress) {
+		this.addressAddress = addressAddress;
 	}
 
 	public String getAddressNick() {
@@ -111,10 +109,17 @@ public class AddressEntity {
 
 	@Override
 	public String toString() {
-		return "AddressEntity [addressSeq=" + addressSeq + ", memberSeq=" + memberSeq + ", addressAdress="
-				+ addressAddress + ", addressNick=" + addressNick + ", addressX=" + addressX + ", addressY=" + addressY
-				+ ", addressIsPrimary=" + addressIsPrimary + "]";
+		return "AddressEntity{" +
+				"addressSeq=" + addressSeq +
+				", memberSeq=" + memberSeq +
+				", addressAddress='" + addressAddress + '\'' +
+				", addressNick='" + addressNick + '\'' +
+				", addressX='" + addressX + '\'' +
+				", addressY='" + addressY + '\'' +
+				", addressIsPrimary=" + addressIsPrimary +
+				'}';
 	}
+
 
 
 
