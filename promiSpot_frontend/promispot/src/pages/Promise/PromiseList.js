@@ -21,6 +21,7 @@ export default function PromiseList() {
     });
     if (response.data !== "fail") {
       setPromiseList(response.data);
+      console.log(response.data)
     }
   };
 
@@ -46,6 +47,7 @@ export default function PromiseList() {
                   time={promise.promiseTime}
                   title={promise.promiseTitle}
                   promiseSeq={promise.promiseSeq}
+                  participantList={promise.participantList}
                 ></Card>
               </div>
             );

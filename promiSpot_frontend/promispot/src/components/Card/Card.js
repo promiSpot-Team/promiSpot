@@ -4,7 +4,7 @@ import "./Card.scss";
 import "./Card1.scss";
 
 export default function Card(props) {
-  const { date, time, title, imgLink, promiseSeq } = props;
+  const { date, time, title, imgLink, promiseSeq, participantList } = props;
 
   const navigate = useNavigate();
 
@@ -33,7 +33,23 @@ export default function Card(props) {
       </div>
       {/* 카드 내용 : 친구들, 퇴장/입장 버튼 */}
       <div className="card-content">
+        <div className="card-content-friend-div">
+          {participantList && participantList.map((participant, idx) => {
+            return (
+              <div>
+                <img src={participant.memberImgPath} alt={participant.memberNick} />
+              </div>
+            )
+          })}
+        </div>
+        <div className="card-content-button-div">
+          <div className="card-enter-btn">
 
+          </div>
+          <div className="card-exit-btn">
+            
+          </div>
+        </div>
       </div>
     </div>
     // <div className="card-wrapper">
