@@ -15,6 +15,7 @@ import {
   FormControlLabel,
   TextField,
 } from "@mui/material";
+import Back from "../../components/Icon/Back";
 
 export default function MyAddress() {
   const [myAddressList, setMyAddressList] = useState([]);
@@ -26,6 +27,7 @@ export default function MyAddress() {
   const [openDeleteModal, setOpenDeleteModal] = useState(false);
   const [openModifyModal, setOpenModifyModal] = useState(false);
   var nowSeq = 0;
+  // console.log("nowSeq?", nowSeq);
   const [checked, setChecked] = useState(false);
 
   function nowSeqIs(data) {
@@ -52,7 +54,7 @@ export default function MyAddress() {
 
   const deleteMyAddress = async (addressSeq) => {
     try {
-      console.log(addressSeq);
+      console.log("delete", addressSeq);
       // console.log(axiosMethod);
       const response2 = await axios({
         method: "DELETE",
@@ -141,15 +143,15 @@ export default function MyAddress() {
     getMyAddress();
   }, []);
 
-  useEffect(() => {}, [myAddressList]);
+  // useEffect(() => {}, [myAddressList]);
 
   // const onClick = (method) => {
   //   setAxiosMethod(method);
   // };
 
-  const sendAddress = (num) => {
-    setAddressNum(num);
-  };
+  // const sendAddress = (num) => {
+  //   setAddressNum(num);
+  // };
 
   function goMyAddress() {
     window.location.replace("/myaddress");
@@ -159,21 +161,20 @@ export default function MyAddress() {
     window.location.replace("/address/search");
   }
 
-  const onClickDelete = () => {
-    setOpenDeleteModal(!openDeleteModal);
-  };
-
   const onClickModify = () => {
     setOpenModifyModal(!openModifyModal);
   };
-
-  useEffect(() => {
-    modifyMyAddress();
-  });
-
   return (
     <div>
-      <BasicHeader text="주소 목록"></BasicHeader>
+      <div className="basic-header-1-wrapper">
+        <div
+          className="basic-header-1-vector-wrapper"
+          onClick={() => navigate("/mypage")}
+        >
+          <Back />
+        </div>
+        <div className="basic-header-1-text-wrapper">주소 목록</div>
+      </div>
       <button
         onClick={() => {
           goAddAddress();
@@ -194,14 +195,14 @@ export default function MyAddress() {
                 {item.addressSeq}
                 <button
                   onClick={() => {
-                    // deleteMyAddress(item.addressSeq);
-                    onClickDelete();
+                    deleteMyAddress(item.addressSeq);
+                    // onClickDelete();
                   }}
                   value={item.addressSeq}
                 >
                   삭제
                 </button>
-                {openDeleteModal && (
+                {/* {openDeleteModal && (
                   <Modal2
                     title="삭제"
                     button="✖"
@@ -216,7 +217,7 @@ export default function MyAddress() {
                       제출
                     </button>
                   </Modal2>
-                )}
+                )} */}
                 <button
                   onClick={() => {
                     // deleteMyAddress(item.addressSeq);
