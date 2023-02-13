@@ -7,11 +7,35 @@ import { SERVER_URL } from "../../constants/constants";
 import { useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
 
+import axios from "axios";
+
 const spawn = require("child_process").spawn;
 
 export default function Chatting() {
+  
+  
   // 화면에 표시될 채팅 기록
   const [chatList, setChatList] = useState([]);
+  const searchChatList = async () => {
+    
+    console.log("초기에 채팅 리스트 받아오기");
+
+
+    var path = location.pathname;
+    var parse = path.split("/");
+    var promiseSeq = parse[2];
+    // limit는 불러올 채팅의 갯수 
+    const limit = 5;
+    const response = await axios({
+      method: "GET",
+      // url: `http://localhost:9090/api/chatting/getList/${promiseSeq}/${limit} `,
+      url: `${SERVER_URL}/chatting/getList/${promiseSeq}/${limit} `,
+    });
+    if (response.data !== "fail") {
+      setChatList(response.data);
+    }
+  };
+
 
   // 메시지를 발행하는 코드
   const [chat, setChat] = useState(""); // 입력되는 채팅
@@ -25,8 +49,8 @@ export default function Chatting() {
 
   const connect = () => {
     client.current = new StompJs.Client({
-      // brokerURL: "ws://i8a109.p.ssafy.io:9090/api/ws",
-      brokerURL: "ws://localhost:9090/api/ws",
+      brokerURL: "ws://i8a109.p.ssafy.io:9090/api/ws",
+      // brokerURL: "ws://localhost:9090/api/ws",
       onConnect: () => {
         console.log("success");
         subscribe();
@@ -84,7 +108,11 @@ export default function Chatting() {
     publish(chat);
   };
 
+
+
+  // 페이지가 처음 켜지면 작동되는 함수 
   useEffect(() => {
+    searchChatList();
     connect();
     return () => disconnect();
   }, []);

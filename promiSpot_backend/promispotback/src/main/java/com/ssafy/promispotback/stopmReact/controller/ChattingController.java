@@ -45,6 +45,24 @@ public class ChattingController {
         }
     }
 
+    @GetMapping("getList/{promiseSeq}/{limit}")
+    public ResponseEntity<?> getPromise(@PathVariable("promiseSeq") int promiseSeq,
+                                        @PathVariable("limit") int limit) {
+        try {
+            List<ChattingModel> chattingList = chattingService.getChattingModelsByPromiseSeq(promiseSeq, limit);
+            if (chattingList != null) {
+                System.out.println("success work");
+                return new ResponseEntity<List<ChattingModel>>(chattingList, HttpStatus.OK);
+            } else {
+                System.out.println("fail work");
+                return new ResponseEntity<String>("fail", HttpStatus.ACCEPTED);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return exceptionHandling(e);
+        }
+    }
+
     private ResponseEntity<String> exceptionHandling(Exception e) {
         return new ResponseEntity<String>("Error: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
     }
