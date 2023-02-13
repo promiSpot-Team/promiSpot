@@ -1,5 +1,7 @@
 package com.ssafy.promispotback.place.controller;
 
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -102,9 +104,13 @@ public class PlaceController {
 	}
 	
 	
-	
-	
-	
+	// 투표 완료 후 스케줄페이지에서 투표 장소 리스트 가져오기
+	@ApiOperation(value = "장소 리스트 가져오기", notes = "장소 리스트 가져오기", response = String.class)
+	@GetMapping("/getPlaceList/{promiseSeq}")
+	public ResponseEntity<?> getPlaceList(@RequestBody @ApiParam(value="약속 일련번호", required=true)
+											  @PathVariable("promiseSeq") int promiseSeq){
+		return null;
+	}//getPlaceList
 	
 	
 	
