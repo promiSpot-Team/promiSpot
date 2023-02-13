@@ -30,11 +30,7 @@ export default function PlaceDetail() {
 
   return (
     <div className="place-modal-wrapper">
-<<<<<<< Updated upstream
       <div>
-=======
-      <div style={{ height: "9vh" }}>
->>>>>>> Stashed changes
         <BasicHeader text={place.place_name} />
       </div>
       <div>
