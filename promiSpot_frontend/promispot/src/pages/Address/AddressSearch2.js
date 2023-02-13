@@ -50,7 +50,10 @@ export default function AddressSearch() {
 
   const addAddress = async ({ address }) => {
     try {
-      // console.log(address);
+      console.log(address.address_name);
+      console.log(address.x);
+      console.log(address.y);
+      console.log(memberSeq);
       const response4 = await axios({
         url: "/address",
         method: "POST",
@@ -58,14 +61,13 @@ export default function AddressSearch() {
         data: {
           memberSeq,
           addressAddress: address.address_name,
-          addressX: address.address.x,
-          addressY: address.address.y,
+          addressX: address.x,
+          addressY: address.y,
           addressNick: "주소",
           addressIsPrimary: "0",
         },
       });
       // dispatch(setAddress(null));
-
       navigate("/myaddress");
     } catch (err) {
       console.log(err);
@@ -83,15 +85,16 @@ export default function AddressSearch() {
       <ul className="address-result-ul">
         {addressList.map((address, index) => {
           return (
-            <li
-              key={index}
-              className="address-result-li"
-              onClick={() => {
-                saveAddressInfo({ address });
-              }}
-            >
+            <li key={index} className="address-result-li">
               <p className="address-result-text">{address.address_name}</p>
-              <button className="address-result-btn">선택</button>
+              <button
+                className="address-result-btn"
+                onClick={() => {
+                  saveAddressInfo({ address });
+                }}
+              >
+                선택
+              </button>
             </li>
           );
         })}

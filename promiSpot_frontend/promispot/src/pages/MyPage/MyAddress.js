@@ -9,6 +9,12 @@ import { reissueToken, setAddress } from "../../Redux/reducer/user";
 import "../scss/MyPage.scss";
 import BasicHeader from "../../components/Header/BasicHeader1";
 import Modal2 from "../../components/Modal/Modal2";
+import {
+  Checkbox,
+  FormControl,
+  FormControlLabel,
+  TextField,
+} from "@mui/material";
 
 export default function MyAddress() {
   const [myAddressList, setMyAddressList] = useState([]);
@@ -19,11 +25,16 @@ export default function MyAddress() {
   const { memberSeq, addressSeq } = useSelector((state) => state.user.info);
   const [openDeleteModal, setOpenDeleteModal] = useState(false);
   const [openModifyModal, setOpenModifyModal] = useState(false);
+  var nowSeq = 0;
+  const [checked, setChecked] = useState(false);
 
-  const addressInfo = useSelector((state) =>
-    state?.user?.addressInfo ? state.user.addressInfo : null
-  );
-  // console.log(addressInfo);
+  function nowSeqIs(data) {
+    nowSeq = data;
+    console.log(nowSeq);
+  }
+  const handleAgree = (event) => {
+    setChecked(event.target.checked);
+  };
 
   const getMyAddress = async () => {
     try {
@@ -42,7 +53,7 @@ export default function MyAddress() {
   const deleteMyAddress = async (addressSeq) => {
     try {
       console.log(addressSeq);
-      console.log(axiosMethod);
+      // console.log(axiosMethod);
       const response2 = await axios({
         method: "DELETE",
         url: `${SERVER_URL}/address/${addressSeq}`,
@@ -53,19 +64,32 @@ export default function MyAddress() {
     }
   };
 
-  const modifyMyAddress = async (addressSeq) => {
+  const modifyMyAddress = async (data) => {
     try {
+      console.log(addressSeq);
       const response3 = await axios({
         method: "PUT",
-        url: `${SERVER_URL}/address/${addressSeq}`,
+        url: `${SERVER_URL}/address/${nowSeq}`,
         data: {
-          addressIsPrimary: 1,
+          addressNick: data.addressNick,
+          addressIsPrimary: data.addressIsPrimary,
         },
       });
       window.location.replace("/myaddress");
     } catch (err) {
       console.log(err);
     }
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const modifyData = new FormData(e.currentTarget);
+    const data = {
+      addressNick: modifyData.get("addressNick"),
+      addressIsPrimary: checked === false ? 0 : 1,
+    };
+    console.log("data is", data);
+    modifyMyAddress(data);
   };
 
   // const addAddress = async (data) => {
@@ -143,6 +167,10 @@ export default function MyAddress() {
     setOpenModifyModal(!openModifyModal);
   };
 
+  useEffect(() => {
+    modifyMyAddress();
+  });
+
   return (
     <div>
       <BasicHeader text="주소 목록"></BasicHeader>
@@ -159,11 +187,11 @@ export default function MyAddress() {
       {myAddressList &&
         myAddressList.map((item, idx) => {
           return (
-            <div key={idx}>
-              <div></div>
-              <div>
+            <div>
+              <div key={item.addressSeq}>
                 {item.addressNick}
                 {item.addressAddress}
+                {item.addressSeq}
                 <button
                   onClick={() => {
                     // deleteMyAddress(item.addressSeq);
@@ -198,7 +226,7 @@ export default function MyAddress() {
                 >
                   수정
                 </button>
-                {openDeleteModal && (
+                {openModifyModal && (
                   <Modal2
                     title="주소 수정"
                     button="✖"
@@ -235,13 +263,49 @@ export default function MyAddress() {
                 </div>
               );
             })} */}
-                    <button
-                      onClick={() => {
-                        modifyMyAddress(item.addressSeq);
-                      }}
+
+                    <form
+                      className="join-input-wrapper"
+                      onSubmit={handleSubmit}
                     >
-                      제출
-                    </button>
+                      <FormControl sx={{ width: "70%" }} variant="standard">
+                        <TextField
+                          className="input-form-wrapper"
+                          id="addressNick"
+                          label="주소 별칭"
+                          placeholder={item.addressNick}
+                          name="addressNick"
+                          multiline
+                          variant="standard"
+                          fontFamily="Pretendard-Bold"
+                          // defaultValue={item.memberInfo.memberNick}
+                          margin="dense"
+                          // defaultValue={item.memberInfo.memberNick}
+                          // onChange={handleEditChange}
+                        >
+                          {/* <div onClick={clearText}>삭제</div> */}
+                        </TextField>
+                      </FormControl>
+                      <FormControlLabel
+                        id="addressIsPrimary"
+                        control={
+                          <Checkbox onChange={handleAgree} color="primary" />
+                        }
+                        label="기본 주소로 설정"
+                        margin="normal"
+                      />
+                      <div></div>
+                      <div>
+                        <button
+                          onClick={() => {
+                            nowSeqIs(item.addressSeq);
+                          }}
+                        >
+                          수정
+                        </button>
+                      </div>
+                      {/* <button onClick={editMyInfo}>수정</button> */}
+                    </form>
                   </Modal2>
                 )}
               </div>
