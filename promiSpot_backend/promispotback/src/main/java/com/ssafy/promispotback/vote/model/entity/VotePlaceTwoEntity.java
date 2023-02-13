@@ -6,7 +6,7 @@ import io.swagger.annotations.ApiModelProperty;
 import java.util.Objects;
 
 @ApiModel(value = "VotePlaceEntity : 약속 장소 후보 정보", description = "지도위에서 모두가 볼 수 있고 투표를 할 수 있는 후보 장소 정보")
-public class VotePlaceEntity {
+public class VotePlaceTwoEntity {
     @ApiModelProperty(value = "약속장소후보일련번호")
     private int voteSeq;
 
@@ -25,9 +25,9 @@ public class VotePlaceEntity {
     @ApiModelProperty(value = "장소위도")
     private String placeY; // 위도
 
-    public VotePlaceEntity() {}
+    public VotePlaceTwoEntity() {}
 
-    public VotePlaceEntity(int voteSeq, int promiseSeq, String placeId, int memberSeq, String placeX, String placeY) {
+    public VotePlaceTwoEntity(int voteSeq, int promiseSeq, String placeId, int memberSeq, String placeX, String placeY) {
         this.voteSeq = voteSeq;
         this.promiseSeq = promiseSeq;
         this.placeId = placeId;
@@ -88,7 +88,7 @@ public class VotePlaceEntity {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        VotePlaceEntity that = (VotePlaceEntity) o;
+        VotePlaceTwoEntity that = (VotePlaceTwoEntity) o;
         return voteSeq == that.voteSeq && promiseSeq == that.promiseSeq && memberSeq == that.memberSeq && Objects.equals(placeId, that.placeId) && Objects.equals(placeX, that.placeX) && Objects.equals(placeY, that.placeY);
     }
 

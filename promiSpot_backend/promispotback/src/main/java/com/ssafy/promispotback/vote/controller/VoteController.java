@@ -1,12 +1,10 @@
 package com.ssafy.promispotback.vote.controller;
 
-import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.ssafy.promispotback.vote.model.entity.VotePlaceEntity;
-import org.apache.ibatis.annotations.Param;
+import com.ssafy.promispotback.vote.model.entity.VotePlaceTwoEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,7 +18,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.ssafy.promispotback.promise.model.entity.PromiseEntity;
 import com.ssafy.promispotback.vote.model.entity.VoteEntity;
 import com.ssafy.promispotback.vote.model.entity.VoteMemberEntity;
 import com.ssafy.promispotback.vote.model.service.VoteService;
@@ -88,11 +85,11 @@ public class VoteController {
 	public ResponseEntity<?> getCandidatePlaceList(@PathVariable("promiseSeq") int promiseSeq) {
 		try {
 			
-			List<VotePlaceEntity> candidatePlaceList = voteService.getCandidatePlaceList(promiseSeq);
+			List<VotePlaceTwoEntity> candidatePlaceList = voteService.getCandidatePlaceList(promiseSeq);
 			
 			if (candidatePlaceList != null) {
 				System.out.println("success work");
-				return new ResponseEntity<List<VotePlaceEntity>>(candidatePlaceList, HttpStatus.OK);
+				return new ResponseEntity<List<VotePlaceTwoEntity>>(candidatePlaceList, HttpStatus.OK);
 			} else {
 				System.out.println("fail work");
 				return new ResponseEntity<String>("fail", HttpStatus.ACCEPTED);

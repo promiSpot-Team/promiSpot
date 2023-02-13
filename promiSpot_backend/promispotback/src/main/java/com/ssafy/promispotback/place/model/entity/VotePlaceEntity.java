@@ -26,10 +26,10 @@ public class VotePlaceEntity extends PlaceEntity{
 
     public VotePlaceEntity(String placeId, String placeName, String placeCategoryName, String placeCategoryGroupCode,
                            String placeCategoryGroupName, String placePhone, String placeRoadAddressName,
-                           String placeAddressName, String placeX, String placeY, String placeUrl, int voteSeq,
+                           String placeAddressName, String placeX, String placeY, String placeUrl, String placeImgUrl, int voteSeq,
                            int promiseSeq, int memberSeq, int voteCnt) {
         super(placeId, placeName, placeCategoryName, placeCategoryGroupCode, placeCategoryGroupName, placePhone,
-                placeRoadAddressName, placeAddressName, placeX, placeY, placeUrl);
+                placeRoadAddressName, placeAddressName, placeX, placeY, placeUrl, placeImgUrl);
         this.voteSeq = voteSeq;
         this.promiseSeq = promiseSeq;
         this.memberSeq = memberSeq;
