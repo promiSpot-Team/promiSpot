@@ -36,19 +36,19 @@ export default function Card(props) {
         <div className="card-content-friend-div">
           {participantList && participantList.map((participant, idx) => {
             return (
-              <div>
+              <div key={participant.memberSeq} className="card-content-friend-img-div">
                 <img src={participant.memberImgPath} alt={participant.memberNick} />
               </div>
             )
           })}
         </div>
         <div className="card-content-button-div">
-          <div className="card-enter-btn">
-
-          </div>
-          <div className="card-exit-btn">
-            
-          </div>
+          {/* <div className="card-enter-btn"> */}
+            <button onClick={moveToPromise}>입장</button>
+          {/* </div> */}
+          {/* <div className="card-exit-btn"> */}
+            <button>나가기</button>
+          {/* </div> */}
         </div>
       </div>
     </div>
