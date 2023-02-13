@@ -49,5 +49,11 @@
 		where place_id = #{placeId}
 	</delete>
 
+	<!-- 투표 완료 후 스케줄페이지에서 투표 장소 리스트 가져오기 -->
+	<select id="getPlaceList" parameterType="int" resultType="VotePlaceEntity">
+		select vote_seq, promise_seq, member_seq, p.place_id, vote_seq, place_name,
+		from
+		where
+	</select>
 
 </mapper>
