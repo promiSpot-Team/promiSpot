@@ -1,0 +1,30 @@
+.card-wrapper {
+  width: 100%;
+  background-color: #d6eef8;
+  border-radius: 1vw;
+  box-sizing: border-box;
+  padding: 1.5vh 2vw;
+
+  .card-header {
+    display: grid;
+    grid-template-columns: 6fr 4fr;
+    
+    .card-header-title {
+      // border: 1px solid red;
+      color: #0066b2;
+      font-weight: bold;
+      font-size: 1.3em;
+    }
+
+    .card-header-date-time {
+      text-align: right;
+      color: #c4c4c4;
+      font-weight: normal;
+      font-size: 0.8em;
+
+      p:first-child {
+        margin-bottom: 0.8em;
+      }
+    }
+  }
+}

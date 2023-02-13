@@ -28,9 +28,12 @@ export default function Join2() {
   const addressInfo = useSelector((state) =>
     state?.user?.addressInfo ? state.user.addressInfo : null
   );
+
+  console.log('주소!', addressInfo)
   const joinInfo = useSelector((state) =>
     state?.user?.joinInfo ? state.user.joinInfo : null
   );
+
 
   /* 초기 변수 선언 */
   const [state, setState] = useState({
@@ -63,8 +66,8 @@ export default function Join2() {
   const moveToAddressSearch = () => {
     const newJoinInfo = { ...joinInfo, ...state };
     // 주소 검색 페이지 이동 후 되돌아왔을 때에도 입력했던 정보 유지시키기 위함
-    localStorage.setItem("tmpJoinInfo", JSON.stringify(newJoinInfo));
-    // dispatch(setJoinInfo(newJoinInfo))
+    // sessionStorage.setItem("tmpJoinInfo", JSON.stringify(newJoinInfo));
+    dispatch(setJoinInfo(newJoinInfo))
     // 주소 검색 페이지로 이동
     navigate("/search");
   };
@@ -211,24 +214,24 @@ export default function Join2() {
   };
 
   useEffect(() => {
-    // /* 페이지 언마운트 될 때 실행 */
-    // return () => {
-    //   const newJoinInfo = {
-    //     id: '',
-    //     email: '',
-    //     password:'',
-    //     name: '',
-    //     nickName:'',
-    //     phoneNumber: ''
-    //   }
-    //   // const newAddressInfo = {
-    //   //   addressAddress: '',
-    //   //   addressX: 0,
-    //   //   addressY: 0
-    //   // }
-    //   dispatch(setJoinInfo(newJoinInfo))
-    //   dispatch(setAddress(null))
-    // }
+    /* 페이지 언마운트 될 때 실행 */
+    return () => {
+      // const newJoinInfo = {
+      //   id: '',
+      //   email: '',
+      //   password:'',
+      //   name: '',
+      //   nickName:'',
+      //   phoneNumber: ''
+      // }
+      // const newAddressInfo = {
+      //   addressAddress: '',
+      //   addressX: 0,
+      //   addressY: 0
+      // }
+      // dispatch(setJoinInfo(newJoinInfo))
+      dispatch(setAddress(null))
+    }
   }, []);
 
   const goStart = () => {
@@ -412,7 +415,7 @@ export default function Join2() {
               defaultvalue={
                 !addressInfo
                   ? "아직 등록된 주소가 없습니다"
-                  : addressInfo.addressAddress
+                  : addressInfo.addressAdress
               }
             />
             {/* </Link> */}
