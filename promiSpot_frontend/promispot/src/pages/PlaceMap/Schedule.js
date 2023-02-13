@@ -28,6 +28,23 @@ export default function Schedule() {
     mapscript()
   }, [])
 
+  // 약속별 회원들이 등록한 후보 장소를 가져오는 함수
+  // const [votePlaceList, setVotePlaceList] = new useState();
+  // const searchVotePlaceList = async () => {
+  //   if (promiseSeq) {
+  //     const response = await axios({
+  //       method: "GET",
+  //       url: `${SERVER_URL}/departure/getList/${promiseSeq}`,
+  //     });
+  //     if (response.data !== "fail") {
+  //       setDepartureList(response.data);
+  //     }
+  //   }
+  // };
+  // useEffect(() => {
+  //   searchDepartureList();
+  // }, [promiseSeq]); // 빈괄호는 처음 한 번만 실행한다는 뜻이다.
+
   return (
     <div id="map" style={{ width: '100vw', height: '100vh' }}>
          <div className='schedule-wrapper'>

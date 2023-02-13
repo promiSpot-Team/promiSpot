@@ -18,7 +18,7 @@ export default function GetDetail(props) {
   const sendData = async () => {
     try {
       setLoading(true);
-      const response = await axios.post("http://localhost:5000", { placeUrl: place_url });
+      const response = await axios.post("http://i8a109.p.ssafy.io:5000", { placeUrl: place_url });
       setData(response.data.placeImg);
       setStar(response.data.placeStar);
     } catch (err) {

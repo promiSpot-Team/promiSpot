@@ -30,7 +30,7 @@ export default function PlaceDetail() {
 
   return (
     <div className="place-modal-wrapper">
-      <div style={{ height: "9vh" }}>
+      <div>
         <BasicHeader text={place.place_name} />
       </div>
       <div>
