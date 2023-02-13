@@ -19,6 +19,9 @@ import org.springframework.web.bind.annotation.RestController;
 import com.ssafy.promispotback.place.model.entity.PlaceEntity;
 import com.ssafy.promispotback.place.model.service.PlaceService;
 
+import java.util.HashMap;
+import java.util.Map;
+
 @RestController
 @CrossOrigin
 @RequestMapping("/place")
@@ -30,12 +33,25 @@ public class PlaceController {
 	// 장소 등록
 	@PostMapping("insert")
 	public ResponseEntity<?> insertPlace(@RequestBody PlaceEntity placeEntity) {
-		
+
+		System.out.println(placeEntity.toString());
+		Map<String, Object> resultMap = new HashMap<>();
+
 		try {
+			// 이미 등록된 장소라면 id를 반환
+			if(placeService.getPlace(placeEntity.getPlaceId()) != null) {
+				resultMap.put("message", "success");
+				resultMap.put("placeId", placeEntity.getPlaceId()); // 자동 생성된 pk 값 담아주기
+				return new ResponseEntity<Map<String, Object>>(resultMap, HttpStatus.OK);
+			}
+
+			// 등록되지 않은 장소라면 DB에 저장하고 id를 반환
 			int result = placeService.insertPlace(placeEntity);
 			
 			if(result != 0) {
-				return new ResponseEntity<String>("success", HttpStatus.OK);
+				resultMap.put("message", "success");
+				resultMap.put("placeId", placeEntity.getPlaceId()); // 자동 생성된 pk 값 담아주기
+				return new ResponseEntity<Map<String, Object>>(resultMap, HttpStatus.OK);
 			} else {
 				return new ResponseEntity<String>("fail", HttpStatus.NO_CONTENT);
 			}
@@ -47,7 +63,7 @@ public class PlaceController {
 	}
 	
 	// 장소 하나 조회
-	@GetMapping("select/{placeId}")
+	@GetMapping("get/{placeId}")
 	public ResponseEntity<?> getPlace(@PathVariable("placeId") String placeId) {
 		try {
 			PlaceEntity place = placeService.getPlace(placeId);

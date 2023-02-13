@@ -11,7 +11,7 @@
 		values(
 		#{placeId}, #{placeName}, #{placeCategoryName}, #{placeCategoryGroupCode},
 		#{placeCategoryGroupName}, #{placePhone}, #{placeRoadAddressName},
-		#{placeAddressName}, #{placeX}, #{placeY}, #{placeUrl}
+		#{placeAddressName}, #{placeX}, #{placeY}, #{placeUrl}, #{placeImgUrl}
 		)	
 	</insert>
 	
@@ -38,6 +38,7 @@
 			<if test="placeX != null">place_x = #{placeX},</if>
 			<if test="placeY != null">place_y = #{placeY},</if>
 			<if test="placeUrl != null">place_url = #{placeUrl},</if>
+			<if test="placeImgUrl != null">place_img_url = #{placeImgUrl},</if>
 		</trim>
 		where place_id = #{placeId}
 	</update>
