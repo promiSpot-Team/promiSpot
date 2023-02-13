@@ -424,7 +424,7 @@ export default function MapContainer() {
                 <div className="vote-done-sep-wrapper"></div>
                 <Link
                   className="vote-done-btn-two-wrapper"
-                  to={`/map/${promiseSeq}/schedule`}
+                  to={`/schedule/${promiseSeq}`}
                 >
                   <button
                     className="vote-done-btn-two-wrapper"
