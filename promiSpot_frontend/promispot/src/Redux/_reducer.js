@@ -12,7 +12,7 @@ const initialState = {
     phoneNumber: "",
   },
   addressInfo: {
-    addressAdress: "",
+    addressAddress: "",
     addressX: 0,
     addressY: 0,
     addressNick: "",

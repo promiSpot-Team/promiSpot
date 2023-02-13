@@ -4,7 +4,7 @@ import { Link, Navigate, Outlet, useNavigate } from "react-router-dom";
 import TabBar from "../../components/TabBar/TabBar";
 import { SERVER_URL } from "../../constants/constants";
 import { useSelector, useDispatch } from "react-redux";
-import { editInfo, reissueToken } from "../../Redux/reducer/user";
+import { editInfo, reissueToken, setAddress } from "../../Redux/reducer/user";
 import "../scss/MyPage.scss";
 import MyAddress from "./MyAddress";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
@@ -35,6 +35,9 @@ export default function MyPage({ history }) {
 
   const { memberId, memberSeq, accessToken, refreshToken } = useSelector(
     (state) => state.user.info
+  );
+  const addressInfo = useSelector((state) =>
+    state?.user?.addressInfo ? state.user.addressInfo : null
   );
 
   const logOut = async (e) => {
@@ -120,6 +123,53 @@ export default function MyPage({ history }) {
     }
   };
 
+  const addAddress = async (data) => {
+    try {
+      const response4 = await axios({
+        url: "/address",
+        method: "POST",
+        baseURL: SERVER_URL,
+        data: {
+          memberSeq,
+          addressAddress: data.addressAddress,
+          addressX: data.addressX,
+          addressY: data.addressY,
+          addressNick: data.addressNick,
+          addressIsPrimary: data.addressIsPrimary,
+        },
+      });
+      dispatch(setAddress(null));
+
+      navigate("/myaddress");
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  useEffect(() => {}, [addressInfo]);
+
+  const addressHandleSubmit = (e) => {
+    e.preventDefault();
+
+    const data = new FormData(e.currentTarget);
+    const addressData = {
+      addressAddress: addressInfo.addressAddress,
+      addressX: addressInfo.addressX,
+      addressY: addressInfo.addressY,
+      addressNick: "주소",
+      addressIsPrimary: 0,
+    };
+    console.log(addressData);
+    const {
+      addressAddress,
+      addressX,
+      addressY,
+      addressNick,
+      addressIsPrimary,
+    } = addressData;
+    addAddress(addressData);
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -199,7 +249,7 @@ export default function MyPage({ history }) {
                                     {address.addressNick}
                                   </div>
                                   <div className="my-content-address-real">
-                                    {address.addressAdress}
+                                    {address.addressAddress}
                                   </div>
                                   <div className="my-content-address-icon">
                                     <IoIosArrowForward size="3vh" />

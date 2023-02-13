@@ -22,12 +22,11 @@ import PlaceDetail from "./pages/PlaceMap/PlaceDetail";
 import PlaceRecommend from "./pages/PlaceMap/PlaceRecommend";
 import Schedule from "./pages/PlaceMap/Schedule";
 import Promise from "./pages/Promise/Promise";
-import PrivateRoute from './Route/PrivateRoute';
-import PublicRoute from './Route/PublicRoute';
-import NotFound from './Route/NotFound';
+import PrivateRoute from "./Route/PrivateRoute";
+import PublicRoute from "./Route/PublicRoute";
+import NotFound from "./Route/NotFound";
 
 function App() {
-
   return (
     <Routes>
       {/* 로그인 안 해야 접근 가능 */}
@@ -35,7 +34,7 @@ function App() {
         <Route path="/" element={<Start />} />
         <Route path="/login" element={<Login />} />
         <Route path="/join" element={<Join2 />} />
-        <Route path="/search" element={<AddressSearch2 />} />
+        <Route path="/search" element={<AddressSearch />} />
       </Route>
       {/* 로그인 해야 접근 가능 */}
       <Route element={<PrivateRoute />}>
@@ -50,7 +49,7 @@ function App() {
         </Route>
         <Route path="/schedule/:promiseSeq" element={<Schedule />} />
         <Route path="/address">
-          <Route path="search" element={<AddressSearch />} />
+          <Route path="search" element={<AddressSearch2 />} />
         </Route>
         <Route path="/friend" element={<Friend />} />
         <Route path="/promise" element={<Promise />} />
@@ -68,7 +67,7 @@ function App() {
         <Route path="/chatting" element={<Chatting />} />
         <Route path="/test4" element={<Test4 />} />
       </Route>
-        <Route path='*' element={<NotFound />} />
+      <Route path="*" element={<NotFound />} />
     </Routes>
   );
 }

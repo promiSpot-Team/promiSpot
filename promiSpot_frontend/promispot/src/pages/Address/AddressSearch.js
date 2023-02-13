@@ -32,7 +32,7 @@ export default function AddressSearch() {
   /* 리덕스(/reduer/map)에 주소 정보 저장 */
   const saveAddressInfo = (address) => {
     const addressInfo = {
-      addressAdress: address.address.address_name,
+      addressAddress: address.address.address_name,
       addressX: address.address.x,
       addressY: address.address.y,
       addressNick: "내 집",
