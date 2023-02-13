@@ -12,6 +12,7 @@ import "../scss/Map_Container.scss";
 import PlaceRecommend from "./PlaceRecommend";
 import PlaceSearch from "./PlaceSearch";
 import { Content } from "antd/es/layout/layout";
+import * as StompJs from "@stomp/stompjs";
 
 const { kakao } = window;
 
@@ -46,14 +47,6 @@ export default function MapContainer() {
   ///////////////////////////////////// 민정 시작////////////////////////////////////////////////////////
   const location = useLocation();
   const [promiseSeq, setPromiseSeq] = useState();
-  useEffect(() => {
-    var path = location.pathname;
-    var parse = path.split("/");
-    var seq = parse[2];
-    setPromiseSeq(seq);
-  }, []);
-
-
 
   // const [promiseMemberList, setPromiseMemberList] = useState([]);
   // const getPromiseMembers = async () => {
@@ -70,7 +63,6 @@ export default function MapContainer() {
   // useEffect(() => {
   //   getPromiseMembers();
   // }, []);
-
 
   ////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -89,10 +81,19 @@ export default function MapContainer() {
       setMemberAddressList(response.data);
     }
   };
+
+  // 처음 페이지가 켜졌을 때 발생하는 함수들
   useEffect(() => {
+    var path = location.pathname;
+    var parse = path.split("/");
+    var seq = parse[2];
+    setPromiseSeq(seq);
+
     searchMemberAddressList();
+    connect();
+    return () => disconnect();
   }, []);
-  // 멤버에 속한 주소가 잘 들어왔는지 확인하는 함수 
+  // 멤버에 속한 주소가 잘 들어왔는지 확인하는 함수
   // useEffect(() => {
   //   console.log(memberAddressList);
   // }, [memberAddressList]);
@@ -116,10 +117,7 @@ export default function MapContainer() {
         "https://cdn.lorem.space/images/face/.cache/150x150/nrd-ZmmAnliy1d4-unsplash.jpg";
       if (selectAddress) {
         var customOverlay = new kakao.maps.CustomOverlay({
-          position: new kakao.maps.LatLng(
-            selectAddress.addressX,
-            selectAddress.addressY
-          ),
+          position: new kakao.maps.LatLng(selectAddress.addressX, selectAddress.addressY),
           content: `<div class="map-user-profile"><img src=${profile_url}></div>`,
           xAnchor: 0.3,
           yAnnchor: 0.91,
@@ -130,7 +128,7 @@ export default function MapContainer() {
     }
   }, [selectAddress]);
 
-  // 약속별 회원들이 등록한 출발지를 가져오는 함수 
+  // 약속별 회원들이 등록한 출발지를 가져오는 함수
   const [departureList, setDepartureList] = new useState();
   const searchDepartureList = async () => {
     if (promiseSeq) {
@@ -140,84 +138,120 @@ export default function MapContainer() {
       });
       if (response.data !== "fail") {
         setDepartureList(response.data);
-      } 
+      }
     }
   };
   useEffect(() => {
     searchDepartureList();
   }, [promiseSeq]); // 빈괄호는 처음 한 번만 실행한다는 뜻이다.
-  
-  
-  // 전에 출발지들을 저장하는 변수 
-  const [beforeDepartureList, setBeforeDepartureList] = new useState();
-  
-  // 회원별 출발지가 변경되면 맵에 마커를 찍어줍니다. 
-  useEffect(() => {
 
+  // 전에 출발지들을 저장하는 변수
+  const [beforeDepartureList, setBeforeDepartureList] = new useState();
+
+  // 회원별 출발지가 변경되면 맵에 마커를 찍어줍니다.
+  useEffect(() => {
     const profile_url =
-    "https://cdn.lorem.space/images/face/.cache/150x150/nrd-ZmmAnliy1d4-unsplash.jpg";
+      "https://cdn.lorem.space/images/face/.cache/150x150/nrd-ZmmAnliy1d4-unsplash.jpg";
 
     if (beforeDepartureList) {
       beforeDepartureList.forEach((beforeDeparture) => {
         beforeDeparture.setMap(null);
-      })
+      });
     }
 
-
     setBeforeDepartureList([]);
-    // departureList의 데이터로 마커 찍기 
+    // departureList의 데이터로 마커 찍기
     if (departureList) {
-      console.log("현재 출발장소 리스트")
-      console.log(departureList);
       departureList.forEach((departure) => {
         var customOverlay = new kakao.maps.CustomOverlay({
           position: new kakao.maps.LatLng(departure.departureX, departure.departureY),
           content: `<div class="map-user-profile"><img src=${profile_url}></div>`,
           xAnchor: 0.3,
-          yAnnchor: 0.91
+          yAnnchor: 0.91,
         });
 
         setBeforeDepartureList((prev) => [...prev, customOverlay]);
         customOverlay.setMap(map);
       });
     }
-
-
   }, [departureList]);
+
+  //////////////////////////////////////
+  ///////////// Stomp 통신 /////////////
+
+  const client = useRef({});
+  const connect = () => {
+    client.current = new StompJs.Client({
+      // brokerURL: "ws://i8a109.p.ssafy.io:9090/api/ws",
+      brokerURL: `ws://localhost:9090/api/ws`,
+      onConnect: () => {
+        console.log("소켓 연결에 성공했습니다.");
+        subscribe();
+      },
+    });
+    client.current.activate();
+  };
+
+  // 출발지를 발행하는 코드
+  const publish = () => {
+    if (!client.current.connected) return;
+    console.log("소켓 발신 성공");
+    client.current.publish({
+      destination: `/pub/departure`,
+      body: JSON.stringify({
+        promiseSeq: promiseSeq,
+      }),
+    });
+  };
+
+  // 출발지 발행을 받는 코드
+  const subscribe = () => {
+    var path = location.pathname;
+    var parse = path.split("/");
+    var promiseSeq1 = parse[2];
+    const promiseSeq = client.current.subscribe(`/sub/departure/${promiseSeq1}`, (body) => {
+      const json_body = JSON.parse(body.body);
+      searchDepartureList();
+      console.log("출발지를 subscribe로 받아옵니다.");
+    });
+  };
+
+  // 연결자 연결종료
+  const disconnect = () => {
+    client.current.deactivate();
+  };
+
+  ////////////////////////////////////////
+  ////////////////////////////////////////
 
   // 출발지를 DB에 저장하게 하는 함수
   // stomp 통신을 통해 다른 사용자에게도 보여줘야한다.
   const onhandleDeparturePost = async () => {
-
     const intPromiseSeq = parseInt(promiseSeq, 10);
     const sendData = {
-      "promiseSeq": intPromiseSeq,
-      "memberSeq": memberSeq,
-      "memberName": member.memberName,
-      "departureX": selectAddress.addressX,
-      "departureY": selectAddress.addressY
-    }
+      promiseSeq: intPromiseSeq,
+      memberSeq: memberSeq,
+      memberName: member.memberName,
+      departureX: selectAddress.addressX,
+      departureY: selectAddress.addressY,
+    };
     console.log(sendData);
     try {
       const response = await axios({
-        url: '/departure/insert',
-        method: 'POST',
+        url: "/departure/insert",
+        method: "POST",
         baseURL: SERVER_URL,
-        data: sendData
+        data: sendData,
       });
     } catch (err) {
       console.log(err);
     }
 
+    publish();
+
     // 출발지를 등록하면 DB에서 새로운 출발지를 받아와서 마커들을 찍어준다.
     searchDepartureList();
-
-  }
-
-
-
-
-
+  };
 
   // // 마커 그리기
   // const marker = new kakao.maps.Marker({
@@ -353,10 +387,7 @@ export default function MapContainer() {
             memberAddressList.map((address) => {
               return (
                 // <option key={address.addressSeq} value={`${address.addressX}_${address.addressY}`}> {address.addressNick} </option>
-                <option
-                  key={address.addressSeq}
-                  value={JSON.stringify(address)}
-                >
+                <option key={address.addressSeq} value={JSON.stringify(address)}>
                   {" "}
                   {address.addressNick}{" "}
                 </option>
@@ -413,23 +444,15 @@ export default function MapContainer() {
               </div>
             </div>
             <div>
-              <div className="vote-done-text-wrapper">
-                투표가 종료되었습니다
-              </div>
+              <div className="vote-done-text-wrapper">투표가 종료되었습니다</div>
               <div className="vote-done-btn-wrapper">
                 <div className="vote-done-top-sep-wrapper"></div>
                 <Link className="vote-done-btn-one-wrapper" to={"/main"}>
                   <button className="vote-done-btn-one-wrapper">Home</button>
                 </Link>
                 <div className="vote-done-sep-wrapper"></div>
-                <Link
-                  className="vote-done-btn-two-wrapper"
-                  to={`/schedule/${promiseSeq}`}
-                >
-                  <button
-                    className="vote-done-btn-two-wrapper"
-                    onClick={() => setModalOpen(false)}
-                  >
+                <Link className="vote-done-btn-two-wrapper" to={`/schedule/${promiseSeq}`}>
+                  <button className="vote-done-btn-two-wrapper" onClick={() => setModalOpen(false)}>
                     Schedule
                   </button>
                 </Link>
