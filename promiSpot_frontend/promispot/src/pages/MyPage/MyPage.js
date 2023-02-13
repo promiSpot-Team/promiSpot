@@ -98,7 +98,6 @@ export default function MyPage({ history }) {
         url: `${SERVER_URL}/member/${memberSeq}`,
         data: {
           memberNick: data.memberNick,
-          memberPhoneNum: data.memberPhoneNum,
         },
       });
       // dispatch(editInfo())

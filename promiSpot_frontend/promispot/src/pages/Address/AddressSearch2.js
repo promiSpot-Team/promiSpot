@@ -44,32 +44,33 @@ export default function AddressSearch() {
       addressY: address.address.y,
     };
     dispatch(setAddress(addressInfo));
-    navigate(-1);
+    // navigate(-1);
+    addAddress(address);
   };
 
-  // const addAddress = async (address) => {
-  //   try {
-  //     console.log(address);
-  //     const response4 = await axios({
-  //       url: "/address",
-  //       method: "POST",
-  //       baseURL: SERVER_URL,
-  //       data: {
-  //         memberSeq,
-  //         addressAddress: address.addressAddress,
-  //         addressX: address.addressX,
-  //         addressY: address.addressY,
-  //         addressNick: address.addressNick,
-  //         addressIsPrimary: address.addressIsPrimary,
-  //       },
-  //     });
-  //     dispatch(setAddress(null));
+  const addAddress = async ({ address }) => {
+    try {
+      // console.log(address);
+      const response4 = await axios({
+        url: "/address",
+        method: "POST",
+        baseURL: SERVER_URL,
+        data: {
+          memberSeq,
+          addressAddress: address.address_name,
+          addressX: address.address.x,
+          addressY: address.address.y,
+          addressNick: "주소",
+          addressIsPrimary: "0",
+        },
+      });
+      // dispatch(setAddress(null));
 
-  //     navigate("/myaddress");
-  //   } catch (err) {
-  //     console.log(err);
-  //   }
-  // };
+      navigate("/myaddress");
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   return (
     <div>
@@ -85,15 +86,12 @@ export default function AddressSearch() {
             <li
               key={index}
               className="address-result-li"
-              onClick={() => saveAddressInfo({ address })}
+              onClick={() => {
+                saveAddressInfo({ address });
+              }}
             >
               <p className="address-result-text">{address.address_name}</p>
-              <button
-                className="address-result-btn"
-                // onClick={() => addAddress(address)}
-              >
-                선택
-              </button>
+              <button className="address-result-btn">선택</button>
             </li>
           );
         })}
