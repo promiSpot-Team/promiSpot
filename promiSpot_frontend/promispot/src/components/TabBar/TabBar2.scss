@@ -20,12 +20,13 @@ $circle-radius: 80px;
   display: flex;
   justify-content: center;
   align-items: flex-end;
-  position: fixed;
-  bottom: 0px;
+  // position: fixed;
+  // bottom: 0px;
   // background-color: $backgroundColor;
 }
 
 .navbar {
+  border: 1px solid purple;
   position: bottom;
   height: $navbar-height;
   // min-width: 390px;

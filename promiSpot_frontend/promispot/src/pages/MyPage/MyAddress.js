@@ -232,7 +232,6 @@ export default function MyAddress() {
                   <Modal2
                     title="주소 수정"
                     button="✖"
-                    item={item}
                     closeModal={() => setOpenModifyModal(!openModifyModal)}
                   >
                     {/* {myInfoList &&

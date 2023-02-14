@@ -353,6 +353,7 @@ export default function MapContainer() {
     kakao.maps.event.addListener(map, "dragend", function () {
       // 지도의 영역이 변경될 때마다 가장자리 좌표값 변경된 거 보내주기
       var bounds = map.getBounds();
+      console.log('center : ', map.getCenter())
       var newRect =
         String(bounds.ha) +
         "," +
