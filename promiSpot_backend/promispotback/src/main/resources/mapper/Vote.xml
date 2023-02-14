@@ -67,7 +67,7 @@
 		where member_seq = #{memberSeq} and vote_seq = #{voteSeq}
 	</delete>
 
-	<!-- 약속 후보 장소 등록  -->
+	<!-- 약속 장소 후보들 가져오기 - 하나의 약속에 속한 모든 장소 후보들  -->
 	<select id="getVotePlaceList" parameterType="Integer" resultType="VotePlaceEntity">
 		select v.vote_seq, v.promise_seq, v.member_seq, v.vote_cnt,
 			   p.place_id, p.place_name, p.place_category_name, p.place_category_group_code, p.place_category_group_name,
