@@ -43,16 +43,12 @@ public class WebSocketController {
     // 출발지 stomp 웹소켓
     @MessageMapping("/departure")
     public void sendDeparture(DepartureDto departureDto, SimpMessageHeaderAccessor accessor) {
-        System.out.println("출발지 메시지 되는지 확인");
-        System.out.println(departureDto.getPromiseSeq());
         simpMessageSendingOperations.convertAndSend("/sub/departure/" + departureDto.getPromiseSeq(), departureDto);
     }
 
 
     @MessageMapping("/votePlace")
     public void sendVotePlace(VotePlaceDto votePlaceDto, SimpMessageHeaderAccessor accessor) {
-        System.out.println("약속 후보 장소가 되는지 확인");
-        System.out.println(votePlaceDto.getPromiseSeq());
         simpMessageSendingOperations.convertAndSend("/sub/votePlace/" + votePlaceDto.getPromiseSeq(), votePlaceDto);
     }
 

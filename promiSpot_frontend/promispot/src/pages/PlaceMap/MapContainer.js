@@ -14,6 +14,7 @@ import PlaceSearch from "./PlaceSearch";
 import { Content } from "antd/es/layout/layout";
 import * as StompJs from "@stomp/stompjs";
 
+
 const { kakao } = window;
 
 export default function MapContainer() {
@@ -180,7 +181,7 @@ export default function MapContainer() {
   // 출발지 발행 코드
   const publishDeparture = () => {
     if (!client.current.connected) return;
-    console.log("소켓 발신 성공");
+    // console.log("소켓 발신 성공");
     client.current.publish({
       destination: `/pub/departure`,
       body: JSON.stringify({
@@ -197,14 +198,13 @@ export default function MapContainer() {
     const promiseSeq = client.current.subscribe(`/sub/departure/${promiseSeq1}`, (body) => {
       const json_body = JSON.parse(body.body);
       searchDepartureList();
-      console.log("출발지를 subscribe로 받아옵니다.");
+      // console.log("출발지를 subscribe로 받아옵니다.");
     });
   };
 
   // 약속 장소 후보 발행 코드
   const publishVotePlace = () => {
     if (!client.current.connected) return;
-    console.log("약속 장소 후보 발신 성공");
     client.current.publish({
       destination: `/pub/votePlace`,
       body: JSON.stringify({
@@ -215,7 +215,7 @@ export default function MapContainer() {
 
   const toggle = useSelector((state) => state.promise.toggle);
   useEffect(() => {
-    console.log("toggle 작동 확인");
+    // console.log("toggle 작동 확인");
     if (toggle) publishVotePlace();
   }, [toggle]);
 
@@ -224,10 +224,10 @@ export default function MapContainer() {
     var path = location.pathname;
     var parse = path.split("/");
     var promiseSeq1 = parse[2];
-    const promiseSeq = client.current.subscribe(`/sub/Voteplace/${promiseSeq1}`, (body) => {
+    const promiseSeq = client.current.subscribe(`/sub/votePlace/${promiseSeq1}`, (body) => {
       const json_body = JSON.parse(body.body);
       searchVotePlaceList();
-      console.log("약속 장소 후보들을 받습니다.");
+      // console.log("약속 장소 후보들을 받습니다.");
     });
   };
 
@@ -303,15 +303,27 @@ export default function MapContainer() {
     // BeforeVotePlaceList의 데이터로 마커 찍기
     if (votePlaceList) {
       votePlaceList.forEach((votePlace) => {
-        var customOverlay = new kakao.maps.CustomOverlay({
+
+        var imageSrc = "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png";
+        var imageSize = new kakao.maps.Size(24, 35); 
+        var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize); 
+    
+        // 마커 생성 및 클릭이벤트 등록 
+        var marker = new kakao.maps.Marker({
+          map: map,
           position: new kakao.maps.LatLng(votePlace.placeY, votePlace.placeX),
-          content: `<div class="pin"></div><div class="pulse"></div>`,
-          xAnchor: 0.3,
-          yAnnchor: 0.91,
+          image: markerImage,
         });
 
-        setBeforeVotePlaceList((prev) => [...prev, customOverlay]);
-        customOverlay.setMap(map);
+        setBeforeVotePlaceList((prev) => [...prev, marker]);
+        marker.setMap(map);
+
+
+
+
+
+
+        
       });
     }
   }, [votePlaceList]);

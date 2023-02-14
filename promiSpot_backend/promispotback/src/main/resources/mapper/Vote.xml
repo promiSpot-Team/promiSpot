@@ -78,4 +78,11 @@
 		where v.promise_seq = #{promsiseSeq}
 	</select>
 
+	<!-- 이 장소가 등록되어 있는지 판단 -->
+	<select id="getVotePlaceByPlaceId" parameterType="String" resultType="VoteEntity">
+		select *
+		from votes
+		where place_id = #{placeId}
+	</select>
+
 </mapper>

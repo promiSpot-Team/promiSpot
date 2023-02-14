@@ -89,4 +89,9 @@ public class VoteServiceImpl implements VoteService{
 		return voteMapper.getVotePlaceList(promiseSeq);
 	}
 
+	@Override
+	public VoteEntity getVotePlaceByPlaceId(String placeId) throws SQLException {
+		return voteMapper.getVotePlaceByPlaceId(placeId);
+	}
+
 }

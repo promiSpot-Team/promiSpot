@@ -40,4 +40,7 @@ public interface VoteService {
 	// 약속 후보 장소의 정보를 가져오는 함수
 	public List<VotePlaceEntity> getVotePlaceList(int promiseSeq) throws SQLException;
 
+	// 약속 후보 장소가 등록되어 있는지 확인하는 함수
+	public VoteEntity getVotePlaceByPlaceId(String placeId) throws SQLException;
+
 }

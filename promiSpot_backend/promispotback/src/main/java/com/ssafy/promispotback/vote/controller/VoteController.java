@@ -38,6 +38,15 @@ public class VoteController {
 	public ResponseEntity<?> insertCandidatePlace(@RequestBody VoteEntity voteEntity) {
 		Map<String, Object> resultMap = new HashMap<>();
 		try {
+
+			// 등록 여부 판단
+			// 등록되어 있다면 등록되었다는 메시지를 돌려준다.
+			if(voteService.getVotePlaceByPlaceId(voteEntity.getPlaceId()) != null) {
+				System.out.println("중복 방지 잘 작동됨");
+				return new ResponseEntity<String>("already exist", HttpStatus.OK);
+			}
+
+
 			int result = voteService.insertCandidatePlace(voteEntity);
 			
 			if(result != 0) {

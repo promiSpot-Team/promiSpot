@@ -44,6 +44,9 @@ public interface VoteMapper {
 	// 약속 후보 장소의 정보를 가져오는 함수
 	public List<VotePlaceEntity> getVotePlaceList(int promiseSeq) throws SQLException;
 
+	// 약속 후보 장소가 등록되어 있는지 확인하는 함수
+	public VoteEntity getVotePlaceByPlaceId(String placeId) throws SQLException;
+
 	//'약속 장소 후보'를 아예 삭제하면 투표자에서도 투표했던 사람들을 다 삭제해야 한다.. 라는 로직은 나중에 서비스에서~
 	
 
