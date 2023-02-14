@@ -6,8 +6,8 @@
   // width:90vw;
 
   .friend-title-wrapper {
-    display:flex;
-    align-items:center;
+    display: flex;
+    align-items: center;
     // height:5vh;
     font-family: "Pretendard-Bold";
     font-style: normal;
@@ -15,26 +15,27 @@
     font-size: 80px;
   }
   .friend-content-wrapper {
-    width:100%;
+    width: 100%;
     // height:90%;
   }
   .friend-search-wrapper {
-    width:85%;
+    width: 85%;
   }
 }
 
 .friend-list-wrapper {
-  align-items: center;
+  width: 95%;
+  padding-left: 5vw;
   // width: 100%;
   // height: 100vh;
-  
-  .friend-list-each-wrapper {
-    display: grid;
-    height: 50px;
-    margin-left: 1vw;
-    margin-right:1vw;
-    padding: 1vh 1vh 1vh 1vh;
-  }
+
+  // .friend-list-each-wrapper {
+  //   display: grid;
+  //   height: 50px;
+  //   margin-left: 1vw;
+  //   margin-right: 1vw;
+  //   padding: 1vh 1vh 1vh 1vh;
+  // }
 }
 
 .friend-search-result-wrapper {
@@ -44,7 +45,7 @@
   align-items: center;
   justify-content: space-between;
   font-size: 14px;
-  
+
   p:first-child {
     margin-left: 3vw;
   }
@@ -84,6 +85,7 @@ $inner-shadow: inset 0.2em 0.2em 0.5em var(--greyLight-2),
     padding-left: 1em;
     box-shadow: $inner-shadow;
     background: none;
+    // background-color: #5b0eeb;
     font-family: "pPretendard-Bold";
     color: var(--greyDark);
 
@@ -115,7 +117,7 @@ $inner-shadow: inset 0.2em 0.2em 0.5em var(--greyLight-2),
 .friend-search-result-list {
   // border: 1px solid skyblue;
   width: 100%;
-  height: 5.8vh;
+  height: 6vh;
   // position: absolute;
   // bottom: 1vh;
   // left: 3vw;
@@ -123,15 +125,70 @@ $inner-shadow: inset 0.2em 0.2em 0.5em var(--greyLight-2),
   display: flex;
   justify-content: space-between;
   align-items: center;
-  font-size: 12px;
+  font-size: 15px;
 
-  p:first-child {
-    // border: 1px solid blue;
-    margin-left: 4vw;
+  .friend-search-result-title {
+    margin-left: 12vw;
   }
-  
-  p:last-child {
-    // border: 1px solid red;
-    margin-right: 4vw;
+  .friend-search-result-icon {
+    margin-right: 8vw;
+  }
+}
+
+.friend-myfriend-wrapper {
+  margin: auto;
+  .friend-myfriend-profile-info-wrapper {
+    width: 80%;
+    height: 5vh;
+    display: flex;
+    margin-top: 2vh;
+    margin-left: 12vw;
+    justify-content: center;
+    // margin-bottom:1vh;
+
+    .friend-myfriend-profile-info-img-wrapper {
+      width: 40px;
+      height: 40px;
+      display: flex;
+      border-radius: 100%;
+      overflow: hidden;
+      margin-right: 5%;
+      border: 3px outset rgba(156, 122, 219, 0.67);
+      .profile-info-img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+    }
+
+    .friend-myfriend-profile-info-name-wrapper {
+      display: grid;
+      // font-size: 15px;
+
+      .friend-myfriend-profile-info-nickname-wrapper {
+        display: grid;
+        font-weight: 900;
+      }
+      .friend-myfriend-profile-info-id-wrapper {
+        display: grid;
+        align-items: flex-end;
+        text-align: left;
+      }
+    }
+
+    .friend-myfriend-profile-info-button-wrapper {
+      display: flex;
+      margin-left: auto;
+      margin-right: 10px;
+      // margin-right: 1vw;
+      align-items: baseline;
+      margin-top: 2%;
+      // height:100%;
+      .profile-info-button {
+        margin-right: 5%;
+        // margin-top: 5%;
+        // margin-bottom: 5%;
+      }
+    }
   }
 }

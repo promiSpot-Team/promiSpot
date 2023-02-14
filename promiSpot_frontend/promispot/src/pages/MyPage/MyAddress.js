@@ -71,7 +71,7 @@ export default function MyAddress() {
       console.log(addressSeq);
       const response3 = await axios({
         method: "PUT",
-        url: `${SERVER_URL}/address/${nowSeq}`,
+        url: `${SERVER_URL}/address/${addressNum.addressSeq}`,
         data: {
           addressNick: data.addressNick,
           addressIsPrimary: data.addressIsPrimary,
@@ -162,7 +162,7 @@ export default function MyAddress() {
   }
 
   const onClickModify = async (data) => {
-    await setAddressNum(data)
+    await setAddressNum(data);
     await setOpenModifyModal(!openModifyModal);
   };
   return (

@@ -1,15 +1,15 @@
-.profile-info-wrapper {
+.profile-info-s-wrapper {
   width: 100%;
   height: 5vh;
-  display:flex;
-  margin-top:1vh;
-  margin-bottom:1vh;
+  display: flex;
+  margin-top: 1vh;
+  margin-bottom: 1vh;
 
-  .profile-info-img-wrapper {
+  .profile-info-s-img-wrapper {
     width: 40px;
     height: 40px;
     display: flex;
-    border-radius:100%;
+    border-radius: 100%;
     overflow: hidden;
     margin-right: 5%;
     border: 3px outset rgba(156, 122, 219, 0.67);
@@ -18,18 +18,17 @@
       height: 100%;
       object-fit: cover;
     }
-
   }
 
-  .profile-info-name-wrapper {
+  .profile-info-s-name-wrapper {
     display: grid;
     // font-size: 15px;
 
-    .profile-info-nickname-wrapper {
-      display:grid;
+    .profile-info-s-nickname-wrapper {
+      display: grid;
       font-weight: 900;
     }
-    .profile-info-id-wrapper {
+    .profile-info-s-id-wrapper {
       display: grid;
       align-items: flex-end;
       text-align: left;
