@@ -21,7 +21,7 @@ const cors = require('cors')
 app.use(cors())
 
 /* get 방식으로 '/' 경로를 사용할 경우 */ 
-app.post('/', (req, res) => {
+app.post('/crawling', (req, res) => {
   // res.send('Hello World!')
   const placeUrl = req.body.placeUrl
   const python = spawn('python', ['./crawler.py', placeUrl])
