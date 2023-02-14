@@ -14,13 +14,13 @@ public class VoteEntity {
 	
 	@ApiModelProperty(value = "약속일련번호")
 	private int promiseSeq;
-	
-	@ApiModelProperty(value = "장소번호")
-	private String placeId;
-	
+
 	@ApiModelProperty(value = "회원일련번호")
 	private int memberSeq;
 	
+	@ApiModelProperty(value = "장소번호")
+	private String placeId;
+
 	@ApiModelProperty(value = "득표수")
 	private int voteCnt;
 	

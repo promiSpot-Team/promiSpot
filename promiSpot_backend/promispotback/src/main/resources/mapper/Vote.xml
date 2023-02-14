@@ -17,15 +17,15 @@
 		from votes v
 		where v.vote_seq = #{voteSeq}
 	</select>
-	
+
 	<!-- 약속 장소 후보들 가져오기 - 하나의 약속에 속한 모든 장소 후보들 -->
-	<select id="getCandidatePlaceList" parameterType="int" resultType="VotePlaceEntity">
-		select v.vote_seq, v.promise_seq, v.place_id, v.member_seq, vote_cnt, place_x, place_y
-		from votes v join places p
-		on v.place_id = p.place_id
-		where v.promise_seq = #{promiseSeq}
-		order by v.vote_seq
-	</select>
+<!--	<select id="getCandidatePlaceList" parameterType="int" resultType="VotePlaceTwoEntity">-->
+<!--		select v.vote_seq, v.promise_seq, v.place_id, v.member_seq, vote_cnt, place_x, place_y-->
+<!--		from votes v join places p-->
+<!--		on v.place_id = p.place_id-->
+<!--		where v.promise_seq = #{promiseSeq}-->
+<!--		order by v.vote_seq-->
+<!--	</select>-->
 	
 	<!-- 약속 장소 후보 수정(투표/투표취소) -->
 	<update id="modifyCandidatePlace" parameterType="voteEntity">
@@ -66,5 +66,16 @@
 		delete from voters_members
 		where member_seq = #{memberSeq} and vote_seq = #{voteSeq}
 	</delete>
+
+	<!-- 약속 후보 장소 등록  -->
+	<select id="getVotePlaceList" parameterType="Integer" resultType="VotePlaceEntity">
+		select v.vote_seq, v.promise_seq, v.member_seq, v.vote_cnt,
+			   p.place_id, p.place_name, p.place_category_name, p.place_category_group_code, p.place_category_group_name,
+			   p.place_phone, p.place_road_address_name, p.place_address_name, p.place_x, p.place_y, p.place_url, p.place_img_url
+		from votes v
+		join places p
+		on v.place_id = p.place_id
+		where v.promise_seq = #{promsiseSeq}
+	</select>
 
 </mapper>

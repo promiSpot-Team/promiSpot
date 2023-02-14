@@ -3,7 +3,7 @@ package com.ssafy.promispotback.vote.model.service;
 import java.sql.SQLException;
 import java.util.List;
 
-import com.ssafy.promispotback.vote.model.entity.VotePlaceTwoEntity;
+import com.ssafy.promispotback.vote.model.entity.VotePlaceEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -35,9 +35,11 @@ public class VoteServiceImpl implements VoteService{
 	
 	//약속 장소 후보들 가져오기 - 하나의 약속에 속한 모든 장소 후보들
 	@Override
-	public List<VotePlaceTwoEntity> getCandidatePlaceList(int promiseSeq) throws SQLException {
+	public List<VotePlaceEntity> getCandidatePlaceList(int promiseSeq) throws SQLException {
 		return voteMapper.getCandidatePlaceList(promiseSeq);
 	}
+
+
 
 	
 	//약속 장소 후보 수정(투표/투표취소)
@@ -80,6 +82,11 @@ public class VoteServiceImpl implements VoteService{
 	@Override
 	public int removeVoter(int memberSeq, int voteSeq) throws SQLException {
 		return voteMapper.removeVoter(memberSeq, voteSeq);
+	}
+
+	@Override
+	public List<VotePlaceEntity> getVotePlaceList(int promiseSeq) throws SQLException {
+		return voteMapper.getVotePlaceList(promiseSeq);
 	}
 
 }

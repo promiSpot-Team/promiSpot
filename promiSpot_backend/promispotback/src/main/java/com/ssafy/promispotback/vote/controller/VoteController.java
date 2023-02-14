@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.ssafy.promispotback.vote.model.entity.VotePlaceTwoEntity;
+import com.ssafy.promispotback.vote.model.entity.VotePlaceEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -85,11 +85,11 @@ public class VoteController {
 	public ResponseEntity<?> getCandidatePlaceList(@PathVariable("promiseSeq") int promiseSeq) {
 		try {
 			
-			List<VotePlaceTwoEntity> candidatePlaceList = voteService.getCandidatePlaceList(promiseSeq);
+			List<VotePlaceEntity> candidatePlaceList = voteService.getCandidatePlaceList(promiseSeq);
 			
 			if (candidatePlaceList != null) {
 				System.out.println("success work");
-				return new ResponseEntity<List<VotePlaceTwoEntity>>(candidatePlaceList, HttpStatus.OK);
+				return new ResponseEntity<List<VotePlaceEntity>>(candidatePlaceList, HttpStatus.OK);
 			} else {
 				System.out.println("fail work");
 				return new ResponseEntity<String>("fail", HttpStatus.ACCEPTED);
@@ -202,6 +202,28 @@ public class VoteController {
 			return exceptionHandling(e);
 		}
 	}
+
+
+	@GetMapping("getVotePlaceList/{promiseSeq}")
+	public ResponseEntity<?> getVotePlaceList(@PathVariable("promiseSeq") int promiseSeq) {
+		try {
+
+			List<VotePlaceEntity> votePlaceList = voteService.getVotePlaceList(promiseSeq);
+
+			if (votePlaceList != null) {
+				System.out.println("success work");
+				return new ResponseEntity<List<VotePlaceEntity>>(votePlaceList, HttpStatus.OK);
+			} else {
+				System.out.println("fail work");
+				return new ResponseEntity<String>("fail", HttpStatus.ACCEPTED);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			return exceptionHandling(e);
+		}
+	}
+
+
 
 	
 	// 에러 처리
