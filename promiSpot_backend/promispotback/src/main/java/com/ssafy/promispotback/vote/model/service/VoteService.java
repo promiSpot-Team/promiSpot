@@ -3,7 +3,7 @@ package com.ssafy.promispotback.vote.model.service;
 import java.sql.SQLException;
 import java.util.List;
 
-import com.ssafy.promispotback.vote.model.entity.VotePlaceTwoEntity;
+import com.ssafy.promispotback.vote.model.entity.VotePlaceEntity;
 import org.apache.ibatis.annotations.Param;
 
 import com.ssafy.promispotback.vote.model.entity.VoteEntity;
@@ -18,7 +18,7 @@ public interface VoteService {
 	public VoteEntity getCandidatePlace(int voteSeq) throws SQLException;
 	
 	//약속 장소 후보들 가져오기 - 하나의 약속에 속한 모든 장소 후보들
-	public List<VotePlaceTwoEntity> getCandidatePlaceList(int promiseSeq) throws SQLException;
+	public List<VotePlaceEntity> getCandidatePlaceList(int promiseSeq) throws SQLException;
 	
 	//약속 장소 후보 수정(투표/투표취소)
 	public int modifyCandidatePlace(@Param("voteSeq") int voteSeq, @Param("memberSeq") int memberSeq) throws SQLException;
@@ -35,6 +35,9 @@ public interface VoteService {
 	
 	//약속 장소 투표를 해제하면 투표자 테이블에서 삭제
 	public int removeVoter(@Param("memberSeq") int memberSeq, @Param("voteSeq") int voteSeq) throws SQLException;
-	
+
+
+	// 약속 후보 장소의 정보를 가져오는 함수
+	public List<VotePlaceEntity> getVotePlaceList(int promiseSeq) throws SQLException;
 
 }
