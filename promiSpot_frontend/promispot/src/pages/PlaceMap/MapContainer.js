@@ -82,22 +82,6 @@ export default function MapContainer() {
     }
   };
 
-  // 처음 페이지가 켜졌을 때 발생하는 함수들
-  useEffect(() => {
-    var path = location.pathname;
-    var parse = path.split("/");
-    var seq = parse[2];
-    setPromiseSeq(seq);
-
-    searchMemberAddressList();
-    connect();
-    return () => disconnect();
-  }, []);
-  // 멤버에 속한 주소가 잘 들어왔는지 확인하는 함수
-  // useEffect(() => {
-  //   console.log(memberAddressList);
-  // }, [memberAddressList]);
-
   // 등록한 주소 중 하나 선택하기
   const [selectAddress, setSelectAddress] = useState();
   const addressSelect = (e) => {
@@ -186,14 +170,15 @@ export default function MapContainer() {
       brokerURL: `ws://localhost:9090/api/ws`,
       onConnect: () => {
         console.log("소켓 연결에 성공했습니다.");
-        subscribe();
+        subscribeDeparture();
+        subscribeVotePlace();
       },
     });
     client.current.activate();
   };
 
-  // 출발지를 발행하는 코드
-  const publish = () => {
+  // 출발지 발행 코드
+  const publishDeparture = () => {
     if (!client.current.connected) return;
     console.log("소켓 발신 성공");
     client.current.publish({
@@ -204,8 +189,8 @@ export default function MapContainer() {
     });
   };
 
-  // 출발지 발행을 받는 코드
-  const subscribe = () => {
+  // 출발지 수신 코드
+  const subscribeDeparture = () => {
     var path = location.pathname;
     var parse = path.split("/");
     var promiseSeq1 = parse[2];
@@ -213,6 +198,36 @@ export default function MapContainer() {
       const json_body = JSON.parse(body.body);
       searchDepartureList();
       console.log("출발지를 subscribe로 받아옵니다.");
+    });
+  };
+
+  // 약속 장소 후보 발행 코드
+  const publishVotePlace = () => {
+    if (!client.current.connected) return;
+    console.log("약속 장소 후보 발신 성공");
+    client.current.publish({
+      destination: `/pub/votePlace`,
+      body: JSON.stringify({
+        promiseSeq: promiseSeq,
+      }),
+    });
+  };
+
+  const toggle = useSelector((state) => state.promise.toggle);
+  useEffect(() => {
+    console.log("toggle 작동 확인");
+    if (toggle) publishVotePlace();
+  }, [toggle]);
+
+  // 약속 장소 후보 수신 코드
+  const subscribeVotePlace = () => {
+    var path = location.pathname;
+    var parse = path.split("/");
+    var promiseSeq1 = parse[2];
+    const promiseSeq = client.current.subscribe(`/sub/Voteplace/${promiseSeq1}`, (body) => {
+      const json_body = JSON.parse(body.body);
+      searchVotePlaceList();
+      console.log("약속 장소 후보들을 받습니다.");
     });
   };
 
@@ -247,11 +262,72 @@ export default function MapContainer() {
       console.log(err);
     }
 
-    publish();
+    publishDeparture();
 
     // 출발지를 등록하면 DB에서 새로운 출발지를 받아와서 마커들을 찍어준다.
     searchDepartureList();
   };
+
+  /////////////// 약속 후보 장소 /////////////////////
+
+  // 약속 후보 장소를 불러오는 함수
+  const [votePlaceList, setVotePlaceList] = useState();
+  const searchVotePlaceList = async () => {
+    var path = location.pathname;
+    var parse = path.split("/");
+    var promiseSeq = parse[2];
+
+    const response = await axios({
+      method: "GET",
+      url: `${SERVER_URL}/vote/getVotePlaceList/${promiseSeq}`,
+    });
+    if (response.data !== "fail") {
+      setVotePlaceList(response.data);
+    }
+  };
+
+  // 약속 후보 마커 찍기
+  const [beforeVotePlaceList, setBeforeVotePlaceList] = new useState();
+  useEffect(() => {
+    if (beforeVotePlaceList) {
+      beforeVotePlaceList.forEach((beforeVotePlace) => {
+        beforeVotePlace.setMap(null);
+      });
+    }
+
+    console.log(votePlaceList);
+    console.log("마커가 잘 찍히는지 확인");
+
+    setBeforeVotePlaceList([]);
+
+    // BeforeVotePlaceList의 데이터로 마커 찍기
+    if (votePlaceList) {
+      votePlaceList.forEach((votePlace) => {
+        var customOverlay = new kakao.maps.CustomOverlay({
+          position: new kakao.maps.LatLng(votePlace.placeY, votePlace.placeX),
+          content: `<div class="pin"></div><div class="pulse"></div>`,
+          xAnchor: 0.3,
+          yAnnchor: 0.91,
+        });
+
+        setBeforeVotePlaceList((prev) => [...prev, customOverlay]);
+        customOverlay.setMap(map);
+      });
+    }
+  }, [votePlaceList]);
+
+  // 처음 페이지가 켜졌을 때 발생하는 함수들
+  useEffect(() => {
+    var path = location.pathname;
+    var parse = path.split("/");
+    var seq = parse[2];
+    setPromiseSeq(seq);
+
+    searchVotePlaceList();
+    searchMemberAddressList();
+    connect();
+    return () => disconnect();
+  }, []);
 
   // // 마커 그리기
   // const marker = new kakao.maps.Marker({

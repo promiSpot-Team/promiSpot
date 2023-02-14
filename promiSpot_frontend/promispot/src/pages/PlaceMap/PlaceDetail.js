@@ -9,12 +9,16 @@ import axios from "axios";
 import { SERVER_URL } from "../../constants/constants";
 import { useSelector } from "react-redux";
 
+import { publishVotePlace } from "../../Redux/reducer/promise";
+
 export default function PlaceDetail() {
   const navigate = useNavigate();
   const location = useLocation();
   const place = location.state;
   const dispatch = useDispatch();
   const memberSeq = useSelector((state) => state.user.info.memberSeq);
+
+  const toggle = useSelector((state) => state.promise.toggle);
 
   console.log(place);
   /* 장소 '등록하기' 버튼 누르면 지도에 등록하면서 약속 장소 후보로 등록 */
@@ -74,17 +78,15 @@ export default function PlaceDetail() {
       console.log("장소등록 후 응답보기 : ");
       console.log(response.data.placeId);
       insertVote(response.data.placeId);
+
+      // 발행
+      dispatch(publishVotePlace(toggle + 1));
+
+      console.log(toggle);
+      console.log();
     } catch (err) {
       console.log(err);
     }
-
-    // store.dispatch({
-    //   type: "REGISTER_PLACE_TO_MAP",
-    //   mapCenterPosition: {
-    //     x: parseFloat(place.x),
-    //     y: parseFloat(place.y),
-    //   },
-    // });
   };
 
   return (

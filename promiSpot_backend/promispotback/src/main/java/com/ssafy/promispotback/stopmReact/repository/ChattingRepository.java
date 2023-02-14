@@ -8,9 +8,5 @@ import org.springframework.data.mongodb.repository.Query;
 import java.util.List;
 
 public interface ChattingRepository extends MongoRepository<ChattingModel, String> {
-
-
     List<ChattingModel> findByPromiseSeq(Integer promiseSeq);
-
-
 }
