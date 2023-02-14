@@ -161,8 +161,9 @@ export default function MyAddress() {
     window.location.replace("/address/search");
   }
 
-  const onClickModify = () => {
-    setOpenModifyModal(!openModifyModal);
+  const onClickModify = async (data) => {
+    await setAddressNum(data)
+    await setOpenModifyModal(!openModifyModal);
   };
   return (
     <div>
@@ -221,7 +222,7 @@ export default function MyAddress() {
                 <button
                   onClick={() => {
                     // deleteMyAddress(item.addressSeq);
-                    onClickModify();
+                    onClickModify(item);
                   }}
                   value={item.addressSeq}
                 >
@@ -231,7 +232,6 @@ export default function MyAddress() {
                   <Modal2
                     title="주소 수정"
                     button="✖"
-                    item={item}
                     closeModal={() => setOpenModifyModal(!openModifyModal)}
                   >
                     {/* {myInfoList &&
@@ -275,7 +275,7 @@ export default function MyAddress() {
                           className="input-form-wrapper"
                           id="addressNick"
                           label="주소 별칭"
-                          placeholder={item.addressNick}
+                          placeholder={addressNum.addressNick}
                           name="addressNick"
                           multiline
                           variant="standard"

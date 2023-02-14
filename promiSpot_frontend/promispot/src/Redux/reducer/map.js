@@ -1,10 +1,12 @@
 const SAVE_PLACE_LIST = 'map/SAVE_PLACE_LIST'
 const SET_PLACE = 'map/SET_PLACE'
 const CHANGE_RECT = 'map/CHANGE_RECT'
+const SET_CENTER = 'map/SET_CENTER'
 
 export const savePlaceList = placeList => ({ type: SAVE_PLACE_LIST, placeList })
 export const setPlace = place => ({ type: SET_PLACE, place })
 export const changeRect = rect => ({ type: CHANGE_RECT, rect })
+export const setCenter = centerXY => ({ type: SET_CENTER, centerXY })
 
 const initialState = {
   centerXY: {
@@ -39,6 +41,12 @@ export default function map(state = initialState, action) {
       })
     }
 
+    case SET_CENTER: {
+      return Object.assign({}, state, {
+        centerXY: action.centerXY
+      })
+
+    }
     default:
       return state;
   }
