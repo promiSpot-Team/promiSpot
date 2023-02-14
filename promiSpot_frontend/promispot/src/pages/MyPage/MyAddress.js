@@ -188,8 +188,8 @@ export default function MyAddress() {
       {myAddressList &&
         myAddressList.map((item, idx) => {
           return (
-            <div>
-              <div key={item.addressSeq}>
+            <div key={item.addressSeq}>
+              <div>
                 {item.addressNick}
                 {item.addressAddress}
                 {item.addressSeq}
@@ -231,6 +231,7 @@ export default function MyAddress() {
                   <Modal2
                     title="주소 수정"
                     button="✖"
+                    item={item}
                     closeModal={() => setOpenModifyModal(!openModifyModal)}
                   >
                     {/* {myInfoList &&
