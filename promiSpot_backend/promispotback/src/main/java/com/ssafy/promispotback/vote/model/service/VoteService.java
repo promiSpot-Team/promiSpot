@@ -46,6 +46,9 @@ public interface VoteService {
 	// 약속 후보 장소가 등록되어 있는지 확인하는 함수
 	public VoteEntity checkVotePlace(VoteEntity voteEntity) throws SQLException;
 
+	// 약속장소에 투표자들 리스트 가져오는 함수
+	public List<VoteMemberEntity> getVoterList(int voteSeq) throws SQLException;
+
 
 
 }

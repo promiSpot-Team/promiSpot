@@ -58,6 +58,10 @@ public interface VoteMapper {
 	public int cancleVote(VoteMemberEntity voteMemberEntity) throws SQLException;
 
 
+	// 약속장소에 투표자들 리스트 가져오는 함수
+	public List<VoteMemberEntity> getVoterList(int voteSeq) throws SQLException;
+
+
 
 
 

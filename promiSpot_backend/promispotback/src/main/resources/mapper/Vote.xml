@@ -107,6 +107,12 @@
 		WHERE vote_seq = #{voteSeq};
 	</update>
 
+	<select id="getVoterList" parameterType="int" resultType="VoteMemberEntity">
+		select *
+		from voters_members
+		where vote_seq = #{voteSeq}
+	</select>
+
 
 
 </mapper>

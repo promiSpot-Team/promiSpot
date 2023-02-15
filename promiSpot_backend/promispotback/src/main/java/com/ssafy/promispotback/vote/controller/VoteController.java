@@ -176,7 +176,8 @@ public class VoteController {
 	
 
 	
-	
+	/////////// 동언이가 만든거 ////////
+
 
 
 
@@ -202,7 +203,7 @@ public class VoteController {
 
 
 
-	// 이 장소가 등록되어 있는지 아닌지 알려주는 함수
+	// 이 장소가 약속 장소 후보에 등록되어 있는지 아닌지 알려주는 함수
 	@GetMapping("checkVote/{promiseSeq}/{placeId}")
 	public ResponseEntity<?> checkVotePlace(@PathVariable("promiseSeq") int promiseSeq,
 											  @PathVariable("placeId") String placeId) {
@@ -227,9 +228,9 @@ public class VoteController {
 	}
 
 
-	// 약속 장소 투표버튼 누르면 voters_members 추가, votes의 vote_cnt 1 증가
+	// 투표하면 투표자 등록,  투표수 + 1증가
 	@PostMapping("member/insert")
-	public ResponseEntity<?> insertVote(@RequestBody VoteMemberEntity voteMemberEntity) {
+	public ResponseEntity<?> insertVoter(@RequestBody VoteMemberEntity voteMemberEntity) {
 		try {
 
 			int result = voteService.insertVoter(voteMemberEntity);
@@ -246,8 +247,7 @@ public class VoteController {
 		}
 	}
 
-
-	//약속 장소 투표를 해제하면 투표자 테이블에서 삭제
+	// 투표해재하면 투표자 제거, 투표수 -1
 	@DeleteMapping("member/remove/{memberSeq}/{voteSeq}")
 	public ResponseEntity<?> removeVoter(@PathVariable("memberSeq") int memberSeq, @PathVariable("voteSeq") int voteSeq) {
 
@@ -257,6 +257,25 @@ public class VoteController {
 			if (result != 0) {
 				return new ResponseEntity<String>("success", HttpStatus.OK);
 			} else {
+				return new ResponseEntity<String>("fail", HttpStatus.ACCEPTED);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			return exceptionHandling(e);
+		}
+	}
+
+	// 장소에 투표한 사람 가져오기
+	@GetMapping("member/getList/{voteSeq}")
+	public ResponseEntity<?> getListVoter(@PathVariable("voteSeq") int voteSeq) {
+		try {
+			List<VoteMemberEntity> voterList = voteService.getVoterList(voteSeq);
+
+			if (voterList != null) {
+				System.out.println("success work");
+				return new ResponseEntity<List<VoteMemberEntity>>(voterList, HttpStatus.OK);
+			} else {
+				System.out.println("fail work");
 				return new ResponseEntity<String>("fail", HttpStatus.ACCEPTED);
 			}
 		} catch (Exception e) {
