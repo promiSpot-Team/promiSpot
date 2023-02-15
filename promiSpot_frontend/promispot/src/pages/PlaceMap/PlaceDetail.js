@@ -26,11 +26,6 @@ export default function PlaceDetail() {
     var parse = path.split("/");
     var promiseSeq = parse[2];
     var placeId = place.id ? place.id : place.placeId;
-
-    console.log("place 확인 : ", place);
-    console.log("place_id 확인 : ", place.id);
-    console.log("placeId 확인 : ", place.placeId);
-
     const response = await axios({
       method: "GET",
       url: `${SERVER_URL}/vote/checkVote/${promiseSeq}/${placeId}`,
@@ -40,15 +35,33 @@ export default function PlaceDetail() {
     }
   };
 
+  // 약속 장소 투표 여부 확인하기 //
+  const [checkVoteMember, setCheckVoteMember] = useState();
+  const searchCheckVoteMember = async () => {
+    const response = await axios({
+      method: "GET",
+      url: `${SERVER_URL}/vote/member/check/${checkVotePlace.voteSeq}/${memberSeq}`,
+    });
+    if (response.data !== "fail") {
+      setCheckVoteMember(response.data);
+    }
+  };
+
   useEffect(() => {
     searchCheckVotePlace();
   }, []);
 
   useEffect(() => {
     console.log("checkvotePlace 확인", checkVotePlace);
+    searchCheckVoteMember();
   }, [checkVotePlace]);
 
-  console.log(place);
+  useEffect(() => {
+    console.log("checkVoteMember 확인", checkVoteMember);
+  }, [checkVoteMember]);
+
+  // 약속 장소 투표 여부 확인 끝 //
+
   /* 장소 '등록하기' 버튼 누르면 지도에 등록하면서 약속 장소 후보로 등록 */
   // 등록하기를 누르면 DB에 저장
   const registerPlaceToMap = async () => {
@@ -156,8 +169,38 @@ export default function PlaceDetail() {
       console.log(err);
     }
 
+    searchCheckVotePlace();
     // dispatch(publishVotePlace(toggle + 1));
   };
+
+  // 투표자를 삭제하는 함수
+  const removeCheckVoteMember = () => {
+    setCheckVoteMember();
+  };
+
+  // 약속 장소 후보 투표 삭제
+  const removeVoter = async () => {
+    console.log("약속 장소 후보 투표 삭제 작동");
+    try {
+      const response = await axios({
+        method: "DELETE",
+        url: `${SERVER_URL}/vote/member/remove/${memberSeq}/${checkVotePlace.voteSeq}`,
+      });
+    } catch (err) {
+      console.log(err);
+    }
+
+    removeCheckVoteMember();
+    searchCheckVotePlace();
+
+    console.log("투표 취소 후 투표여부 확인 : ", checkVoteMember);
+
+    // dispatch(publishVotePlace(toggle + 1));
+  };
+
+  useEffect(() => {
+    console.log("checkVoteMember 확인", checkVoteMember);
+  }, [checkVoteMember]);
 
   const [isRegister, setIsRegister] = React.useState(true);
 
@@ -172,7 +215,12 @@ export default function PlaceDetail() {
         {checkVotePlace ? (
           <div>
             <div> 득표수 : {checkVotePlace.voteCnt} </div>
-            <button onClick={insertVoter}>투표하기</button>
+            {checkVoteMember ? (
+              <button onClick={removeVoter}>투표취소</button>
+            ) : (
+              <button onClick={insertVoter}>투표하기</button>
+            )}
+
             <button className="place-register-btn" onClick={cancleVotePlace}>
               등록 취소
             </button>

@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import SearchBar from "../../components/Search/SearchBar2";
 import { KAKAO_MAP_URL, KAKAO_REST_API_KEY } from "../../constants/constants";
-import { savePlaceList } from "../../Redux/reducer/map";
+import { savePlaceList, setPlace } from "../../Redux/reducer/map";
 import "../scss/Map_Container.scss";
 import "../scss/Search_Bar.scss";
 
@@ -69,10 +69,7 @@ export default function PlaceSearch() {
   /* 변경된 위치에 따른 변경된 검색 결과 저장 */
   function moveToPlaceDetail(place) {
     dispatch(savePlaceList(placeList));
-    // store.dispatch({
-    //   type: "SAVE_PLACE_LIST",
-    //   placeList,
-    // });
+    dispatch(setPlace(place))
     navigate(`/map/${promiseSeq}/${place.id}`, { state: place });
   }
   
