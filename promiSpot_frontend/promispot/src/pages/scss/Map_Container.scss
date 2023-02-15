@@ -111,6 +111,7 @@ $inner-shadow: inset 0.2em 0.2em 0.5em var(--greyLight-2),
   z-index: 0;
 }
 
+
 .place-modal-wrapper {
   // position: absolute;
   // z-index: 999;
@@ -234,6 +235,7 @@ $inner-shadow: inset 0.2em 0.2em 0.5em var(--greyLight-2),
 
 .map-tab-wrapper {
   display: flex;
+  position: absolute;
   z-index: 999;
 }
 
@@ -742,3 +744,84 @@ select::-ms-expand {
 //   justify-content: center;
 //   align-items: center;
 // }
+
+//  등록하기 버튼
+.place-register-btn {
+  right: 0;
+  background-color: white;
+  border: 1px solid #c4c4c4;
+  position: absolute;
+  bottom: 5vh;
+  margin-right: 1rem;
+  margin-bottom: 1rem;
+  padding: 0.5rem 1rem;
+  border-radius: 15px;
+}
+
+//  상세페이지 내용
+.place-modal-content-wrapper {
+  margin: 0 auto;
+  width: 85%;
+
+  // 카테고리(ex.음식점, 카페 etc...) 리스트
+  .place-category-list-wrapper {
+    margin-bottom: 0.6rem;
+    
+    // 개별 카테고리
+    .category-name-div {
+      border: 1px solid #c4c4c4;
+      display: inline-block;
+      padding: 0.5rem 0.8rem;
+      margin: 0.3rem;
+      border-radius: 1.2rem;
+      font-size: 0.8rem;
+    }
+  }
+  
+  // 장소 상세 정보
+  .place-detail-wrapper {
+    // border: 1px solid blue;
+    display: grid;
+    box-sizing: border-box;
+    padding: 0.3rem;
+    grid-template-columns: 4fr 8fr;
+
+    // 장소 이미지
+    .detail-img {
+      border-radius: 3vw;
+      width: 20vw;
+      height: 20vw;
+    }
+
+    // 로딩중
+    .detail-loading {
+      width: 100%;
+      text-align: center;
+    }
+  }
+
+}
+
+.recommend-content-wrapper {
+  box-sizing: border-box;
+  // border: 1px solid palegoldenrod;
+  width: 85%;
+  margin: 0 auto;
+  padding: 0.3rem;
+  overflow: auto;
+
+  .recommend-place-div {
+    // border: 1px solid red;
+    padding-bottom: 1rem;
+
+    .place-title {
+      font-size: 1.2rem;
+      font-weight: bold;
+    }
+
+    .place-address {
+      // color: #c4c4c4;
+      // font-weight: 100;
+    }
+  }
+}

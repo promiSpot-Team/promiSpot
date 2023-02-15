@@ -45,7 +45,11 @@ function App() {
           <Route path=":placeId" element={<PlaceDetail />} />
           <Route path="chatting" element={<Chatting />} />
         </Route>
-        <Route path="/schedule/:promiseSeq" element={<Schedule />} />
+        <Route path="/schedule/:promiseSeq" element={<Schedule />} >
+          <Route path="recommend" element={<PlaceRecommend />} />
+          <Route path=":placeId" element={<PlaceDetail />} />
+          <Route path="chatting" element={<Chatting />} />
+        </Route>
         <Route path="/address">
           <Route path="search" element={<AddressSearch2 />} />
         </Route>

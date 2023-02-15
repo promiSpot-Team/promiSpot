@@ -1,9 +1,6 @@
 package com.ssafy.promispotback.stopmReact.controller;
 
-import com.ssafy.promispotback.stopmReact.model.ChatDto;
-import com.ssafy.promispotback.stopmReact.model.ChattingDto;
-import com.ssafy.promispotback.stopmReact.model.DepartureDto;
-import com.ssafy.promispotback.stopmReact.model.VotePlaceDto;
+import com.ssafy.promispotback.stopmReact.model.*;
 import com.ssafy.promispotback.stopmReact.service.ChattingService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,11 +43,20 @@ public class WebSocketController {
         simpMessageSendingOperations.convertAndSend("/sub/departure/" + departureDto.getPromiseSeq(), departureDto);
     }
 
-
+    
+    // 약속 장소 후보 stomp 웹소켓 
     @MessageMapping("/votePlace")
     public void sendVotePlace(VotePlaceDto votePlaceDto, SimpMessageHeaderAccessor accessor) {
         simpMessageSendingOperations.convertAndSend("/sub/votePlace/" + votePlaceDto.getPromiseSeq(), votePlaceDto);
     }
+    
+    
+    // 약속 장소 후보 투표 stomp 웹소켓
+    @MessageMapping("/voteMember")
+    public void sendVotePlace(VoteMemberDto voteMemberDto, SimpMessageHeaderAccessor accessor) {
+        simpMessageSendingOperations.convertAndSend("/sub/votePlace/" + voteMemberDto.getPromiseSeq(), voteMemberDto);
+    }
+
 
 
 
