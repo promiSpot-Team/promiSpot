@@ -10,6 +10,7 @@ import org.apache.ibatis.annotations.Param;
 
 import com.ssafy.promispotback.vote.model.entity.VoteEntity;
 import com.ssafy.promispotback.vote.model.entity.VoteMemberEntity;
+import org.apache.ibatis.jdbc.SQL;
 
 
 @Mapper
@@ -44,8 +45,28 @@ public interface VoteMapper {
 	// 약속 후보 장소의 정보를 가져오는 함수
 	public List<VotePlaceEntity> getVotePlaceList(int promiseSeq) throws SQLException;
 
-	// 약속 후보 장소가 등록되어 있는지 확인하는 함수
+	// 등록할 때 약속 후보 장소가 등록되어 있는지 확인하는 함수
 	public VoteEntity getVotePlaceByPlaceId(String placeId) throws SQLException;
+
+	// 접속할 때 약속 후보 장소가 등록되어 있는지 확인하는 함수
+	public VoteEntity checkVotePlace(VoteEntity voteEntity) throws SQLException;
+
+	// votes의 vote_cnt 1 증가시키는 함수
+	public int doVote(VoteMemberEntity voteMemberEntity) throws SQLException;
+
+	// votes의 vote_cnt 1 감소시키는 함수
+	public int cancleVote(VoteMemberEntity voteMemberEntity) throws SQLException;
+
+
+	// 약속장소에 투표자들 리스트 가져오는 함수
+	public List<VoteMemberEntity> getVoterList(int voteSeq) throws SQLException;
+
+
+
+
+
+
+
 
 	//'약속 장소 후보'를 아예 삭제하면 투표자에서도 투표했던 사람들을 다 삭제해야 한다.. 라는 로직은 나중에 서비스에서~
 	

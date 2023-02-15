@@ -134,7 +134,7 @@ $inner-shadow: inset 0.2em 0.2em 0.5em var(--greyLight-2),
   // padding: 2vh;
   // text-align: center;
   background-color: rgb(255, 255, 255);
-  border-radius: 2vh; 
+  border-radius: 2vh;
   box-shadow: 0 2vh 3vh 0 rgba(34, 36, 38, 0.15);
   // justify-content: center;
   // display: grid;
@@ -266,7 +266,7 @@ $inner-shadow: inset 0.2em 0.2em 0.5em var(--greyLight-2),
   height: 10vw;
   background-color: #2f2f2f;
   border-radius: 10%;
-  z-index:999;
+  z-index: 999;
 }
 
 .map-button-wrapper {
@@ -298,6 +298,16 @@ $inner-shadow: inset 0.2em 0.2em 0.5em var(--greyLight-2),
       box-shadow: inset 1px 1px 2px
           linear-gradient(-45deg, #ee7752, #f17373, #4d3c97, #6fa0e0),
         inset -1px -1px 2px #fff;
+    }
+    .map-button-vote-icon {
+      padding-bottom: 10px;
+    }
+    .map-button-vote-txt {
+      position: absolute;
+      color: white;
+      display: grid;
+      font-size: 12px;
+      bottom: 10px;
     }
   }
   .map-button-schedule {
@@ -349,30 +359,27 @@ $inner-shadow: inset 0.2em 0.2em 0.5em var(--greyLight-2),
   }
 }
 
-
-
 .vote-done-btn-wrapper {
   width: 100%;
   height: 10%;
-  left:0;
+  left: 0;
   display: flex;
   position: absolute;
-  bottom:0;
+  bottom: 0;
 
-  
   .vote-done-top-sep-wrapper {
     display: grid;
     width: 100%;
     height: 1px;
-    background-color:#6a5f9e86;
+    background-color: #6a5f9e86;
     position: absolute;
-    bottom:59px;
+    bottom: 59px;
     z-index: 999;
   }
 
   .vote-done-btn-one-wrapper {
     // display: flex;
-    bottom:0;
+    bottom: 0;
     font-size: 3vw;
     z-index: 999;
     font-family: "Pretendard-Bold";
@@ -388,13 +395,13 @@ $inner-shadow: inset 0.2em 0.2em 0.5em var(--greyLight-2),
   }
   .vote-done-sep-wrapper {
     display: flex;
-    width:1px;
-    height:100%;
-    background-color:#6a5f9e86;
+    width: 1px;
+    height: 100%;
+    background-color: #6a5f9e86;
     z-index: 999;
   }
   .vote-done-btn-two-wrapper {
-    bottom:0;
+    bottom: 0;
     font-size: 3vw;
     z-index: 999;
     font-family: "Pretendard-Bold";
@@ -683,14 +690,83 @@ $inner-shadow: inset 0.2em 0.2em 0.5em var(--greyLight-2),
 //   align-items: center;
 // }
 
+//  등록하기 버튼
 .place-register-btn {
-  position: absolute;
-  bottom: 5vh;
   right: 0;
   background-color: white;
   border: 1px solid #c4c4c4;
+  position: absolute;
+  bottom: 5vh;
   margin-right: 1rem;
   margin-bottom: 1rem;
   padding: 0.5rem 1rem;
   border-radius: 15px;
+}
+
+//  상세페이지 내용
+.place-modal-content-wrapper {
+  margin: 0 auto;
+  width: 85%;
+
+  // 카테고리(ex.음식점, 카페 etc...) 리스트
+  .place-category-list-wrapper {
+    margin-bottom: 0.6rem;
+    
+    // 개별 카테고리
+    .category-name-div {
+      border: 1px solid #c4c4c4;
+      display: inline-block;
+      padding: 0.5rem 0.8rem;
+      margin: 0.3rem;
+      border-radius: 1.2rem;
+      font-size: 0.8rem;
+    }
+  }
+  
+  // 장소 상세 정보
+  .place-detail-wrapper {
+    // border: 1px solid blue;
+    display: grid;
+    box-sizing: border-box;
+    padding: 0.3rem;
+    grid-template-columns: 4fr 8fr;
+
+    // 장소 이미지
+    .detail-img {
+      border-radius: 3vw;
+      width: 20vw;
+      height: 20vw;
+    }
+
+    // 로딩중
+    .detail-loading {
+      width: 100%;
+      text-align: center;
+    }
+  }
+
+}
+
+.recommend-content-wrapper {
+  box-sizing: border-box;
+  // border: 1px solid palegoldenrod;
+  width: 85%;
+  margin: 0 auto;
+  padding: 0.3rem;
+  overflow: auto;
+
+  .recommend-place-div {
+    // border: 1px solid red;
+    padding-bottom: 1rem;
+
+    .place-title {
+      font-size: 1.2rem;
+      font-weight: bold;
+    }
+
+    .place-address {
+      // color: #c4c4c4;
+      // font-weight: 100;
+    }
+  }
 }

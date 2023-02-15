@@ -14,7 +14,6 @@ import PlaceSearch from "./PlaceSearch";
 import { Content } from "antd/es/layout/layout";
 import * as StompJs from "@stomp/stompjs";
 
-
 const { kakao } = window;
 
 export default function MapContainer() {
@@ -102,7 +101,10 @@ export default function MapContainer() {
         "https://cdn.lorem.space/images/face/.cache/150x150/nrd-ZmmAnliy1d4-unsplash.jpg";
       if (selectAddress) {
         var customOverlay = new kakao.maps.CustomOverlay({
-          position: new kakao.maps.LatLng(selectAddress.addressX, selectAddress.addressY),
+          position: new kakao.maps.LatLng(
+            selectAddress.addressX,
+            selectAddress.addressY
+          ),
           content: `<div class="map-user-profile"><img src=${profile_url}></div>`,
           xAnchor: 0.3,
           yAnnchor: 0.91,
@@ -149,7 +151,10 @@ export default function MapContainer() {
     if (departureList) {
       departureList.forEach((departure) => {
         var customOverlay = new kakao.maps.CustomOverlay({
-          position: new kakao.maps.LatLng(departure.departureX, departure.departureY),
+          position: new kakao.maps.LatLng(
+            departure.departureX,
+            departure.departureY
+          ),
           content: `<div class="map-user-profile"><img src=${profile_url}></div>`,
           xAnchor: 0.3,
           yAnnchor: 0.91,
@@ -195,11 +200,14 @@ export default function MapContainer() {
     var path = location.pathname;
     var parse = path.split("/");
     var promiseSeq1 = parse[2];
-    const promiseSeq = client.current.subscribe(`/sub/departure/${promiseSeq1}`, (body) => {
-      const json_body = JSON.parse(body.body);
-      searchDepartureList();
-      // console.log("출발지를 subscribe로 받아옵니다.");
-    });
+    const promiseSeq = client.current.subscribe(
+      `/sub/departure/${promiseSeq1}`,
+      (body) => {
+        const json_body = JSON.parse(body.body);
+        searchDepartureList();
+        // console.log("출발지를 subscribe로 받아옵니다.");
+      }
+    );
   };
 
   // 약속 장소 후보 발행 코드
@@ -224,11 +232,14 @@ export default function MapContainer() {
     var path = location.pathname;
     var parse = path.split("/");
     var promiseSeq1 = parse[2];
-    const promiseSeq = client.current.subscribe(`/sub/votePlace/${promiseSeq1}`, (body) => {
-      const json_body = JSON.parse(body.body);
-      searchVotePlaceList();
-      // console.log("약속 장소 후보들을 받습니다.");
-    });
+    const promiseSeq = client.current.subscribe(
+      `/sub/votePlace/${promiseSeq1}`,
+      (body) => {
+        const json_body = JSON.parse(body.body);
+        searchVotePlaceList();
+        // console.log("약속 장소 후보들을 받습니다.");
+      }
+    );
   };
 
   // 연결자 연결종료
@@ -303,12 +314,12 @@ export default function MapContainer() {
     // BeforeVotePlaceList의 데이터로 마커 찍기
     if (votePlaceList) {
       votePlaceList.forEach((votePlace) => {
+        var imageSrc =
+          "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png";
+        var imageSize = new kakao.maps.Size(24, 35);
+        var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);
 
-        var imageSrc = "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png";
-        var imageSize = new kakao.maps.Size(24, 35); 
-        var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize); 
-    
-        // 마커 생성 및 클릭이벤트 등록 
+        // 마커 생성 및 클릭이벤트 등록
         var marker = new kakao.maps.Marker({
           map: map,
           position: new kakao.maps.LatLng(votePlace.placeY, votePlace.placeX),
@@ -317,7 +328,18 @@ export default function MapContainer() {
 
         setBeforeVotePlaceList((prev) => [...prev, marker]);
         marker.setMap(map);
- 
+
+        // 마커에 클릭이벤트를 등록합니다
+        kakao.maps.event.addListener(marker, "click", function () {
+          console.log("마커 클릭 작동");
+          console.log(
+            "promiseSeq, votePlace.placeId, votePlace",
+            promiseSeq,
+            votePlace.placeId,
+            votePlace
+          );
+          navigate(`/map/${promiseSeq}/${votePlace.placeId}`, { state: votePlace });
+        });
       });
     }
   }, [votePlaceList]);
@@ -435,7 +457,7 @@ export default function MapContainer() {
     kakao.maps.event.addListener(map, "dragend", function () {
       // 지도의 영역이 변경될 때마다 가장자리 좌표값 변경된 거 보내주기
       var bounds = map.getBounds();
-      console.log('center : ', map.getCenter())
+      console.log("center : ", map.getCenter());
       var newRect =
         String(bounds.ha) +
         "," +
@@ -470,7 +492,10 @@ export default function MapContainer() {
             memberAddressList.map((address) => {
               return (
                 // <option key={address.addressSeq} value={`${address.addressX}_${address.addressY}`}> {address.addressNick} </option>
-                <option key={address.addressSeq} value={JSON.stringify(address)}>
+                <option
+                  key={address.addressSeq}
+                  value={JSON.stringify(address)}
+                >
                   {" "}
                   {address.addressNick}{" "}
                 </option>
@@ -495,7 +520,12 @@ export default function MapContainer() {
               isValid(true);
             }}
           >
-            <FaVoteYea size="40" color="#ffffff" />
+            <FaVoteYea
+              className="map-button-vote-icon"
+              size="40"
+              color="#ffffff"
+            />
+            <div className="map-button-vote-txt">투표종료</div>
           </button>
         ) : (
           <div></div>
@@ -527,15 +557,23 @@ export default function MapContainer() {
               </div>
             </div>
             <div>
-              <div className="vote-done-text-wrapper">투표가 종료되었습니다</div>
+              <div className="vote-done-text-wrapper">
+                투표가 종료되었습니다
+              </div>
               <div className="vote-done-btn-wrapper">
                 <div className="vote-done-top-sep-wrapper"></div>
                 <Link className="vote-done-btn-one-wrapper" to={"/main"}>
                   <button className="vote-done-btn-one-wrapper">Home</button>
                 </Link>
                 <div className="vote-done-sep-wrapper"></div>
-                <Link className="vote-done-btn-two-wrapper" to={`/schedule/${promiseSeq}`}>
-                  <button className="vote-done-btn-two-wrapper" onClick={() => setModalOpen(false)}>
+                <Link
+                  className="vote-done-btn-two-wrapper"
+                  to={`/schedule/${promiseSeq}`}
+                >
+                  <button
+                    className="vote-done-btn-two-wrapper"
+                    onClick={() => setModalOpen(false)}
+                  >
                     Schedule
                   </button>
                 </Link>

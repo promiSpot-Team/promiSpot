@@ -72,17 +72,9 @@ public class VoteServiceImpl implements VoteService{
 		return voteMapper.isVoted(memberSeq, voteSeq);
 	}
 
-	//약속 장소 투표버튼 누르면 투표자 테이블에 추가
-	@Override
-	public int insertVoter(VoteMemberEntity voteMemberEntity) throws SQLException {
-		return voteMapper.insertVoter(voteMemberEntity);
-	}
 
-	//약속 장소 투표를 해제하면 투표자 테이블에서 삭제
-	@Override
-	public int removeVoter(int memberSeq, int voteSeq) throws SQLException {
-		return voteMapper.removeVoter(memberSeq, voteSeq);
-	}
+
+
 
 	@Override
 	public List<VotePlaceEntity> getVotePlaceList(int promiseSeq) throws SQLException {
@@ -93,5 +85,47 @@ public class VoteServiceImpl implements VoteService{
 	public VoteEntity getVotePlaceByPlaceId(String placeId) throws SQLException {
 		return voteMapper.getVotePlaceByPlaceId(placeId);
 	}
+
+	// 이 장소가 등록되어 있는지 확인하는 하수
+	@Override
+	public VoteEntity checkVotePlace(VoteEntity voteEntity) throws SQLException {
+		return voteMapper.checkVotePlace(voteEntity);
+	}
+
+
+
+
+	//약속 장소 투표버튼 누르면 투표자 테이블에 추가
+	@Override
+	public int insertVoter(VoteMemberEntity voteMemberEntity) throws SQLException {
+		// votes_members 에 삽입
+		int result1 =  voteMapper.insertVoter(voteMemberEntity);
+		// votes의 vote_cnt 1 증가시킴
+		int result2 = voteMapper.doVote(voteMemberEntity);
+
+		return result1 * result2;
+	}
+
+	//약속 장소 투표를 해제하면 투표자 테이블에서 삭제
+	@Override
+	public int removeVoter(int memberSeq, int voteSeq) throws SQLException {
+		// 투표자 삭제
+		int result1 = voteMapper.removeVoter(memberSeq, voteSeq);
+
+		// 득표수 -1
+		VoteMemberEntity voteMemberEntity = new VoteMemberEntity();
+		voteMemberEntity.setMemberSeq(memberSeq);
+		voteMemberEntity.setVoteSeq(voteSeq);
+		int result2 = voteMapper.cancleVote(voteMemberEntity);
+		return result1 * result2;
+	}
+
+
+	@Override
+	public List<VoteMemberEntity> getVoterList(int voteSeq) throws SQLException {
+		return voteMapper.getVoterList(voteSeq);
+	}
+
+
 
 }
