@@ -243,18 +243,18 @@ export default function TabBar(props) {
                             className="new-promise-under-images-wrapper"
                           >
                             <div className="new-promise-under-img">
-                              <img
-                                src={require("../../img/IU_Profile.jpg")}
-                                width="35px"
-                              />
+                              <img src={promiseFriend.imgUrl} width="35px" />
                             </div>
                           </div>
                         );
                       })}
                     </div>
-                    <div className="new-promise-under-btn-wrapper">
-                      <button onClick={changeNextModal}>다음</button>
-                    </div>
+                    <button
+                      className="new-promise-under-btn-wrapper"
+                      onClick={changeNextModal}
+                    >
+                      다음
+                    </button>
                   </div>
                 </div>
               </>
