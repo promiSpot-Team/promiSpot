@@ -7,32 +7,50 @@ import "../scss/Map_Container.scss";
 import { useSelector } from 'react-redux'
 
 export default function PlaceRecommend() {
-  const { x, y } = useSelector(state => state.map.centerXY)
+  /** 중심위치  */
+  const { y, x } = useSelector(state => state.map.centerXY)
   const [recommendPlaceList, setRecommendPlaceList] = useState([])
-  const categoryList = ["CE7", "FD6", "AT4", "CT1"]
-
+  // const [CE7placeList, setCE7placeList] = useState([])
+  // const [CT1placeList, setCT1placeList] = useState([])
+  // const [AT4placeList, setAT4placeList] = useState([])
+  // const [FD6placeList, setCE7placeList] = useState([])
+  const categoryList = {
+    CE7: '카페',
+    CT1: '문화시설', 
+    AT4: '관광명소', 
+    FD6: '음식점' 
+  }
+  
+  // const categoryList = ["CE7", "CT1", "AT4", "FD6"]
+  const tempList = []
+  
   /** 추천 장소 가져오기 */
-  const getRecommendPlace =  () => {
-    const recommendPlaces = []
-    categoryList.forEach(category => {
-      var response = axios({
+  const getRecommendPlace = () => {
+    const promise = Object.keys(categoryList).map(async category => {
+      const response = await axios({
         method: 'GET',
         headers: {
           Authorization: `KakaoAK ${KAKAO_REST_API_KEY}`
         },
-        url: `${KAKAO_MAP_URL}/v2/local/search/category`,
+        url: `${KAKAO_MAP_URL}/v2/local/search/category`, 
         params: {
-          category_group_code: category
+          category_group_code: category,
+          x,
+          y,
+          radius: 2000
         }
       })
-      setRecommendPlaceList(response)
-      console.log(recommendPlaceList)
+      return response.data.documents
+    })
+    const result = Promise.all(promise)
+    result.then((res) => {
+      setRecommendPlaceList(res)
     })
   }
 
   useEffect(() => {
     getRecommendPlace()
-  }, [])
+  }, [])   
 
   return (
     <motion.div
@@ -46,7 +64,32 @@ export default function PlaceRecommend() {
         // ease: [0, 0.71, 0.2, 1.01]
       }}
     >
-      <BasicHeader4 text="장소 추천" />
+      <BasicHeader4 text="이런 곳은 어떠세요?" />
+      <div className="place-modal-content-wrapper">
+        <div className="place-category-list-wrapper">
+          {Object.values(categoryList).map((category, idx) => {
+            return (
+              <div key={idx} className="category-name-div">
+                {category}
+              </div>
+            )
+          })}
+        </div> 
+      </div>
+      <div className="recommend-content-wrapper">
+        {recommendPlaceList && recommendPlaceList.map((place, index) => {
+          return (
+            <div key={index} className="recommend-place-div">
+              <p className="place-title">
+                {place[0].place_name}
+              </p>
+              <p className="place-address">
+                {place[0].address_name}
+              </p>
+            </div>
+          )
+        })}
+      </div>
     </motion.div>
   );
 }
