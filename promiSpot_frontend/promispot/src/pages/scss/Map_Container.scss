@@ -680,3 +680,15 @@ $inner-shadow: inset 0.2em 0.2em 0.5em var(--greyLight-2),
 //   justify-content: center;
 //   align-items: center;
 // }
+
+.place-register-btn {
+  position: absolute;
+  bottom: 5vh;
+  right: 0;
+  background-color: white;
+  border: 1px solid #c4c4c4;
+  margin-right: 1rem;
+  margin-bottom: 1rem;
+  padding: 0.5rem 1rem;
+  border-radius: 15px;
+}

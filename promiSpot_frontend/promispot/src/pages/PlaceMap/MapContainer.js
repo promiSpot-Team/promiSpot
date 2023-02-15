@@ -317,13 +317,7 @@ export default function MapContainer() {
 
         setBeforeVotePlaceList((prev) => [...prev, marker]);
         marker.setMap(map);
-
-
-
-
-
-
-        
+ 
       });
     }
   }, [votePlaceList]);

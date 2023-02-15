@@ -26,6 +26,7 @@ export default function PlaceDetail() {
   const registerPlaceToMap = async () => {
     dispatch(setPlace(place));
     console.log(place);
+    setIsRegister(false)
 
     // 약속 장소 후보 등록 함수
     const insertVote = async (placeId) => {
@@ -89,6 +90,8 @@ export default function PlaceDetail() {
     }
   };
 
+  const [isRegister, setIsRegister] = React.useState(true)
+
   return (
     <div className="place-modal-wrapper">
       <div>
@@ -96,22 +99,21 @@ export default function PlaceDetail() {
       </div>
       <div>
         <GetDetail place={place} />
-        <button
-          onClick={registerPlaceToMap}
-          style={{
-            position: "absolute",
-            bottom: "5vh",
-            right: 0,
-            backgroundColor: "white",
-            border: "1px solid #c4c4c4",
-            marginRight: "1rem",
-            marginBottom: "1rem",
-            padding: "0.5rem 1rem",
-            borderRadius: "15px",
-          }}
-        >
-          등록하기
-        </button>
+        {isRegister ? 
+          <button
+            onClick={registerPlaceToMap}
+            className="place-register-btn"
+          >
+            등록하기
+          </button>
+        : 
+          <>
+            <button>투표하기</button>
+            <button className="place-register-btn" onClick={() => setIsRegister(true)}>
+              등록 취소
+            </button>
+          </>
+        }
       </div>
     </div>
   );
