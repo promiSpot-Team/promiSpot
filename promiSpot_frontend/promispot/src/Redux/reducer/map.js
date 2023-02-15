@@ -2,16 +2,18 @@ const SAVE_PLACE_LIST = 'map/SAVE_PLACE_LIST'
 const SET_PLACE = 'map/SET_PLACE'
 const CHANGE_RECT = 'map/CHANGE_RECT'
 const SET_CENTER = 'map/SET_CENTER'
+const CHANGE_CENTER = 'map/CHANGE_CENTER'
 
 export const savePlaceList = placeList => ({ type: SAVE_PLACE_LIST, placeList })
 export const setPlace = place => ({ type: SET_PLACE, place })
 export const changeRect = rect => ({ type: CHANGE_RECT, rect })
 export const setCenter = centerXY => ({ type: SET_CENTER, centerXY })
+export const changeCenter = centerXY => ({ type: CHANGE_CENTER, centerXY })
 
 const initialState = {
   centerXY: {
-    x: 37.5013, 
-    y: 127.0397
+    x: 127.0397,
+    y: 37.5013
   }
 }
 
@@ -45,8 +47,14 @@ export default function map(state = initialState, action) {
       return Object.assign({}, state, {
         centerXY: action.centerXY
       })
-
     }
+
+    case CHANGE_CENTER: {
+      return Object.assign({}, state, {
+        mapXY: action.mapXY
+      })
+    }
+
     default:
       return state;
   }

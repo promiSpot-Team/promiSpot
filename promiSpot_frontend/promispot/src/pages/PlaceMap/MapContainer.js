@@ -6,7 +6,7 @@ import { Link, Outlet, useNavigate, useLocation } from "react-router-dom";
 import Modal2 from "../../components/Modal/Modal2";
 import TabBar2 from "../../components/TabBar/TabBar2";
 import { SERVER_URL } from "../../constants/constants";
-import { changeRect } from "../../Redux/reducer/map";
+import { changeRect, setCenter, changeCenter } from "../../Redux/reducer/map";
 import mapdata from "../mapdata.json";
 import "../scss/Map_Container.scss";
 import PlaceRecommend from "./PlaceRecommend";
@@ -455,6 +455,11 @@ export default function MapContainer() {
         "," +
         String(bounds.pa);
       dispatch(changeRect(newRect));
+      var center = map.getCenter()
+      // dispatch(changeCenter({
+      //   x: center.La,
+      //   y: center.Ma
+      // }))
     });
   }
 

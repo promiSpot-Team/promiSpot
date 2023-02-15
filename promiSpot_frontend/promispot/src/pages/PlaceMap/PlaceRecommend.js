@@ -8,17 +8,18 @@ import { useSelector } from 'react-redux'
 
 export default function PlaceRecommend() {
   /** 중심위치  */
-  const { y, x } = useSelector(state => state.map.centerXY)
+  const { x, y } = useSelector(state => state.map.mapXY)
+  // console.log(y, x)
   const [recommendPlaceList, setRecommendPlaceList] = useState([])
   // const [CE7placeList, setCE7placeList] = useState([])
   // const [CT1placeList, setCT1placeList] = useState([])
   // const [AT4placeList, setAT4placeList] = useState([])
   // const [FD6placeList, setCE7placeList] = useState([])
   const categoryList = {
-    CE7: '카페',
-    CT1: '문화시설', 
     AT4: '관광명소', 
-    FD6: '음식점' 
+    FD6: '음식점',
+    CE7: '카페',
+    CT1: '문화시설' 
   }
   
   // const categoryList = ["CE7", "CT1", "AT4", "FD6"]
@@ -35,8 +36,8 @@ export default function PlaceRecommend() {
         url: `${KAKAO_MAP_URL}/v2/local/search/category`, 
         params: {
           category_group_code: category,
-          x,
-          y,
+          x: String(x),
+          y: String(y),
           radius: 2000
         }
       })
