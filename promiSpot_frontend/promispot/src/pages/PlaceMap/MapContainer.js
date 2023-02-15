@@ -42,6 +42,7 @@ export default function MapContainer() {
 
   const isValid = () => {
     setValid(!valid);
+    console.log("valid is", valid);
   };
 
   ///////////////////////////////////// 민정 시작////////////////////////////////////////////////////////
@@ -499,10 +500,10 @@ export default function MapContainer() {
         {!searchOpen && recommendOpen ? <PlaceRecommend /> : null}
         <Outlet />
       </div>
-      <div className="map-button-wrapper">
+      {/* <div className="map-button-wrapper">
         {!valid ? (
           <button
-            className="map-button-vote"
+            className="map-button-now-vote"
             onClick={() => {
               setModalOpen(true);
               isValid(true);
@@ -521,6 +522,22 @@ export default function MapContainer() {
           //   <BsFillCalendarCheckFill size="40" color="#ffffff" />
           // </button>
         )}
+      </div> */}
+      <div className="map-button-wrapper">
+        <button
+          className="map-button-now-vote"
+          onClick={() => {
+            setModalOpen(true);
+            isValid(true);
+          }}
+        >
+          <FaVoteYea
+            className="map-button-vote-icon"
+            size="40"
+            color="#ffffff"
+          />
+          <div className="map-button-vote-txt">투표현황</div>
+        </button>
       </div>
       <div className="map-tab-wrapper">
         <TabBar2
@@ -531,11 +548,36 @@ export default function MapContainer() {
         />
       </div>
       {modalOpen && (
-        <Modal2 closeModal={() => setModalOpen(!modalOpen)}>
-          <div className="vote-done-wrapper">
-            {/* <div className='new-promise-text-wrapper'>
+        <Modal2
+          title="투표현황"
+          button="✖"
+          closeModal={() => setModalOpen(!modalOpen)}
+        >
+          {/* 여기에 투표현황 띄우면 됨 */}
+          <div>
+            <div>투표현황입니다</div>
+
+            {!valid ? (
+              <button
+                className="map-button-now-vote"
+                onClick={() => {
+                  setModalOpen(true);
+                  isValid(true);
+                }}
+              >
+                <div className="map-button-vote-txt">투표종료</div>
+              </button>
+            ) : (
+              <div>방장이 아닌 사람에게 보입니다</div>
+              // <button className="map-button-vote">
+              //   <BsFillCalendarCheckFill size="40" color="#ffffff" />
+              // </button>
+            )}
+          </div>
+          {/* <div className="vote-done-wrapper">
+             <div className='new-promise-text-wrapper'>
         새로운 약속 생성
-      </div> */}
+      </div> 
             <div className="success-checkmark">
               <div className="check-icon">
                 <span className="icon-line line-tip"></span>
@@ -567,7 +609,7 @@ export default function MapContainer() {
                 </Link>
               </div>
             </div>
-          </div>
+          </div> */}
         </Modal2>
       )}
     </div>
