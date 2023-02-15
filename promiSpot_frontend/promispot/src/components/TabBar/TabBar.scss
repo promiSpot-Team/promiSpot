@@ -44,75 +44,38 @@ $circle-radius: 80px;
   .navbar-left {
     display: flex;
     justify-content: space-between;
-    width: 40%;
+    width: 50%;
     padding-right: 15vw;
-    margin-right: 5vw;
-    // padding-bottom: 1.5vh;
-    .navbar-left-one {
+    padding-bottom: 1.5vh;
+    .navbar-left-icon {
       justify-content: space-between;
-      // justify-content: center;
       display: grid;
-      align-items: center;
-      text-decoration: none;
-      // justify-content: center;
-      .navbar-left-icon {
-        justify-content: center;
-        display: grid;
-        margin-bottom: 0.5vh;
-      }
-      .navbar-left-icon-txt {
-        justify-content: center;
-        color: white;
-        display: grid;
-        font-size: 10px;
-        bottom: 15px;
-      }
+    }
+    .navbar-left-icon-txt {
+      position: absolute;
+      color: white;
+      display: grid;
+      font-size: 10px;
+      bottom: 15px;
     }
   }
-  // .navbar-left {
-  //   display: flex;
-  //   justify-content: space-between;
-  //   width: 50%;
-  //   padding-right: 15vw;
-  //   padding-bottom: 1.5vh;
-  //   .navbar-left-icon {
-  //     justify-content: space-between;
-  //     display: grid;
-  //   }
-  //   .navbar-left-icon-txt {
-  //     position: absolute;
-  //     color: white;
-  //     display: grid;
-  //     font-size: 10px;
-  //     bottom: 15px;
-  //   }
-  // }
 
   .navbar-right {
     display: flex;
     justify-content: space-between;
-    width: 45%;
-    padding-left: 5vw;
-    // padding-bottom: 1.5vh;
-    .navbar-right-one {
+    width: 50%;
+    padding-left: 15vw;
+    padding-bottom: 1.5vh;
+    .navbar-right-icon {
       justify-content: space-between;
-      // justify-content: center;
       display: grid;
-      align-items: center;
-      text-decoration: none;
-      // justify-content: center;
-      .navbar-right-icon {
-        justify-content: center;
-        display: grid;
-        margin-bottom: 0.5vh;
-      }
-      .navbar-right-icon-txt {
-        justify-content: center;
-        color: white;
-        display: grid;
-        font-size: 10px;
-        bottom: 15px;
-      }
+    }
+    .navbar-right-icon-txt {
+      position: absolute;
+      color: white;
+      display: grid;
+      font-size: 10px;
+      bottom: 15px;
     }
   }
 }
