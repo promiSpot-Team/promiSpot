@@ -11,17 +11,21 @@ import TabBar2 from "../../components/TabBar/TabBar2";
 import { SERVER_URL } from "../../constants/constants";
 import { Link, Outlet, useNavigate, useLocation } from "react-router-dom";
 
-import '../scss/Map_Container.scss'
+import '../scss/Map_Container.scss';
+import '../scss/Schedule.scss';
 
 const { kakao } = window;
 
 export default function Schedule() {
+  /* 스케줄 리스트 변수 선언 */
+  const [schedulePlaceList, setSchedulePlaceList] = useState([]);
+
   // 지도 변수
   const [map, setMap] = useState(null);
 
   const location = useLocation();
   const [promiseSeq, setPromiseSeq] = useState();
-
+  
   // 지도 그리기
   const mapscript = () => {
     const container = document.getElementById("map");
@@ -34,9 +38,10 @@ export default function Schedule() {
     setMap(map);
   };
 
+  // 페이지 처음 랜더링 될 때만 실행
   useEffect(() => {
     mapscript()
-  }, [])
+  }, []);
 
 
   /////////////// 약속 후보 장소 /////////////////////
@@ -59,6 +64,18 @@ export default function Schedule() {
 
   // 약속 후보 마커 찍기
   const [beforeVotePlaceList, setBeforeVotePlaceList] = new useState();
+
+  // 후보 장소 누르면 스케줄 장소 리스트에 해당 장소 추가
+  const addSchedulePlaceList = (votePlace) => {
+    console.log(schedulePlaceList.includes(votePlace));
+    setSchedulePlaceList(places => [...places, [votePlace]])
+  };
+
+  // 스케줄 장소 리스트 변경될 때만 실행
+  useEffect(() => {
+   console.log('확인용: ', schedulePlaceList)
+  }, [schedulePlaceList])
+
   useEffect(() => {
     if (beforeVotePlaceList) {
       beforeVotePlaceList.forEach((beforeVotePlace) => {
@@ -86,14 +103,15 @@ export default function Schedule() {
           image: markerImage,
           title: votePlace.placeId,
           placeImgUrl: votePlace.placeImgUrl,
-          clickable: true // 마커를 클릭했을 때 지도의 클릭 이벤트가 발생하지 않도록 설정합니다
+          clickable: true // 마커를 클릭했을 때 지도의 클릭 이벤트가 발생하지 않도록 설정
         });
 
-        // 마커에 클릭이벤트를 등록합니다
+        // 마커에 클릭이벤트를 등록
         kakao.maps.event.addListener(marker, 'click', function() {
-          // 마커 위에 인포윈도우를 표시합니다
           console.log(marker.getTitle());
           console.log(votePlace.placeImgUrl);
+          // 마커 클릭 => 스케줄 장소 리스트에 해당 장소 추가
+          addSchedulePlaceList(votePlace)
         });
 
         setBeforeVotePlaceList((prev) => [...prev, marker]);
@@ -125,22 +143,35 @@ export default function Schedule() {
 
   return (
     <div id="map" style={{ width: '100vw', height: '100vh' }}>
-         <div className='schedule-wrapper'>
-           <div className='schedule-background-wrapper'>
-  
-             {/* <DndProvider backend={HTML5Backend}>
-      //   <DragDrop/>
-      // </DndProvider> */}
-             <button className="draggable" draggable="true">🦊</button>
-             <button className="draggable" draggable="true">🐸</button>
-           </div>
-           <div className='map-button-wrapper'>
-             <button className="map-button-schedule">
-               <BsFillCalendarCheckFill size="40" color="#ffffff" />
-             </button>
-           </div>
-         </div>
-         <div className="map-tab-wrapper">
+      <div className='schedule-wrapper'>
+        <div className='schedule-background-wrapper'>
+          {/* <button className="draggable" draggable="true">🦊</button>
+          <button className="draggable" draggable="true">🐸</button> */}
+          <div className="inner-wrapper">
+            {/* {schedulePlaceList.map((schedulePlace, idx) => {
+              return (
+                <div
+                  key={idx}
+                  className="new-promise-under-images-wrapper"
+                >
+                  <div className="new-promise-under-img">
+                    <img
+                      src={require(schedulePlace.placeImgUrl)}
+                      width="35px"
+                    />
+                  </div>
+                </div>
+              );
+            })} */}
+          </div>
+        </div>
+        <div className='map-button-wrapper'>
+          <button className="map-button-schedule">
+            <BsFillCalendarCheckFill size="40" color="#ffffff" />
+          </button>
+        </div>
+      </div>
+      <div className="map-tab-wrapper">
         <TabBar2
           // 검색 클릭 했을 때
           catchClickSearch={catchClickSearch}
