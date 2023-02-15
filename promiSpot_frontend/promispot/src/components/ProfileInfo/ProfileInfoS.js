@@ -47,11 +47,13 @@ export default function ProfileInfo(props) {
         <div className="profile-info-s-nickname-wrapper">{nickName}</div>
         <div className="profile-info-s-id-wrapper">{id}</div>
       </div>
-      <div
-        className="profile-info-s-icon-wrapper"
-        onClick={() => onClick("DELETE")}
-      >
-        <MiniButton text="요청 취소" />
+      <div className="profile-info-s-button-wrapper">
+        <div
+          className="profile-info-s-button"
+          onClick={() => onClick("DELETE")}
+        >
+          <MiniButton text="요청 취소" />
+        </div>
       </div>
     </div>
   );
