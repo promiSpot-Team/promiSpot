@@ -5,10 +5,16 @@ const CLEAR_PROMISE_FRIEND = "user/CLEAR_PROMISE_FRIEND";
 const PUBLISH_VOTE_PLACE = "promise/PUBLISH_VOTE_PLACE";
 
 /* 액션 생성함수 만들기 */
-export const setPromiseFriend = (friend) => ({ type: SET_PROMISE_FRIEND, friend });
+export const setPromiseFriend = (friend) => ({
+  type: SET_PROMISE_FRIEND,
+  friend,
+});
 export const clearPromiseFriend = () => ({ type: CLEAR_PROMISE_FRIEND });
 
-export const publishVotePlace = (toggle) => ({ type: PUBLISH_VOTE_PLACE, toggle });
+export const publishVotePlace = (toggle) => ({
+  type: PUBLISH_VOTE_PLACE,
+  toggle,
+});
 
 /* 초기값 설정 */
 const initialState = {
@@ -31,6 +37,11 @@ export default function user(state = initialState, action) {
       // state.friendList.includes(action.friend)
       //   ? state.friendList.filter((friend) => {
       //       return friend !== action.friend;
+      //     })
+      //   : [...state.friendList, action.friend];
+      // const newFriendList = state.friendList.includes(action.friend.friendSeq)
+      //   ? state.friendList.filter((friend) => {
+      //       return friend.friendSeq !== action.friend.friendSeq;
       //     })
       //   : [...state.friendList, action.friend];
       console.log("newFriendList", newFriendList);

@@ -45,27 +45,8 @@ export default function MapContainer() {
     console.log("valid is", valid);
   };
 
-  ///////////////////////////////////// 민정 시작////////////////////////////////////////////////////////
   const location = useLocation();
   const [promiseSeq, setPromiseSeq] = useState();
-
-  // const [promiseMemberList, setPromiseMemberList] = useState([]);
-  // const getPromiseMembers = async () => {
-  //   try {
-  //     const response = await axios({
-  //       method: "GET",
-  //       url: `${SERVER_URL}/promise/member/getList/${promiseSeq}`,
-  //     });
-  //     setPromiseMemberList(response.data);
-  //   } catch (err) {
-  //     console.log(err.response.status);
-  //   } //catch
-  // };
-  // useEffect(() => {
-  //   getPromiseMembers();
-  // }, []);
-
-  ////////////////////////////////////////////////////////////////////////////////////////////////
 
   // 로그인한 회원 정보 가져오기
   const member = useSelector((state) => state.user.info);
@@ -86,6 +67,7 @@ export default function MapContainer() {
   // 등록한 주소 중 하나 선택하기
   const [selectAddress, setSelectAddress] = useState();
   const addressSelect = (e) => {
+    console.log("출발지 선택했을 때를 보자 :", JSON.parse(e.currentTarget.value));
     setSelectAddress(JSON.parse(e.currentTarget.value));
   };
 
@@ -102,7 +84,7 @@ export default function MapContainer() {
         "https://cdn.lorem.space/images/face/.cache/150x150/nrd-ZmmAnliy1d4-unsplash.jpg";
       if (selectAddress) {
         var customOverlay = new kakao.maps.CustomOverlay({
-          position: new kakao.maps.LatLng(selectAddress.addressX, selectAddress.addressY),
+          position: new kakao.maps.LatLng(selectAddress.addressY, selectAddress.addressX),
           content: `<div class="map-user-profile"><img src=${profile_url}></div>`,
           xAnchor: 0.3,
           yAnnchor: 0.91,
@@ -116,6 +98,10 @@ export default function MapContainer() {
   // 약속별 회원들이 등록한 출발지를 가져오는 함수
   const [departureList, setDepartureList] = new useState();
   const searchDepartureList = async () => {
+    var path = location.pathname;
+    var parse = path.split("/");
+    var promiseSeq = parse[2];
+
     if (promiseSeq) {
       const response = await axios({
         method: "GET",
@@ -125,10 +111,12 @@ export default function MapContainer() {
         setDepartureList(response.data);
       }
     }
+
+    console.log("departureList 받아오는지 확인", departureList);
   };
   useEffect(() => {
     searchDepartureList();
-  }, [promiseSeq]); // 빈괄호는 처음 한 번만 실행한다는 뜻이다.
+  }, []); // 빈괄호는 처음 한 번만 실행한다는 뜻이다.
 
   // 전에 출발지들을 저장하는 변수
   const [beforeDepartureList, setBeforeDepartureList] = new useState();
@@ -149,7 +137,7 @@ export default function MapContainer() {
     if (departureList) {
       departureList.forEach((departure) => {
         var customOverlay = new kakao.maps.CustomOverlay({
-          position: new kakao.maps.LatLng(departure.departureX, departure.departureY),
+          position: new kakao.maps.LatLng(departure.departureY, departure.departureX),
           content: `<div class="map-user-profile"><img src=${profile_url}></div>`,
           xAnchor: 0.3,
           yAnnchor: 0.91,
@@ -243,12 +231,18 @@ export default function MapContainer() {
   // stomp 통신을 통해 다른 사용자에게도 보여줘야한다.
   const onhandleDeparturePost = async () => {
     const intPromiseSeq = parseInt(promiseSeq, 10);
+
+    var selectMyAddress = JSON.parse(document.getElementById("selectMyAddress").value);
+    console.log("selectMyAddress 받아오는지 확인", selectMyAddress);
+
     const sendData = {
       promiseSeq: intPromiseSeq,
       memberSeq: memberSeq,
       memberName: member.memberName,
-      departureX: selectAddress.addressX,
-      departureY: selectAddress.addressY,
+      departureX: selectMyAddress.addressX,
+      departureY: selectMyAddress.addressY,
+      // departureX: selectAddress.addressX,
+      // departureY: selectAddress.addressY,
     };
     console.log(sendData);
     try {
@@ -310,7 +304,7 @@ export default function MapContainer() {
         // 마커 생성 및 클릭이벤트 등록
         var marker = new kakao.maps.Marker({
           map: map,
-          position: new kakao.maps.LatLng(votePlace.placeY, votePlace.placeX),
+          position: new kakao.maps.LatLng(votePlace.placeX, votePlace.placeY),
           image: markerImage,
         });
 
@@ -481,7 +475,7 @@ export default function MapContainer() {
       <div className="map-choose-add-wrapper">
         <div className="map-choose-add-txt">출발 주소</div>
         <div className="map-choose-add-select-wrapper">
-          <select className="map-choose-add-select" onChange={addressSelect}>
+          <select className="map-choose-add-select" onChange={addressSelect} id="selectMyAddress">
             {memberAddressList !== null &&
               memberAddressList.map((address) => {
                 return (
@@ -536,11 +530,7 @@ export default function MapContainer() {
           }}
         >
           <div className="map-button-vote-txt">투표현황</div>
-          <FaVoteYea
-            className="map-button-vote-icon"
-            size="25"
-            color="#ffffff"
-          />
+          <FaVoteYea className="map-button-vote-icon" size="25" color="#ffffff" />
         </button>
       </div>
       <div className="map-tab-wrapper">
@@ -552,11 +542,7 @@ export default function MapContainer() {
         />
       </div>
       {modalOpen && (
-        <Modal2
-          title="투표현황"
-          button="✖"
-          closeModal={() => setModalOpen(!modalOpen)}
-        >
+        <Modal2 title="투표현황" button="✖" closeModal={() => setModalOpen(!modalOpen)}>
           {/* 여기에 투표현황 띄우면 됨 */}
           <div>
             <div>투표현황입니다</div>
