@@ -111,6 +111,7 @@ $inner-shadow: inset 0.2em 0.2em 0.5em var(--greyLight-2),
   z-index: 0;
 }
 
+
 .place-modal-wrapper {
   // position: absolute;
   // z-index: 999;
@@ -234,12 +235,69 @@ $inner-shadow: inset 0.2em 0.2em 0.5em var(--greyLight-2),
 
 .map-tab-wrapper {
   display: flex;
+  position: absolute;
   z-index: 999;
 }
 
 .map-all-wrapper {
   display: absolute;
+  height: 100vh;
   background-color: #ffffffe5;
+}
+
+.map-choose-add-wrapper {
+  width: 100%;
+  height: 5vh;
+  position: absolute;
+  z-index: 999;
+  display: flex;
+  background-color: #8e8a9cc5;
+  align-items: center;
+  .map-choose-add-txt {
+    margin-left: 3%;
+    height: 2vh;
+    width: 15vw;
+    padding: 0.5vh 1vh 0.5vh 1vh;
+    text-align: center;
+    font-weight: 400;
+    font-size: 1.5vh;
+    color: white;
+    background-color: #4d3c97;
+    border-radius: 5%;
+    z-index: 999;
+  }
+  .map-choose-add-select-wrapper {
+    z-index: 999;
+    margin-left: 2.5%;
+    .map-choose-add-select {
+      border: none;
+      height: 2.5vh;
+      border-bottom-left-radius: 5%;
+      border-top-left-radius: 5%;
+      font-size: 15px;
+    }
+    .map-choose-add-select-option {
+      width: 80%;
+      font-size: 10px;
+      height: 2.5vh;
+    }
+  }
+  .map-choose-add-btn {
+    margin-left: 0.5%;
+    color: white;
+    padding-left: 1%;
+    padding-right: 1%;
+    height: 2.5vh;
+    z-index: 999;
+    border: none;
+    background-color: #00000080;
+    border-bottom-right-radius: 5%;
+    border-top-right-radius: 5%;
+  }
+}
+
+select::-ms-expand {
+  display: none;
 }
 
 .schedule-wrapper {
@@ -271,22 +329,19 @@ $inner-shadow: inset 0.2em 0.2em 0.5em var(--greyLight-2),
   position: absolute;
   display: flex;
   z-index: 999;
-  top: 10px;
-  right: 10px;
-  .map-button-vote {
+  top: 1vh;
+  right: 3vw;
+  .map-button-now-vote {
     position: relative;
-    display: flex;
-    top: 10px;
-    right: 10px;
-    width: 75px;
+    width: 30vw;
+    height: 3vh;
     align-items: center;
-    padding-left: 17px;
-    height: 75px;
+    display: flex;
     background: linear-gradient(-45deg, #f09c82, #f19d9d, #6a5f9e, #97b7e0);
     animation: gradient 15s ease infinite;
     background-size: 200% 200%;
     box-shadow: 0 5px 5px rgba(176, 86, 212, 0.35);
-    border-radius: 50px;
+    justify-content: center;
     border: none;
     &:hover {
       box-shadow: -2px -2px 5px #fff;
@@ -298,13 +353,15 @@ $inner-shadow: inset 0.2em 0.2em 0.5em var(--greyLight-2),
         inset -1px -1px 2px #fff;
     }
     .map-button-vote-icon {
-      padding-bottom: 10px;
+      margin-left: 5px;
+      display: flex;
     }
     .map-button-vote-txt {
-      position: absolute;
+      // position: absolute;
       color: white;
-      display: grid;
-      font-size: 12px;
+      font-family: "Pretendard-Bold" !important;
+      font-size: 15px;
+      font-weight: 500;
       bottom: 10px;
     }
   }

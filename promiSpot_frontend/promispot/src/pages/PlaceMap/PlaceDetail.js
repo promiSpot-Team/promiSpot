@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import BasicHeader from "../../components/Header/BasicHeader3";
 import getDetail from "./GetDetail";
@@ -17,25 +17,51 @@ export default function PlaceDetail() {
   const place = location.state;
   const dispatch = useDispatch();
   const memberSeq = useSelector((state) => state.user.info.memberSeq);
-
   const toggle = useSelector((state) => state.promise.toggle);
 
   // 이 장소가 등록되어 있는지 확인하는 함수
-  // const [checkVote, setCheckVote] = useState();
-  // const searchCheckVote = async () => {
-  //   const response = await axios({
-  //     method: "GET",
-  //     url: `${SERVER_URL}/promise/getList/1`,
-  //   });
-  //   if (response.data !== "fail") {
-  //     setPromiseList(response.data);
-  //   }
-  // };
-  // useEffect(() => {
-  //   searchPromiseList();
-  // }, []);
+  const [checkVotePlace, setCheckVotePlace] = useState();
+  const searchCheckVotePlace = async () => {
+    var path = location.pathname;
+    var parse = path.split("/");
+    var promiseSeq = parse[2];
+    var placeId = place.id ? place.id : place.placeId;
+    const response = await axios({
+      method: "GET",
+      url: `${SERVER_URL}/vote/checkVote/${promiseSeq}/${placeId}`,
+    });
+    if (response.data !== "fail") {
+      setCheckVotePlace(response.data);
+    }
+  };
 
-  console.log(place);
+  // 약속 장소 투표 여부 확인하기 //
+  const [checkVoteMember, setCheckVoteMember] = useState();
+  const searchCheckVoteMember = async () => {
+    const response = await axios({
+      method: "GET",
+      url: `${SERVER_URL}/vote/member/check/${checkVotePlace.voteSeq}/${memberSeq}`,
+    });
+    if (response.data !== "fail") {
+      setCheckVoteMember(response.data);
+    }
+  };
+
+  useEffect(() => {
+    searchCheckVotePlace();
+  }, []);
+
+  useEffect(() => {
+    console.log("checkvotePlace 확인", checkVotePlace);
+    searchCheckVoteMember();
+  }, [checkVotePlace]);
+
+  useEffect(() => {
+    console.log("checkVoteMember 확인", checkVoteMember);
+  }, [checkVoteMember]);
+
+  // 약속 장소 투표 여부 확인 끝 //
+
   /* 장소 '등록하기' 버튼 누르면 지도에 등록하면서 약속 장소 후보로 등록 */
   // 등록하기를 누르면 DB에 저장
   const registerPlaceToMap = async () => {
@@ -58,9 +84,10 @@ export default function PlaceDetail() {
 
       try {
         const response = await axios({
-          url: "http://localhost:9090/api/vote/insert",
+          // url: "http://localhost:9090/api/vote/insert",
+          url: "/vote/insert",
           method: "POST",
-          // baseURL: SERVER_URL,
+          baseURL: SERVER_URL,
           data: sendData,
         });
       } catch (err) {
@@ -86,11 +113,12 @@ export default function PlaceDetail() {
 
     try {
       const response = await axios({
-        url: "http://localhost:9090/api/place/insert",
+        url: "place/insert",
         method: "POST",
-        // baseURL: SERVER_URL,
+        baseURL: SERVER_URL,
         data: sendData,
       });
+
       console.log("장소등록 후 응답보기 : ");
       console.log(response.data.placeId);
       insertVote(response.data.placeId);
@@ -98,12 +126,81 @@ export default function PlaceDetail() {
       // 발행
       dispatch(publishVotePlace(toggle + 1));
 
-      console.log(toggle);
-      console.log();
+      var path = location.pathname;
+      var parse = path.split("/");
+      var promiseSeq = parse[2];
+      navigate(`/map/${promiseSeq}`);
     } catch (err) {
       console.log(err);
     }
   };
+
+  // 약속 장소 후보 삭제
+  const cancleVotePlace = async () => {
+    console.log("checkVotePlace 취소 확인 : ", checkVotePlace);
+
+    const response = await axios({
+      method: "DELETE",
+      url: `${SERVER_URL}/vote/delete/${checkVotePlace.voteSeq}`,
+    });
+
+    var path = location.pathname;
+    var parse = path.split("/");
+    var promiseSeq = parse[2];
+    dispatch(publishVotePlace(toggle + 1));
+    navigate(`/map/${promiseSeq}`);
+  };
+
+  // 약속 장소 후보 투표
+  const insertVoter = async () => {
+    console.log("약속 장소 후보 투표 작동");
+
+    const sendData = {
+      memberSeq: memberSeq,
+      voteSeq: checkVotePlace.voteSeq,
+    };
+    try {
+      const response = await axios({
+        method: "POST",
+        url: `${SERVER_URL}/vote/member/insert`,
+        data: sendData,
+      });
+    } catch (err) {
+      console.log(err);
+    }
+
+    searchCheckVotePlace();
+    // dispatch(publishVotePlace(toggle + 1));
+  };
+
+  // 투표자를 삭제하는 함수
+  const removeCheckVoteMember = () => {
+    setCheckVoteMember();
+  };
+
+  // 약속 장소 후보 투표 삭제
+  const removeVoter = async () => {
+    console.log("약속 장소 후보 투표 삭제 작동");
+    try {
+      const response = await axios({
+        method: "DELETE",
+        url: `${SERVER_URL}/vote/member/remove/${memberSeq}/${checkVotePlace.voteSeq}`,
+      });
+    } catch (err) {
+      console.log(err);
+    }
+
+    removeCheckVoteMember();
+    searchCheckVotePlace();
+
+    console.log("투표 취소 후 투표여부 확인 : ", checkVoteMember);
+
+    // dispatch(publishVotePlace(toggle + 1));
+  };
+
+  useEffect(() => {
+    console.log("checkVoteMember 확인", checkVoteMember);
+  }, [checkVoteMember]);
 
   const [isRegister, setIsRegister] = React.useState(true);
 
@@ -114,17 +211,24 @@ export default function PlaceDetail() {
       </div>
       <div>
         <GetDetail place={place} />
-        {isRegister ? (
+
+        {checkVotePlace ? (
+          <div>
+            <div> 득표수 : {checkVotePlace.voteCnt} </div>
+            {checkVoteMember ? (
+              <button onClick={removeVoter}>투표취소</button>
+            ) : (
+              <button onClick={insertVoter}>투표하기</button>
+            )}
+
+            <button className="place-register-btn" onClick={cancleVotePlace}>
+              등록 취소
+            </button>
+          </div>
+        ) : (
           <button onClick={registerPlaceToMap} className="place-register-btn">
             등록하기
           </button>
-        ) : (
-          <>
-            <button>투표하기</button>
-            <button className="place-register-btn" onClick={() => setIsRegister(true)}>
-              등록 취소
-            </button>
-          </>
         )}
       </div>
     </div>

@@ -42,6 +42,7 @@ export default function MapContainer() {
 
   const isValid = () => {
     setValid(!valid);
+    console.log("valid is", valid);
   };
 
   ///////////////////////////////////// 민정 시작////////////////////////////////////////////////////////
@@ -101,10 +102,7 @@ export default function MapContainer() {
         "https://cdn.lorem.space/images/face/.cache/150x150/nrd-ZmmAnliy1d4-unsplash.jpg";
       if (selectAddress) {
         var customOverlay = new kakao.maps.CustomOverlay({
-          position: new kakao.maps.LatLng(
-            selectAddress.addressX,
-            selectAddress.addressY
-          ),
+          position: new kakao.maps.LatLng(selectAddress.addressX, selectAddress.addressY),
           content: `<div class="map-user-profile"><img src=${profile_url}></div>`,
           xAnchor: 0.3,
           yAnnchor: 0.91,
@@ -151,10 +149,7 @@ export default function MapContainer() {
     if (departureList) {
       departureList.forEach((departure) => {
         var customOverlay = new kakao.maps.CustomOverlay({
-          position: new kakao.maps.LatLng(
-            departure.departureX,
-            departure.departureY
-          ),
+          position: new kakao.maps.LatLng(departure.departureX, departure.departureY),
           content: `<div class="map-user-profile"><img src=${profile_url}></div>`,
           xAnchor: 0.3,
           yAnnchor: 0.91,
@@ -172,8 +167,8 @@ export default function MapContainer() {
   const client = useRef({});
   const connect = () => {
     client.current = new StompJs.Client({
-      // brokerURL: "ws://i8a109.p.ssafy.io:9090/api/ws",
-      brokerURL: `ws://localhost:9090/api/ws`,
+      brokerURL: "ws://i8a109.p.ssafy.io:9090/api/ws",
+      // brokerURL: `ws://localhost:9090/api/ws`,
       onConnect: () => {
         console.log("소켓 연결에 성공했습니다.");
         subscribeDeparture();
@@ -200,14 +195,11 @@ export default function MapContainer() {
     var path = location.pathname;
     var parse = path.split("/");
     var promiseSeq1 = parse[2];
-    const promiseSeq = client.current.subscribe(
-      `/sub/departure/${promiseSeq1}`,
-      (body) => {
-        const json_body = JSON.parse(body.body);
-        searchDepartureList();
-        // console.log("출발지를 subscribe로 받아옵니다.");
-      }
-    );
+    const promiseSeq = client.current.subscribe(`/sub/departure/${promiseSeq1}`, (body) => {
+      const json_body = JSON.parse(body.body);
+      searchDepartureList();
+      // console.log("출발지를 subscribe로 받아옵니다.");
+    });
   };
 
   // 약속 장소 후보 발행 코드
@@ -232,14 +224,11 @@ export default function MapContainer() {
     var path = location.pathname;
     var parse = path.split("/");
     var promiseSeq1 = parse[2];
-    const promiseSeq = client.current.subscribe(
-      `/sub/votePlace/${promiseSeq1}`,
-      (body) => {
-        const json_body = JSON.parse(body.body);
-        searchVotePlaceList();
-        // console.log("약속 장소 후보들을 받습니다.");
-      }
-    );
+    const promiseSeq = client.current.subscribe(`/sub/votePlace/${promiseSeq1}`, (body) => {
+      const json_body = JSON.parse(body.body);
+      searchVotePlaceList();
+      // console.log("약속 장소 후보들을 받습니다.");
+    });
   };
 
   // 연결자 연결종료
@@ -314,8 +303,7 @@ export default function MapContainer() {
     // BeforeVotePlaceList의 데이터로 마커 찍기
     if (votePlaceList) {
       votePlaceList.forEach((votePlace) => {
-        var imageSrc =
-          "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png";
+        var imageSrc = "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png";
         var imageSize = new kakao.maps.Size(24, 35);
         var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);
 
@@ -485,46 +473,46 @@ export default function MapContainer() {
   return (
     <div id="map-all-wrapper">
       {/* 회원이 지정한 주소를 가져와 선택하게 하는 DIV */}
-      <div>출발 주소 선택</div>
-      <div>
-        <select onChange={addressSelect}>
-          {memberAddressList !== null &&
-            memberAddressList.map((address) => {
-              return (
-                // <option key={address.addressSeq} value={`${address.addressX}_${address.addressY}`}> {address.addressNick} </option>
-                <option
-                  key={address.addressSeq}
-                  value={JSON.stringify(address)}
-                >
-                  {" "}
-                  {address.addressNick}{" "}
-                </option>
-              );
-            })}
-        </select>
+      <div className="map-choose-add-wrapper">
+        <div className="map-choose-add-txt">출발 주소</div>
+        <div className="map-choose-add-select-wrapper">
+          <select className="map-choose-add-select" onChange={addressSelect}>
+            {memberAddressList !== null &&
+              memberAddressList.map((address) => {
+                return (
+                  // <option key={address.addressSeq} value={`${address.addressX}_${address.addressY}`}> {address.addressNick} </option>
+                  <option
+                    key={address.addressSeq}
+                    value={JSON.stringify(address)}
+                    className="map-choose-add-select-option"
+                  >
+                    {" "}
+                    {address.addressNick}{" "}
+                  </option>
+                );
+              })}
+          </select>
+        </div>
+        <button className="map-choose-add-btn" onClick={onhandleDeparturePost}>
+          선택
+        </button>
       </div>
-      <button onClick={onhandleDeparturePost}>출발지로 선택</button>
-
       <div id="map" className="map-wrapper">
         {/* 검색창 껐다 끄기 토클 */}
         {searchOpen && !recommendOpen ? <PlaceSearch /> : null}
         {!searchOpen && recommendOpen ? <PlaceRecommend /> : null}
         <Outlet />
       </div>
-      <div className="map-button-wrapper">
+      {/* <div className="map-button-wrapper">
         {!valid ? (
           <button
-            className="map-button-vote"
+            className="map-button-now-vote"
             onClick={() => {
               setModalOpen(true);
               isValid(true);
             }}
           >
-            <FaVoteYea
-              className="map-button-vote-icon"
-              size="40"
-              color="#ffffff"
-            />
+            <FaVoteYea className="map-button-vote-icon" size="40" color="#ffffff" />
             <div className="map-button-vote-txt">투표종료</div>
           </button>
         ) : (
@@ -533,6 +521,22 @@ export default function MapContainer() {
           //   <BsFillCalendarCheckFill size="40" color="#ffffff" />
           // </button>
         )}
+      </div> */}
+      <div className="map-button-wrapper">
+        <button
+          className="map-button-now-vote"
+          onClick={() => {
+            setModalOpen(true);
+            isValid(true);
+          }}
+        >
+          <div className="map-button-vote-txt">투표현황</div>
+          <FaVoteYea
+            className="map-button-vote-icon"
+            size="25"
+            color="#ffffff"
+          />
+        </button>
       </div>
       <div className="map-tab-wrapper">
         <TabBar2
@@ -543,11 +547,36 @@ export default function MapContainer() {
         />
       </div>
       {modalOpen && (
-        <Modal2 closeModal={() => setModalOpen(!modalOpen)}>
-          <div className="vote-done-wrapper">
-            {/* <div className='new-promise-text-wrapper'>
+        <Modal2
+          title="투표현황"
+          button="✖"
+          closeModal={() => setModalOpen(!modalOpen)}
+        >
+          {/* 여기에 투표현황 띄우면 됨 */}
+          <div>
+            <div>투표현황입니다</div>
+
+            {!valid ? (
+              <button
+                className="map-button-now-vote"
+                onClick={() => {
+                  setModalOpen(true);
+                  isValid(true);
+                }}
+              >
+                <div className="map-button-vote-txt">투표종료</div>
+              </button>
+            ) : (
+              <div>방장이 아닌 사람에게 보입니다</div>
+              // <button className="map-button-vote">
+              //   <BsFillCalendarCheckFill size="40" color="#ffffff" />
+              // </button>
+            )}
+          </div>
+          {/* <div className="vote-done-wrapper">
+             <div className='new-promise-text-wrapper'>
         새로운 약속 생성
-      </div> */}
+      </div> 
             <div className="success-checkmark">
               <div className="check-icon">
                 <span className="icon-line line-tip"></span>
@@ -557,29 +586,21 @@ export default function MapContainer() {
               </div>
             </div>
             <div>
-              <div className="vote-done-text-wrapper">
-                투표가 종료되었습니다
-              </div>
+              <div className="vote-done-text-wrapper">투표가 종료되었습니다</div>
               <div className="vote-done-btn-wrapper">
                 <div className="vote-done-top-sep-wrapper"></div>
                 <Link className="vote-done-btn-one-wrapper" to={"/main"}>
                   <button className="vote-done-btn-one-wrapper">Home</button>
                 </Link>
                 <div className="vote-done-sep-wrapper"></div>
-                <Link
-                  className="vote-done-btn-two-wrapper"
-                  to={`/schedule/${promiseSeq}`}
-                >
-                  <button
-                    className="vote-done-btn-two-wrapper"
-                    onClick={() => setModalOpen(false)}
-                  >
+                <Link className="vote-done-btn-two-wrapper" to={`/schedule/${promiseSeq}`}>
+                  <button className="vote-done-btn-two-wrapper" onClick={() => setModalOpen(false)}>
                     Schedule
                   </button>
                 </Link>
               </div>
             </div>
-          </div>
+          </div> */}
         </Modal2>
       )}
     </div>

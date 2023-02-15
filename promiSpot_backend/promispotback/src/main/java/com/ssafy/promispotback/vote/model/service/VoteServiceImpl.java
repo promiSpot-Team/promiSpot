@@ -93,6 +93,8 @@ public class VoteServiceImpl implements VoteService{
 	}
 
 
+
+
 	//약속 장소 투표버튼 누르면 투표자 테이블에 추가
 	@Override
 	public int insertVoter(VoteMemberEntity voteMemberEntity) throws SQLException {
@@ -117,5 +119,22 @@ public class VoteServiceImpl implements VoteService{
 		int result2 = voteMapper.cancleVote(voteMemberEntity);
 		return result1 * result2;
 	}
+
+
+	@Override
+	public List<VoteMemberEntity> getVoterList(int voteSeq) throws SQLException {
+		return voteMapper.getVoterList(voteSeq);
+	}
+
+	@Override
+	public VoteMemberEntity checkVoteMember(VoteMemberEntity voteMemberEntity) throws SQLException {
+		return voteMapper.checkVoteMember(voteMemberEntity);
+	}
+
+	@Override
+	public int removeAllVoteMember(int voteSeq) throws SQLException {
+		return voteMapper.removeAllVoteMember(voteSeq);
+	}
+
 
 }

@@ -107,6 +107,24 @@
 		WHERE vote_seq = #{voteSeq};
 	</update>
 
+	<select id="getVoterList" parameterType="int" resultType="VoteMemberEntity">
+		select *
+		from voters_members
+		where vote_seq = #{voteSeq}
+	</select>
+
+	<select id="checkVoteMember" parameterType="VoteMemberEntity" resultType="VoteMemberEntity">
+		select *
+		from voters_members
+		where vote_seq = #{voteSeq}
+		and member_seq = #{memberSeq}
+	</select>
+
+	<delete id="removeAllVoteMember" parameterType="int">
+		delete from voters_members
+		where vote_seq = #{voteSeq}
+	</delete>
+
 
 
 </mapper>
