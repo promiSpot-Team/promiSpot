@@ -19,6 +19,7 @@ const { kakao } = window;
 export default function Schedule() {
   /* 스케줄 리스트 변수 선언 */
   const [schedulePlaceList, setSchedulePlaceList] = useState([]);
+  const [scheduleList, setScheduleList] = useState([]);
 
   // 지도 변수
   const [map, setMap] = useState(null);
@@ -67,9 +68,19 @@ export default function Schedule() {
 
   // 후보 장소 누르면 스케줄 장소 리스트에 해당 장소 추가
   const addSchedulePlaceList = (votePlace) => {
-    console.log(schedulePlaceList.includes(votePlace));
+    // console.log(schedulePlaceList.includes(votePlace));
+    console.log(schedulePlaceList);
+    // setSchedulePlaceList(votePlace);
     setSchedulePlaceList(places => [...places, [votePlace]])
   };
+
+
+
+  // const scheduleList = schedulePlaceList.filter(
+  //   (arr, index, callback) => index === callback.findIndex(t => t.placeId === arr.placeId)
+  // );
+  
+  // save('name', newArray);
 
   // 스케줄 장소 리스트 변경될 때만 실행
   useEffect(() => {
