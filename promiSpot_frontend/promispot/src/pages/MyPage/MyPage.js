@@ -158,7 +158,7 @@ export default function MyPage({ history }) {
       addressNick: "주소",
       addressIsPrimary: 0,
     };
-    console.log(addressData);
+    // console.log(addressData);
     const {
       addressAddress,
       addressX,
