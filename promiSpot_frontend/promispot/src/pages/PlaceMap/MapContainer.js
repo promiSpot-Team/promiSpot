@@ -14,7 +14,6 @@ import PlaceSearch from "./PlaceSearch";
 import { Content } from "antd/es/layout/layout";
 import * as StompJs from "@stomp/stompjs";
 
-
 const { kakao } = window;
 
 export default function MapContainer() {
@@ -303,12 +302,11 @@ export default function MapContainer() {
     // BeforeVotePlaceList의 데이터로 마커 찍기
     if (votePlaceList) {
       votePlaceList.forEach((votePlace) => {
-
         var imageSrc = "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png";
-        var imageSize = new kakao.maps.Size(24, 35); 
-        var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize); 
-    
-        // 마커 생성 및 클릭이벤트 등록 
+        var imageSize = new kakao.maps.Size(24, 35);
+        var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);
+
+        // 마커 생성 및 클릭이벤트 등록
         var marker = new kakao.maps.Marker({
           map: map,
           position: new kakao.maps.LatLng(votePlace.placeY, votePlace.placeX),
@@ -317,7 +315,18 @@ export default function MapContainer() {
 
         setBeforeVotePlaceList((prev) => [...prev, marker]);
         marker.setMap(map);
- 
+
+        // 마커에 클릭이벤트를 등록합니다
+        kakao.maps.event.addListener(marker, "click", function () {
+          console.log("마커 클릭 작동");
+          console.log(
+            "promiseSeq, votePlace.placeId, votePlace",
+            promiseSeq,
+            votePlace.placeId,
+            votePlace
+          );
+          navigate(`/map/${promiseSeq}/${votePlace.placeId}`, { state: votePlace });
+        });
       });
     }
   }, [votePlaceList]);
@@ -435,7 +444,7 @@ export default function MapContainer() {
     kakao.maps.event.addListener(map, "dragend", function () {
       // 지도의 영역이 변경될 때마다 가장자리 좌표값 변경된 거 보내주기
       var bounds = map.getBounds();
-      console.log('center : ', map.getCenter())
+      console.log("center : ", map.getCenter());
       var newRect =
         String(bounds.ha) +
         "," +

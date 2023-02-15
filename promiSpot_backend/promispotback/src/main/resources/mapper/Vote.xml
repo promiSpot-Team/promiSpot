@@ -85,4 +85,28 @@
 		where place_id = #{placeId}
 	</select>
 
+	<!-- 이 장소가 등록되어 있는지 확인  -->
+	<select id="checkVotePlace" resultType="VoteEntity">
+		select *
+		from votes
+		where promise_seq = #{promiseSeq}
+		and place_id = #{placeId}
+	</select>
+
+	<!-- 투표를 하면 +1 해주는 함수  -->
+	<update id="doVote" parameterType="VoteMemberEntity">
+		update votes
+		SET vote_cnt = vote_cnt + 1
+		WHERE vote_seq = #{voteSeq};
+	</update>
+
+
+	<update id="cancleVote" parameterType="VoteMemberEntity">
+		update votes
+		SET vote_cnt = vote_cnt - 1
+		WHERE vote_seq = #{voteSeq};
+	</update>
+
+
+
 </mapper>
