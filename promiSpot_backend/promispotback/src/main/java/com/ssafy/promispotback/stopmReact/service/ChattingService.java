@@ -14,6 +14,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -34,9 +36,43 @@ public class ChattingService {
         return chattingRepository.findByPromiseSeq(promiseSeq);
     }
 
+//    public List<ChattingModel> getChattingModelsByPromiseSeq(Integer promiseSeq, Integer limit) {
+//        return chattingRepository.findByPromiseSeq(promiseSeq).stream().limit(limit).collect(Collectors.toList());
+//    }
+
+    // 오름차순
+//    public List<ChattingModel> getChattingModelsByPromiseSeq(Integer promiseSeq, Integer limit) {
+//        return chattingRepository.findByPromiseSeq(promiseSeq)
+//                .stream()
+//                .sorted(Comparator.comparing(ChattingModel::getCreatedDate)
+//                        .thenComparing(Comparator.comparing(ChattingModel::getCreatedTime))) // 날짜 기준으로 오름차순, 시간 기준으로 오름차순
+//                .limit(limit)
+//                .collect(Collectors.toList());
+//    }
+
+    // 내림차순
+//    public List<ChattingModel> getChattingModelsByPromiseSeq(Integer promiseSeq, Integer limit) {
+//        return chattingRepository.findByPromiseSeq(promiseSeq)
+//                .stream()
+//                .sorted(Comparator.comparing(ChattingModel::getCreatedDate).reversed()
+//                        .thenComparing(Comparator.comparing(ChattingModel::getCreatedTime).reversed())) // 날짜 기준으로 내림차순, 시간 기준으로 내림차순
+//                .limit(limit)
+//                .collect(Collectors.toList());
+//    }
+
     public List<ChattingModel> getChattingModelsByPromiseSeq(Integer promiseSeq, Integer limit) {
-        return chattingRepository.findByPromiseSeq(promiseSeq).stream().limit(limit).collect(Collectors.toList());
+        List<ChattingModel> result = chattingRepository.findByPromiseSeq(promiseSeq)
+                .stream()
+                .sorted(Comparator.comparing(ChattingModel::getCreatedDate).reversed()
+                        .thenComparing(Comparator.comparing(ChattingModel::getCreatedTime).reversed())) // 날짜 기준으로 내림차순, 시간 기준으로 내림차순
+                .limit(limit)
+                .collect(Collectors.toList());
+
+        Collections.reverse(result); // 리스트의 순서를 뒤집어서 역순으로 만듦
+
+        return result;
     }
+
 
 
 

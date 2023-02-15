@@ -23,7 +23,7 @@ export default function Chatting() {
     var parse = path.split("/");
     var promiseSeq = parse[2];
     // limit는 불러올 채팅의 갯수
-    const limit = 5;
+    const limit = 8;
     const response = await axios({
       method: "GET",
       // url: `http://localhost:9090/api/chatting/getList/${promiseSeq}/${limit} `,
@@ -46,10 +46,12 @@ export default function Chatting() {
 
   const connect = () => {
     client.current = new StompJs.Client({
-      brokerURL: "ws://i8a109.p.ssafy.io:9090/api/ws",
-      // brokerURL: "ws://localhost:9090/api/ws",
+      // ws 로 서버에 올리면 보안상의 문제로 에러가 발생한다.
+      // wss를 사용하면 보안이 걸려 문제가 해결될 것 이다. 라고 chatgpt가 말함 
+      // brokerURL: "ws://i8a109.p.ssafy.io:9090/api/ws",
+      brokerURL: "ws://localhost:9090/api/ws",
       onConnect: () => {
-        console.log("success");
+        console.log("Chatting 소켓 연결에 성공했습니다.");
         subscribe();
       },
     });
@@ -74,6 +76,7 @@ export default function Chatting() {
       }),
     });
 
+    console.log("메시지 발행에 성공했습니다.");
     setChat("");
   };
 
@@ -116,17 +119,17 @@ export default function Chatting() {
     <div className="chatting-wrapper">
       <div className="chatting-contents-wrapper">
         {chatList.length > 0 &&
-          chatList.map((one) => {
+          chatList.map((one, index) => {
             return (
               <>
-                {one.senderName === member.memberName ? (
-                  <div className="chatting-contents-one-me-wrapper">
+                { one.senderName === member.memberName ? (
+                  <div className="chatting-contents-one-me-wrapper" >
                     <div className="chatting-contents-me-msg">
                       {one.message}
                     </div>
                   </div>
                 ) : (
-                  <div className="chatting-contents-one-other-wrapper">
+                  <div className="chatting-contents-one-other-wrapper" >
                     <div className="chatting-contents-other-name">
                       {one.senderName}
                     </div>

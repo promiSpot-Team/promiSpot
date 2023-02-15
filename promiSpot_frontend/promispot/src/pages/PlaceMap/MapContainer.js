@@ -158,7 +158,7 @@ export default function MapContainer() {
       brokerURL: "ws://i8a109.p.ssafy.io:9090/api/ws",
       // brokerURL: `ws://localhost:9090/api/ws`,
       onConnect: () => {
-        console.log("소켓 연결에 성공했습니다.");
+        console.log("MapContainer 소켓 연결에 성공했습니다.");
         subscribeDeparture();
         subscribeVotePlace();
       },
