@@ -48,8 +48,8 @@ export default function Chatting() {
     client.current = new StompJs.Client({
       // ws 로 서버에 올리면 보안상의 문제로 에러가 발생한다.
       // wss를 사용하면 보안이 걸려 문제가 해결될 것 이다. 라고 chatgpt가 말함 
-      // brokerURL: "ws://i8a109.p.ssafy.io:9090/api/ws",
-      brokerURL: "ws://localhost:9090/api/ws",
+      brokerURL: "wws://i8a109.p.ssafy.io:9090/api/ws",
+      // brokerURL: "ws://localhost:9090/api/ws",
       onConnect: () => {
         console.log("Chatting 소켓 연결에 성공했습니다.");
         subscribe();
