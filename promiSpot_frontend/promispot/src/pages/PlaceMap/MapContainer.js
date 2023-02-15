@@ -176,7 +176,7 @@ export default function MapContainer() {
   const client = useRef({});
   const connect = () => {
     client.current = new StompJs.Client({
-      brokerURL: "ws://i8a109.p.ssafy.io:9090/api/ws",
+      brokerURL: "wss://i8a109.p.ssafy.io/api/ws",
       // brokerURL: `ws://localhost:9090/api/ws`,
       onConnect: () => {
         console.log("MapContainer 소켓 연결에 성공했습니다.");
