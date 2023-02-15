@@ -65,6 +65,9 @@ public interface VoteMapper {
 	// 사용자가 약속장소에 투표했는지 여부를 확인하는 함수
 	public VoteMemberEntity checkVoteMember(VoteMemberEntity voteMemberEntity) throws SQLException;
 
+	// 약속 후보 장소를 삭제했을 때 해당 장소 투표자들 전부 삭제
+	public int removeAllVoteMember(int voteSeq) throws SQLException;
+
 
 
 

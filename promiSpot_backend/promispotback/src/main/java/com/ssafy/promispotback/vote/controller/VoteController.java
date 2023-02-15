@@ -136,22 +136,7 @@ public class VoteController {
 	
 	
 	
-	//약속 장소 후보 삭제
-	@DeleteMapping("delete/{voteSeq}")
-	public ResponseEntity<?> removeCandidatePlace(@PathVariable("voteSeq") int voteSeq) {
-		
-		try {
-			int result = voteService.removeCandidatePlace(voteSeq);
-			if (result != 0) {
-				return new ResponseEntity<String>("success", HttpStatus.OK);
-			} else {
-				return new ResponseEntity<String>("fail", HttpStatus.ACCEPTED);
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-			return exceptionHandling(e);
-		}
-	}
+
 	
 	
 	//사용자가 한 약속에서 이 장소를 투표한 건지 아닌지 조회
@@ -313,6 +298,28 @@ public class VoteController {
 		}
 	}
 
+
+
+	//약속 장소 후보 삭제
+	@DeleteMapping("delete/{voteSeq}")
+	public ResponseEntity<?> removeCandidatePlace(@PathVariable("voteSeq") int voteSeq) {
+
+		System.out.println("삭제 작동 확인");
+		
+		try {
+			int result1 = voteService.removeCandidatePlace(voteSeq);
+			int result2 = voteService.removeAllVoteMember(voteSeq);
+			int result = result1 * result2;
+			if (result != 0) {
+				return new ResponseEntity<String>("success", HttpStatus.OK);
+			} else {
+				return new ResponseEntity<String>("fail", HttpStatus.ACCEPTED);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			return exceptionHandling(e);
+		}
+	}
 
 
 

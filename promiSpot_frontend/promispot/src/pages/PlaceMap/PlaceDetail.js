@@ -35,29 +35,30 @@ export default function PlaceDetail() {
     }
   };
 
+  // 약속 장소 투표 여부 확인하기 //
+  const [checkVoteMember, setCheckVoteMember] = useState();
+  const searchCheckVoteMember = async () => {
+    const response = await axios({
+      method: "GET",
+      url: `${SERVER_URL}/vote/member/check/${checkVotePlace.voteSeq}/${memberSeq}`,
+    });
+    if (response.data !== "fail") {
+      setCheckVoteMember(response.data);
+    }
+  };
+
   useEffect(() => {
     searchCheckVotePlace();
   }, []);
 
   useEffect(() => {
     console.log("checkvotePlace 확인", checkVotePlace);
+    searchCheckVoteMember();
   }, [checkVotePlace]);
 
-  // 약속 장소 투표 여부 확인하기 //
-  const [checkVoteMember, setCheckVoteMember] = useState();
-  const searchCheckVoteMember = async () => {
-    var path = location.pathname;
-    var parse = path.split("/");
-    var promiseSeq = parse[2];
-    var placeId = place.id ? place.id : place.placeId;
-    const response = await axios({
-      method: "GET",
-      url: `${SERVER_URL}/vote/checkVote/${promiseSeq}/${placeId}`,
-    });
-    if (response.data !== "fail") {
-      setCheckVotePlace(response.data);
-    }
-  };
+  useEffect(() => {
+    console.log("checkVoteMember 확인", checkVoteMember);
+  }, [checkVoteMember]);
 
   // 약속 장소 투표 여부 확인 끝 //
 
@@ -172,6 +173,35 @@ export default function PlaceDetail() {
     // dispatch(publishVotePlace(toggle + 1));
   };
 
+  // 투표자를 삭제하는 함수
+  const removeCheckVoteMember = () => {
+    setCheckVoteMember();
+  };
+
+  // 약속 장소 후보 투표 삭제
+  const removeVoter = async () => {
+    console.log("약속 장소 후보 투표 삭제 작동");
+    try {
+      const response = await axios({
+        method: "DELETE",
+        url: `${SERVER_URL}/vote/member/remove/${memberSeq}/${checkVotePlace.voteSeq}`,
+      });
+    } catch (err) {
+      console.log(err);
+    }
+
+    removeCheckVoteMember();
+    searchCheckVotePlace();
+
+    console.log("투표 취소 후 투표여부 확인 : ", checkVoteMember);
+
+    // dispatch(publishVotePlace(toggle + 1));
+  };
+
+  useEffect(() => {
+    console.log("checkVoteMember 확인", checkVoteMember);
+  }, [checkVoteMember]);
+
   const [isRegister, setIsRegister] = React.useState(true);
 
   return (
@@ -185,7 +215,12 @@ export default function PlaceDetail() {
         {checkVotePlace ? (
           <div>
             <div> 득표수 : {checkVotePlace.voteCnt} </div>
-            <button onClick={insertVoter}>투표하기</button>
+            {checkVoteMember ? (
+              <button onClick={removeVoter}>투표취소</button>
+            ) : (
+              <button onClick={insertVoter}>투표하기</button>
+            )}
+
             <button className="place-register-btn" onClick={cancleVotePlace}>
               등록 취소
             </button>
