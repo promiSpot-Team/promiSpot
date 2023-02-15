@@ -148,21 +148,23 @@ export default function Schedule() {
           {/* <button className="draggable" draggable="true">🦊</button>
           <button className="draggable" draggable="true">🐸</button> */}
           <div className="inner-wrapper">
-            {/* {schedulePlaceList.map((schedulePlace, idx) => {
+            {schedulePlaceList.map((schedulePlace, idx) => {
               return (
                 <div
                   key={idx}
-                  className="new-promise-under-images-wrapper"
+                  className={idx}
                 >
                   <div className="new-promise-under-img">
                     <img
-                      src={require(schedulePlace.placeImgUrl)}
+                      // src={require("../../img/IU_Profile.jpg")}
+                      src={schedulePlace[0].placeImgUrl}
+                      //src="https://img1.kakaocdn.net/cthumb/local/R0x420/?fname=http%3A%2F%2Ft1.kakaocdn.net%2Fmystore%2FB59A20ADFA864C31B54124064E339231"
                       width="35px"
                     />
                   </div>
                 </div>
               );
-            })} */}
+            })}
           </div>
         </div>
         <div className='map-button-wrapper'>
