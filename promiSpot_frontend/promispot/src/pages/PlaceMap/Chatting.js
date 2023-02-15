@@ -3,28 +3,26 @@ import { useParams } from "react-router-dom";
 import * as StompJs from "@stomp/stompjs";
 
 import { SERVER_URL } from "../../constants/constants";
+import { BiSend } from "react-icons/bi";
 
 import { useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
 
+import "../scss/Chatting.scss";
 import axios from "axios";
 
 const spawn = require("child_process").spawn;
 
 export default function Chatting() {
-  
-  
   // 화면에 표시될 채팅 기록
   const [chatList, setChatList] = useState([]);
   const searchChatList = async () => {
-    
     console.log("초기에 채팅 리스트 받아오기");
-
 
     var path = location.pathname;
     var parse = path.split("/");
     var promiseSeq = parse[2];
-    // limit는 불러올 채팅의 갯수 
+    // limit는 불러올 채팅의 갯수
     const limit = 5;
     const response = await axios({
       method: "GET",
@@ -35,7 +33,6 @@ export default function Chatting() {
       setChatList(response.data);
     }
   };
-
 
   // 메시지를 발행하는 코드
   const [chat, setChat] = useState(""); // 입력되는 채팅
@@ -108,9 +105,7 @@ export default function Chatting() {
     publish(chat);
   };
 
-
-
-  // 페이지가 처음 켜지면 작동되는 함수 
+  // 페이지가 처음 켜지면 작동되는 함수
   useEffect(() => {
     searchChatList();
     connect();
@@ -118,25 +113,55 @@ export default function Chatting() {
   }, []);
 
   return (
-    <div style={{ position: "absolute", zIndex: 999 }}>
-      <h1>chatting</h1>
-
-      <ul>
+    <div className="chatting-wrapper">
+      <div className="chatting-contents-wrapper">
         {chatList.length > 0 &&
           chatList.map((one) => {
             return (
-              <div>
-                {one.senderName} : {one.message}
-              </div>
+              <>
+                {one.senderName === member.memberName ? (
+                  <div className="chatting-contents-one-me-wrapper">
+                    <div className="chatting-contents-me-msg">
+                      {one.message}
+                    </div>
+                  </div>
+                ) : (
+                  <div className="chatting-contents-one-other-wrapper">
+                    <div className="chatting-contents-other-name">
+                      {one.senderName}
+                    </div>
+                    <div className="chatting-contents-other-msg">
+                      {one.message}
+                    </div>
+                  </div>
+                )}
+              </>
             );
           })}
-      </ul>
+      </div>
 
-      <form onSubmit={(event) => handleSubmit(event, chat)}>
-        <div>
-          <input type={"text"} name={"chatInput"} onChange={handleChange} value={chat} />
+      <form
+        className="chatting-new-wrapper"
+        onSubmit={(event) => handleSubmit(event, chat)}
+      >
+        <div className="chatting-new-text">
+          <input
+            className="chatting-new-text-input"
+            type={"text"}
+            name={"chatInput"}
+            onChange={handleChange}
+            value={chat}
+            placeholder="채팅 보내기"
+          />
         </div>
-        <input type={"submit"} value={"의견 보내기"} />
+        <button className="chatting-new-btn" type={"submit"}>
+          <BiSend
+            className="chatting-new-btn-icon"
+            size="3vh"
+            color="#ffffff"
+          />
+        </button>
+        {/* <input type={"submit"} value={<BiSend />} /> */}
       </form>
     </div>
   );

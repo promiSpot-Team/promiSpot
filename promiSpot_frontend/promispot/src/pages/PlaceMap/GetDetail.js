@@ -60,36 +60,28 @@ export default function GetDetail(props) {
   }, []);
 
   return (
-    <div style={{ margin: "0 auto", width: "85%" }}>
-      <div style={{ marginBottom: "0.6rem" }}>
+    <div className="place-modal-content-wrapper">
+      <div className="place-category-list-wrapper">
         {catergoryList.map((category, idx) => {
           return (
             <div
-              style={{
-                border: "1px solid #c4c4c4",
-                display: "inline-block",
-                padding: "1.5vw 1.8vw",
-                margin: "1vw",
-                borderRadius: "0.9rem",
-                fontSize: "0.8rem",
-              }}
+              className="category-name-div"
             >
               {category}
             </div>
           );
         })}
       </div>
-      <div style={{ display: "grid", gridTemplateColumns: "3.5fr 8.5fr" }}>
+      <div className="place-detail-wrapper">
         {!loading ? (
           <div style={{}}>
-            <img
-              style={{ borderRadius: "3vw", width: "20vw", height: "20vw" }}
+            <img className="detail-img"
               src={Img}
               alt="img"
             />
           </div>
         ) : (
-          <div style={{ width: "100%", textAlign: "center" }}>
+          <div className="detail-loading">
             <h2>로딩중 ... </h2>
             <BeatLoader color="#36d7b7" />
           </div>
