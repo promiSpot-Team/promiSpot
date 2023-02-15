@@ -126,6 +126,10 @@ public class VoteServiceImpl implements VoteService{
 		return voteMapper.getVoterList(voteSeq);
 	}
 
+	@Override
+	public VoteMemberEntity checkVoteMember(VoteMemberEntity voteMemberEntity) throws SQLException {
+		return voteMapper.checkVoteMember(voteMemberEntity);
+	}
 
 
 }

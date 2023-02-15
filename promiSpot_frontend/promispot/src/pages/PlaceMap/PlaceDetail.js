@@ -26,11 +26,6 @@ export default function PlaceDetail() {
     var parse = path.split("/");
     var promiseSeq = parse[2];
     var placeId = place.id ? place.id : place.placeId;
-
-    console.log("place 확인 : ", place);
-    console.log("place_id 확인 : ", place.id);
-    console.log("placeId 확인 : ", place.placeId);
-
     const response = await axios({
       method: "GET",
       url: `${SERVER_URL}/vote/checkVote/${promiseSeq}/${placeId}`,
@@ -48,7 +43,24 @@ export default function PlaceDetail() {
     console.log("checkvotePlace 확인", checkVotePlace);
   }, [checkVotePlace]);
 
-  console.log(place);
+  // 약속 장소 투표 여부 확인하기 //
+  const [checkVoteMember, setCheckVoteMember] = useState();
+  const searchCheckVoteMember = async () => {
+    var path = location.pathname;
+    var parse = path.split("/");
+    var promiseSeq = parse[2];
+    var placeId = place.id ? place.id : place.placeId;
+    const response = await axios({
+      method: "GET",
+      url: `${SERVER_URL}/vote/checkVote/${promiseSeq}/${placeId}`,
+    });
+    if (response.data !== "fail") {
+      setCheckVotePlace(response.data);
+    }
+  };
+
+  // 약속 장소 투표 여부 확인 끝 //
+
   /* 장소 '등록하기' 버튼 누르면 지도에 등록하면서 약속 장소 후보로 등록 */
   // 등록하기를 누르면 DB에 저장
   const registerPlaceToMap = async () => {
@@ -156,6 +168,7 @@ export default function PlaceDetail() {
       console.log(err);
     }
 
+    searchCheckVotePlace();
     // dispatch(publishVotePlace(toggle + 1));
   };
 

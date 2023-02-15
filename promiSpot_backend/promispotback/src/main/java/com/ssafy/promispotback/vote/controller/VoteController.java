@@ -287,6 +287,36 @@ public class VoteController {
 
 
 
+	// 사용자가 이 장소를 투표했는지 여부를 확인
+	@GetMapping("member/check/{voteSeq}/{memberSeq}")
+	public ResponseEntity<?> checkVoteMember(@PathVariable("voteSeq") int voteSeq,
+											 @PathVariable("memberSeq") int memberSeq) {
+		try {
+
+			VoteMemberEntity voteMemberEntity = new VoteMemberEntity();
+			voteMemberEntity.setVoteSeq(voteSeq);
+			voteMemberEntity.setMemberSeq(memberSeq);
+
+
+			VoteMemberEntity result = voteService.checkVoteMember(voteMemberEntity);
+
+			if (result != null) {
+				System.out.println("success work");
+				return new ResponseEntity<VoteMemberEntity>(result, HttpStatus.OK);
+			} else {
+				System.out.println("fail work");
+				return new ResponseEntity<String>("fail", HttpStatus.ACCEPTED);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			return exceptionHandling(e);
+		}
+	}
+
+
+
+
+
 
 
 

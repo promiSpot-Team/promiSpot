@@ -62,6 +62,12 @@ public interface VoteMapper {
 	public List<VoteMemberEntity> getVoterList(int voteSeq) throws SQLException;
 
 
+	// 사용자가 약속장소에 투표했는지 여부를 확인하는 함수
+	public VoteMemberEntity checkVoteMember(VoteMemberEntity voteMemberEntity) throws SQLException;
+
+
+
+
 
 
 
