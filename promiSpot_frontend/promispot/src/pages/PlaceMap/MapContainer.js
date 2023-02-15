@@ -328,6 +328,18 @@ export default function MapContainer() {
 
         setBeforeVotePlaceList((prev) => [...prev, marker]);
         marker.setMap(map);
+
+        // 마커에 클릭이벤트를 등록합니다
+        kakao.maps.event.addListener(marker, "click", function () {
+          console.log("마커 클릭 작동");
+          console.log(
+            "promiseSeq, votePlace.placeId, votePlace",
+            promiseSeq,
+            votePlace.placeId,
+            votePlace
+          );
+          navigate(`/map/${promiseSeq}/${votePlace.placeId}`, { state: votePlace });
+        });
       });
     }
   }, [votePlaceList]);

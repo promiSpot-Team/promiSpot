@@ -14,7 +14,7 @@ import Card2 from "../../components/Card/Card2";
 export default function Main() {
   const [promiseList, setPromiseList] = useState(null);
   const memberSeq = useSelector((state) => state?.user?.info?.memberSeq);
-
+  
   const SampleNextArrow = (props) => {
     const { className, style, onClick } = props;
     return (

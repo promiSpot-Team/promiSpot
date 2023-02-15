@@ -20,12 +20,28 @@ export default function PlaceDetail() {
 
   const toggle = useSelector((state) => state.promise.toggle);
 
+  // 이 장소가 등록되어 있는지 확인하는 함수
+  // const [checkVote, setCheckVote] = useState();
+  // const searchCheckVote = async () => {
+  //   const response = await axios({
+  //     method: "GET",
+  //     url: `${SERVER_URL}/promise/getList/1`,
+  //   });
+  //   if (response.data !== "fail") {
+  //     setPromiseList(response.data);
+  //   }
+  // };
+  // useEffect(() => {
+  //   searchPromiseList();
+  // }, []);
+
   console.log(place);
   /* 장소 '등록하기' 버튼 누르면 지도에 등록하면서 약속 장소 후보로 등록 */
   // 등록하기를 누르면 DB에 저장
   const registerPlaceToMap = async () => {
     dispatch(setPlace(place));
     console.log(place);
+    setIsRegister(false);
 
     // 약속 장소 후보 등록 함수
     const insertVote = async (placeId) => {
@@ -89,29 +105,27 @@ export default function PlaceDetail() {
     }
   };
 
+  const [isRegister, setIsRegister] = React.useState(true);
+
   return (
     <div className="place-modal-wrapper">
       <div>
-        <BasicHeader text={place.place_name} />
+        <BasicHeader text={place.place_name ? place.place_name : place.placeName} />
       </div>
       <div>
         <GetDetail place={place} />
-        <button
-          onClick={registerPlaceToMap}
-          style={{
-            position: "absolute",
-            bottom: "5vh",
-            right: 0,
-            backgroundColor: "white",
-            border: "1px solid #c4c4c4",
-            marginRight: "1rem",
-            marginBottom: "1rem",
-            padding: "0.5rem 1rem",
-            borderRadius: "15px",
-          }}
-        >
-          등록하기
-        </button>
+        {isRegister ? (
+          <button onClick={registerPlaceToMap} className="place-register-btn">
+            등록하기
+          </button>
+        ) : (
+          <>
+            <button>투표하기</button>
+            <button className="place-register-btn" onClick={() => setIsRegister(true)}>
+              등록 취소
+            </button>
+          </>
+        )}
       </div>
     </div>
   );
