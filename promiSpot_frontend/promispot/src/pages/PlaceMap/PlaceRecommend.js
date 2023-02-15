@@ -81,6 +81,7 @@ export default function PlaceRecommend() {
         {recommendPlaceList && recommendPlaceList.map((place, index) => {
           return (
             <div key={index} className="recommend-place-div">
+              
               <p className="place-title">
                 {place[0].place_name}
               </p>
