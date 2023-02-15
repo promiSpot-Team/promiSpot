@@ -304,7 +304,7 @@ export default function MapContainer() {
         // 마커 생성 및 클릭이벤트 등록
         var marker = new kakao.maps.Marker({
           map: map,
-          position: new kakao.maps.LatLng(votePlace.placeX, votePlace.placeY),
+          position: new kakao.maps.LatLng(votePlace.placeY, votePlace.placeX),
           image: markerImage,
         });
 
