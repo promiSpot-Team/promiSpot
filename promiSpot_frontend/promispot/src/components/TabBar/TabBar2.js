@@ -26,70 +26,74 @@ export default function TabBar2(props) {
   useEffect(() => {
     // console.log(promiseSeq);
   }, [promiseSeq]);
-  
+
   /* 장소 검색/추천 토글 */
   const [openSearch, setOpenSearch] = useState(false);
   const [openRecommend, setOpenRecommend] = useState(false);
-  
-  // 장소 검색 클릭 
+
+  // 장소 검색 클릭
   const onClickSearch = () => {
-    setOpenRecommend(false)
-    setOpenSearch(!openSearch)
-  }
+    setOpenRecommend(false);
+    setOpenSearch(!openSearch);
+  };
 
   useEffect(() => {
-    props.catchClickSearch(openSearch)
-  }, [openSearch])
+    props.catchClickSearch(openSearch);
+  }, [openSearch]);
 
   // 장소 추천 클릭
   const onClickRecommend = () => {
-    setOpenSearch(false)
-    setOpenRecommend(!openRecommend)
-  }
+    setOpenSearch(false);
+    setOpenRecommend(!openRecommend);
+  };
 
   useEffect(() => {
-    props.catchClickRecommend(openRecommend)
-  }, [openRecommend])
+    props.catchClickRecommend(openRecommend);
+  }, [openRecommend]);
 
   return (
     <>
       <div className="wrapper">
         <div className="navbar">
           <div className="navbar-left">
-            <div className="navbar-left-icon">
-              <Link
-                to={"/main"}
-                className="link"
-                style={{ textDecoration: "none" }}
-              >
+            <Link
+              className="navbar-left-one"
+              to={"/main"}
+              style={{ textDecoration: "none" }}
+            >
+              <div className="navbar-left-icon">
                 <FaHome size="36" color="#ffffff" />
-                <div className="navbar-left-icon-txt">Home</div>
-              </Link>
-            </div>
-            <div className="navbar-left-icon">
-              {/* <Link to={`/map/${promiseSeq}/search`} className="link"> */}
-              <ImSearch
-                size="36"
-                color="#ffffff"
-                onClick={onClickSearch}
-              />
+              </div>
+              <div className="navbar-left-icon-txt">Home</div>
+            </Link>
+            <div className="navbar-left-one">
+              <div className="navbar-left-icon">
+                {/* <Link to={`/map/${promiseSeq}/search`} className="link"> */}
+                <ImSearch size="36" color="#ffffff" onClick={onClickSearch} />
+              </div>
               <div className="navbar-left-icon-txt">Search</div>
-              {/* </Link> */}
             </div>
+            {/* </Link> */}
           </div>
           <div className="navbar-right">
-            <div className="navbar-right-icon">
-              {/* <Link to={`/map/${promiseSeq}/recommend`} className="link"> */}
-                <MdRecommend size="36" color="#ffffff" onClick={onClickRecommend} />
-                <div className="navbar-right-icon-txt">Recommend</div>
-              {/* </Link> */}
+            <div className="navbar-right-one">
+              <div className="navbar-right-icon">
+                {/* <Link to={`/map/${promiseSeq}/recommend`} className="link"> */}
+                <MdRecommend
+                  size="40"
+                  color="#ffffff"
+                  onClick={onClickRecommend}
+                />
+              </div>
+              <div className="navbar-right-icon-txt">Recommend</div>
             </div>
-            <div className="navbar-right-icon">
-              <Link to={"/mypage"} className="link">
+            {/* </Link> */}
+            <Link to={"/mypage"} className="navbar-right-one">
+              <div className="navbar-right-icon">
                 <BsPersonCircle size="36" color="#ffffff" />
-                <div className="navbar-right-icon-txt">MyPage</div>
-              </Link>
-            </div>
+              </div>
+              <div className="navbar-right-icon-txt">MyPage</div>
+            </Link>
           </div>
           <Link to={`/map/${promiseSeq}/chatting`}>
             <div className="circle">

@@ -474,26 +474,30 @@ export default function MapContainer() {
   return (
     <div id="map-all-wrapper">
       {/* 회원이 지정한 주소를 가져와 선택하게 하는 DIV */}
-      <div>출발 주소 선택</div>
-      <div>
-        <select onChange={addressSelect}>
-          {memberAddressList !== null &&
-            memberAddressList.map((address) => {
-              return (
-                // <option key={address.addressSeq} value={`${address.addressX}_${address.addressY}`}> {address.addressNick} </option>
-                <option
-                  key={address.addressSeq}
-                  value={JSON.stringify(address)}
-                >
-                  {" "}
-                  {address.addressNick}{" "}
-                </option>
-              );
-            })}
-        </select>
+      <div className="map-choose-add-wrapper">
+        <div className="map-choose-add-txt">출발 주소</div>
+        <div className="map-choose-add-select-wrapper">
+          <select className="map-choose-add-select" onChange={addressSelect}>
+            {memberAddressList !== null &&
+              memberAddressList.map((address) => {
+                return (
+                  // <option key={address.addressSeq} value={`${address.addressX}_${address.addressY}`}> {address.addressNick} </option>
+                  <option
+                    key={address.addressSeq}
+                    value={JSON.stringify(address)}
+                    className="map-choose-add-select-option"
+                  >
+                    {" "}
+                    {address.addressNick}{" "}
+                  </option>
+                );
+              })}
+          </select>
+        </div>
+        <button className="map-choose-add-btn" onClick={onhandleDeparturePost}>
+          선택
+        </button>
       </div>
-      <button onClick={onhandleDeparturePost}>출발지로 선택</button>
-
       <div id="map" className="map-wrapper">
         {/* 검색창 껐다 끄기 토클 */}
         {searchOpen && !recommendOpen ? <PlaceSearch /> : null}
@@ -531,12 +535,12 @@ export default function MapContainer() {
             isValid(true);
           }}
         >
+          <div className="map-button-vote-txt">투표현황</div>
           <FaVoteYea
             className="map-button-vote-icon"
-            size="40"
+            size="25"
             color="#ffffff"
           />
-          <div className="map-button-vote-txt">투표현황</div>
         </button>
       </div>
       <div className="map-tab-wrapper">
