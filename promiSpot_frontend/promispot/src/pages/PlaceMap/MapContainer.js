@@ -14,6 +14,8 @@ import PlaceSearch from "./PlaceSearch";
 import { Content } from "antd/es/layout/layout";
 import * as StompJs from "@stomp/stompjs";
 
+
+
 const { kakao } = window;
 
 export default function MapContainer() {
@@ -39,7 +41,55 @@ export default function MapContainer() {
   // 지도 영역 변수 redux에서 가져오기
   const stateRect = useSelector((state) => state.map.rect);
 
-  const [valid, setValid] = useState(false);
+
+  // 로그인한 회원 정보 가져오기
+  const member = useSelector((state) => state.user.info);
+  const memberSeq = useSelector((state) => state.user.info.memberSeq);
+
+  
+
+  // 해당 약속 정보 가져오기
+  const [promise, setPromise] = useState();
+  const searchPromise = async () => {
+    var path = location.pathname;
+    var parse = path.split("/");
+    var promiseSeq = parse[2];
+    try {
+      const response = await axios({
+        method: "GET",
+        url: `${SERVER_URL}/promise/get/${promiseSeq}`,
+      });
+      if (response.data !== "fail") {
+        setPromise(response.data);
+      }
+    } catch(err) {
+      console.log(err)
+    }
+  };
+  useEffect(() => {
+    searchPromise();
+  }, []); 
+  useEffect(() => {
+    console.log("promise 받아오는지 확인 : ", promise);
+  }, [promise]); 
+  
+
+
+  const [valid, setValid] = useState();
+  useEffect(() => {
+    if (promise && promise.promiseLeader === memberSeq) {
+      console.log("promise.promiseLeader : ", promise.promiseLeader);
+      console.log("memberSeq : ", memberSeq);
+      setValid(true);
+    } else {
+      setValid(false);
+    }
+  }, [promise]); 
+
+  useEffect(() => {
+    console.log("valid : ", valid);
+  }, [valid]); 
+
 
   const isValid = () => {
     setValid(!valid);
@@ -49,9 +99,6 @@ export default function MapContainer() {
   const location = useLocation();
   const [promiseSeq, setPromiseSeq] = useState();
 
-  // 로그인한 회원 정보 가져오기
-  const member = useSelector((state) => state.user.info);
-  const memberSeq = useSelector((state) => state.user.info.memberSeq);
 
   // 로그인한 회원의 등록한 주소들 가져오기
   const [memberAddressList, setMemberAddressList] = useState(null);
@@ -559,7 +606,7 @@ export default function MapContainer() {
           className="map-button-now-vote"
           onClick={() => {
             setModalOpen(true);
-            isValid(true);
+            searchVotePlaceList();
           }}
         >
           <div className="map-button-vote-txt">투표현황</div>
@@ -577,15 +624,26 @@ export default function MapContainer() {
       {modalOpen && (
         <Modal2 title="투표현황" button="✖" closeModal={() => setModalOpen(!modalOpen)}>
           {/* 여기에 투표현황 띄우면 됨 */}
+
+          {votePlaceList.length > 0 && 
+            votePlaceList.map((votePlace) => {
+              return ( 
+                <div>
+                  <div> {votePlace.placeName} : {votePlace.voteCnt}</div>
+                </div>
+              )
+            })
+          }
+
+          {/* 여기에 투표현황 띄우면 됨 */}
           <div>
             <div>투표현황입니다</div>
-
-            {!valid ? (
+            {valid ? (
               <button
                 className="map-button-now-vote"
                 onClick={() => {
                   setModalOpen(true);
-                  isValid(true);
+                  // isValid(true);
                 }}
               >
                 <div className="map-button-vote-txt">투표종료</div>
@@ -598,7 +656,7 @@ export default function MapContainer() {
             )}
           </div>
           {/* <div className="vote-done-wrapper">
-             <div className='new-promise-text-wrapper'>
+            <div className='new-promise-text-wrapper'>
         새로운 약속 생성
       </div> 
             <div className="success-checkmark">
