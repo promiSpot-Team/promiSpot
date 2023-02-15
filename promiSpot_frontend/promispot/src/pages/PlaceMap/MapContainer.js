@@ -102,10 +102,7 @@ export default function MapContainer() {
         "https://cdn.lorem.space/images/face/.cache/150x150/nrd-ZmmAnliy1d4-unsplash.jpg";
       if (selectAddress) {
         var customOverlay = new kakao.maps.CustomOverlay({
-          position: new kakao.maps.LatLng(
-            selectAddress.addressX,
-            selectAddress.addressY
-          ),
+          position: new kakao.maps.LatLng(selectAddress.addressX, selectAddress.addressY),
           content: `<div class="map-user-profile"><img src=${profile_url}></div>`,
           xAnchor: 0.3,
           yAnnchor: 0.91,
@@ -152,10 +149,7 @@ export default function MapContainer() {
     if (departureList) {
       departureList.forEach((departure) => {
         var customOverlay = new kakao.maps.CustomOverlay({
-          position: new kakao.maps.LatLng(
-            departure.departureX,
-            departure.departureY
-          ),
+          position: new kakao.maps.LatLng(departure.departureX, departure.departureY),
           content: `<div class="map-user-profile"><img src=${profile_url}></div>`,
           xAnchor: 0.3,
           yAnnchor: 0.91,
@@ -173,8 +167,8 @@ export default function MapContainer() {
   const client = useRef({});
   const connect = () => {
     client.current = new StompJs.Client({
-      // brokerURL: "ws://i8a109.p.ssafy.io:9090/api/ws",
-      brokerURL: `ws://localhost:9090/api/ws`,
+      brokerURL: "ws://i8a109.p.ssafy.io:9090/api/ws",
+      // brokerURL: `ws://localhost:9090/api/ws`,
       onConnect: () => {
         console.log("소켓 연결에 성공했습니다.");
         subscribeDeparture();
@@ -201,14 +195,11 @@ export default function MapContainer() {
     var path = location.pathname;
     var parse = path.split("/");
     var promiseSeq1 = parse[2];
-    const promiseSeq = client.current.subscribe(
-      `/sub/departure/${promiseSeq1}`,
-      (body) => {
-        const json_body = JSON.parse(body.body);
-        searchDepartureList();
-        // console.log("출발지를 subscribe로 받아옵니다.");
-      }
-    );
+    const promiseSeq = client.current.subscribe(`/sub/departure/${promiseSeq1}`, (body) => {
+      const json_body = JSON.parse(body.body);
+      searchDepartureList();
+      // console.log("출발지를 subscribe로 받아옵니다.");
+    });
   };
 
   // 약속 장소 후보 발행 코드
@@ -233,14 +224,11 @@ export default function MapContainer() {
     var path = location.pathname;
     var parse = path.split("/");
     var promiseSeq1 = parse[2];
-    const promiseSeq = client.current.subscribe(
-      `/sub/votePlace/${promiseSeq1}`,
-      (body) => {
-        const json_body = JSON.parse(body.body);
-        searchVotePlaceList();
-        // console.log("약속 장소 후보들을 받습니다.");
-      }
-    );
+    const promiseSeq = client.current.subscribe(`/sub/votePlace/${promiseSeq1}`, (body) => {
+      const json_body = JSON.parse(body.body);
+      searchVotePlaceList();
+      // console.log("약속 장소 후보들을 받습니다.");
+    });
   };
 
   // 연결자 연결종료
@@ -315,8 +303,7 @@ export default function MapContainer() {
     // BeforeVotePlaceList의 데이터로 마커 찍기
     if (votePlaceList) {
       votePlaceList.forEach((votePlace) => {
-        var imageSrc =
-          "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png";
+        var imageSrc = "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png";
         var imageSize = new kakao.maps.Size(24, 35);
         var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);
 
@@ -493,10 +480,7 @@ export default function MapContainer() {
             memberAddressList.map((address) => {
               return (
                 // <option key={address.addressSeq} value={`${address.addressX}_${address.addressY}`}> {address.addressNick} </option>
-                <option
-                  key={address.addressSeq}
-                  value={JSON.stringify(address)}
-                >
+                <option key={address.addressSeq} value={JSON.stringify(address)}>
                   {" "}
                   {address.addressNick}{" "}
                 </option>
@@ -521,11 +505,7 @@ export default function MapContainer() {
               isValid(true);
             }}
           >
-            <FaVoteYea
-              className="map-button-vote-icon"
-              size="40"
-              color="#ffffff"
-            />
+            <FaVoteYea className="map-button-vote-icon" size="40" color="#ffffff" />
             <div className="map-button-vote-txt">투표종료</div>
           </button>
         ) : (
@@ -599,23 +579,15 @@ export default function MapContainer() {
               </div>
             </div>
             <div>
-              <div className="vote-done-text-wrapper">
-                투표가 종료되었습니다
-              </div>
+              <div className="vote-done-text-wrapper">투표가 종료되었습니다</div>
               <div className="vote-done-btn-wrapper">
                 <div className="vote-done-top-sep-wrapper"></div>
                 <Link className="vote-done-btn-one-wrapper" to={"/main"}>
                   <button className="vote-done-btn-one-wrapper">Home</button>
                 </Link>
                 <div className="vote-done-sep-wrapper"></div>
-                <Link
-                  className="vote-done-btn-two-wrapper"
-                  to={`/schedule/${promiseSeq}`}
-                >
-                  <button
-                    className="vote-done-btn-two-wrapper"
-                    onClick={() => setModalOpen(false)}
-                  >
+                <Link className="vote-done-btn-two-wrapper" to={`/schedule/${promiseSeq}`}>
+                  <button className="vote-done-btn-two-wrapper" onClick={() => setModalOpen(false)}>
                     Schedule
                   </button>
                 </Link>
