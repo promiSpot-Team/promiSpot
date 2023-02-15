@@ -3,6 +3,7 @@ import { BsChatLeftDotsFill, BsPersonCircle } from "react-icons/bs";
 import { FaHome } from "react-icons/fa";
 import { ImSearch } from "react-icons/im";
 import { MdRecommend } from "react-icons/md";
+import { AiFillInfoCircle } from "react-icons/ai";
 import { Link } from "react-router-dom";
 import "./TabBar2.scss";
 import { useLocation } from "react-router-dom";
@@ -30,6 +31,7 @@ export default function TabBar2(props) {
   /* 장소 검색/추천 토글 */
   const [openSearch, setOpenSearch] = useState(false);
   const [openRecommend, setOpenRecommend] = useState(false);
+  const [openInfo, setOpenInfo] = useState(false);
 
   // 장소 검색 클릭
   const onClickSearch = () => {
@@ -50,6 +52,16 @@ export default function TabBar2(props) {
   useEffect(() => {
     props.catchClickRecommend(openRecommend);
   }, [openRecommend]);
+
+  // 약속 정보 클릭
+  const onClickInfo = () => {
+    setOpenInfo(false);
+    setOpenInfo(!openInfo);
+  };
+
+  useEffect(() => {
+    props.catchClickInfo(openInfo);
+  }, [openInfo]);
 
   return (
     <>
@@ -88,12 +100,16 @@ export default function TabBar2(props) {
               <div className="navbar-right-2-icon-txt">Recommend</div>
             </div>
             {/* </Link> */}
-            <Link to={"/mypage"} className="navbar-right-2-one">
+            <div className="navbar-right-2-one">
               <div className="navbar-right-2-icon">
-                <BsPersonCircle size="36" color="#ffffff" />
+                <AiFillInfoCircle
+                  size="36"
+                  color="#ffffff"
+                  onClick={onClickInfo}
+                />
               </div>
-              <div className="navbar-right-2-icon-txt">MyPage</div>
-            </Link>
+              <div className="navbar-right-2-icon-txt">Info</div>
+            </div>
           </div>
           <Link to={`/map/${promiseSeq}/chatting`}>
             <div className="circle">
