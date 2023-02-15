@@ -1,9 +1,17 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
 import BeatLoader from "react-spinners/BeatLoader";
+import { FaMapMarkerAlt } from "react-icons/fa";
+import { BsFillTelephoneFill } from "react-icons/bs";
+import { AiFillStar } from "react-icons/ai";
 
 export default function GetDetail(props) {
-  var address_name, category_name, phone, place_name, place_url, road_address_name;
+  var address_name,
+    category_name,
+    phone,
+    place_name,
+    place_url,
+    road_address_name;
 
   console.log("여기는 props 이다");
   console.log(props);
@@ -63,33 +71,43 @@ export default function GetDetail(props) {
     <div className="place-modal-content-wrapper">
       <div className="place-category-list-wrapper">
         {catergoryList.map((category, idx) => {
-          return (
-            <div
-              className="category-name-div"
-            >
-              {category}
-            </div>
-          );
+          return <div className="category-name-div">{category}</div>;
         })}
       </div>
       <div className="place-detail-wrapper">
         {!loading ? (
-          <div style={{}}>
-            <img className="detail-img"
-              src={Img}
-              alt="img"
-            />
-          </div>
+          <img className="detail-img" src={Img} alt="img" />
         ) : (
           <div className="detail-loading">
             <h2>로딩중 ... </h2>
             <BeatLoader color="#36d7b7" />
           </div>
         )}
-        <div style={{}}>
-          <div>{address_name}</div>
-          <div>{phone}</div>
-          <div>평점 : {Star}</div>
+        <div className="place-detail-txt-wrapper">
+          <div className="place-detail-add-wrapper">
+            <FaMapMarkerAlt
+              className="place-detail-add-icon"
+              size="15px"
+              color="#b4b4b4"
+            />
+            <div className="place-detail-add-txt">{address_name}</div>
+          </div>
+          <div className="place-detail-tel-wrapper">
+            <BsFillTelephoneFill
+              className="place-detail-tel-icon"
+              size="15px"
+              color="#b4b4b4"
+            />
+            <div className="place-detail-tel-txt">{phone}</div>
+          </div>
+          <div className="place-detail-star-wrapper">
+            <AiFillStar
+              className="place-detail-star-icon"
+              size="15px"
+              color="#cfc31b"
+            />
+            <div className="place-detail-star-txt">평점 : {Star}</div>
+          </div>
         </div>
       </div>
 

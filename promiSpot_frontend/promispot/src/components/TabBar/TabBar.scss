@@ -268,6 +268,11 @@ $circle-radius: 80px;
     margin: 1vw 1vw 1vh 1.3vw;
   }
 
+  .new-promise-profile-list-wrapper {
+    overflow-y: scroll;
+    flex-direction: column-reverse;
+    height: 70%;
+  }
   .new-promise-profile-wrapper {
     // width: 90%;
     display: grid;

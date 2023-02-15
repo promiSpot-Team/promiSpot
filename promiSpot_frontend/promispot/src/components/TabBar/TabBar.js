@@ -221,19 +221,24 @@ export default function TabBar(props) {
                       id="IU"
                     />
                   </div> */}
-                  {friendList.length > 0 &&
-                    friendList.map((friend, idx) => {
-                      return (
-                        <div key={idx} className="new-promise-profile-wrapper">
-                          <ProfileInfo
-                            imgUrl={friend.memberImgPath}
-                            nickName={friend.memberNick}
-                            id={friend.memberId}
-                            friendSeq={friend.memberSeq}
-                          />
-                        </div>
-                      );
-                    })}
+                  <div className="new-promise-profile-list-wrapper">
+                    {friendList.length > 0 &&
+                      friendList.map((friend, idx) => {
+                        return (
+                          <div
+                            key={idx}
+                            className="new-promise-profile-wrapper"
+                          >
+                            <ProfileInfo
+                              imgUrl={friend.memberImgPath}
+                              nickName={friend.memberNick}
+                              id={friend.memberId}
+                              friendSeq={friend.memberSeq}
+                            />
+                          </div>
+                        );
+                      })}
+                  </div>
                   <div className="new-promise-under-wrapper">
                     <div className="inner-wrapper">
                       {promiseFriendList.map((promiseFriend, idx) => {
