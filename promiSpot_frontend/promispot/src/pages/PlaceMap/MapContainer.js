@@ -24,10 +24,11 @@ export default function MapContainer() {
   const [modalOpen, setModalOpen] = useState(false);
 
   /* 지도의 중심 위치 정보 redux에서 가져오기 */
-  const stateMapCenterPosition = useSelector((state) => state.map.centerXY);
+  const placeCenterXY = useSelector((state) => state.map?.placeXY ? state.map.placeXY : null);
+  const mapCenterXY = useSelector((state) => state.map.centerXY)
 
   // 지도 중심 위치 변수
-  const [mapCenter, setmapCenter] = useState(stateMapCenterPosition);
+  // const [mapCenter, setmapCenter] = useState(stateMapCenterPosition);
 
   // 지도 변수
   const [map, setMap] = useState(null);
@@ -55,14 +56,34 @@ export default function MapContainer() {
   // 로그인한 회원의 등록한 주소들 가져오기
   const [memberAddressList, setMemberAddressList] = useState(null);
   const searchMemberAddressList = async () => {
-    const response = await axios({
-      method: "GET",
-      url: `${SERVER_URL}/address/addressList/${memberSeq}`,
-    });
-    if (response.data !== "fail") {
-      setMemberAddressList(response.data);
+    try {
+      const response = await axios({
+        method: "GET",
+        url: `${SERVER_URL}/address/addressList/${memberSeq}`,
+      });
+      if (response.data !== "fail") {
+        setMemberAddressList(response.data);
+      }
+    } catch(err) {
+      console.log(err)
     }
   };
+
+  useEffect(() => {
+    /** 멤버의 주소들 다 가져와서 중심 위치 설정 */
+    if (memberAddressList?.length > 0) {
+      memberAddressList.map((memberAddress) => {
+        if (memberAddress.addressIsPrimary === 1) {
+          console.log(memberAddress)
+          dispatch(setCenter({
+            centerX: parseFloat(memberAddress.addressX),
+            centerY: parseFloat(memberAddress.addressY)
+          }))
+        }
+      })
+      console.log(map)
+    }
+  }, [memberAddressList])
 
   // 등록한 주소 중 하나 선택하기
   const [selectAddress, setSelectAddress] = useState();
@@ -373,18 +394,13 @@ export default function MapContainer() {
   //   panTo()
   // }, [stateMapCenterPosition])
 
-  const markerPosition = async () => {
+  const setMarker = async () => {
     // state의 mapCenterPosition이 변경될 때마다 실행
 
     //  1. 위도, 경도로 지도에 표시할 위치값 받기
-    var { x, y } = stateMapCenterPosition;
-    var markerPosition = await new kakao.maps.LatLng(y, x);
-
-    /* 지도 정보(map)가 생성된 후에 panTo를 사용해야 함 */
-    if (map) {
-      //  2. 1에서 받은 위치로 이동
-      map.panTo(markerPosition);
-    }
+    // var { x, y } = stateMapCenterPosition;
+    const { placeX, placeY } = placeCenterXY
+    var markerPosition = await new kakao.maps.LatLng(placeY, placeX);
 
     //  3. 1에서 받은 위치에 마커 표시
     var marker = await new kakao.maps.Marker({
@@ -393,29 +409,24 @@ export default function MapContainer() {
     marker.setMap(map);
   };
 
-  // 페이지 불러올 때 한 번만 지도 그리기
-  useEffect(() => {
-    mapscript();
-  }, []);
+  const moveMap = async () => {
+    /* 지도 정보(map)가 생성된 후에 panTo를 사용해야 함 */
+    const { centerX, centerY } = mapCenterXY
+    var mapPosition = await new kakao.maps.LatLng(centerY, centerX);
 
-  // 마커나 프로필이 DB에 추가됐을 때
-  useEffect(() => {}, [mapdata]);
-
-  // 지도의 가장 자리가 바뀔 때
-  useEffect(() => {
-    setRect(stateRect);
-  }, [stateRect]);
-
-  // 지도의 중심 위치 변경될 때
-  useEffect(() => {
-    markerPosition();
-  }, [stateMapCenterPosition]);
+    if (map) {
+      //  2. 1에서 받은 위치로 이동
+      map.panTo(mapPosition);
+    }
+  };
 
   // 지도 그리기
   const mapscript = () => {
     const container = document.getElementById("map");
+    const { centerX, centerY } = mapCenterXY
     const options = {
-      center: new kakao.maps.LatLng(37.5013, 127.0397),
+      // center: new kakao.maps.LatLng(37.5013, 127.0397),
+      center: new kakao.maps.LatLng(centerY, centerX),
       level: 2,
     };
 
@@ -439,7 +450,6 @@ export default function MapContainer() {
     kakao.maps.event.addListener(map, "dragend", function () {
       // 지도의 영역이 변경될 때마다 가장자리 좌표값 변경된 거 보내주기
       var bounds = map.getBounds();
-      console.log("center : ", map.getCenter());
       var newRect =
         String(bounds.ha) +
         "," +
@@ -450,10 +460,10 @@ export default function MapContainer() {
         String(bounds.pa);
       dispatch(changeRect(newRect));
       var center = map.getCenter()
-      // dispatch(changeCenter({
-      //   x: center.La,
-      //   y: center.Ma
-      // }))
+      dispatch(changeCenter({
+        x: center.La,
+        y: center.Ma
+      }))
     });
   }
 
@@ -468,6 +478,29 @@ export default function MapContainer() {
   const catchClickRecommend = (isOpen) => {
     setRecommendOpen(isOpen);
   };
+
+  // 페이지 불러올 때 한 번만 지도 그리기
+  useEffect(() => {
+    mapscript();
+  }, []);
+
+  // 마커나 프로필이 DB에 추가됐을 때
+  useEffect(() => {}, [mapdata]);
+
+  // 지도의 가장 자리가 바뀔 때
+  useEffect(() => {
+    setRect(stateRect);
+  }, [stateRect]);
+
+  // 지도의 중심 위치 변경될 때 마커만 찍기
+  useEffect(() => {
+    if (placeCenterXY) setMarker();
+  }, [placeCenterXY]);
+
+  // 지도의 중심 위치 변경될 때 지도만 이동
+  // useEffect(() => {
+  //   if (mapCenterXY) moveMap();
+  // }, [mapCenterXY]);
 
   return (
     <div id="map-all-wrapper">

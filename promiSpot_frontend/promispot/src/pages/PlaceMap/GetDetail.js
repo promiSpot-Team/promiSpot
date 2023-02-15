@@ -9,7 +9,7 @@ export default function GetDetail(props) {
   console.log(props);
 
   if (props.place.address_name) {
-    console.log("1");
+    // console.log("1");
     var place = props.place;
     address_name = place.address_name;
     category_name = place.category_name;
@@ -27,12 +27,12 @@ export default function GetDetail(props) {
     // road_address_name = votePlace.placeRoadAddressName
   }
 
-  console.log("category_name", category_name);
+  // console.log("category_name", category_name);
   // console.log("props", props)
   /* axios 관련 처리 */
 
   const catergoryList = category_name.split(" > ");
-  console.log("2");
+  // console.log("2");
   const [Img, setData] = useState(undefined);
   const [Star, setStar] = useState(undefined);
   const [error, setError] = useState("");

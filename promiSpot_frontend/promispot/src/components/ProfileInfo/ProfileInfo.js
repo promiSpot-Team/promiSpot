@@ -27,7 +27,7 @@ export default function ProfileInfo(props) {
   /* 약속에서 친구 제거하기 */
   const removePromiseFriend = () => {
     setIsAdd(!isAdd)
-    console.log(friendSeq)
+    // console.log(friendSeq)
     dispatch(setPromiseFriend({
       friendSeq, 
       imgUrl

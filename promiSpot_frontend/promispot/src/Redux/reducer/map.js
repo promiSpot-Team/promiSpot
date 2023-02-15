@@ -12,8 +12,8 @@ export const changeCenter = centerXY => ({ type: CHANGE_CENTER, centerXY })
 
 const initialState = {
   centerXY: {
-    x: 127.0397,
-    y: 37.5013
+    centerX: 127.0397,
+    centerY: 37.5013
   }
 }
 
@@ -29,9 +29,9 @@ export default function map(state = initialState, action) {
     /* 장소 등록 시 중심 위치 변경 */
     case SET_PLACE: {
       return Object.assign({}, state, {
-        centerXY: {
-          x: parseFloat(action.place.x),
-          y: parseFloat(action.place.y)
+        placeXY: {
+          placeX: parseFloat(action.place.x),
+          placeY: parseFloat(action.place.y)
         }
       })
     }

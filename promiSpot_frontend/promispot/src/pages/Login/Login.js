@@ -7,6 +7,7 @@ import BasicButton from "../../components/Buttons/BasicButton";
 import BasicHeader from "../../components/Header/BasicHeader1";
 import { SERVER_URL } from "../../constants/constants";
 import { setToken } from "../../Redux/reducer/user";
+import { setCenter } from "../../Redux/reducer/map";
 import { IoIosArrowBack } from "react-icons/io";
 import axios from "axios";
 import { FormControl, TextField } from "@mui/material/";
@@ -70,6 +71,14 @@ function Login() {
       dispatch(setToken(info));
       sessionStorage.setItem("info", JSON.stringify(info))
       // localStorage.setItem("isLogin", true);
+      const response2 = await axios({
+        method: 'GET', 
+        url: `${SERVER_URL}/address/${info.memberSeq}`
+      })
+      dispatch(setCenter({
+        centerX: parseFloat(response2.data.addressX),
+        centerY: parseFloat(response2.data.addressY)
+      }))
       navigate("/main");
     } catch (err) {
       console.log(err)

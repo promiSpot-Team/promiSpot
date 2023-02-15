@@ -158,7 +158,7 @@ export default function Friend(props) {
             <input
               type="text"
               className="search__input"
-              placeholder="Search..."
+              placeholder="아이디 또는 전화번호를 입력하세요"
               onChange={changeInputData}
               value={inputData}
             />
