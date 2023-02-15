@@ -4,7 +4,7 @@ import { FaHome } from "react-icons/fa";
 import { ImSearch } from "react-icons/im";
 import { MdRecommend } from "react-icons/md";
 import { Link } from "react-router-dom";
-import "./TabBar.scss";
+import "./TabBar2.scss";
 import { useLocation } from "react-router-dom";
 
 // 지도 페이지에 들어가는 TabBar2
@@ -55,29 +55,29 @@ export default function TabBar2(props) {
     <>
       <div className="wrapper">
         <div className="navbar">
-          <div className="navbar-left">
+          <div className="navbar-left-2">
             <Link
-              className="navbar-left-one"
+              className="navbar-left-2-one"
               to={"/main"}
               style={{ textDecoration: "none" }}
             >
-              <div className="navbar-left-icon">
+              <div className="navbar-left-2-icon">
                 <FaHome size="36" color="#ffffff" />
               </div>
-              <div className="navbar-left-icon-txt">Home</div>
+              <div className="navbar-left-2-icon-txt">Home</div>
             </Link>
-            <div className="navbar-left-one">
-              <div className="navbar-left-icon">
+            <div className="navbar-left-2-one">
+              <div className="navbar-left-2-icon">
                 {/* <Link to={`/map/${promiseSeq}/search`} className="link"> */}
                 <ImSearch size="36" color="#ffffff" onClick={onClickSearch} />
               </div>
-              <div className="navbar-left-icon-txt">Search</div>
+              <div className="navbar-left-2-icon-txt">Search</div>
             </div>
             {/* </Link> */}
           </div>
-          <div className="navbar-right">
-            <div className="navbar-right-one">
-              <div className="navbar-right-icon">
+          <div className="navbar-right-2">
+            <div className="navbar-right-2-one">
+              <div className="navbar-right-2-icon">
                 {/* <Link to={`/map/${promiseSeq}/recommend`} className="link"> */}
                 <MdRecommend
                   size="40"
@@ -85,14 +85,14 @@ export default function TabBar2(props) {
                   onClick={onClickRecommend}
                 />
               </div>
-              <div className="navbar-right-icon-txt">Recommend</div>
+              <div className="navbar-right-2-icon-txt">Recommend</div>
             </div>
             {/* </Link> */}
-            <Link to={"/mypage"} className="navbar-right-one">
-              <div className="navbar-right-icon">
+            <Link to={"/mypage"} className="navbar-right-2-one">
+              <div className="navbar-right-2-icon">
                 <BsPersonCircle size="36" color="#ffffff" />
               </div>
-              <div className="navbar-right-icon-txt">MyPage</div>
+              <div className="navbar-right-2-icon-txt">MyPage</div>
             </Link>
           </div>
           <Link to={`/map/${promiseSeq}/chatting`}>
