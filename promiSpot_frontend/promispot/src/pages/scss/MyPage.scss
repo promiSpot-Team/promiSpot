@@ -113,63 +113,77 @@
       font-size: 18px;
     }
   }
-  .my-content-line {
-    width: 100%;
-    height: 2px;
-    background-color: rgba(204, 204, 204, 0.541);
-  }
-  .my-content-line-2 {
-    width: 100%;
-    height: 2px;
-    background-color: rgba(204, 204, 204, 0.288);
-  }
-  .my-content-address-wrapper {
-    width: 100%;
-    padding: 4% 0 4% 0;
-    background-color: rgba(230, 230, 230, 0.466);
-    .my-content-address {
-      display: grid;
+  .my-content-real-all-wrapper {
+    height: 55vh;
+    overflow: scroll;
+    .my-content-line {
       width: 100%;
-      text-decoration: none;
-      .my-content-address-nick {
-        margin-left: 6%;
-        font-size: 19px;
-        font-weight: 600;
-        padding-bottom: 5px;
-      }
-      .my-content-address-real {
-        margin-left: 6%;
-        font-size: 18px;
-      }
+      height: 2px;
+      background-color: rgba(204, 204, 204, 0.541);
     }
-    .my-content-address-icon {
-      position: absolute;
-      padding-top: 12px;
-      right: 5px;
-    }
-  }
-  .my-content-info-wrapper {
-    width: 100%;
-    padding: 3% 0 3% 0;
-    .my-content-info {
+    .my-content-line-2 {
       width: 100%;
-      .my-content-info-title {
-        margin-left: 6%;
-        font-size: 19px;
-        font-weight: 600;
-        color: rgb(104, 104, 104);
-        padding-bottom: 5px;
+      height: 2px;
+      background-color: rgba(204, 204, 204, 0.288);
+    }
+    .my-content-address-wrapper {
+      width: 100%;
+      padding: 4% 0 4% 0;
+      background-color: rgba(230, 230, 230, 0.466);
+      .my-content-address {
+        display: grid;
+        width: 100%;
+        text-decoration: none;
+        .my-content-address-nick {
+          margin-left: 6%;
+          font-size: 19px;
+          font-weight: 600;
+          padding-bottom: 5px;
+        }
+        .my-content-address-real {
+          margin-left: 6%;
+          font-size: 18px;
+        }
       }
-      .my-content-info-txt {
-        margin-left: 6%;
-        font-size: 18px;
+      .my-content-address-icon {
+        position: absolute;
+        padding-top: 12px;
+        right: 5px;
       }
     }
+    .my-content-info-wrapper {
+      width: 100%;
+      padding: 3% 0 3% 0;
+      .my-content-info {
+        width: 100%;
+        .my-content-info-title {
+          margin-left: 6%;
+          font-size: 19px;
+          font-weight: 600;
+          color: rgb(104, 104, 104);
+          padding-bottom: 5px;
+        }
+        .my-content-info-txt {
+          margin-left: 6%;
+          font-size: 18px;
+        }
+      }
+    }
+    .my-content-logout-btn-wrapper {
+      width: 100%;
+      justify-content: center;
+      padding-top: 3vh;
+      display: flex;
+    }
   }
-  .my-content-logout-btn-wrapper {
+  .mypage-edit-input-wrapper {
     width: 100%;
-    justify-content: center;
-    padding-top: 3vh;
-    display: flex;
+    margin-top: 5vh;
+    .mypage-edit-btn {
+      width: 30vw;
+      justify-content: center;
+      padding-top: 3vh;
+      display: flex;
+    }
   }
 }
