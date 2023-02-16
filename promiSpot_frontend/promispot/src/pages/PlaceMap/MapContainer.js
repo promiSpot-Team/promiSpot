@@ -14,6 +14,8 @@ import PlaceSearch from "./PlaceSearch";
 import PromiseInfo from "./PromiseInfo";
 import { Content } from "antd/es/layout/layout";
 import * as StompJs from "@stomp/stompjs";
+import { AiOutlineConsoleSql } from "react-icons/ai";
+import Chatting from './Chatting'
 
 const { kakao } = window;
 
@@ -489,8 +491,8 @@ export default function MapContainer() {
       var center = map.getCenter();
       dispatch(
         changeCenter({
-          x: center.La,
-          y: center.Ma,
+          centerX: center.La,
+          centerY: center.Ma,
         })
       );
     });
@@ -498,18 +500,35 @@ export default function MapContainer() {
 
   // <TabBar2 />에서 검색 클릭 했을 때 true/false 값 가져오기
   const [searchOpen, setSearchOpen] = useState(false);
-  const catchClickSearch = (isOpen) => {
+  const [recommendOpen, setRecommendOpen] = useState(false);
+  const [infoOpen, setInfoOpen] = useState(false);
+  const deafultOpenDiv = {
+    search: false,
+    recommend: false,
+    info: false
+  }
+  const [openDiv, setOpenDiv] = useState(deafultOpenDiv)
+
+  const catchClickIcon = (icon) => {
+    const newOpenDiv = Object.assign({}, deafultOpenDiv, {
+      [icon]: !openDiv[icon]
+    })
+    setOpenDiv(newOpenDiv)
+    console.log(openDiv)
+  }
+
+   const catchClickSearch = (isOpen) => {
     setSearchOpen(isOpen);
+    setRecommendOpen(false)
+    setInfoOpen(false)
   };
 
   // <TabBar2 />에서 추천 클릭 했을 때 true/false 값 가져오기
-  const [recommendOpen, setRecommendOpen] = useState(false);
   const catchClickRecommend = (isOpen) => {
     setRecommendOpen(isOpen);
   };
 
   // <TabBar2 />에서 정보 클릭 했을 때 true/false 값 가져오기
-  const [infoOpen, setInfoOpen] = useState(false);
   const catchClickInfo = (isOpen) => {
     setInfoOpen(isOpen);
   };
@@ -567,12 +586,10 @@ export default function MapContainer() {
       <div id="map" className="map-wrapper">
         {/* 검색창 껐다 끄기 토클 */}
         {/* 여기 조절 다시 해야함 */}
-        {searchOpen && !recommendOpen ? <PlaceSearch /> : null}
-        {searchOpen && !infoOpen ? <PlaceSearch /> : null}
-        {recommendOpen && !searchOpen ? <PlaceRecommend /> : null}
-        {recommendOpen && !infoOpen ? <PlaceRecommend /> : null}
-        {infoOpen && !searchOpen ? <PromiseInfo /> : null}
-        {infoOpen && !recommendOpen ? <PromiseInfo /> : null}
+        {openDiv.search && (<PlaceSearch />)}
+        {openDiv.recommend && (<PlaceRecommend />)}
+        {openDiv.info && (<PromiseInfo />)}
+        {openDiv.chat && (<Chatting />)}
         <Outlet />
       </div>
       {/* <div className="map-button-wrapper">
@@ -608,12 +625,13 @@ export default function MapContainer() {
       </div>
       <div className="map-tab-wrapper">
         <TabBar2
-          // 검색 클릭 했을 때
-          catchClickSearch={catchClickSearch}
-          // 추천 클릭 했을 때
-          catchClickRecommend={catchClickRecommend}
-          // 정보 클릭 했을 때
-          catchClickInfo={catchClickInfo}
+          // // 검색 클릭 했을 때
+          // catchClickSearch={catchClickSearch}
+          // // 추천 클릭 했을 때
+          // catchClickRecommend={catchClickRecommend}
+          // // 정보 클릭 했을 때
+          // catchClickInfo={catchClickInfo}
+          catchClickIcon={catchClickIcon}
         />
       </div>
       {modalOpen && (

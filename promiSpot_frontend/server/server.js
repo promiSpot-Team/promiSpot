@@ -27,6 +27,7 @@ app.post('/crawling', (req, res) => {
   console.log(placeUrl)
   const python = spawn('python', ['./crawler.py', placeUrl])
   python.stdout.on('data', (data) => {
+    console.log(data)
     let placeData = JSON.parse(data.toString())
     res.send(placeData)
   })
