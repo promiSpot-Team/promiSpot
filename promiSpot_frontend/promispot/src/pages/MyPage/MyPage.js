@@ -159,13 +159,7 @@ export default function MyPage({ history }) {
       addressIsPrimary: 0,
     };
     // console.log(addressData);
-    const {
-      addressAddress,
-      addressX,
-      addressY,
-      addressNick,
-      addressIsPrimary,
-    } = addressData;
+    const { addressAddress, addressX, addressY, addressNick, addressIsPrimary } = addressData;
     addAddress(addressData);
   };
 
@@ -222,21 +216,13 @@ export default function MyPage({ history }) {
                     />
                     <div></div>
                   </div>
-                  <div className="my-content-name">
-                    {item.memberInfo.memberName}
-                  </div>
+                  <div className="my-content-name">{item.memberInfo.memberName}</div>
                   <div className="my-content-edit-btn-wrapper">
-                    <button
-                      className="my-content-edit-btn"
-                      onClick={changeNextPage}
-                    >
+                    <button className="my-content-edit-btn" onClick={changeNextPage}>
                       편집
                     </button>
                   </div>
-                  <div
-                    className="my-content-address-wrapper"
-                    onClick={goAddress}
-                  >
+                  <div className="my-content-address-wrapper" onClick={goAddress}>
                     {myAddressList &&
                       myAddressList.map((address) => {
                         return (
@@ -263,36 +249,28 @@ export default function MyPage({ history }) {
                   <div className="my-content-info-wrapper">
                     <div className="my-content-info">
                       <div className="my-content-info-title">닉네임</div>
-                      <div className="my-content-info-txt">
-                        {item.memberInfo.memberNick}
-                      </div>
+                      <div className="my-content-info-txt">{item.memberInfo.memberNick}</div>
                     </div>
                   </div>
                   <div className="my-content-line"></div>
                   <div className="my-content-info-wrapper">
                     <div className="my-content-info">
                       <div className="my-content-info-title">아이디</div>
-                      <div className="my-content-info-txt">
-                        {item.memberInfo.memberId}
-                      </div>
+                      <div className="my-content-info-txt">{item.memberInfo.memberId}</div>
                     </div>
                   </div>
                   <div className="my-content-line"></div>
                   <div className="my-content-info-wrapper">
                     <div className="my-content-info">
                       <div className="my-content-info-title">이메일</div>
-                      <div className="my-content-info-txt">
-                        {item.memberInfo.memberEmail}
-                      </div>
+                      <div className="my-content-info-txt">{item.memberInfo.memberEmail}</div>
                     </div>
                   </div>
                   <div className="my-content-line"></div>
                   <div className="my-content-info-wrapper">
                     <div className="my-content-info">
                       <div className="my-content-info-title">전화번호</div>
-                      <div className="my-content-info-txt">
-                        {item.memberInfo.memberPhoneNum}
-                      </div>
+                      <div className="my-content-info-txt">{item.memberInfo.memberPhoneNum}</div>
                     </div>
                   </div>
                   <div className="my-content-line-2"></div>
@@ -351,6 +329,7 @@ export default function MyPage({ history }) {
             <div>{info.memberId}</div></div>
           )
         })} */}
+
       <TabBar />
     </div>
   );
