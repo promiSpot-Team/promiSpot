@@ -3,6 +3,7 @@ import { BsChatLeftDotsFill, BsPersonCircle } from "react-icons/bs";
 import { FaHome } from "react-icons/fa";
 import { ImSearch } from "react-icons/im";
 import { MdRecommend } from "react-icons/md";
+import { AiFillInfoCircle } from "react-icons/ai";
 import { Link } from "react-router-dom";
 import "./TabBar2.scss";
 import { useLocation } from "react-router-dom";
@@ -27,29 +28,10 @@ export default function TabBar2(props) {
     // console.log(promiseSeq);
   }, [promiseSeq]);
 
-  /* 장소 검색/추천 토글 */
-  const [openSearch, setOpenSearch] = useState(false);
-  const [openRecommend, setOpenRecommend] = useState(false);
-
-  // 장소 검색 클릭
-  const onClickSearch = () => {
-    setOpenRecommend(false);
-    setOpenSearch(!openSearch);
-  };
-
-  useEffect(() => {
-    props.catchClickSearch(openSearch);
-  }, [openSearch]);
-
-  // 장소 추천 클릭
-  const onClickRecommend = () => {
-    setOpenSearch(false);
-    setOpenRecommend(!openRecommend);
-  };
-
-  useEffect(() => {
-    props.catchClickRecommend(openRecommend);
-  }, [openRecommend]);
+  // 채팅 버튼 클릭
+  const onClickIcon = (icon) => {
+    props.catchClickIcon(icon)
+  }
 
   return (
     <>
@@ -69,7 +51,11 @@ export default function TabBar2(props) {
             <div className="navbar-left-2-one">
               <div className="navbar-left-2-icon">
                 {/* <Link to={`/map/${promiseSeq}/search`} className="link"> */}
-                <ImSearch size="36" color="#ffffff" onClick={onClickSearch} />
+                <ImSearch 
+                  size="36" 
+                  color="#ffffff" 
+                  onClick={() => onClickIcon('search')} 
+                />
               </div>
               <div className="navbar-left-2-icon-txt">Search</div>
             </div>
@@ -82,24 +68,31 @@ export default function TabBar2(props) {
                 <MdRecommend
                   size="40"
                   color="#ffffff"
-                  onClick={onClickRecommend}
+                  onClick={() => onClickIcon('recommend')}
                 />
               </div>
               <div className="navbar-right-2-icon-txt">Recommend</div>
             </div>
             {/* </Link> */}
-            <Link to={"/mypage"} className="navbar-right-2-one">
+            <div className="navbar-right-2-one">
               <div className="navbar-right-2-icon">
-                <BsPersonCircle size="36" color="#ffffff" />
+                <AiFillInfoCircle
+                  size="36"
+                  color="#ffffff"
+                  onClick={() => onClickIcon('info')}
+                />
               </div>
-              <div className="navbar-right-2-icon-txt">MyPage</div>
-            </Link>
-          </div>
-          <Link to={`/map/${promiseSeq}/chatting`}>
-            <div className="circle">
-              <BsChatLeftDotsFill size="36" color="#ffffff" />
+              <div className="navbar-right-2-icon-txt">Info</div>
             </div>
-          </Link>
+          </div>
+          {/* <Link to={`/map/${promiseSeq}/chatting`}> */}
+            <div className="circle">
+              <BsChatLeftDotsFill size="36" color="#ffffff" 
+                // onClickChatting={onClickChatting}
+                onClick={() => onClickIcon('chat')}
+              />
+            </div>
+          {/* </Link> */}
         </div>
         <div className="circleBackground"></div>
       </div>

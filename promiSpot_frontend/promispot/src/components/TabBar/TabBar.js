@@ -114,10 +114,11 @@ export default function TabBar(props) {
       const promiseSeq = response1.data.promiseSeq;
 
       /* 약속 친구 추가 */
-      const newFriend = promiseFriendList.map((friendSeq) => {
+      const newFriend = promiseFriendList.map((friend) => {
+        // console.log(friend.friendSeq)
         return {
           promiseSeq,
-          memberSeq: friendSeq,
+          memberSeq: friend.friendSeq,
           promiseMemberIsLeader: 0,
         };
       });
@@ -205,11 +206,11 @@ export default function TabBar(props) {
           >
             {!nextModal ? (
               <>
-                <div className="new-promise-wrapper">
+                <div className="new-promise1-wrapper">
                   {/* <div className='new-promise-text-wrapper'>
                         새로운 약속 생성
                       </div> */}
-                  <div className="new-promise-search-wrapper">
+                  <div className="new-promise1-search-wrapper">
                     <SearchBar HandleInputFocus={HandleInputFocus} />
                   </div>
 
@@ -221,28 +222,33 @@ export default function TabBar(props) {
                       id="IU"
                     />
                   </div> */}
-                  {friendList.length > 0 &&
-                    friendList.map((friend, idx) => {
-                      return (
-                        <div key={idx} className="new-promise-profile-wrapper">
-                          <ProfileInfo
-                            imgUrl={friend.memberImgPath}
-                            nickName={friend.memberNick}
-                            id={friend.memberId}
-                            friendSeq={friend.memberSeq}
-                          />
-                        </div>
-                      );
-                    })}
-                  <div className="new-promise-under-wrapper">
+                  <div className="new-promise1-profile-list-wrapper">
+                    {friendList.length > 0 &&
+                      friendList.map((friend, idx) => {
+                        return (
+                          <div
+                            key={idx}
+                            className="new-promise1-profile-wrapper"
+                          >
+                            <ProfileInfo
+                              imgUrl={friend.memberImgPath}
+                              nickName={friend.memberNick}
+                              id={friend.memberId}
+                              friendSeq={friend.memberSeq}
+                            />
+                          </div>
+                        );
+                      })}
+                  </div>
+                  <div className="new-promise1-under-wrapper">
                     <div className="inner-wrapper">
                       {promiseFriendList.map((promiseFriend, idx) => {
                         return (
                           <div
                             key={idx}
-                            className="new-promise-under-images-wrapper"
+                            className="new-promise1-under-images-wrapper"
                           >
-                            <div className="new-promise-under-img">
+                            <div className="new-promise1-under-img">
                               <img src={promiseFriend.imgUrl} width="35px" />
                             </div>
                           </div>
@@ -250,7 +256,7 @@ export default function TabBar(props) {
                       })}
                     </div>
                     <button
-                      className="new-promise-under-btn-wrapper"
+                      className="new-promise1-under-btn-wrapper"
                       onClick={changeNextModal}
                     >
                       다음
@@ -260,40 +266,43 @@ export default function TabBar(props) {
               </>
             ) : (
               <>
-                <div className="new-promise-wrapper">
-                  <div>
+                <div className="new-promise1-wrapper">
+                  <div className="new-promise1-input-wrapper">
                     <InputForm
+                      className="new-promise1-input"
                       id="promise_title"
                       label="약속 제목"
                       placeholder="일정"
                       getInputPromiseTitle={getInputPromiseTitle}
-                    />{" "}
+                      focused
+                    />
                   </div>
-
-                  <DatePicker
-                    selected={startDate}
-                    value={startDate}
-                    onChange={onChangeDatePicker}
-                    // showTimeSelect
-                    // timeFormat="HH:mm"
-                    // timeIntervals={15}
-                    // timeCaption="time"
-                    locale={ko} // 한글로 변경
-                    dateFormat="yyyy.MM.dd(eee) h:mm aa" // 시간 포맷 변경
-                    showPopperArrow={false} // 화살표 변경
-                    minDate={new Date()} // 오늘 날짜 전은 선택 못하게
-                    dayClassName={(d) =>
-                      getDate(d) === getDate(startDate) &&
-                      getMonth(d) === getMonth(startDate)
-                        ? "normal-day selected-day"
-                        : "normal-day"
-                    }
-                    inline
-                  ></DatePicker>
-
+                  <div className="new-promise1-date-wrapper">
+                    <DatePicker
+                      className="new-promise1-date"
+                      selected={startDate}
+                      value={startDate}
+                      onChange={onChangeDatePicker}
+                      // showTimeSelect
+                      // timeFormat="HH:mm"
+                      // timeIntervals={15}
+                      // timeCaption="time"
+                      locale={ko} // 한글로 변경
+                      dateFormat="yyyy.MM.dd(eee) h:mm aa" // 시간 포맷 변경
+                      showPopperArrow={false} // 화살표 변경
+                      minDate={new Date()} // 오늘 날짜 전은 선택 못하게
+                      dayClassName={(d) =>
+                        getDate(d) === getDate(startDate) &&
+                        getMonth(d) === getMonth(startDate)
+                          ? "normal-day selected-day"
+                          : "normal-day"
+                      }
+                      inline
+                    ></DatePicker>
+                  </div>
                   <div
                     onClick={createPromise}
-                    className="new-promise-under-btn-wrapper"
+                    className="new-promise1-under-btn-wrapper"
                   >
                     {/* <Link to={"/map"} className="link"> */}
                     생성

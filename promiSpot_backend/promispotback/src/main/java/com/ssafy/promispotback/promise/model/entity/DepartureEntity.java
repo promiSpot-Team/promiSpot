@@ -21,15 +21,19 @@ public class DepartureEntity {
     @ApiModelProperty(value = "위도")
     private String departureY;
 
+    @ApiModelProperty(value = "프로필 이미지 경로")
+    private String memberImgPath;
+
     public DepartureEntity() {
     }
 
-    public DepartureEntity(int promiseSeq, int memberSeq, String memberName, String departureX, String departureY) {
+    public DepartureEntity(int promiseSeq, int memberSeq, String memberName, String departureX, String departureY, String memberImgPath) {
         this.promiseSeq = promiseSeq;
         this.memberSeq = memberSeq;
         this.memberName = memberName;
         this.departureX = departureX;
         this.departureY = departureY;
+        this.memberImgPath = memberImgPath;
     }
 
     public int getPromiseSeq() {
@@ -70,5 +74,13 @@ public class DepartureEntity {
 
     public void setDepartureY(String departureY) {
         this.departureY = departureY;
+    }
+
+    public String getMemberImgPath() {
+        return memberImgPath;
+    }
+
+    public void setMemberImgPath(String memberImgPath) {
+        this.memberImgPath = memberImgPath;
     }
 }

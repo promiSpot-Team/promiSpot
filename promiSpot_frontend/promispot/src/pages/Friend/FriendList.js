@@ -26,8 +26,6 @@ export default function FriendList({ memberSeq }) {
     getFriendList()
   }, [])
 
-  console.log('asdf', friendList)
-
   return (
     <div className="friend-list-wrapper">
       

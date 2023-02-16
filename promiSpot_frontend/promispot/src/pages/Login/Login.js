@@ -73,16 +73,21 @@ function Login() {
       // localStorage.setItem("isLogin", true);
       const response2 = await axios({
         method: 'GET', 
-        url: `${SERVER_URL}/address/${info.memberSeq}`
+        url: `${SERVER_URL}/address/addressList/${info.memberSeq}`
       })
+      const primaryAddress = await response2.data.filter((address) => {
+        return address.addressIsPrimary === 1
+      })
+      // console.log("primaryAddress", primaryAddress)
       dispatch(setCenter({
-        centerX: parseFloat(response2.data.addressX),
-        centerY: parseFloat(response2.data.addressY)
+        centerX: parseFloat(primaryAddress[0].addressX),
+        centerY: parseFloat(primaryAddress[0].addressY)
       }))
       navigate("/main");
     } catch (err) {
       console.log(err)
       alert('로그인 실패')
+      navigate('/login')
     }
   };
 
@@ -138,7 +143,7 @@ function Login() {
               id="id"
               label="아이디"
               name="id"
-              placeholder="UserName"
+              placeholder="아이디를 입력하세요"
               multiline
               variant="standard"
               fontFamily="Pretendard-Bold"

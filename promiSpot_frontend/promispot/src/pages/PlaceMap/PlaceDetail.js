@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import BasicHeader from "../../components/Header/BasicHeader3";
 import getDetail from "./GetDetail";
+import { RiTimeFill } from "react-icons/ri";
 import { setPlace } from "../../Redux/reducer/map";
 import { useDispatch } from "react-redux";
 import GetDetail from "./GetDetail";
@@ -206,20 +207,35 @@ export default function PlaceDetail() {
 
   return (
     <div className="place-modal-wrapper">
-      <div>
-        <BasicHeader text={place.place_name ? place.place_name : place.placeName} />
+      <div className="place-modal-top">
+        <BasicHeader
+          className="place-modal-title"
+          text={place.place_name ? place.place_name : place.placeName}
+        />
+        <div className="place-time-btn">
+          <RiTimeFill
+            className="place-time-btn-icon"
+            size="20px"
+            color="white"
+          />
+          <div className="place-time-btn-txt">소요 시간</div>
+        </div>
       </div>
       <div>
         <GetDetail place={place} />
 
         {checkVotePlace ? (
-          <div>
-            <div> 득표수 : {checkVotePlace.voteCnt} </div>
+          <div className="vote-wrapper">
             {checkVoteMember ? (
-              <button onClick={removeVoter}>투표취소</button>
+              <button className="vote-wrapper-btn" onClick={removeVoter}>
+                투표취소
+              </button>
             ) : (
-              <button onClick={insertVoter}>투표하기</button>
+              <button className="vote-wrapper-btn" onClick={insertVoter}>
+                투표하기
+              </button>
             )}
+            <div className="vote-wrapper-now"> {checkVotePlace.voteCnt}표 </div>
 
             <button className="place-register-btn" onClick={cancleVotePlace}>
               등록 취소

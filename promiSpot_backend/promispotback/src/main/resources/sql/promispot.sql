@@ -148,6 +148,7 @@ CREATE TABLE `departure` (
                              `member_name`	VARCHAR(20),
                              `departure_x`	VARCHAR(20)	NULL,
                              `departure_y`	VARCHAR(20)	NULL,
+                             `member_img_path`	VARCHAR(200),
                              primary key(promise_seq, member_seq)
 );
 

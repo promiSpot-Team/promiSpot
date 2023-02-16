@@ -24,8 +24,10 @@ app.use(cors())
 app.post('/crawling', (req, res) => {
   // res.send('Hello World!')
   const placeUrl = req.body.placeUrl
+  console.log(placeUrl)
   const python = spawn('python', ['./crawler.py', placeUrl])
   python.stdout.on('data', (data) => {
+    console.log(data)
     let placeData = JSON.parse(data.toString())
     res.send(placeData)
   })

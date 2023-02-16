@@ -163,14 +163,13 @@ export default function Schedule() {
               return (
                 <div
                   key={idx}
-                  className={idx}
+                  className="new-schedule-under-images-wrapper"
                 >
-                  <div className="new-promise-under-img">
+                  <div className="new-schedule-under-img">
                     <img
                       // src={require("../../img/IU_Profile.jpg")}
                       src={schedulePlace[0].placeImgUrl}
                       //src="https://img1.kakaocdn.net/cthumb/local/R0x420/?fname=http%3A%2F%2Ft1.kakaocdn.net%2Fmystore%2FB59A20ADFA864C31B54124064E339231"
-                      width="35px"
                     />
                   </div>
                 </div>
