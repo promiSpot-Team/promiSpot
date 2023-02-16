@@ -59,6 +59,24 @@
 				 where member_seq = #{memberSeq} and friend_friend = #{friendSeq})
 	</select>
 
+	<!-- 내가 친구 요청 했는지 확인 -->
+	<select id="isSend" parameterType="map" resultType="int">
+		select
+			exists
+				(select 1
+				 from friend_request
+				 where member_seq = #{memberSeq} and friend_request_member = #{friendSeq})
+	</select>
+
+	<!-- 내가 요청 받았는지 확인 -->
+	<select id="isReceive" parameterType="map" resultType="int">
+		select
+			exists
+				(select 1
+				 from friend_request
+				 where member_seq = #{friendSeq} and friend_request_member = #{memberSeq})
+	</select>
+
 	<!-- 친구 목록 조회 --> <!-- 수정 필요 -->
 	<select id="findFriendList" parameterType="int" resultType="MemberEntity">
 		select member_nick, member_id, member_img_path, member_img_origin_name, member_img_server_name, friend_friend as member_seq

@@ -37,4 +37,8 @@ public interface FriendMapper {
 	// 친구 확인
 	public int isFriend(@Param("memberSeq") int memberSeq, @Param("friendSeq") int friendSeq) throws SQLException;
 
+	public int isSend(@Param("memberSeq") int memberSeq, @Param("friendSeq") int friendSeq) throws SQLException;
+
+	public int isReceive(@Param("memberSeq") int memberSeq, @Param("friendSeq") int friendSeq) throws SQLException;
+
 }//FriendMapper
