@@ -51,19 +51,46 @@ export default function PromiseInfo() {
       }}
     >
       {promise && participantList && (
-        <div>
-          <div> {promise.promiseTitle} </div>
-          <div> {promise.promiseDate} </div>
-          <div> {promise.promiseDay} </div>
-
-          <div> 참가자 목록 </div>
-          {participantList.map((participant) => (
-            <div key={participant.memberSeq}>
-              <img src={participant.memberImgPath}></img>
-              <div>{participant.memberName}</div>
-              {promise.promiseLeader === participant.memberSeq ? <div> 약속장 </div> : <div></div>}
+        <div className="promise-info-wrapper">
+          <div className="promise-info-info">
+            <div className="promise-info-title"> {promise.promiseTitle} </div>
+            <div className="promise-info-date">
+              {" "}
+              {promise.promiseDate} {promise.promiseDay}
             </div>
-          ))}
+          </div>
+          {/* <div className="promise-info-day"> </div> */}
+
+          <div className="promise-info-participants-wrapper">
+            {participantList.map((participant) => (
+              <div
+                className="promise-info-participant"
+                key={participant.memberSeq}
+              >
+                {promise.promiseLeader === participant.memberSeq ? (
+                  <div className="promise-info-participant-one">
+                    <img
+                      className="promise-info-participant-boss-img"
+                      src={participant.memberImgPath}
+                    ></img>
+                    <div className="promise-info-participant-boss-name">
+                      {participant.memberName}
+                    </div>
+                  </div>
+                ) : (
+                  <div className="promise-info-participant-one">
+                    <img
+                      className="promise-info-participant-img"
+                      src={participant.memberImgPath}
+                    ></img>
+                    <div className="promise-info-participant-name">
+                      {participant.memberName}
+                    </div>
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
         </div>
       )}
     </motion.div>

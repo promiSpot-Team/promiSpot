@@ -63,9 +63,6 @@ public class MapService {
         double hyp = Math.sqrt(avgX * avgX + avgY * avgY);
         double midLat = Math.atan2(avgZ, hyp);
 
-
-
-
         MapDto mapDto = new MapDto();
         mapDto.setMiddleX(String.valueOf(midLng *180/Math.PI));
         mapDto.setMiddleY(String.valueOf(midLat *180/Math.PI));
