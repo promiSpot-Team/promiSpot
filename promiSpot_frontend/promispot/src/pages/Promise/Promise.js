@@ -87,10 +87,14 @@ export default function Promise(props) {
           </Tabs>
         </Box>
         <TabPanel value={value} index={0}>
-          <PromiseList />
+          <div className="promise-list">
+            <PromiseList />
+          </div>
         </TabPanel>
         <TabPanel value={value} index={1}>
-          <PromiseCalendar />
+          <div className="promise-calendar">
+            <PromiseCalendar />
+          </div>
         </TabPanel>
       </Box>
       <TabBar />

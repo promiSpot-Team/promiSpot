@@ -60,6 +60,8 @@ public class FriendServiceImpl implements FriendService {
 					, member.getMemberImgPath()
 					, member.getMemberImgServerName()
 					, friendMapper.isFriend(memberSeq, member.getMemberSeq())
+					, friendMapper.isSend(memberSeq, member.getMemberSeq())
+					, friendMapper.isReceive(memberSeq, member.getMemberSeq())
 			);
 			memberFriends.add(friend);
 		}

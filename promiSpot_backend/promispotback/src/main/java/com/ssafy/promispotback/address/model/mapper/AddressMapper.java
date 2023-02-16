@@ -18,6 +18,9 @@ public interface AddressMapper {
 	
 	// 회원 주소 수정
 	public int modifyAddress(AddressEntity addressEntity) throws SQLException;
+
+	// 회원 기본 주소 설정하면 나머지 일반 주소로 변경
+	public int modifyBaseAddress(int memberSeq) throws SQLException;
 	
 	// 회원 주소 삭제
 	public int removeAddress(int addressSeq) throws SQLException;

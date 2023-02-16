@@ -29,10 +29,16 @@ public class MemberFriendEntity {
     @ApiModelProperty(value = "회원친구여부")
     private int isFriend;
 
-//    public MemberFriendEntity() {}
+    @ApiModelProperty(value = "내가 요청을 보냈는지 여부")
+    private int isSend;
+
+    @ApiModelProperty(value = "나한테 요청을 보냈는지 여부")
+    private int isReceive;
+
+    public MemberFriendEntity() {}
 
     public MemberFriendEntity(int memberSeq, String memberId, String memberNick, String memberPhoneNum,
-                              String memberImgPath, String memberImgServerName, int isFriend) {
+                              String memberImgPath, String memberImgServerName, int isFriend, int isSend, int isReceive) {
         this.memberSeq = memberSeq;
         this.memberId = memberId;
         this.memberNick = memberNick;
@@ -40,6 +46,8 @@ public class MemberFriendEntity {
         this.memberImgPath = memberImgPath;
         this.memberImgServerName = memberImgServerName;
         this.isFriend = isFriend;
+        this.isSend = isSend;
+        this.isReceive = isReceive;
     }
 
     public int getMemberSeq() {
@@ -98,22 +106,39 @@ public class MemberFriendEntity {
         this.isFriend = isFriend;
     }
 
+    public int getIsSend() {
+        return isSend;
+    }
+
+    public void setIsSend(int isSend) {
+        this.isSend = isSend;
+    }
+
+    public int getIsReceive() {
+        return isReceive;
+    }
+
+    public void setIsReceive(int isReceive) {
+        this.isReceive = isReceive;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         MemberFriendEntity that = (MemberFriendEntity) o;
-        return memberSeq == that.memberSeq && isFriend == that.isFriend && Objects.equals(memberId, that.memberId) && Objects.equals(memberNick, that.memberNick) && Objects.equals(memberPhoneNum, that.memberPhoneNum) && Objects.equals(memberImgPath, that.memberImgPath) && Objects.equals(memberImgServerName, that.memberImgServerName);
+        return memberSeq == that.memberSeq && isFriend == that.isFriend && isSend == that.isSend && isReceive == that.isReceive && Objects.equals(memberId, that.memberId) && Objects.equals(memberNick, that.memberNick) && Objects.equals(memberPhoneNum, that.memberPhoneNum) && Objects.equals(memberImgPath, that.memberImgPath) && Objects.equals(memberImgServerName, that.memberImgServerName);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(memberSeq, memberId, memberNick, memberPhoneNum, memberImgPath, memberImgServerName, isFriend);
+        return Objects.hash(memberSeq, memberId, memberNick, memberPhoneNum, memberImgPath,
+                memberImgServerName, isFriend, isSend, isReceive);
     }
 
     @Override
     public String toString() {
-        return "memberFriendEntity{" +
+        return "MemberFriendEntity{" +
                 "memberSeq=" + memberSeq +
                 ", memberId='" + memberId + '\'' +
                 ", memberNick='" + memberNick + '\'' +
@@ -121,6 +146,10 @@ public class MemberFriendEntity {
                 ", memberImgPath='" + memberImgPath + '\'' +
                 ", memberImgServerName='" + memberImgServerName + '\'' +
                 ", isFriend=" + isFriend +
+                ", isSend=" + isSend +
+                ", isReceive=" + isReceive +
                 '}';
     }
+
+
 }//memberFriendEntity
