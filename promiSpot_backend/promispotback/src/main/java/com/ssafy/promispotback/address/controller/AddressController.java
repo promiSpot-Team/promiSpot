@@ -45,7 +45,7 @@ public class AddressController {
 			if(addressService.addAddress(addressEntity)) {
 				return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
 			}else {
-				return new ResponseEntity<String>(FAIL, HttpStatus.NO_CONTENT);
+				return new ResponseEntity<String>(FAIL, HttpStatus.ACCEPTED);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -66,7 +66,7 @@ public class AddressController {
 			if(address != null) {
 				return new ResponseEntity<AddressEntity>(address, HttpStatus.OK);
 			}else {
-				return new ResponseEntity<String>(FAIL, HttpStatus.NO_CONTENT);
+				return new ResponseEntity<String>(FAIL, HttpStatus.ACCEPTED);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -83,13 +83,13 @@ public class AddressController {
 		AddressEntity addressEntity, @ApiParam(value="회원 주소 시퀀스", required=true) @PathVariable("addressSeq") int addressSeq){
 		addressEntity.setAddressSeq(addressSeq);
 
-		System.out.println(addressEntity.toString());
+//		System.out.println(addressEntity.toString());
 
 		try {
 			if(addressService.modifyAddress(addressEntity)) {
 				return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
 			}else {
-				return new ResponseEntity<String>(FAIL, HttpStatus.NO_CONTENT);
+				return new ResponseEntity<String>(FAIL, HttpStatus.ACCEPTED);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -109,7 +109,7 @@ public class AddressController {
 			if(addressService.removeAddress(addressSeq)) {
 				return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
 			}else {
-				return new ResponseEntity<String>(FAIL, HttpStatus.NO_CONTENT);
+				return new ResponseEntity<String>(FAIL, HttpStatus.ACCEPTED);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -130,7 +130,7 @@ public class AddressController {
 			if(addressList != null) {
 				return new ResponseEntity<List<AddressEntity>>(addressList, HttpStatus.OK);
 			}else {
-				return new ResponseEntity<String>(FAIL, HttpStatus.NO_CONTENT);
+				return new ResponseEntity<String>(FAIL, HttpStatus.ACCEPTED);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

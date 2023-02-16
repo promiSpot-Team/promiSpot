@@ -30,6 +30,9 @@ public class AddressServiceImpl implements AddressService {
 	// 회원 주소 수정
 	@Override
 	public boolean modifyAddress(AddressEntity addressEntity) throws SQLException {
+		if(addressEntity.getAddressIsPrimary() == 1){
+			addressMapper.modifyBaseAddress(addressEntity.getMemberSeq());
+		}
 		return addressMapper.modifyAddress(addressEntity) == 1;
 	}//modifyAddress
 
