@@ -5,7 +5,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.ssafy.promispotback.promise.dto.MapDto;
 import com.ssafy.promispotback.promise.model.entity.PromiseDataEntity;
+import com.ssafy.promispotback.promise.model.service.MapService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -30,6 +32,9 @@ public class PromiseController {
 	
 	@Autowired
 	PromiseService promiseService;
+
+	@Autowired
+	MapService mapService;
 
 	// 약속 생성
 	@PostMapping("/create")
@@ -156,6 +161,26 @@ public class PromiseController {
 			if (result != 0) {
 				return new ResponseEntity<String>("success", HttpStatus.OK);
 			} else {
+				return new ResponseEntity<String>("fail", HttpStatus.ACCEPTED);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			return exceptionHandling(e);
+		}
+	}
+
+	// 출발지 리스트를 통해 중간 위치 반환 함수
+	@GetMapping("getMiddle/{promiseSeq}")
+	public ResponseEntity<?> getMiddle(@PathVariable("promiseSeq") int promiseSeq) {
+		try {
+
+			List<MapDto> mapDtoList = mapService.middlePoint(promiseSeq);
+
+			if (mapDtoList != null) {
+				System.out.println("success work");
+				return new ResponseEntity<List<MapDto>>(mapDtoList, HttpStatus.OK);
+			} else {
+				System.out.println("fail work");
 				return new ResponseEntity<String>("fail", HttpStatus.ACCEPTED);
 			}
 		} catch (Exception e) {

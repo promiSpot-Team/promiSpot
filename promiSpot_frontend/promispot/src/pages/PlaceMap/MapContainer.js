@@ -15,7 +15,7 @@ import PromiseInfo from "./PromiseInfo";
 import { Content } from "antd/es/layout/layout";
 import * as StompJs from "@stomp/stompjs";
 import { AiOutlineConsoleSql } from "react-icons/ai";
-import Chatting from './Chatting'
+import Chatting from "./Chatting";
 
 const { kakao } = window;
 
@@ -70,6 +70,35 @@ export default function MapContainer() {
   useEffect(() => {
     console.log("promise 받아오는지 확인 : ", promise);
   }, [promise]);
+
+  // 출발 지점들을 토대로 중간 지점 가져오기
+
+  const [middleSpot, setMiddleSpot] = useState();
+  const searchMiddleSpot = async () => {
+    var path = location.pathname;
+    var parse = path.split("/");
+    var promiseSeq = parse[2];
+    try {
+      const response = await axios({
+        method: "GET",
+        // url: `${SERVER_URL}/promise/getMiddle/${promiseSeq}`,
+        url: `http://localhost:9090/api/promise/getMiddle/15`,
+      });
+      if (response.data !== "fail") {
+        setMiddleSpot(response.data[0]);
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
+  useEffect(() => {
+    searchMiddleSpot();
+  }, []);
+  useEffect(() => {
+    console.log("맵컨테이너 middleSpot : ", middleSpot);
+  }, [middleSpot]);
+
+  // 출발 지점들을 토대로 중간 지점 가져오기
 
   const [valid, setValid] = useState();
   useEffect(() => {
@@ -126,12 +155,10 @@ export default function MapContainer() {
         memberCustomOverlay.setMap(null);
       }
 
-      const profile_url =
-        "https://cdn.lorem.space/images/face/.cache/150x150/nrd-ZmmAnliy1d4-unsplash.jpg";
       if (selectAddress) {
         var customOverlay = new kakao.maps.CustomOverlay({
           position: new kakao.maps.LatLng(selectAddress.addressY, selectAddress.addressX),
-          content: `<div class="map-user-profile"><img src=${profile_url}></div>`,
+          content: `<div class="map-user-profile"><img src=${member.memberImgPath}></div>`,
           xAnchor: 0.3,
           yAnnchor: 0.91,
         });
@@ -505,22 +532,22 @@ export default function MapContainer() {
   const deafultOpenDiv = {
     search: false,
     recommend: false,
-    info: false
-  }
-  const [openDiv, setOpenDiv] = useState(deafultOpenDiv)
+    info: false,
+  };
+  const [openDiv, setOpenDiv] = useState(deafultOpenDiv);
 
   const catchClickIcon = (icon) => {
     const newOpenDiv = Object.assign({}, deafultOpenDiv, {
-      [icon]: !openDiv[icon]
-    })
-    setOpenDiv(newOpenDiv)
-    console.log(openDiv)
-  }
+      [icon]: !openDiv[icon],
+    });
+    setOpenDiv(newOpenDiv);
+    console.log(openDiv);
+  };
 
-   const catchClickSearch = (isOpen) => {
+  const catchClickSearch = (isOpen) => {
     setSearchOpen(isOpen);
-    setRecommendOpen(false)
-    setInfoOpen(false)
+    setRecommendOpen(false);
+    setInfoOpen(false);
   };
 
   // <TabBar2 />에서 추천 클릭 했을 때 true/false 값 가져오기
@@ -586,10 +613,10 @@ export default function MapContainer() {
       <div id="map" className="map-wrapper">
         {/* 검색창 껐다 끄기 토클 */}
         {/* 여기 조절 다시 해야함 */}
-        {openDiv.search && (<PlaceSearch />)}
-        {openDiv.recommend && (<PlaceRecommend />)}
-        {openDiv.info && (<PromiseInfo />)}
-        {openDiv.chat && (<Chatting />)}
+        {openDiv.search && <PlaceSearch />}
+        {openDiv.recommend && <PlaceRecommend />}
+        {openDiv.info && <PromiseInfo />}
+        {openDiv.chat && <Chatting />}
         <Outlet />
       </div>
       {/* <div className="map-button-wrapper">
