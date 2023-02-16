@@ -27,9 +27,7 @@ export default function MapContainer() {
   const [modalOpen, setModalOpen] = useState(false);
 
   /* 지도의 중심 위치 정보 redux에서 가져오기 */
-  const placeCenterXY = useSelector((state) =>
-    state.map?.placeXY ? state.map.placeXY : null
-  );
+  const placeCenterXY = useSelector((state) => (state.map?.placeXY ? state.map.placeXY : null));
   const mapCenterXY = useSelector((state) => state.map.centerXY);
 
   // 지도 중심 위치 변수
@@ -115,10 +113,7 @@ export default function MapContainer() {
   // 등록한 주소 중 하나 선택하기
   const [selectAddress, setSelectAddress] = useState();
   const addressSelect = (e) => {
-    console.log(
-      "출발지 선택했을 때를 보자 :",
-      JSON.parse(e.currentTarget.value)
-    );
+    console.log("출발지 선택했을 때를 보자 :", JSON.parse(e.currentTarget.value));
     setSelectAddress(JSON.parse(e.currentTarget.value));
   };
 
@@ -135,10 +130,7 @@ export default function MapContainer() {
         "https://cdn.lorem.space/images/face/.cache/150x150/nrd-ZmmAnliy1d4-unsplash.jpg";
       if (selectAddress) {
         var customOverlay = new kakao.maps.CustomOverlay({
-          position: new kakao.maps.LatLng(
-            selectAddress.addressY,
-            selectAddress.addressX
-          ),
+          position: new kakao.maps.LatLng(selectAddress.addressY, selectAddress.addressX),
           content: `<div class="map-user-profile"><img src=${profile_url}></div>`,
           xAnchor: 0.3,
           yAnnchor: 0.91,
@@ -191,11 +183,8 @@ export default function MapContainer() {
     if (departureList) {
       departureList.forEach((departure) => {
         var customOverlay = new kakao.maps.CustomOverlay({
-          position: new kakao.maps.LatLng(
-            departure.departureY,
-            departure.departureX
-          ),
-          content: `<div class="map-user-profile"><img src=${profile_url}></div>`,
+          position: new kakao.maps.LatLng(departure.departureY, departure.departureX),
+          content: `<div class="map-user-profile"><img src=${departure.memberImgPath}></div>`,
           xAnchor: 0.3,
           yAnnchor: 0.91,
         });
@@ -240,14 +229,11 @@ export default function MapContainer() {
     var path = location.pathname;
     var parse = path.split("/");
     var promiseSeq1 = parse[2];
-    const promiseSeq = client.current.subscribe(
-      `/sub/departure/${promiseSeq1}`,
-      (body) => {
-        const json_body = JSON.parse(body.body);
-        searchDepartureList();
-        // console.log("출발지를 subscribe로 받아옵니다.");
-      }
-    );
+    const promiseSeq = client.current.subscribe(`/sub/departure/${promiseSeq1}`, (body) => {
+      const json_body = JSON.parse(body.body);
+      searchDepartureList();
+      // console.log("출발지를 subscribe로 받아옵니다.");
+    });
   };
 
   // 약속 장소 후보 발행 코드
@@ -272,14 +258,11 @@ export default function MapContainer() {
     var path = location.pathname;
     var parse = path.split("/");
     var promiseSeq1 = parse[2];
-    const promiseSeq = client.current.subscribe(
-      `/sub/votePlace/${promiseSeq1}`,
-      (body) => {
-        const json_body = JSON.parse(body.body);
-        searchVotePlaceList();
-        // console.log("약속 장소 후보들을 받습니다.");
-      }
-    );
+    const promiseSeq = client.current.subscribe(`/sub/votePlace/${promiseSeq1}`, (body) => {
+      const json_body = JSON.parse(body.body);
+      searchVotePlaceList();
+      // console.log("약속 장소 후보들을 받습니다.");
+    });
   };
 
   // 연결자 연결종료
@@ -295,9 +278,7 @@ export default function MapContainer() {
   const onhandleDeparturePost = async () => {
     const intPromiseSeq = parseInt(promiseSeq, 10);
 
-    var selectMyAddress = JSON.parse(
-      document.getElementById("selectMyAddress").value
-    );
+    var selectMyAddress = JSON.parse(document.getElementById("selectMyAddress").value);
     console.log("selectMyAddress 받아오는지 확인", selectMyAddress);
 
     const sendData = {
@@ -306,6 +287,7 @@ export default function MapContainer() {
       memberName: member.memberName,
       departureX: selectMyAddress.addressX,
       departureY: selectMyAddress.addressY,
+      memberImgPath: member.memberImgPath,
       // departureX: selectAddress.addressX,
       // departureY: selectAddress.addressY,
     };
@@ -362,8 +344,7 @@ export default function MapContainer() {
     // BeforeVotePlaceList의 데이터로 마커 찍기
     if (votePlaceList) {
       votePlaceList.forEach((votePlace) => {
-        var imageSrc =
-          "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png";
+        var imageSrc = "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png";
         var imageSize = new kakao.maps.Size(24, 35);
         var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);
 
@@ -471,7 +452,7 @@ export default function MapContainer() {
   const mapscript = () => {
     const container = document.getElementById("map");
     const { centerX, centerY } = mapCenterXY;
-    console.log('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>', centerX, centerY)
+    console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>", centerX, centerY);
     const options = {
       // center: new kakao.maps.LatLng(37.5013, 127.0397),
       center: new kakao.maps.LatLng(centerY, centerX),
@@ -581,11 +562,7 @@ export default function MapContainer() {
       <div className="map-choose-add-wrapper">
         <div className="map-choose-add-txt">출발 주소</div>
         <div className="map-choose-add-select-wrapper">
-          <select
-            className="map-choose-add-select"
-            onChange={addressSelect}
-            id="selectMyAddress"
-          >
+          <select className="map-choose-add-select" onChange={addressSelect} id="selectMyAddress">
             {memberAddressList !== null &&
               memberAddressList.map((address) => {
                 return (
@@ -643,11 +620,7 @@ export default function MapContainer() {
           }}
         >
           <div className="map-button-vote-txt">투표현황</div>
-          <FaVoteYea
-            className="map-button-vote-icon"
-            size="25"
-            color="#ffffff"
-          />
+          <FaVoteYea className="map-button-vote-icon" size="25" color="#ffffff" />
         </button>
       </div>
       <div className="map-tab-wrapper">
@@ -662,11 +635,7 @@ export default function MapContainer() {
         />
       </div>
       {modalOpen && (
-        <Modal2
-          title="투표현황"
-          button="✖"
-          closeModal={() => setModalOpen(!modalOpen)}
-        >
+        <Modal2 title="투표현황" button="✖" closeModal={() => setModalOpen(!modalOpen)}>
           {/* 여기에 투표현황 띄우면 됨 */}
 
           {votePlaceList.length > 0 &&
