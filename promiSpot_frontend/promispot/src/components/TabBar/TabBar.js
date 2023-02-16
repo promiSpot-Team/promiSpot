@@ -114,10 +114,11 @@ export default function TabBar(props) {
       const promiseSeq = response1.data.promiseSeq;
 
       /* 약속 친구 추가 */
-      const newFriend = promiseFriendList.map((friendSeq) => {
+      const newFriend = promiseFriendList.map((friend) => {
+        // console.log(friend.friendSeq)
         return {
           promiseSeq,
-          memberSeq: friendSeq,
+          memberSeq: friend.friendSeq,
           promiseMemberIsLeader: 0,
         };
       });
