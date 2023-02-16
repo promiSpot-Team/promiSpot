@@ -90,7 +90,18 @@ export default function Friend(props) {
       if (response.data === "fail") {
         setFriendSearchResult([]);
       } else {
+        /** 친구 검색 결과 리스트 */
         setFriendSearchResult(response.data);
+        /* 내가 요청한 친구 목록 배열 만들기 */
+        const toWhoFriend = response.data.map((friend) => {
+          if (friend.isSend === 1) return friend.memberSeq
+        })
+        console.log("toWhoFriend", toWhoFriend)
+        /* toWho 배열에 내가 요청한 친구 목록에서 memberSeq만 담은 배열 넣기 */
+        setToWho(
+          toWhoFriend.filter(friendSeq => friendSeq)
+        )
+        console.log("toWho : ", toWho)
         console.log("친구 목록", response.data);
       }
     } catch (err) {
@@ -103,24 +114,17 @@ export default function Friend(props) {
   내 친구 목록/받은 요청/보낸 요청에 다 memberSeq props로 넘겨주기 */
   const memberSeq = useSelector((state) => state?.user?.info?.memberSeq);
 
-  console.log("memberSeq", memberSeq);
-
   const sendFriendRequest = async (friendRequestMember) => {
     try {
-      const response0 = await axios({
-        method: "GET",
-        url: `${SERVER_URL}/friend/${memberSeq}/1`,
-      })
-      // const toWho = 
-      console.log("toWho", toWho)
-      // 요청 보낸 친구 목록에 이미 존재한다면 => 요청 취소
+      // console.log("toWho : ", toWho)
+      // 요청 보낸 친구 목록에 이미 존재한다면 => 그냥 존재하는 거...
       if (toWho.includes(friendRequestMember)) {
-        /*  요청 취소하면서 목록에서 제거
-        요청 보낸 친구 목록에 있는 번호과 현재 누른 버튼의 친구 번호가 일치하는 경우 제외 */
-        const newWho = toWho.filter((who) => {
-          return who !== friendRequestMember;
-        });
-        setToWho(newWho);
+        // /*  요청 취소하면서 목록에서 제거
+        // 요청 보낸 친구 목록에 있는 번호과 현재 누른 버튼의 친구 번호가 일치하는 경우 제외 */
+        // const newWho = toWho.filter((who) => {
+        //   return who !== friendRequestMember;
+        // });
+        // setToWho(newWho);
 
         // 요청 보낸 친구 목록에 존재하지 않는다면 => 요청
       } else {
@@ -175,20 +179,7 @@ export default function Friend(props) {
             </div>
           </div>
         </div>
-        {/* <Link to = '/friend/list'>
-          <button onClick={() => setVisible1(!visible1)}>친구 리스트</button>
-        </Link> 
-        {visible1 && <FriendList/>}
-        <Link to = '/friend/respond'>
-          <button onClick={() => setVisible2(!visible2)}>받은 요청</button>
-        </Link> 
-        {visible2 && <FriendRequestReceive/>}
-        <Link to = '/friend/send'>
-          <button onClick={() => setVisible3(!visible3)}>보낸 요청</button>
-        </Link> 
-        {visible3 && <FriendRequestSend/>}
-        <div className="friend-content-wrapper">
-          {<FriendList/> */}
+
       </div>
       <Box sx={{ width: "100%" }}>
         {friendSearchResult.length === 0 ? (
@@ -268,7 +259,7 @@ export default function Friend(props) {
                       {/* 친구가 아니고 */}
                       {!friend.isFriend ? 
                        // 요청을 보낸 적이 없고
-                       ( !friend.isSend ?
+                       ( !friend.isSend && !toWho.includes(friend.memberSeq) ?
                         // 요청을 받은 적도 없으면 >> 요청 버튼
                         ( !friend.isReceive ?
                           <div
