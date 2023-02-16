@@ -9,6 +9,7 @@ import { reissueToken, setAddress } from "../../Redux/reducer/user";
 import "../scss/MyPage.scss";
 import BasicHeader from "../../components/Header/BasicHeader1";
 import Modal2 from "../../components/Modal/Modal2";
+import { HiPlus } from "react-icons/hi";
 import {
   Checkbox,
   FormControl,
@@ -26,6 +27,7 @@ export default function MyAddress() {
   const { memberSeq, addressSeq } = useSelector((state) => state.user.info);
   const [openDeleteModal, setOpenDeleteModal] = useState(false);
   const [openModifyModal, setOpenModifyModal] = useState(false);
+
   var nowSeq = 0;
   // console.log("nowSeq?", nowSeq);
   const [checked, setChecked] = useState(false);
@@ -176,13 +178,19 @@ export default function MyAddress() {
         </div>
         <div className="basic-header-1-text-wrapper">주소 목록</div>
       </div>
-      <button
-        onClick={() => {
-          goAddAddress();
-        }}
-      >
-        추가
-      </button>
+      <div className="mypage-new-address-wrapper">
+        <button
+          className="mypage-new-address"
+          onClick={() => {
+            goAddAddress();
+          }}
+        >
+          <div className="mypage-new-address-icon">
+            <HiPlus size={"25px"} />
+          </div>
+          <div className="mypage-new-address-txt">추가</div>
+        </button>
+      </div>
       {/* <form onSubmit={addressHandleSubmit}>
         <button></button>
       </form> */}
@@ -190,82 +198,43 @@ export default function MyAddress() {
         myAddressList.map((item, idx) => {
           return (
             <div key={item.addressSeq}>
-              <div>
-                {item.addressNick}
-                {item.addressAddress}
-                {item.addressSeq}
-                <button
-                  onClick={() => {
-                    deleteMyAddress(item.addressSeq);
-                    // onClickDelete();
-                  }}
-                  value={item.addressSeq}
-                >
-                  삭제
-                </button>
-                {/* {openDeleteModal && (
-                  <Modal2
-                    title="삭제"
-                    button="✖"
-                    closeModal={() => setOpenDeleteModal(!openDeleteModal)}
+              <div className="mypage-content-wrapper">
+                <div className="mypage-content-address">
+                  <div className="mypage-content-address-nick">
+                    {item.addressNick}
+                  </div>
+                  <div className="mypage-content-address-real">
+                    {item.addressAddress}
+                  </div>
+                </div>
+                <div className="mypage-content-address-btn-wrapper">
+                  <button
+                    className="mypage-content-address-btn"
+                    onClick={() => {
+                      // deleteMyAddress(item.addressSeq);
+                      onClickModify(item);
+                    }}
+                    value={item.addressSeq}
                   >
-                    <div>삭제하시겠습니까?</div>
-                    <button
-                      onClick={() => {
-                        deleteMyAddress(item.addressSeq);
-                      }}
-                    >
-                      제출
-                    </button>
-                  </Modal2>
-                )} */}
-                <button
-                  onClick={() => {
-                    // deleteMyAddress(item.addressSeq);
-                    onClickModify(item);
-                  }}
-                  value={item.addressSeq}
-                >
-                  수정
-                </button>
+                    수정
+                  </button>
+                  <button
+                    className="mypage-content-address-btn"
+                    onClick={() => {
+                      deleteMyAddress(item.addressSeq);
+                      // onClickDelete();
+                    }}
+                    value={item.addressSeq}
+                  >
+                    삭제
+                  </button>
+                </div>
                 {openModifyModal && (
                   <Modal2
                     title="주소 수정"
                     button="✖"
                     closeModal={() => setOpenModifyModal(!openModifyModal)}
                   >
-                    {/* {myInfoList &&
-            myInfoList.map((item, idx) => {
-              return (
-                <div key={idx}>
-                  <form className="join-input-wrapper" onSubmit={handleSubmit}>
-                    <FormControl sx={{ width: "70%" }} variant="standard">
-                      <TextField
-                        className="input-form-wrapper"
-                        id="addressNick"
-                        label="주소 별칭"
-                        placeholder={item.memberInfo.memberNick}
-                        name="addressNick"
-                        multiline
-                        variant="standard"
-                        fontFamily="Pretendard-Bold"
-                        // defaultValue={item.memberInfo.memberNick}
-                        margin="dense"
-                        // defaultValue={item.memberInfo.memberNick}
-                        // onChange={handleEditChange}
-                      >
-                         <div onClick={clearText}>삭제</div>
-                      </TextField>
-                    </FormControl>
-                    <div onClick={goMyPage}>
-                      <button>수정</button>
-                    </div>
-                    <button onClick={editMyInfo}>수정</button>
-                  </form>
-                </div>
-              );
-            })} */}
-
                     <form
                       className="join-input-wrapper"
                       onSubmit={handleSubmit}
@@ -296,7 +265,6 @@ export default function MyAddress() {
                         label="기본 주소로 설정"
                         margin="normal"
                       />
-                      <div></div>
                       <div>
                         <button
                           onClick={() => {

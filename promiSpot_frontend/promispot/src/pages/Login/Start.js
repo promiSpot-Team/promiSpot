@@ -254,14 +254,13 @@ function Start() {
           </div>
           <div className="start-btn"></div>
         </div>
-      {/* <div className="start-container">
+        {/* <div className="start-container">
 
   <div className="start-container-first">
     promiSpot
   </div>
 </div> */}
       </div>
-
     </div>
   );
 }
