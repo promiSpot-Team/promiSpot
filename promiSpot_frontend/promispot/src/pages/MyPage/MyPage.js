@@ -70,6 +70,7 @@ export default function MyPage({ history }) {
     } catch (err) {
       // HTTP 401 권한없음 에러
       if (err.response.status === 401 || err.response.status === 400) {
+        console.log('????????????????????????////')
         try {
           axios.defaults.headers.common["refresh-token"] = `${refreshToken}`;
           const response2 = await axios({

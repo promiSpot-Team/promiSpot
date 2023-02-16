@@ -71,7 +71,6 @@ function Login() {
       dispatch(setToken(info));
       sessionStorage.setItem("info", JSON.stringify(info))
       // localStorage.setItem("isLogin", true);
-      console.log('>>>>>>>>>>>>>', info.memberSeq)
       const response2 = await axios({
         method: 'GET', 
         url: `${SERVER_URL}/address/addressList/${info.memberSeq}`
@@ -88,6 +87,7 @@ function Login() {
     } catch (err) {
       console.log(err)
       alert('로그인 실패')
+      navigate('/login')
     }
   };
 
@@ -143,7 +143,7 @@ function Login() {
               id="id"
               label="아이디"
               name="id"
-              placeholder="UserName"
+              placeholder="아이디를 입력하세요"
               multiline
               variant="standard"
               fontFamily="Pretendard-Bold"
