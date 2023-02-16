@@ -112,6 +112,10 @@ $circle-radius: 80px;
   z-index: 9;
   box-shadow: 0 5px 5px rgba(176, 86, 212, 0.35);
   transition: height 0.3s;
+
+  &:active {
+    translate: scale(0.9);
+  }
 }
 
 // .circle:hover {
