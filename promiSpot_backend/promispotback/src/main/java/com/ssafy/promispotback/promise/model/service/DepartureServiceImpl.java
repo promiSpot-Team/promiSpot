@@ -44,4 +44,8 @@ public class DepartureServiceImpl implements DepartureService{
     public int removeDeparture(int promiseSeq, int memberSeq) throws SQLException {
         return departureMapper.removeDeparture(promiseSeq, memberSeq);
     }
+
+
+
+
 }

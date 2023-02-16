@@ -75,3 +75,9 @@ mybatis:
   configuration:
     map-underscore-to-camel-case: true
 
+
+# kakaoMap\
+kakao:
+  map:
+    apikey: 64bbe2063e9e0b314a6060be44144a26
+
