@@ -605,7 +605,7 @@ export default function MapContainer() {
     // clickTileSet()
   }
 
-  /** 출발 위치 위도 경도 */
+  /** 출발 위치 위도 경도 **/
   const [latLng, setLatLng] = useState(null)
   const clickTileSet = () => {
       kakao.maps.event.addListener(map, 'click', function(mouseEvent) {        
@@ -644,6 +644,10 @@ export default function MapContainer() {
       });
     } catch (err) {
       console.log(err);
+    }
+
+    if (memberCustomOverlay) {
+      memberCustomOverlay.setMap(null);
     }
 
     publishDeparture();
