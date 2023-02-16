@@ -110,24 +110,6 @@ export default function MapContainer() {
     }
   };
 
-  useEffect(() => {
-    /** 멤버의 주소들 다 가져와서 중심 위치 설정 */
-    if (memberAddressList?.length > 0) {
-      memberAddressList.map((memberAddress) => {
-        if (memberAddress.addressIsPrimary === 1) {
-          console.log(memberAddress);
-          dispatch(
-            setCenter({
-              centerX: parseFloat(memberAddress.addressX),
-              centerY: parseFloat(memberAddress.addressY),
-            })
-          );
-        }
-      });
-      console.log(map);
-    }
-  }, [memberAddressList]);
-
   // 등록한 주소 중 하나 선택하기
   const [selectAddress, setSelectAddress] = useState();
   const addressSelect = (e) => {
@@ -487,6 +469,7 @@ export default function MapContainer() {
   const mapscript = () => {
     const container = document.getElementById("map");
     const { centerX, centerY } = mapCenterXY;
+    console.log('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>', centerX, centerY)
     const options = {
       // center: new kakao.maps.LatLng(37.5013, 127.0397),
       center: new kakao.maps.LatLng(centerY, centerX),

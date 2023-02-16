@@ -29,7 +29,7 @@ export default function Join2() {
     state?.user?.addressInfo ? state.user.addressInfo : null
   );
 
-  console.log("주소!", addressInfo);
+  // console.log("주소!", addressInfo);
   const joinInfo = useSelector((state) =>
     state?.user?.joinInfo ? state.user.joinInfo : null
   );
@@ -47,16 +47,29 @@ export default function Join2() {
 
   const navigate = useNavigate();
 
+  const [passwordState, setPasswordState] = useState('')
+
   // 값이 입력될 때마다 변화하는 입력값 state객체에 저장
   const handleInputChange = (e) => {
     setState({
       ...state,
       [e.target.name]: e.target.value,
     });
+
+    // 비밀번호 유효성 체크
+    const passwordRegex =
+      /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,25}$/;
+    if (!passwordRegex.test(state.password)) {
+      console.log('1')
+      setPasswordState(
+        "숫자+영문자+특수문자 조합으로 8자리 이상 입력해주세요!"
+      );
+    }
+    else setPasswordState("");
   };
 
   // 비밀번호 폼 변수
-  const [passwordState] = useState("");
+  // const [passwordState] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const handleClickShowPassword = () => setShowPassword((show) => !show);
 
@@ -157,6 +170,7 @@ export default function Join2() {
   useEffect(() => {
     // console.log("addressInfo", addressInfo)
   }, [addressInfo]);
+
   // form의 onSubmit 이벤트
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -194,14 +208,7 @@ export default function Join2() {
 
     // 유효성 검사
 
-    // // 비밀번호 유효성 체크
-    // const passwordRegex =
-    //   /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,25}$/;
-    // if (!passwordRegex.test(password))
-    //   setPasswordState(
-    //     "숫자+영문자+특수문자 조합으로 8자리 이상 입력해주세요!"
-    //   );
-    // else setPasswordState("");
+   
 
     // // 비밀번호 같은지 체크
     // if (password !== rePassword)
@@ -215,20 +222,6 @@ export default function Join2() {
   useEffect(() => {
     /* 페이지 언마운트 될 때 실행 */
     return () => {
-      // const newJoinInfo = {
-      //   id: '',
-      //   email: '',
-      //   password:'',
-      //   name: '',
-      //   nickName:'',
-      //   phoneNumber: ''
-      // }
-      // const newAddressInfo = {
-      //   addressAddress: '',
-      //   addressX: 0,
-      //   addressY: 0
-      // }
-      // dispatch(setJoinInfo(newJoinInfo))
       dispatch(setAddress(null));
     };
   }, []);
@@ -298,11 +291,12 @@ export default function Join2() {
               id="password"
               name="password"
               type={showPassword ? "text" : "password"}
-              placeholder="Password"
+              placeholder="비밀번호를 입력하세요"
               margin="dense"
-              error={passwordState !== "" || false}
+              error={passwordState !== '' || false}
               defaultValue={joinInfo?.password ? joinInfo.password : null}
               onChange={handleInputChange}
+              // FormHelperText={"넌 틀렸다"}
               endAdornment={
                 <InputAdornment position="end">
                   <IconButton
@@ -331,7 +325,7 @@ export default function Join2() {
               id="rePassword"
               name="rePassword"
               type={showPassword ? "text" : "password"}
-              placeholder="Rewrite Password"
+              placeholder="비밀번호를 한 번 더 입력하세요"
               margin="dense"
               error={passwordState !== "" || false}
               endAdornment={
@@ -372,7 +366,7 @@ export default function Join2() {
               className="input-form-wrapper"
               id="nickName"
               label="닉네임"
-              placeholder="NickName"
+              placeholder="닉네임을 입력하세요"
               name="nickName"
               multiline
               variant="standard"
@@ -389,7 +383,7 @@ export default function Join2() {
               className="input-form-wrapper"
               id="phoneNumber"
               label="전화번호"
-              placeholder="Phone Number"
+              placeholder="'-'를 제외하고 입력하세요"
               name="phoneNumber"
               multiline
               variant="standard"

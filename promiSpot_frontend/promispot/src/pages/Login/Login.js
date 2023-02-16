@@ -71,13 +71,18 @@ function Login() {
       dispatch(setToken(info));
       sessionStorage.setItem("info", JSON.stringify(info))
       // localStorage.setItem("isLogin", true);
+      console.log('>>>>>>>>>>>>>', info.memberSeq)
       const response2 = await axios({
         method: 'GET', 
-        url: `${SERVER_URL}/address/${info.memberSeq}`
+        url: `${SERVER_URL}/address/addressList/${info.memberSeq}`
       })
+      const primaryAddress = await response2.data.filter((address) => {
+        return address.addressIsPrimary === 1
+      })
+      // console.log("primaryAddress", primaryAddress)
       dispatch(setCenter({
-        centerX: parseFloat(response2.data.addressX),
-        centerY: parseFloat(response2.data.addressY)
+        centerX: parseFloat(primaryAddress[0].addressX),
+        centerY: parseFloat(primaryAddress[0].addressY)
       }))
       navigate("/main");
     } catch (err) {
