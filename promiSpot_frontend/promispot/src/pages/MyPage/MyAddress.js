@@ -75,6 +75,7 @@ export default function MyAddress() {
         method: "PUT",
         url: `${SERVER_URL}/address/${addressNum.addressSeq}`,
         data: {
+          memberSeq: memberSeq,
           addressNick: data.addressNick,
           addressIsPrimary: data.addressIsPrimary,
         },
@@ -200,9 +201,15 @@ export default function MyAddress() {
             <div key={item.addressSeq}>
               <div className="mypage-content-wrapper">
                 <div className="mypage-content-address">
-                  <div className="mypage-content-address-nick">
-                    {item.addressNick}
-                  </div>
+                  {item.addressIsPrimary === 1 ? (
+                    <div className="mypage-content-address-nick">
+                      {item.addressNick} [기본 주소]
+                    </div>
+                  ) : (
+                    <div className="mypage-content-address-nick">
+                      {item.addressNick}
+                    </div>
+                  )}
                   <div className="mypage-content-address-real">
                     {item.addressAddress}
                   </div>
@@ -218,16 +225,18 @@ export default function MyAddress() {
                   >
                     수정
                   </button>
-                  <button
-                    className="mypage-content-address-btn"
-                    onClick={() => {
-                      deleteMyAddress(item.addressSeq);
-                      // onClickDelete();
-                    }}
-                    value={item.addressSeq}
-                  >
-                    삭제
-                  </button>
+                  {item.addressIsPrimary === 0 ? (
+                    <button
+                      className="mypage-content-address-btn"
+                      onClick={() => {
+                        deleteMyAddress(item.addressSeq);
+                        // onClickDelete();
+                      }}
+                      value={item.addressSeq}
+                    >
+                      삭제
+                    </button>
+                  ) : null}
                 </div>
                 {openModifyModal && (
                   <Modal2
