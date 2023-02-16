@@ -28,40 +28,10 @@ export default function TabBar2(props) {
     // console.log(promiseSeq);
   }, [promiseSeq]);
 
-  /* 장소 검색/추천 토글 */
-  const [openSearch, setOpenSearch] = useState(false);
-  const [openRecommend, setOpenRecommend] = useState(false);
-  const [openInfo, setOpenInfo] = useState(false);
-
-  // 장소 검색 클릭
-  const onClickSearch = () => {
-    setOpenRecommend(false);
-    setOpenSearch(!openSearch);
-  };
-
-  useEffect(() => {
-    props.catchClickSearch(openSearch);
-  }, [openSearch]);
-
-  // 장소 추천 클릭
-  const onClickRecommend = () => {
-    setOpenSearch(false);
-    setOpenRecommend(!openRecommend);
-  };
-
-  useEffect(() => {
-    props.catchClickRecommend(openRecommend);
-  }, [openRecommend]);
-
-  // 약속 정보 클릭
-  const onClickInfo = () => {
-    setOpenInfo(false);
-    setOpenInfo(!openInfo);
-  };
-
-  useEffect(() => {
-    if (props.catchClickInfo) props.catchClickInfo(openInfo);
-  }, [openInfo]);
+  // 채팅 버튼 클릭
+  const onClickIcon = (icon) => {
+    props.catchClickIcon(icon)
+  }
 
   return (
     <>
@@ -81,7 +51,11 @@ export default function TabBar2(props) {
             <div className="navbar-left-2-one">
               <div className="navbar-left-2-icon">
                 {/* <Link to={`/map/${promiseSeq}/search`} className="link"> */}
-                <ImSearch size="36" color="#ffffff" onClick={onClickSearch} />
+                <ImSearch 
+                  size="36" 
+                  color="#ffffff" 
+                  onClick={() => onClickIcon('search')} 
+                />
               </div>
               <div className="navbar-left-2-icon-txt">Search</div>
             </div>
@@ -94,7 +68,7 @@ export default function TabBar2(props) {
                 <MdRecommend
                   size="40"
                   color="#ffffff"
-                  onClick={onClickRecommend}
+                  onClick={() => onClickIcon('recommend')}
                 />
               </div>
               <div className="navbar-right-2-icon-txt">Recommend</div>
@@ -105,17 +79,20 @@ export default function TabBar2(props) {
                 <AiFillInfoCircle
                   size="36"
                   color="#ffffff"
-                  onClick={onClickInfo}
+                  onClick={() => onClickIcon('info')}
                 />
               </div>
               <div className="navbar-right-2-icon-txt">Info</div>
             </div>
           </div>
-          <Link to={`/map/${promiseSeq}/chatting`}>
+          {/* <Link to={`/map/${promiseSeq}/chatting`}> */}
             <div className="circle">
-              <BsChatLeftDotsFill size="36" color="#ffffff" />
+              <BsChatLeftDotsFill size="36" color="#ffffff" 
+                // onClickChatting={onClickChatting}
+                onClick={() => onClickIcon('chat')}
+              />
             </div>
-          </Link>
+          {/* </Link> */}
         </div>
         <div className="circleBackground"></div>
       </div>

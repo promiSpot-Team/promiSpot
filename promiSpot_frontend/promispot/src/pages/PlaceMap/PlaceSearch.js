@@ -29,7 +29,7 @@ export default function PlaceSearch() {
   }, []);
 
   useEffect(() => {
-    console.log(promiseSeq);
+    // console.log(promiseSeq);
   }, [promiseSeq]);
 
   /* hooks/useAxios.js 에서 받아오는 axios의 response 값 
@@ -45,7 +45,7 @@ export default function PlaceSearch() {
     childRef.current.whileDragMapHandle();
     
     return () => {
-      console.log(localStorage.getItem(''))
+      // console.log(localStorage.getItem(''))
     }
   }, []);
 

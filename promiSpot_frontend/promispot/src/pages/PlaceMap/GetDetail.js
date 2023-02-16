@@ -12,7 +12,8 @@ export default function GetDetail(props) {
     place_name,
     place_url,
     road_address_name;
-
+  
+  // const [place_url, setplace_url] = useState(null)
   console.log("여기는 props 이다");
   console.log(props);
 
@@ -23,7 +24,7 @@ export default function GetDetail(props) {
     category_name = place.category_name;
     phone = place.phone;
     place_name = place.place_name;
-    // place_url = place.place_url
+    place_url = place.place_url
     // road_addres_name = place.placeRoadAddressName
   } else if (props.place.memberSeq) {
     let votePlace = props.place;
@@ -31,7 +32,7 @@ export default function GetDetail(props) {
     category_name = votePlace.placeCategoryName;
     phone = votePlace.placePhone;
     place_name = votePlace.placeName;
-    // place_url = votePlace.placeUrl
+    place_url = votePlace.placeUrl
     // road_address_name = votePlace.placeRoadAddressName
   }
 
@@ -51,7 +52,8 @@ export default function GetDetail(props) {
   const sendData = async () => {
     try {
       setLoading(true);
-      const response = await axios.post("https://i8a109.p.ssafy.io/crawling", {
+      // const response = await axios.post("https://i8a109.p.ssafy.io/crawling", {
+      const response = await axios.post("http://localhost:5000/crawling", {
         placeUrl: place_url,
       });
       setData(response.data.placeImg);
@@ -64,7 +66,8 @@ export default function GetDetail(props) {
   };
 
   useEffect(() => {
-    sendData();
+    // if (place_url) sendData();
+    sendData()
   }, []);
 
   return (

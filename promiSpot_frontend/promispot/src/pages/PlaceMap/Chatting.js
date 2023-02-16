@@ -121,7 +121,7 @@ export default function Chatting() {
         {chatList.length > 0 &&
           chatList.map((one, index) => {
             return (
-              <>
+              <div key={index}>
                 { one.senderName === member.memberName ? (
                   <div className="chatting-contents-one-me-wrapper" >
                     <div className="chatting-contents-me-msg">
@@ -138,7 +138,7 @@ export default function Chatting() {
                     </div>
                   </div>
                 )}
-              </>
+              </div>
             );
           })}
       </div>
