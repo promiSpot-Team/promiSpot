@@ -381,7 +381,8 @@ export default function MapContainer() {
     // BeforeVotePlaceList의 데이터로 마커 찍기
     if (votePlaceList) {
       votePlaceList.forEach((votePlace) => {
-        var imageSrc = "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png";
+        var imageSrc =
+          "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png";
         var imageSize = new kakao.maps.Size(24, 35);
         var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);
 
@@ -700,7 +701,11 @@ export default function MapContainer() {
           }
         </div>
         <div className="map-choose-add-select-wrapper">
-          <select className="map-choose-add-select" onChange={addressSelect} id="selectMyAddress">
+          <select
+            className="map-choose-add-select"
+            onChange={addressSelect}
+            id="selectMyAddress"
+          >
             {memberAddressList !== null &&
               memberAddressList.map((address) => {
                 return (
@@ -758,7 +763,11 @@ export default function MapContainer() {
           }}
         >
           <div className="map-button-vote-txt">투표현황</div>
-          <FaVoteYea className="map-button-vote-icon" size="25" color="#ffffff" />
+          <FaVoteYea
+            className="map-button-vote-icon"
+            size="25"
+            color="#ffffff"
+          />
         </button>
       </div>
       <div className="map-tab-wrapper">
@@ -773,7 +782,11 @@ export default function MapContainer() {
         />
       </div>
       {modalOpen && (
-        <Modal2 title="투표현황" button="✖" closeModal={() => setModalOpen(!modalOpen)}>
+        <Modal2
+          title="투표현황"
+          button="✖"
+          closeModal={() => setModalOpen(!modalOpen)}
+        >
           {/* 여기에 투표현황 띄우면 됨 */}
 
           {votePlaceList.length > 0 &&
@@ -789,20 +802,21 @@ export default function MapContainer() {
             })}
 
           {/* 여기에 투표현황 띄우면 됨 */}
-          <div>
-            <div>투표현황입니다</div>
+          <div className="map-button-now-vote-wrapper">
+            {/* <div>투표현황입니다</div> */}
             {valid ? (
               <button
-                className="map-button-now-vote"
+                className="map-button-now-vote-2"
                 onClick={() => {
                   setModalOpen(true);
                   // isValid(true);
                 }}
               >
-                <div className="map-button-vote-txt">투표종료</div>
+                투표종료
               </button>
             ) : (
-              <div>방장이 아닌 사람에게 보입니다</div>
+              <div></div>
+              // <div>방장이 아닌 사람에게 보입니다</div>
               // <button className="map-button-vote">
               //   <BsFillCalendarCheckFill size="40" color="#ffffff" />
               // </button>
