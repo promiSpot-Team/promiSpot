@@ -200,13 +200,19 @@ export default function Friend(props) {
               </Tabs>
             </Box>
             <TabPanel value={value} index={0}>
-              <FriendList memberSeq={memberSeq} />
+              <div className="friend-list">
+                <FriendList memberSeq={memberSeq} />
+              </div>
             </TabPanel>
             <TabPanel value={value} index={1}>
-              <FriendRequestReceive memberSeq={memberSeq} />
+              <div className="friend-request-receive">
+                <FriendRequestReceive memberSeq={memberSeq} />
+              </div>
             </TabPanel>
             <TabPanel value={value} index={2}>
-              <FriendRequestSend memberSeq={memberSeq} />
+              <div className="friend-request-send">
+                <FriendRequestSend memberSeq={memberSeq} />
+              </div>
             </TabPanel>
           </>
         ) : (
