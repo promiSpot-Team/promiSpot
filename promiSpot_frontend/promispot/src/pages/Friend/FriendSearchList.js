@@ -6,7 +6,7 @@ export default function FriendSearchList() {
   return (
     <div className="friend-list-wrapper">
       <div className='friend-list-each-wrapper'>
-      <ProfileInfoSR imgName="KYJ_Profile" nickName="검색결과입니다" id="KYJ"/>
+        <ProfileInfoSR imgName="KYJ_Profile" nickName="검색결과입니다" id="KYJ"/>
       </div>
     </div>
   )

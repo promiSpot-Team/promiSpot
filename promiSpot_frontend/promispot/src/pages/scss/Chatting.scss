@@ -1,12 +1,14 @@
 .chatting-wrapper {
   position: absolute;
   left: 2.5vw;
+  // z-index: 999;
   z-index: 999;
   // background-color: rgba(190, 190, 190, 0.822);
   width: 95vw;
-  height: 78vh;
+  height: 56vh;
   margin-top: 10vh;
   .chatting-contents-wrapper {
+    
     height: 90%;
     width: 100%;
     overflow-y: scroll;
@@ -23,8 +25,11 @@
         font-size: 15px;
         font-weight: 400;
         padding: 2.5% 5% 2.5% 5%;
-        border-radius: 10%;
+        border-top-left-radius: 3rem;
+        border-top-right-radius: 3rem;
+        border-bottom-right-radius: 3rem;
         color: white;
+        
         background-color: rgba(0, 0, 0, 0.65);
         float: right;
       }
@@ -41,8 +46,8 @@
         font-size: 15px;
         font-weight: 600;
         padding: 2.5% 2.5% 2.5% 2.5%;
-        border-top-left-radius: 10%;
-        border-bottom-left-radius: 10%;
+        border-top-left-radius: 3rem;
+        border-bottom-left-radius: 3rem;
         background-color: rgba(235, 211, 255, 0.85);
       }
       .chatting-contents-other-msg {

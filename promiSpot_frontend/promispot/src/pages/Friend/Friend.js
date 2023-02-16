@@ -73,12 +73,14 @@ export default function Friend(props) {
   useEffect(() => {
     if (inputData && inputData !== "") {
       getFriendSearchResult(inputData);
+    } else {
+      setFriendSearchResult([])
     }
   }, [inputData]);
 
-  // 변경된 inputData 값으로 친구 검색 결과 목록 가져오기
   const [friendSearchResult, setFriendSearchResult] = useState([]);
-
+  
+  /** 변경된 inputData 값으로 친구 검색 결과 목록 가져오기 */
   const getFriendSearchResult = async (memberInfo) => {
     try {
       const response = await axios({
@@ -105,6 +107,12 @@ export default function Friend(props) {
 
   const sendFriendRequest = async (friendRequestMember) => {
     try {
+      const response0 = await axios({
+        method: "GET",
+        url: `${SERVER_URL}/friend/${memberSeq}/1`,
+      })
+      // const toWho = 
+      console.log("toWho", toWho)
       // 요청 보낸 친구 목록에 이미 존재한다면 => 요청 취소
       if (toWho.includes(friendRequestMember)) {
         /*  요청 취소하면서 목록에서 제거
@@ -235,9 +243,8 @@ export default function Friend(props) {
             {/* <TabPanel> */}
             {friendSearchResult.map((friend, idx) => {
               return (
-                <div className="friend-myfriend-wrapper">
+                <div key={idx} className="friend-myfriend-wrapper">
                   <div
-                    key={idx}
                     className="friend-myfriend-profile-info-wrapper"
                   >
                     <div className="friend-myfriend-profile-info-img-wrapper">
@@ -254,22 +261,39 @@ export default function Friend(props) {
                       </div>
                     </div>
                     <div className="friend-myfriend-profile-info-button-wrapper">
-                      {/* 친구가 아닌 경우 -> 요청 버튼
-                          이미 친구인 경우 -> 요청 버튼 X  */}
-                      {!friend.isFriend ? (
-                        <div
-                          className="friend-myfriend-profile-info-button"
-                          onClick={() => sendFriendRequest(friend.memberSeq)}
-                        >
-                          {/* 이미 요청을 한 경우 -> 요청 취소
-                              아직 요청하지 않은 경우 -> 요청 */}
-                          {toWho.includes(friend.memberSeq) ? (
-                            <div>요청됨</div>
-                          ) : (
+                      {/* 1. div 요청됨 : 친구가 아니지만 요청을 보냄 */}
+                      {/* 2. button 요청 : 친구가 아니고 요청을 보낸 적이 없음 */}
+                      {/* 3. null : 친구임 */}
+                      
+                      {/* 친구가 아니고 */}
+                      {!friend.isFriend ? 
+                       // 요청을 보낸 적이 없고
+                       ( !friend.isSend ?
+                        // 요청을 받은 적도 없으면 >> 요청 버튼
+                        ( !friend.isReceive ?
+                          <div
+                            className="friend-myfriend-profile-info-button"
+                            onClick={() => sendFriendRequest(friend.memberSeq)}
+                          >
                             <MiniButton text="요청" />
-                          )}
-                        </div>
-                      ) : null}
+                          </div>
+                          :
+                          // 요청을 받은 적이 있으면 >> 수락/거절
+                          <div>
+                            <button>수락/거절</button>
+                          </div>
+                        )
+                        :
+                          // 요청을 보낸 적이 있으면 >> 요청됨
+                          <div>
+                            요청됨
+                          </div> 
+                       )
+                      :
+                      // 이미 친구
+                        null
+                      }
+                     
                     </div>
                   </div>
                 </div>
