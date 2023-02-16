@@ -60,7 +60,7 @@ export default function TabBar2(props) {
   };
 
   useEffect(() => {
-    props.catchClickInfo(openInfo);
+    if (props.catchClickInfo) props.catchClickInfo(openInfo);
   }, [openInfo]);
 
   return (
