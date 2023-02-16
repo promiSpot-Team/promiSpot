@@ -5,8 +5,10 @@
   z-index: 999;
   // background-color: rgba(190, 190, 190, 0.822);
   width: 95vw;
-  height: 56vh;
+  // height: 56vh;
   margin-top: 10vh;
+  resize: vertical;
+
   .chatting-contents-wrapper {
     
     height: 90%;
@@ -25,11 +27,10 @@
         font-size: 15px;
         font-weight: 400;
         padding: 2.5% 5% 2.5% 5%;
-        border-top-left-radius: 3rem;
-        border-top-right-radius: 3rem;
-        border-bottom-right-radius: 3rem;
+        border-top-left-radius: 1rem;
+        border-top-right-radius: 1rem;
+        border-bottom-left-radius: 1rem;
         color: white;
-        
         background-color: rgba(0, 0, 0, 0.65);
         float: right;
       }
@@ -46,16 +47,16 @@
         font-size: 15px;
         font-weight: 600;
         padding: 2.5% 2.5% 2.5% 2.5%;
-        border-top-left-radius: 3rem;
-        border-bottom-left-radius: 3rem;
+        border-top-left-radius: 1rem;
+        // border-bottom-left-radius: 1rem;
         background-color: rgba(235, 211, 255, 0.85);
       }
       .chatting-contents-other-msg {
         font-size: 15px;
         font-weight: 400;
         padding: 2.5% 5% 2.5% 5%;
-        border-top-right-radius: 10%;
-        border-bottom-right-radius: 10%;
+        border-top-right-radius: 1rem;
+        border-bottom-right-radius: 1rem;
         color: white;
         background-color: rgba(39, 30, 61, 0.65);
       }

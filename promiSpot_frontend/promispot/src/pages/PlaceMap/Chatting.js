@@ -1,15 +1,12 @@
-import { useRef, useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
 import * as StompJs from "@stomp/stompjs";
-
-import { SERVER_URL } from "../../constants/constants";
+import { useEffect, useRef, useState } from "react";
 import { BiSend } from "react-icons/bi";
-
-import { useLocation } from "react-router-dom";
+import { SERVER_URL } from "../../constants/constants";
+import { motion } from "framer-motion";
 import { useSelector } from "react-redux";
-
-import "../scss/Chatting.scss";
+import { useLocation } from "react-router-dom";
 import axios from "axios";
+import "../scss/Chatting.scss";
 
 const spawn = require("child_process").spawn;
 
@@ -116,7 +113,15 @@ export default function Chatting() {
   }, []);
 
   return (
-    <div className="chatting-wrapper">
+    <motion.div className="chatting-wrapper"
+      initial={{ opacity: 0, y: -15 }}
+      animate={{ opacity: 1, y:  0}}
+      transition={{
+        duration: 0.3,
+        delay: 0.3,
+        // ease: [0, 0.71, 0.2, 1.01]
+      }}
+    >
       <div className="chatting-contents-wrapper">
         {chatList.length > 0 &&
           chatList.map((one, index) => {
@@ -166,6 +171,6 @@ export default function Chatting() {
         </button>
         {/* <input type={"submit"} value={<BiSend />} /> */}
       </form>
-    </div>
+    </motion.div>
   );
 }

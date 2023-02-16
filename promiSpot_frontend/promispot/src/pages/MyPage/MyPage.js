@@ -59,6 +59,7 @@ export default function MyPage({ history }) {
       axios.defaults.headers.common["access-token"] = `${accessToken}`;
       axios.defaults.headers.common["refresh-token"] = `${refreshToken}`;
 
+      console.log("refreshToken", refreshToken)
       const response1 = await axios({
         method: "GET",
         url: `${SERVER_URL}/member/${memberSeq}`,
@@ -93,6 +94,7 @@ export default function MyPage({ history }) {
   // 내 정보 수정
   const editMyInfo = async (data) => {
     try {
+      console.log('data', data)
       const response2 = await axios({
         method: "POST",
         url: `${SERVER_URL}/member/${memberSeq}`,
@@ -173,13 +175,14 @@ export default function MyPage({ history }) {
     // console.log(memberNick);
     editMyInfo(data);
   };
+
   useEffect(() => {
     getMyInfo();
   }, [accessToken]);
 
-  useEffect(() => {
-    editMyInfo();
-  });
+  // useEffect(() => {
+  //   editMyInfo();
+  // });
 
   useEffect(() => {
     getMyAddress();

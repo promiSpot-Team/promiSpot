@@ -96,13 +96,13 @@ export default function Friend(props) {
         const toWhoFriend = response.data.map((friend) => {
           if (friend.isSend === 1) return friend.memberSeq
         })
-        console.log("toWhoFriend", toWhoFriend)
+        // console.log("toWhoFriend", toWhoFriend)
         /* toWho 배열에 내가 요청한 친구 목록에서 memberSeq만 담은 배열 넣기 */
         setToWho(
           toWhoFriend.filter(friendSeq => friendSeq)
         )
-        console.log("toWho : ", toWho)
-        console.log("친구 목록", response.data);
+        // console.log("toWho : ", toWho)
+        // console.log("친구 목록", response.data);
       }
     } catch (err) {
       setFriendSearchResult([]);
@@ -136,7 +136,7 @@ export default function Friend(props) {
             friendRequestMember,
           },
         });
-        console.log(response);
+        // console.log(response);
 
         const newWho = [...toWho, friendRequestMember];
         setToWho(newWho);
