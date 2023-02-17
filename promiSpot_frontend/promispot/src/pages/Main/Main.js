@@ -10,6 +10,7 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Card2 from "../../components/Card/Card2";
+import { useLocation } from "react-router";
 
 export default function Main() {
   const [promiseList, setPromiseList] = useState(null);
@@ -51,6 +52,8 @@ export default function Main() {
   // }
 
   const dispatch = useDispatch();
+  const [votePlaceList, setVotePlaceList] = useState([]);
+
   const searchPromiseList = async () => {
     const response = await axios({
       method: "GET",
@@ -58,24 +61,15 @@ export default function Main() {
     });
     if (response.data !== "fail") {
       setPromiseList(response.data);
+      console.log(response.data);
     }
   };
   useEffect(() => {
     searchPromiseList();
+    // searchVotePlaceList();
   }, []);
 
-  // const logOut = async (e) => {
-  //   e.preventDefault()
-  //   const response = await axios({
-  //     method: 'GET',
-  //     url: `${SERVER_URL}/member/logout/${memberSeq}`
-  //   })
-
-  //   /* 로그아웃 성공하면 로컬 스토리지에 user info 삭제하기 */
-  //   if (response.data.message === 'success') {
-  //     dispatch(setToken(null))
-  //   }
-  // }
+  console.log("promiseList", promiseList);
   return (
     <div className="main-wrapper">
       {/* <button onClick={logOut}>로그아웃</button> */}

@@ -16,8 +16,8 @@ export default function PlaceSearch() {
   const stateRect = useSelector((state) => state.map.rect);
   const [placeList, setPlaceList] = useState(statePlaceList);
   const navigate = useNavigate();
-  const childRef = useRef();
   const dispatch = useDispatch();
+  const childRef = useRef();
 
   const [promiseSeq, setPromiseSeq] = useState();
   const location = useLocation();

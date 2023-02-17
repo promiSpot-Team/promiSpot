@@ -104,15 +104,15 @@ export default function PlaceDetail() {
       placeAddressName: place.address_name,
       placeX: place.x,
       placeY: place.y,
-      placeUrl: "",
-      placeImgUrl: "",
+      placeUrl: place.place_url,
+      placeImgUrl: place.place_img_url,
     };
 
     try {
       const response = await axios({
         url: "place/insert",
         method: "POST",
-        baseURL: SERVER_URL,
+        baseURL: "http://localhost:9090/api/",
         data: sendData,
       });
 
@@ -198,11 +198,7 @@ export default function PlaceDetail() {
           text={place.place_name ? place.place_name : place.placeName}
         />
         <div className="place-time-btn">
-          <RiTimeFill
-            className="place-time-btn-icon"
-            size="20px"
-            color="white"
-          />
+          <RiTimeFill className="place-time-btn-icon" size="20px" color="white" />
           <div className="place-time-btn-txt">소요 시간</div>
         </div>
       </div>

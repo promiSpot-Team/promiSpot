@@ -34,14 +34,21 @@ export default function Card(props) {
           {participantList &&
             participantList.map((participant, idx) => {
               return (
-                <div
-                  key={participant.memberSeq}
-                  className="card-content-friend-img-div"
-                >
-                  <img
-                    src={participant.memberImgPath}
-                    alt={participant.memberNick}
-                  />
+                <div className="card-content-friend-wrapper">
+                  <div
+                    key={participant.memberSeq}
+                    className="card-content-friend-img-div"
+                  >
+                    <img
+                      src={participant.memberImgPath}
+                      alt={participant.memberNick}
+                    />
+                  </div>
+                  <div className="card-content-participant-txt">
+                    <div className="card-content-participant-non-leader-txt">
+                      {participant.memberName}
+                    </div>
+                  </div>
                 </div>
               );
             })}

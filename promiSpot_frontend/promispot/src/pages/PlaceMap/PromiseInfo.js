@@ -57,10 +57,7 @@ export default function PromiseInfo() {
 
           <div className="promise-info-participants-wrapper">
             {participantList.map((participant) => (
-              <div
-                className="promise-info-participant"
-                key={participant.memberSeq}
-              >
+              <div className="promise-info-participant" key={participant.memberSeq}>
                 {promise.promiseLeader === participant.memberSeq ? (
                   <div className="promise-info-participant-one">
                     <img
@@ -77,9 +74,7 @@ export default function PromiseInfo() {
                       className="promise-info-participant-img"
                       src={participant.memberImgPath}
                     ></img>
-                    <div className="promise-info-participant-name">
-                      {participant.memberName}
-                    </div>
+                    <div className="promise-info-participant-name">{participant.memberName}</div>
                   </div>
                 )}
               </div>

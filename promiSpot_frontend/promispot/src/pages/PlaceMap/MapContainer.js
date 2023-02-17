@@ -17,6 +17,8 @@ import * as StompJs from "@stomp/stompjs";
 import { AiOutlineConsoleSql } from "react-icons/ai";
 import Chatting from "./Chatting";
 
+import { KAKAO_MAP_URL, KAKAO_REST_API_KEY } from "../../constants/constants";
+
 const { kakao } = window;
 
 export default function MapContainer() {
@@ -71,8 +73,6 @@ export default function MapContainer() {
   }, []);
   useEffect(() => {}, [promise]);
 
-  // 출발 지점들을 토대로 중간 지점 가져오기
-
   const [middleSpotList, setMiddleSpotList] = useState();
   const [beforeMiddleSpotList, setBeforeMiddleSpotList] = useState([]);
 
@@ -84,6 +84,7 @@ export default function MapContainer() {
       const response = await axios({
         method: "GET",
         url: `${SERVER_URL}/promise/getMiddle/${promiseSeq}`,
+        // url: `http://localhost:9090/api/promise/getMiddle/${promiseSeq}`,
       });
       if (response.data !== "fail") {
         setMiddleSpotList(response.data);
@@ -118,6 +119,15 @@ export default function MapContainer() {
             middleSpot.middleX
           ),
           image: markerImage,
+        });
+
+        kakao.maps.event.addListener(marker, "click", function () {
+          // 마커 위에 인포윈도우를 표시합니다
+          var moveLatLon = new kakao.maps.LatLng(
+            middleSpot.middleY,
+            middleSpot.middleX
+          );
+          map.panTo(moveLatLon);
         });
 
         setBeforeMiddleSpotList((prev) => [...prev, marker]);
@@ -798,17 +808,21 @@ export default function MapContainer() {
         >
           {/* 여기에 투표현황 띄우면 됨 */}
 
-          {votePlaceList.length > 0 &&
-            votePlaceList.map((votePlace) => {
-              return (
-                <div>
-                  <div>
-                    {" "}
-                    {votePlace.placeName} : {votePlace.voteCnt}
+          <div className="vote-now-wrapper">
+            {votePlaceList.length > 0 &&
+              votePlaceList.map((votePlace) => {
+                return (
+                  <div className="vote-now-one-wrapper">
+                    <div className="vote-now-one-name">
+                      {votePlace.placeName}
+                    </div>
+                    <div className="vote-now-one-cnt">
+                      {votePlace.voteCnt}표
+                    </div>
                   </div>
-                </div>
-              );
-            })}
+                );
+              })}
+          </div>
 
           {/* 여기에 투표현황 띄우면 됨 */}
           <div className="map-button-now-vote-wrapper">

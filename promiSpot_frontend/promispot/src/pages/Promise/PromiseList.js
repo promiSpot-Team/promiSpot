@@ -21,7 +21,6 @@ export default function PromiseList() {
     });
     if (response.data !== "fail") {
       setPromiseList(response.data);
-      console.log(response.data);
     }
   };
 
@@ -41,10 +40,7 @@ export default function PromiseList() {
         {promiseList !== null &&
           promiseList.map((promise) => {
             return (
-              <div
-                className="promise-list-each-wrapper"
-                key={promise.promiseSeq}
-              >
+              <div className="promise-list-each-wrapper" key={promise.promiseSeq}>
                 <Card
                   date={promise.promiseDate}
                   // time={promise.promiseTime}

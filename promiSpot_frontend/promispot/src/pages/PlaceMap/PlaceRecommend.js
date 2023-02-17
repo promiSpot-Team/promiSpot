@@ -1,12 +1,16 @@
 import axios from "axios";
 import { motion } from "framer-motion";
 import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useLocation, useNavigate } from "react-router-dom";
 import BasicHeader4 from "../../components/Header/BasicHeader4";
 import { KAKAO_MAP_URL, KAKAO_REST_API_KEY } from "../../constants/constants";
 import "../scss/Map_Container.scss";
 import { useSelector } from "react-redux";
 
 export default function PlaceRecommend() {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
   /** 중심위치  */
   const { centerX, centerY } = useSelector((state) => state.map.centerXY);
   const [recommendPlaceList, setRecommendPlaceList] = useState([]);
@@ -48,9 +52,22 @@ export default function PlaceRecommend() {
     });
   };
 
+  const [promiseSeq, setPromiseSeq] = useState();
+  const location = useLocation();
   useEffect(() => {
     getRecommendPlace();
+    var path = location.pathname;
+    var parse = path.split("/");
+    var seq = parse[2];
+    setPromiseSeq(seq);
   }, []);
+
+  /* 변경된 위치에 따른 변경된 검색 결과 저장 */
+  function moveToPlaceDetail(place) {
+    // dispatch(savePlaceList(placeList));
+    dispatch(setPlace(place));
+    navigate(`/map/${promiseSeq}/${place.id}`, { state: place });
+  }
 
   return (
     <motion.div
@@ -80,7 +97,11 @@ export default function PlaceRecommend() {
         {recommendPlaceList &&
           recommendPlaceList.map((place, index) => {
             return (
-              <div key={index} className="recommend-place-div">
+              <div
+                key={index}
+                className="recommend-place-div"
+                onClick={() => moveToPlaceDetail(place[0])}
+              >
                 <p className="place-title">{place[0].place_name}</p>
                 <p className="place-address">{place[0].address_name}</p>
               </div>

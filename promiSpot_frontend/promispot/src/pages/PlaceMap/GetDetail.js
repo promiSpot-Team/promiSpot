@@ -6,12 +6,7 @@ import { BsFillTelephoneFill } from "react-icons/bs";
 import { AiFillStar } from "react-icons/ai";
 
 export default function GetDetail(props) {
-  var address_name,
-    category_name,
-    phone,
-    place_name,
-    place_url,
-    road_address_name;
+  var address_name, category_name, phone, place_name, place_url, road_address_name;
 
   // const [place_url, setplace_url] = useState(null)
 
@@ -82,27 +77,15 @@ export default function GetDetail(props) {
         )}
         <div className="place-detail-txt-wrapper">
           <div className="place-detail-add-wrapper">
-            <FaMapMarkerAlt
-              className="place-detail-add-icon"
-              size="15px"
-              color="#b4b4b4"
-            />
+            <FaMapMarkerAlt className="place-detail-add-icon" size="15px" color="#b4b4b4" />
             <div className="place-detail-add-txt">{address_name}</div>
           </div>
           <div className="place-detail-tel-wrapper">
-            <BsFillTelephoneFill
-              className="place-detail-tel-icon"
-              size="15px"
-              color="#b4b4b4"
-            />
+            <BsFillTelephoneFill className="place-detail-tel-icon" size="15px" color="#b4b4b4" />
             <div className="place-detail-tel-txt">{phone}</div>
           </div>
           <div className="place-detail-star-wrapper">
-            <AiFillStar
-              className="place-detail-star-icon"
-              size="15px"
-              color="#cfc31b"
-            />
+            <AiFillStar className="place-detail-star-icon" size="15px" color="#cfc31b" />
             <div className="place-detail-star-txt">평점 : {Star}</div>
           </div>
         </div>
