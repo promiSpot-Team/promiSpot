@@ -16,8 +16,8 @@ export default function PlaceSearch() {
   const stateRect = useSelector((state) => state.map.rect);
   const [placeList, setPlaceList] = useState(statePlaceList);
   const navigate = useNavigate();
-  const childRef = useRef();
   const dispatch = useDispatch();
+  const childRef = useRef();
 
   const [promiseSeq, setPromiseSeq] = useState();
   const location = useLocation();
@@ -43,10 +43,10 @@ export default function PlaceSearch() {
   /* 상위컴포넌트(/map)에서 지도가 드래그 될 때마다 검색 결과 변경 */
   useEffect(() => {
     childRef.current.whileDragMapHandle();
-    
+
     return () => {
       // console.log(localStorage.getItem(''))
-    }
+    };
   }, []);
 
   /* 지도 반경이 변화될 때마다 <SearchBar />에 변경된 검색 결과 반영 */
@@ -69,10 +69,10 @@ export default function PlaceSearch() {
   /* 변경된 위치에 따른 변경된 검색 결과 저장 */
   function moveToPlaceDetail(place) {
     dispatch(savePlaceList(placeList));
-    dispatch(setPlace(place))
+    dispatch(setPlace(place));
     navigate(`/map/${promiseSeq}/${place.id}`, { state: place });
   }
-  
+
   return (
     <motion.div
       className="place-modal-wrapper"

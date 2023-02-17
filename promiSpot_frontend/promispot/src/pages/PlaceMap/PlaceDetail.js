@@ -108,19 +108,20 @@ export default function PlaceDetail() {
       placeAddressName: place.address_name,
       placeX: place.x,
       placeY: place.y,
-      placeUrl: "",
-      placeImgUrl: "",
+      placeUrl: place.place_url,
+      placeImgUrl: place.place_img_url
     };
-
+    
     try {
       const response = await axios({
         url: "place/insert",
         method: "POST",
-        baseURL: SERVER_URL,
+        baseURL: "http://localhost:9090/api/",
         data: sendData,
       });
-
+      
       console.log("장소등록 후 응답보기 : ");
+      console.log(sendData.placeImgUrl)
       console.log(response.data.placeId);
       insertVote(response.data.placeId);
 

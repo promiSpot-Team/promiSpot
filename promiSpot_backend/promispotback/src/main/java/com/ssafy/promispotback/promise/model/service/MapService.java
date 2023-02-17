@@ -67,7 +67,12 @@ public class MapService {
         mapDto.setMiddleX(String.valueOf(midLng *180/Math.PI));
         mapDto.setMiddleY(String.valueOf(midLat *180/Math.PI));
 
+        // latitude 1km = 1 / 109.958489129649955
+        // Longitude  1Km = 1 / 88.74
+
+
         mapList.add(mapDto);
+
 
         return mapList;
     }
