@@ -226,101 +226,132 @@ export default function MyPage({ history }) {
                       편집
                     </button>
                   </div>
-                  <div className="my-content-address-wrapper" onClick={goAddress}>
-                    {myAddressList &&
-                      myAddressList.map((address) => {
-                        return (
-                          <div key={address.addressSeq}>
-                            <div>
-                              {address.addressIsPrimary === 1 ? (
-                                <div className="my-content-address">
-                                  <div className="my-content-address-nick">
-                                    {address.addressNick}
+                  <div className="my-content-real-all-wrapper">
+                    <div
+                      className="my-content-address-wrapper"
+                      onClick={goAddress}
+                    >
+                      {myAddressList &&
+                        myAddressList.map((address) => {
+                          return (
+                            <div key={address.addressSeq}>
+                              <div>
+                                {address.addressIsPrimary === 1 ? (
+                                  <div className="my-content-address">
+                                    <div className="my-content-address-nick">
+                                      {address.addressNick}
+                                    </div>
+                                    <div className="my-content-address-real">
+                                      {address.addressAddress}
+                                    </div>
+                                    <div className="my-content-address-icon">
+                                      <IoIosArrowForward size="3vh" />
+                                    </div>
                                   </div>
-                                  <div className="my-content-address-real">
-                                    {address.addressAddress}
-                                  </div>
-                                  <div className="my-content-address-icon">
-                                    <IoIosArrowForward size="3vh" />
-                                  </div>
-                                </div>
-                              ) : null}
+                                ) : null}
+                              </div>
                             </div>
-                          </div>
-                        );
-                      })}
-                  </div>
-                  <div className="my-content-info-wrapper">
-                    <div className="my-content-info">
-                      <div className="my-content-info-title">닉네임</div>
-                      <div className="my-content-info-txt">{item.memberInfo.memberNick}</div>
+                          );
+                        })}
                     </div>
-                  </div>
-                  <div className="my-content-line"></div>
-                  <div className="my-content-info-wrapper">
-                    <div className="my-content-info">
-                      <div className="my-content-info-title">아이디</div>
-                      <div className="my-content-info-txt">{item.memberInfo.memberId}</div>
+                    <div className="my-content-info-wrapper">
+                      <div className="my-content-info">
+                        <div className="my-content-info-title">닉네임</div>
+                        <div className="my-content-info-txt">
+                          {item.memberInfo.memberNick}
+                        </div>
+                      </div>
                     </div>
-                  </div>
-                  <div className="my-content-line"></div>
-                  <div className="my-content-info-wrapper">
-                    <div className="my-content-info">
-                      <div className="my-content-info-title">이메일</div>
-                      <div className="my-content-info-txt">{item.memberInfo.memberEmail}</div>
+                    <div className="my-content-line"></div>
+                    <div className="my-content-info-wrapper">
+                      <div className="my-content-info">
+                        <div className="my-content-info-title">아이디</div>
+                        <div className="my-content-info-txt">
+                          {item.memberInfo.memberId}
+                        </div>
+                      </div>
                     </div>
-                  </div>
-                  <div className="my-content-line"></div>
-                  <div className="my-content-info-wrapper">
-                    <div className="my-content-info">
-                      <div className="my-content-info-title">전화번호</div>
-                      <div className="my-content-info-txt">{item.memberInfo.memberPhoneNum}</div>
+                    <div className="my-content-line"></div>
+                    <div className="my-content-info-wrapper">
+                      <div className="my-content-info">
+                        <div className="my-content-info-title">이메일</div>
+                        <div className="my-content-info-txt">
+                          {item.memberInfo.memberEmail}
+                        </div>
+                      </div>
                     </div>
-                  </div>
-                  <div className="my-content-line-2"></div>
-                  <div className="my-content-logout-btn-wrapper">
-                    <button className="basicButton" onClick={logOut}>
-                      로그아웃
-                    </button>
+                    <div className="my-content-line"></div>
+                    <div className="my-content-info-wrapper">
+                      <div className="my-content-info">
+                        <div className="my-content-info-title">전화번호</div>
+                        <div className="my-content-info-txt">
+                          {item.memberInfo.memberPhoneNum}
+                        </div>
+                      </div>
+                    </div>
+                    <div className="my-content-line-2"></div>
+                    <div className="my-content-logout-btn-wrapper">
+                      <button className="basicButton" onClick={logOut}>
+                        로그아웃
+                      </button>
+                    </div>
                   </div>
                 </div>
               );
             })}
         </>
       ) : (
-        <>
+        <div>
           {myInfoList &&
             myInfoList.map((item, idx) => {
               return (
-                <div key={idx}>
-                  <form className="join-input-wrapper" onSubmit={handleSubmit}>
-                    <FormControl sx={{ width: "70%" }} variant="standard">
-                      <TextField
-                        className="input-form-wrapper"
-                        id="nickName"
-                        label="닉네임"
-                        placeholder={item.memberInfo.memberNick}
-                        name="nickName"
-                        multiline
-                        variant="standard"
-                        fontFamily="Pretendard-Bold"
-                        // defaultValue={item.memberInfo.memberNick}
-                        margin="dense"
-                        // defaultValue={item.memberInfo.memberNick}
-                        // onChange={handleEditChange}
-                      >
-                        {/* <div onClick={clearText}>삭제</div> */}
-                      </TextField>
-                    </FormControl>
-                    <div onClick={goMyPage}>
-                      <button>수정</button>
-                    </div>
-                    {/* <button onClick={editMyInfo}>수정</button> */}
-                  </form>
+                <div className="content" key={idx}>
+                  <div className="my-content-img">
+                    <img
+                      className="my-content-img-real"
+                      src={item.memberInfo.memberImgPath}
+                      width="80px"
+                    />
+                    <div></div>
+                  </div>
+                  <div className="my-content-name">
+                    {item.memberInfo.memberName}
+                  </div>
+                  <div className="mypage-edit-input-wrapper">
+                    <form
+                      className="join-input-wrapper"
+                      onSubmit={handleSubmit}
+                    >
+                      <FormControl sx={{ width: "70%" }} variant="standard">
+                        <TextField
+                          className="input-form-wrapper"
+                          id="nickName"
+                          label="닉네임"
+                          placeholder={item.memberInfo.memberNick}
+                          name="nickName"
+                          multiline
+                          variant="standard"
+                          fontFamily="Pretendard-Bold"
+                          // defaultValue={item.memberInfo.memberNick}
+                          margin="dense"
+                          // defaultValue={item.memberInfo.memberNick}
+                          // onChange={handleEditChange}
+                        >
+                          {/* <div onClick={clearText}>삭제</div> */}
+                        </TextField>
+                      </FormControl>
+                      <div onClick={goMyPage}>
+                        <div className="mypage-edit-btn">
+                          <button className="basicButton">수정</button>
+                        </div>
+                      </div>
+                      {/* <button onClick={editMyInfo}>수정</button> */}
+                    </form>
+                  </div>
                 </div>
               );
             })}
-        </>
+        </div>
       )}
       {/* {myInfoList && myInfoList.map((info) => {
           return (<div>

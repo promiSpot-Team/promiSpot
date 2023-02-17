@@ -65,18 +65,8 @@ export default function Main() {
     searchPromiseList();
   }, []);
 
-  // const logOut = async (e) => {
-  //   e.preventDefault()
-  //   const response = await axios({
-  //     method: 'GET',
-  //     url: `${SERVER_URL}/member/logout/${memberSeq}`
-  //   })
 
-  //   /* 로그아웃 성공하면 로컬 스토리지에 user info 삭제하기 */
-  //   if (response.data.message === 'success') {
-  //     dispatch(setToken(null))
-  //   }
-  // }
+  console.log("promiseList", promiseList)
   return (
     <div className="main-wrapper">
       {/* <button onClick={logOut}>로그아웃</button> */}

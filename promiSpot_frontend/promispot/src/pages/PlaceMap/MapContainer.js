@@ -27,7 +27,9 @@ export default function MapContainer() {
   const [modalOpen, setModalOpen] = useState(false);
 
   /* 지도의 중심 위치 정보 redux에서 가져오기 */
-  const placeCenterXY = useSelector((state) => (state.map?.placeXY ? state.map.placeXY : null));
+  const placeCenterXY = useSelector((state) =>
+    state.map?.placeXY ? state.map.placeXY : null
+  );
   const mapCenterXY = useSelector((state) => state.map.centerXY);
 
   // 지도 중심 위치 변수
@@ -67,57 +69,79 @@ export default function MapContainer() {
   useEffect(() => {
     searchPromise();
   }, []);
-  useEffect(() => {
-    console.log("promise 받아오는지 확인 : ", promise);
-  }, [promise]);
+  useEffect(() => {}, [promise]);
 
   // 출발 지점들을 토대로 중간 지점 가져오기
 
-  const [middleSpot, setMiddleSpot] = useState();
-  const searchMiddleSpot = async () => {
+  const [middleSpotList, setMiddleSpotList] = useState();
+  const [beforeMiddleSpotList, setBeforeMiddleSpotList] = useState([]);
+
+  const searchMiddleSpotList = async () => {
     var path = location.pathname;
     var parse = path.split("/");
     var promiseSeq = parse[2];
     try {
       const response = await axios({
         method: "GET",
-        // url: `${SERVER_URL}/promise/getMiddle/${promiseSeq}`,
-        url: `http://localhost:9090/api/promise/getMiddle/15`,
+        url: `${SERVER_URL}/promise/getMiddle/${promiseSeq}`,
       });
       if (response.data !== "fail") {
-        setMiddleSpot(response.data[0]);
+        setMiddleSpotList(response.data);
       }
     } catch (err) {
       console.log(err);
     }
   };
   useEffect(() => {
-    searchMiddleSpot();
+    searchMiddleSpotList();
   }, []);
   useEffect(() => {
-    console.log("맵컨테이너 middleSpot : ", middleSpot);
-  }, [middleSpot]);
+    if (beforeMiddleSpotList) {
+      beforeMiddleSpotList.forEach((beforeMiddleSpot) => {
+        beforeMiddleSpot.setMap(null);
+      });
+    }
+
+    setBeforeVotePlaceList([]);
+
+    if (middleSpotList) {
+      middleSpotList.forEach((middleSpot) => {
+        var imageSrc = "https://i1.daumcdn.net/dmaps/apis/n_local_blit_04.png";
+        var imageSize = new kakao.maps.Size(24, 35);
+        var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);
+
+        // 마커 생성 및 클릭이벤트 등록
+        var marker = new kakao.maps.Marker({
+          map: map,
+          position: new kakao.maps.LatLng(
+            middleSpot.middleY,
+            middleSpot.middleX
+          ),
+          image: markerImage,
+        });
+
+        setBeforeMiddleSpotList((prev) => [...prev, marker]);
+
+        marker.setMap(map);
+      });
+    }
+  }, [middleSpotList]);
 
   // 출발 지점들을 토대로 중간 지점 가져오기
 
   const [valid, setValid] = useState();
   useEffect(() => {
     if (promise && promise.promiseLeader === memberSeq) {
-      console.log("promise.promiseLeader : ", promise.promiseLeader);
-      console.log("memberSeq : ", memberSeq);
       setValid(true);
     } else {
       setValid(false);
     }
   }, [promise]);
 
-  useEffect(() => {
-    console.log("valid : ", valid);
-  }, [valid]);
+  useEffect(() => {}, [valid]);
 
   const isValid = () => {
     setValid(!valid);
-    console.log("valid is", valid);
   };
 
   const location = useLocation();
@@ -142,7 +166,6 @@ export default function MapContainer() {
   // 등록한 주소 중 하나 선택하기
   const [selectAddress, setSelectAddress] = useState();
   const addressSelect = (e) => {
-    console.log("출발지 선택했을 때를 보자 :", JSON.parse(e.currentTarget.value));
     setSelectAddress(JSON.parse(e.currentTarget.value));
   };
 
@@ -157,7 +180,10 @@ export default function MapContainer() {
 
       if (selectAddress) {
         var customOverlay = new kakao.maps.CustomOverlay({
-          position: new kakao.maps.LatLng(selectAddress.addressY, selectAddress.addressX),
+          position: new kakao.maps.LatLng(
+            selectAddress.addressY,
+            selectAddress.addressX
+          ),
           content: `<div class="map-user-profile"><img src=${member.memberImgPath}></div>`,
           xAnchor: 0.3,
           yAnnchor: 0.91,
@@ -184,8 +210,6 @@ export default function MapContainer() {
         setDepartureList(response.data);
       }
     }
-
-    console.log("departureList 받아오는지 확인", departureList);
   };
   useEffect(() => {
     searchDepartureList();
@@ -210,7 +234,10 @@ export default function MapContainer() {
     if (departureList) {
       departureList.forEach((departure) => {
         var customOverlay = new kakao.maps.CustomOverlay({
-          position: new kakao.maps.LatLng(departure.departureY, departure.departureX),
+          position: new kakao.maps.LatLng(
+            departure.departureY,
+            departure.departureX
+          ),
           content: `<div class="map-user-profile"><img src=${departure.memberImgPath}></div>`,
           xAnchor: 0.3,
           yAnnchor: 0.91,
@@ -231,7 +258,6 @@ export default function MapContainer() {
       brokerURL: "wss://i8a109.p.ssafy.io/api/ws",
       // brokerURL: `ws://localhost:9090/api/ws`,
       onConnect: () => {
-        console.log("MapContainer 소켓 연결에 성공했습니다.");
         subscribeDeparture();
         subscribeVotePlace();
       },
@@ -242,13 +268,13 @@ export default function MapContainer() {
   // 출발지 발행 코드
   const publishDeparture = () => {
     if (!client.current.connected) return;
-    // console.log("소켓 발신 성공");
     client.current.publish({
       destination: `/pub/departure`,
       body: JSON.stringify({
         promiseSeq: promiseSeq,
       }),
     });
+    searchMiddleSpotList();
   };
 
   // 출발지 수신 코드
@@ -256,11 +282,14 @@ export default function MapContainer() {
     var path = location.pathname;
     var parse = path.split("/");
     var promiseSeq1 = parse[2];
-    const promiseSeq = client.current.subscribe(`/sub/departure/${promiseSeq1}`, (body) => {
-      const json_body = JSON.parse(body.body);
-      searchDepartureList();
-      // console.log("출발지를 subscribe로 받아옵니다.");
-    });
+    const promiseSeq = client.current.subscribe(
+      `/sub/departure/${promiseSeq1}`,
+      (body) => {
+        const json_body = JSON.parse(body.body);
+        searchDepartureList();
+        searchMiddleSpotList();
+      }
+    );
   };
 
   // 약속 장소 후보 발행 코드
@@ -276,7 +305,6 @@ export default function MapContainer() {
 
   const toggle = useSelector((state) => state.promise.toggle);
   useEffect(() => {
-    // console.log("toggle 작동 확인");
     if (toggle) publishVotePlace();
   }, [toggle]);
 
@@ -285,11 +313,13 @@ export default function MapContainer() {
     var path = location.pathname;
     var parse = path.split("/");
     var promiseSeq1 = parse[2];
-    const promiseSeq = client.current.subscribe(`/sub/votePlace/${promiseSeq1}`, (body) => {
-      const json_body = JSON.parse(body.body);
-      searchVotePlaceList();
-      // console.log("약속 장소 후보들을 받습니다.");
-    });
+    const promiseSeq = client.current.subscribe(
+      `/sub/votePlace/${promiseSeq1}`,
+      (body) => {
+        const json_body = JSON.parse(body.body);
+        searchVotePlaceList();
+      }
+    );
   };
 
   // 연결자 연결종료
@@ -305,8 +335,9 @@ export default function MapContainer() {
   const onhandleDeparturePost = async () => {
     const intPromiseSeq = parseInt(promiseSeq, 10);
 
-    var selectMyAddress = JSON.parse(document.getElementById("selectMyAddress").value);
-    console.log("selectMyAddress 받아오는지 확인", selectMyAddress);
+    var selectMyAddress = JSON.parse(
+      document.getElementById("selectMyAddress").value
+    );
 
     const sendData = {
       promiseSeq: intPromiseSeq,
@@ -315,10 +346,7 @@ export default function MapContainer() {
       departureX: selectMyAddress.addressX,
       departureY: selectMyAddress.addressY,
       memberImgPath: member.memberImgPath,
-      // departureX: selectAddress.addressX,
-      // departureY: selectAddress.addressY,
     };
-    console.log(sendData);
     try {
       const response = await axios({
         url: "/departure/insert",
@@ -363,15 +391,13 @@ export default function MapContainer() {
       });
     }
 
-    console.log(votePlaceList);
-    console.log("마커가 잘 찍히는지 확인");
-
     setBeforeVotePlaceList([]);
 
     // BeforeVotePlaceList의 데이터로 마커 찍기
     if (votePlaceList) {
       votePlaceList.forEach((votePlace) => {
-        var imageSrc = "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png";
+        var imageSrc =
+          "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png";
         var imageSize = new kakao.maps.Size(24, 35);
         var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);
 
@@ -387,13 +413,6 @@ export default function MapContainer() {
 
         // 마커에 클릭이벤트를 등록합니다
         kakao.maps.event.addListener(marker, "click", function () {
-          console.log("마커 클릭 작동");
-          console.log(
-            "promiseSeq, votePlace.placeId, votePlace",
-            promiseSeq,
-            votePlace.placeId,
-            votePlace
-          );
           navigate(`/map/${promiseSeq}/${votePlace.placeId}`, {
             state: votePlace,
           });
@@ -479,7 +498,6 @@ export default function MapContainer() {
   const mapscript = () => {
     const container = document.getElementById("map");
     const { centerX, centerY } = mapCenterXY;
-    console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>", centerX, centerY);
     const options = {
       // center: new kakao.maps.LatLng(37.5013, 127.0397),
       center: new kakao.maps.LatLng(centerY, centerX),
@@ -522,6 +540,7 @@ export default function MapContainer() {
           centerY: center.Ma,
         })
       );
+      setSelectComplete(false);
     });
   }
 
@@ -541,7 +560,6 @@ export default function MapContainer() {
       [icon]: !openDiv[icon],
     });
     setOpenDiv(newOpenDiv);
-    console.log(openDiv);
   };
 
   const catchClickSearch = (isOpen) => {
@@ -583,13 +601,121 @@ export default function MapContainer() {
   //   if (mapCenterXY) moveMap();
   // }, [mapCenterXY]);
 
+  /** 지도 클릭해서 주소 변경할 때  */
+  const [isSelecting, setIsSelecting] = useState(false);
+  const [selectComplete, setSelectComplete] = useState(false);
+
+  /** 주소 선택하기 눌렀을 때 toggle */
+  const toggleSelect = () => {
+    if (!isSelecting) {
+      clickTileSet();
+    }
+    setIsSelecting(!isSelecting);
+  };
+
+  /** 주소 선택하기 누른 상태에서 지도에서 원하는 출발 위치 선택했을 때 */
+  const selectDeparture = () => {
+    setSelectComplete(true);
+    setIsSelecting(false);
+    // clickTileSet()
+  };
+
+  /** 출발 위치 위도 경도 **/
+  const [latLng, setLatLng] = useState(null);
+  const clickTileSet = () => {
+    kakao.maps.event.addListener(map, "click", function (mouseEvent) {
+      var latlng = mouseEvent.latLng;
+      setSelectComplete(true);
+      setIsSelecting(false);
+      setLatLng(latlng);
+
+      latLngDeparturePost();
+    });
+  };
+  const latLngDeparturePost = async () => {
+    var path = location.pathname;
+    var parse = path.split("/");
+    var promiseSeq = parse[2];
+
+    if (latLng == null) {
+      return;
+    }
+
+    const sendData = {
+      promiseSeq: promiseSeq,
+      memberSeq: memberSeq,
+      memberName: member.memberName,
+      departureX: latLng.La,
+      departureY: latLng.Ma,
+      memberImgPath: member.memberImgPath,
+    };
+    try {
+      const response = await axios({
+        url: "/departure/insert",
+        method: "POST",
+        baseURL: SERVER_URL,
+        data: sendData,
+      });
+    } catch (err) {
+      console.log(err);
+    }
+
+    if (memberCustomOverlay) {
+      memberCustomOverlay.setMap(null);
+    }
+
+    publishDeparture();
+    searchDepartureList();
+  };
+
+  // 출발지를 선택하면 값이 변할테고 그러면 백단 서버에 보내는 함수를 실행시킨다.
+  useEffect(() => {
+    latLngDeparturePost();
+  }, [latLng]);
+
+  /** 이건 지도 색상 변경 효과 */
+  const setTileSet = () => {
+    kakao.maps.Tileset.add(
+      "TILE_NUMBER",
+      new kakao.maps.Tileset({
+        width: 1000,
+        height: 1000,
+        getTile: function (x, y, z) {
+          var div = document.createElement("div");
+          div.innerHTML = x + ", " + y + ", " + z;
+          // div.style.fontSize = '36px';
+          // div.style.fontWeight = 'bold';
+          // div.style.lineHeight = '256px'
+          // div.style.textAlign = 'center';
+          // div.style.color = '#4D4D4D';
+          // div.style.border = '1px dashed #ff5050';
+          div.style.backgroundColor = "#c4c4c4";
+          div.style.opacity = "0.5";
+          return div;
+        },
+      })
+    );
+    // 지도 위에 TILE_NUMBER 오버레이 레이어를 추가합니다
+    map.addOverlayMapTypeId(kakao.maps.MapTypeId.TILE_NUMBER);
+  };
+
   return (
     <div id="map-all-wrapper">
       {/* 회원이 지정한 주소를 가져와 선택하게 하는 DIV */}
       <div className="map-choose-add-wrapper">
-        <div className="map-choose-add-txt">출발 주소</div>
+        <div className="map-choose-add-txt" onClick={toggleSelect}>
+          {isSelecting
+            ? selectComplete
+              ? "선택 완료"
+              : "선택 중..."
+            : "주소 선택"}
+        </div>
         <div className="map-choose-add-select-wrapper">
-          <select className="map-choose-add-select" onChange={addressSelect} id="selectMyAddress">
+          <select
+            className="map-choose-add-select"
+            onChange={addressSelect}
+            id="selectMyAddress"
+          >
             {memberAddressList !== null &&
               memberAddressList.map((address) => {
                 return (
@@ -610,7 +736,7 @@ export default function MapContainer() {
           선택
         </button>
       </div>
-      <div id="map" className="map-wrapper">
+      <div id="map" className="map-wrapper" onClick={selectDeparture}>
         {/* 검색창 껐다 끄기 토클 */}
         {/* 여기 조절 다시 해야함 */}
         {openDiv.search && <PlaceSearch />}
@@ -647,7 +773,11 @@ export default function MapContainer() {
           }}
         >
           <div className="map-button-vote-txt">투표현황</div>
-          <FaVoteYea className="map-button-vote-icon" size="25" color="#ffffff" />
+          <FaVoteYea
+            className="map-button-vote-icon"
+            size="25"
+            color="#ffffff"
+          />
         </button>
       </div>
       <div className="map-tab-wrapper">
@@ -662,36 +792,45 @@ export default function MapContainer() {
         />
       </div>
       {modalOpen && (
-        <Modal2 title="투표현황" button="✖" closeModal={() => setModalOpen(!modalOpen)}>
+        <Modal2
+          title="투표현황"
+          button="✖"
+          closeModal={() => setModalOpen(!modalOpen)}
+        >
           {/* 여기에 투표현황 띄우면 됨 */}
 
-          {votePlaceList.length > 0 &&
-            votePlaceList.map((votePlace) => {
-              return (
-                <div>
-                  <div>
-                    {" "}
-                    {votePlace.placeName} : {votePlace.voteCnt}
+          <div className="vote-now-wrapper">
+            {votePlaceList.length > 0 &&
+              votePlaceList.map((votePlace) => {
+                return (
+                  <div className="vote-now-one-wrapper">
+                    <div className="vote-now-one-name">
+                      {votePlace.placeName}
+                    </div>
+                    <div className="vote-now-one-cnt">
+                      {votePlace.voteCnt}표
+                    </div>
                   </div>
-                </div>
-              );
-            })}
+                );
+              })}
+          </div>
 
           {/* 여기에 투표현황 띄우면 됨 */}
-          <div>
-            <div>투표현황입니다</div>
+          <div className="map-button-now-vote-wrapper">
+            {/* <div>투표현황입니다</div> */}
             {valid ? (
               <button
-                className="map-button-now-vote"
+                className="map-button-now-vote-2"
                 onClick={() => {
                   setModalOpen(true);
                   // isValid(true);
                 }}
               >
-                <div className="map-button-vote-txt">투표종료</div>
+                투표종료
               </button>
             ) : (
-              <div>방장이 아닌 사람에게 보입니다</div>
+              <div></div>
+              // <div>방장이 아닌 사람에게 보입니다</div>
               // <button className="map-button-vote">
               //   <BsFillCalendarCheckFill size="40" color="#ffffff" />
               // </button>

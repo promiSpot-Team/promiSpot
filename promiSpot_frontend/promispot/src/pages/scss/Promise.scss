@@ -143,8 +143,11 @@
 }
 
 .promise-list {
-  height: 60vh;
+  height: 63vh;
   overflow: auto;
+  .promise-list-each-wrapper {
+    padding-bottom: 0.25vh;
+  }
 }
 .promise-calendar {
   height: 60vh;

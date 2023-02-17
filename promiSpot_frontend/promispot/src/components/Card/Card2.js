@@ -4,20 +4,17 @@ import "./Card2.scss";
 
 export default function Card2(props) {
   const { date, time, title, imgLink, promiseSeq, participantList } = props;
-
+  // const [arr, setArr] = React.useState(null)
   var arr = date?.split(/[년월일 ]/);
-  console.log("arr is", arr);
   var t1 = time?.substr(0, 5);
   var t2 = time?.substr(5, 6);
-  const temp = () => {
-    console.log("arr", arr, typeof arr);
-  };
+
   const navigate = useNavigate();
 
   const moveToPromise = () => {
     navigate(`/map/${promiseSeq}`);
   };
-
+  
   return (
     // 카드 전체
     <div className="card2-wrapper">
