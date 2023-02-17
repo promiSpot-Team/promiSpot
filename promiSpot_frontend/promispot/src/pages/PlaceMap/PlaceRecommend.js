@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
 import BasicHeader4 from "../../components/Header/BasicHeader4";
 import { KAKAO_MAP_URL, KAKAO_REST_API_KEY } from "../../constants/constants";
-import { setPlace } from "../../Redux/map";
+import { setPlace } from "../../Redux/reducer/map";
 import "../scss/Map_Container.scss";
 
 export default function PlaceRecommend() {
