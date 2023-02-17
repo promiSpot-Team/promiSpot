@@ -32,7 +32,8 @@ export default function GetDetail(props) {
     category_name = votePlace.placeCategoryName;
     phone = votePlace.placePhone;
     place_name = votePlace.placeName;
-    place_url = votePlace.placeUrl
+    place_url = votePlace.placeUrl;
+    console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>",place_url)
     // road_address_name = votePlace.placeRoadAddressName
   }
 
