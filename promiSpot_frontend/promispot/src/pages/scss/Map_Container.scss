@@ -993,3 +993,63 @@ select::-ms-expand {
     }
   }
 }
+.promise-info-wrapper {
+  width: 75vw;
+  padding: 7.5vw;
+  display: grid;
+  .promise-info-info {
+    width: 100%;
+    display: grid;
+    .promise-info-title {
+      font-size: 30px;
+      font-weight: 600;
+      margin-bottom: 2.5vw;
+    }
+    .promise-info-date {
+      font-size: 20px;
+      margin-bottom: 2vw;
+    }
+  }
+
+  .promise-info-participants-wrapper {
+    height: 30vh;
+    // width: 20vw;
+    display: flex;
+    .promise-info-participant {
+      // display: flex;
+      // width: 10vw;
+      // width: 50%;
+      .promise-info-participant-one {
+        // display: grid;
+        width: 100%;
+        justify-content: center;
+        text-align: center;
+        margin-right: 5px;
+        // height: 5vw;
+        .promise-info-participant-boss-img {
+          width: 15vw;
+          height: 15vw;
+          border-radius: 100%;
+          border: 5px inset rgba(219, 179, 122, 0.67);
+        }
+        .promise-info-participant-boss-name {
+          text-align: center;
+          font-size: 20px;
+        }
+        .promise-info-participant-img {
+          width: 15vw;
+          height: 15vw;
+          border-radius: 100%;
+          border: 5px inset rgba(156, 122, 219, 0.67);
+        }
+        .promise-info-participant-name {
+          text-align: center;
+          font-size: 20px;
+        }
+      }
+    }
+    .promise-info-boss {
+      font-size: 20px;
+    }
+  }
+}
