@@ -29,7 +29,6 @@ export default function Join2() {
     state?.user?.addressInfo ? state.user.addressInfo : null
   );
 
-  // console.log("주소!", addressInfo);
   const joinInfo = useSelector((state) =>
     state?.user?.joinInfo ? state.user.joinInfo : null
   );
@@ -47,7 +46,7 @@ export default function Join2() {
 
   const navigate = useNavigate();
 
-  const [passwordState, setPasswordState] = useState('')
+  const [passwordState, setPasswordState] = useState("");
 
   // 값이 입력될 때마다 변화하는 입력값 state객체에 저장
   const handleInputChange = (e) => {
@@ -60,12 +59,10 @@ export default function Join2() {
     const passwordRegex =
       /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,25}$/;
     if (!passwordRegex.test(state.password)) {
-      console.log('1')
       setPasswordState(
         "숫자+영문자+특수문자 조합으로 8자리 이상 입력해주세요!"
       );
-    }
-    else setPasswordState("");
+    } else setPasswordState("");
   };
 
   // 비밀번호 폼 변수
@@ -88,8 +85,6 @@ export default function Join2() {
   const [checked, setChecked] = useState(false);
   const handleAgree = (event) => {
     setChecked(event.target.checked);
-
-    console.log(checked);
   };
 
   // async awiat axios 요청
@@ -138,8 +133,6 @@ export default function Join2() {
         },
       });
 
-      console.log(addressInfo);
-
       // 회원가입 성공하면 리덕스에 저장된 임시 정보 제거
       const newJoinInfo = {
         id: "",
@@ -167,9 +160,7 @@ export default function Join2() {
     }
   };
 
-  useEffect(() => {
-    // console.log("addressInfo", addressInfo)
-  }, [addressInfo]);
+  useEffect(() => {}, [addressInfo]);
 
   // form의 onSubmit 이벤트
   const handleSubmit = (e) => {
@@ -190,7 +181,6 @@ export default function Join2() {
       addressNick: "내 집",
       addressIsPrimary: 1,
     };
-    console.log(joinData);
     const {
       memberId,
       memberEmail,
@@ -207,8 +197,6 @@ export default function Join2() {
     } = joinData;
 
     // 유효성 검사
-
-   
 
     // // 비밀번호 같은지 체크
     // if (password !== rePassword)
@@ -293,7 +281,7 @@ export default function Join2() {
               type={showPassword ? "text" : "password"}
               placeholder="비밀번호를 입력하세요"
               margin="dense"
-              error={passwordState !== '' || false}
+              error={passwordState !== "" || false}
               defaultValue={joinInfo?.password ? joinInfo.password : null}
               onChange={handleInputChange}
               // FormHelperText={"넌 틀렸다"}

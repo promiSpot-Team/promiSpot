@@ -42,11 +42,10 @@ function Login() {
         data,
       });
 
-      if (response.data.message === 'fail') {
-        throw new Error()
-        alert('없는 회원')
+      if (response.data.message === "fail") {
+        throw new Error();
+        alert("없는 회원");
       }
-      console.log("login", response.data.message);
       const memberSeq = response.data["memberSeq"];
       const accessToken = response.data["access-token"];
       const refreshToken = response.data["refresh-token"];
@@ -69,25 +68,26 @@ function Login() {
         memberImgPath,
       };
       dispatch(setToken(info));
-      sessionStorage.setItem("info", JSON.stringify(info))
+      sessionStorage.setItem("info", JSON.stringify(info));
       // localStorage.setItem("isLogin", true);
       const response2 = await axios({
-        method: 'GET', 
-        url: `${SERVER_URL}/address/addressList/${info.memberSeq}`
-      })
+        method: "GET",
+        url: `${SERVER_URL}/address/addressList/${info.memberSeq}`,
+      });
       const primaryAddress = await response2.data.filter((address) => {
-        return address.addressIsPrimary === 1
-      })
-      // console.log("primaryAddress", primaryAddress)
-      dispatch(setCenter({
-        centerX: parseFloat(primaryAddress[0].addressX),
-        centerY: parseFloat(primaryAddress[0].addressY)
-      }))
+        return address.addressIsPrimary === 1;
+      });
+      dispatch(
+        setCenter({
+          centerX: parseFloat(primaryAddress[0].addressX),
+          centerY: parseFloat(primaryAddress[0].addressY),
+        })
+      );
       navigate("/main");
     } catch (err) {
-      console.log(err)
-      alert('로그인 실패')
-      navigate('/login')
+      console.log(err);
+      alert("로그인 실패");
+      navigate("/login");
     }
   };
 

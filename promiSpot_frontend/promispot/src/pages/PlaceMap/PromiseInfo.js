@@ -16,14 +16,11 @@ export default function PromiseInfo() {
     var parse = path.split("/");
     var promiseSeq = parse[2];
 
-    console.log("인포에서 promiseSeq : ", promiseSeq);
-
     const response = await axios({
       method: "GET",
       url: `${SERVER_URL}/promise/get/${promiseSeq}`,
     });
     if (response.data !== "fail") {
-      console.log("인포에서 response.data : ", response.data);
       setPromise(response.data);
       setParticipantList(response.data.participantList);
     }
@@ -34,10 +31,7 @@ export default function PromiseInfo() {
     searchPromise();
   }, []);
 
-  useEffect(() => {
-    console.log("인포에서 promise : ", promise);
-    console.log("인포에서 participantList : ", participantList);
-  }, [promise]);
+  useEffect(() => {}, [promise]);
 
   return (
     <motion.div

@@ -44,9 +44,7 @@ export default function AddressSearch() {
 
   useEffect(() => {
     /* 페이지 언마운트 될 때 실행 */
-    return () => {
-      console.log("bye");
-    };
+    return () => {};
   });
 
   return (

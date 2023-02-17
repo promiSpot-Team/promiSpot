@@ -4,7 +4,6 @@ import "./ProfileInfoSR.scss";
 
 export default function ProfileInfo(props) {
   const { imgUrl, nickName, id, isValid } = props;
-  // const imgUrl = "/images/" + imgName + ".jpg";
 
   return (
     <div className="profile-info-sr-wrapper">

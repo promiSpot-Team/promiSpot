@@ -29,7 +29,6 @@ export default function MyPage({ history }) {
   };
 
   // const handleEditChange = (e) => {
-  //   // console.log(editNick);
   //   setEditNick(e.target.value);
   // };
 
@@ -59,7 +58,6 @@ export default function MyPage({ history }) {
       axios.defaults.headers.common["access-token"] = `${accessToken}`;
       axios.defaults.headers.common["refresh-token"] = `${refreshToken}`;
 
-      console.log("refreshToken", refreshToken)
       const response1 = await axios({
         method: "GET",
         url: `${SERVER_URL}/member/${memberSeq}`,
@@ -70,7 +68,6 @@ export default function MyPage({ history }) {
     } catch (err) {
       // HTTP 401 권한없음 에러
       if (err.response.status === 401 || err.response.status === 400) {
-        console.log('????????????????????????////')
         try {
           axios.defaults.headers.common["refresh-token"] = `${refreshToken}`;
           const response2 = await axios({
@@ -95,7 +92,6 @@ export default function MyPage({ history }) {
   // 내 정보 수정
   const editMyInfo = async (data) => {
     try {
-      console.log('data', data)
       const response2 = await axios({
         method: "POST",
         url: `${SERVER_URL}/member/${memberSeq}`,
@@ -118,7 +114,6 @@ export default function MyPage({ history }) {
       });
       if (response3.data !== "fail") {
         setMyAddressList(response3.data);
-        console.log(response3.data);
       }
     } catch (err) {
       console.log(err);
@@ -161,8 +156,13 @@ export default function MyPage({ history }) {
       addressNick: "주소",
       addressIsPrimary: 0,
     };
-    // console.log(addressData);
-    const { addressAddress, addressX, addressY, addressNick, addressIsPrimary } = addressData;
+    const {
+      addressAddress,
+      addressX,
+      addressY,
+      addressNick,
+      addressIsPrimary,
+    } = addressData;
     addAddress(addressData);
   };
 
@@ -173,7 +173,6 @@ export default function MyPage({ history }) {
     const data = {
       memberNick: editData.get("nickName"),
     };
-    // console.log(memberNick);
     editMyInfo(data);
   };
 
@@ -189,9 +188,7 @@ export default function MyPage({ history }) {
     getMyAddress();
   }, []);
 
-  useEffect(() => {
-    // console.log("myInfoList", myInfoList)
-  }, [myInfoList]);
+  useEffect(() => {}, [myInfoList]);
 
   function goMyAddress() {
     window.location.replace("/myaddress");
@@ -220,9 +217,14 @@ export default function MyPage({ history }) {
                     />
                     <div></div>
                   </div>
-                  <div className="my-content-name">{item.memberInfo.memberName}</div>
+                  <div className="my-content-name">
+                    {item.memberInfo.memberName}
+                  </div>
                   <div className="my-content-edit-btn-wrapper">
-                    <button className="my-content-edit-btn" onClick={changeNextPage}>
+                    <button
+                      className="my-content-edit-btn"
+                      onClick={changeNextPage}
+                    >
                       편집
                     </button>
                   </div>

@@ -1,8 +1,8 @@
 import axios from "axios";
 import { BsFillCalendarCheckFill } from "react-icons/bs";
-import { DndProvider } from 'react-dnd';
-import { HTML5Backend } from 'react-dnd-html5-backend';
-import DragDrop from '../../components/DragDrop/DragDrop';
+import { DndProvider } from "react-dnd";
+import { HTML5Backend } from "react-dnd-html5-backend";
+import DragDrop from "../../components/DragDrop/DragDrop";
 import { useDispatch, useSelector } from "react-redux";
 import { React, useEffect, useRef, useState } from "react";
 import { changeRect } from "../../Redux/reducer/map";
@@ -11,8 +11,8 @@ import TabBar2 from "../../components/TabBar/TabBar2";
 import { SERVER_URL } from "../../constants/constants";
 import { Link, Outlet, useNavigate, useLocation } from "react-router-dom";
 
-import '../scss/Map_Container.scss';
-import '../scss/Schedule.scss';
+import "../scss/Map_Container.scss";
+import "../scss/Schedule.scss";
 
 const { kakao } = window;
 
@@ -26,7 +26,7 @@ export default function Schedule() {
 
   const location = useLocation();
   const [promiseSeq, setPromiseSeq] = useState();
-  
+
   // 지도 그리기
   const mapscript = () => {
     const container = document.getElementById("map");
@@ -41,9 +41,8 @@ export default function Schedule() {
 
   // 페이지 처음 랜더링 될 때만 실행
   useEffect(() => {
-    mapscript()
+    mapscript();
   }, []);
-
 
   /////////////// 약속 후보 장소 /////////////////////
 
@@ -68,24 +67,18 @@ export default function Schedule() {
 
   // 후보 장소 누르면 스케줄 장소 리스트에 해당 장소 추가
   const addSchedulePlaceList = (votePlace) => {
-    // console.log(schedulePlaceList.includes(votePlace));
-    console.log(schedulePlaceList);
     // setSchedulePlaceList(votePlace);
-    setSchedulePlaceList(places => [...places, [votePlace]])
+    setSchedulePlaceList((places) => [...places, [votePlace]]);
   };
-
-
 
   // const scheduleList = schedulePlaceList.filter(
   //   (arr, index, callback) => index === callback.findIndex(t => t.placeId === arr.placeId)
   // );
-  
+
   // save('name', newArray);
 
   // 스케줄 장소 리스트 변경될 때만 실행
-  useEffect(() => {
-   console.log('확인용: ', schedulePlaceList)
-  }, [schedulePlaceList])
+  useEffect(() => {}, [schedulePlaceList]);
 
   useEffect(() => {
     if (beforeVotePlaceList) {
@@ -94,35 +87,30 @@ export default function Schedule() {
       });
     }
 
-    console.log(votePlaceList);
-    console.log("마커가 잘 찍히는지 확인");
-
     setBeforeVotePlaceList([]);
 
     // BeforeVotePlaceList의 데이터로 마커 찍기
     if (votePlaceList) {
       votePlaceList.forEach((votePlace) => {
+        var imageSrc =
+          "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png";
+        var imageSize = new kakao.maps.Size(24, 35);
+        var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);
 
-        var imageSrc = "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png";
-        var imageSize = new kakao.maps.Size(24, 35); 
-        var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize); 
-    
-        // 마커 생성 및 클릭이벤트 등록 
+        // 마커 생성 및 클릭이벤트 등록
         var marker = new kakao.maps.Marker({
           map: map,
           position: new kakao.maps.LatLng(votePlace.placeY, votePlace.placeX),
           image: markerImage,
           title: votePlace.placeId,
           placeImgUrl: votePlace.placeImgUrl,
-          clickable: true // 마커를 클릭했을 때 지도의 클릭 이벤트가 발생하지 않도록 설정
+          clickable: true, // 마커를 클릭했을 때 지도의 클릭 이벤트가 발생하지 않도록 설정
         });
 
         // 마커에 클릭이벤트를 등록
-        kakao.maps.event.addListener(marker, 'click', function() {
-          console.log(marker.getTitle());
-          console.log(votePlace.placeImgUrl);
+        kakao.maps.event.addListener(marker, "click", function () {
           // 마커 클릭 => 스케줄 장소 리스트에 해당 장소 추가
-          addSchedulePlaceList(votePlace)
+          addSchedulePlaceList(votePlace);
         });
 
         setBeforeVotePlaceList((prev) => [...prev, marker]);
@@ -153,18 +141,15 @@ export default function Schedule() {
   };
 
   return (
-    <div id="map" style={{ width: '100vw', height: '100vh' }}>
-      <div className='schedule-wrapper'>
-        <div className='schedule-background-wrapper'>
+    <div id="map" style={{ width: "100vw", height: "100vh" }}>
+      <div className="schedule-wrapper">
+        <div className="schedule-background-wrapper">
           {/* <button className="draggable" draggable="true">🦊</button>
           <button className="draggable" draggable="true">🐸</button> */}
           <div className="inner-wrapper">
             {schedulePlaceList.map((schedulePlace, idx) => {
               return (
-                <div
-                  key={idx}
-                  className="new-schedule-under-images-wrapper"
-                >
+                <div key={idx} className="new-schedule-under-images-wrapper">
                   <div className="new-schedule-under-img">
                     <img
                       // src={require("../../img/IU_Profile.jpg")}
@@ -177,7 +162,7 @@ export default function Schedule() {
             })}
           </div>
         </div>
-        <div className='map-button-wrapper'>
+        <div className="map-button-wrapper">
           <button className="map-button-schedule">
             <BsFillCalendarCheckFill size="40" color="#ffffff" />
           </button>
@@ -192,6 +177,5 @@ export default function Schedule() {
         />
       </div>
     </div>
-    )
-  }
-
+  );
+}

@@ -1,34 +1,18 @@
 $navbar-height: 5em;
 $circle-radius: 80px;
-// $backgroundColor: rgb(253, 192, 223);
-
-// html,
-// body {
-//   padding: 0;
-//   margin: 0;
-//   height: 100%;
-//   width: 100%;
-// }
-
-// * {
-//   box-sizing: border-box;
-// }
 
 .wrapper {
-  // height: 100%;
   width: 100%;
   display: flex;
   justify-content: center;
   align-items: flex-end;
   position: fixed;
   bottom: 0px;
-  // background-color: $backgroundColor;
 }
 
 .navbar {
   position: bottom;
   height: $navbar-height;
-  // min-width: 390px;
   width: 100vw;
   padding-left: 35px;
   padding-right: 35px;
@@ -47,14 +31,11 @@ $circle-radius: 80px;
     width: 40%;
     padding-right: 15vw;
     margin-right: 5vw;
-    // padding-bottom: 1.5vh;
     .navbar-left-2-one {
       justify-content: space-between;
-      // justify-content: center;
       display: grid;
       align-items: center;
       text-decoration: none;
-      // justify-content: center;
       .navbar-left-2-icon {
         justify-content: center;
         display: grid;
@@ -69,38 +50,17 @@ $circle-radius: 80px;
       }
     }
   }
-  // .navbar-left {
-  //   display: flex;
-  //   justify-content: space-between;
-  //   width: 50%;
-  //   padding-right: 15vw;
-  //   padding-bottom: 1.5vh;
-  //   .navbar-left-icon {
-  //     justify-content: space-between;
-  //     display: grid;
-  //   }
-  //   .navbar-left-icon-txt {
-  //     position: absolute;
-  //     color: white;
-  //     display: grid;
-  //     font-size: 10px;
-  //     bottom: 15px;
-  //   }
-  // }
 
   .navbar-right-2 {
     display: flex;
     justify-content: space-between;
     width: 45%;
     padding-left: 5vw;
-    // padding-bottom: 1.5vh;
     .navbar-right-2-one {
       justify-content: space-between;
-      // justify-content: center;
       display: grid;
       align-items: center;
       text-decoration: none;
-      // justify-content: center;
       .navbar-right-2-icon {
         justify-content: center;
         display: grid;
@@ -116,19 +76,6 @@ $circle-radius: 80px;
     }
   }
 }
-
-// .navbar:after {
-//   content: "";
-//   position: absolute;
-//   bottom: 7px;
-//   height: 4px;
-//   width: 35%;
-//   left: 50%;
-//   transform: translateX(-50%);
-//   background-color: gray;
-//   opacity: 0.3;
-// }
-
 .circle {
   position: absolute;
   left: 50%;
@@ -151,68 +98,11 @@ $circle-radius: 80px;
   transition: height 0.3s;
 }
 
-// .circle:hover {
-//   height: 200px;
-//   border-radius: 50px;
-// }
-
 .circle .plus-icon {
   color: white;
   font-size: 27px;
   transition: opacity 0.3s, transform 0.2s;
 }
-
-// .circle:hover .plus-icon {
-//   transform: rotate(360deg);
-//   opacity: 0;
-// }
-
-// .circle .social {
-//   position: absolute;
-//   top: 195px;
-//   color: white;
-//   background-color: rgba(255, 212, 212, 0.308);
-//   height: 60px;
-//   width: 60px;
-//   margin-bottom: 5px;
-//   border-radius: 50%;
-//   display: flex;
-//   justify-content: center;
-//   align-items: center;
-//   font-size: 25px;
-//   cursor: pointer;
-// }
-
-// .circle .social:nth-child(2) {
-//   opacity: 0;
-//   transition: opacity 0.3s, top 0.5s ease;
-// }
-
-// .circle .social:nth-child(3) {
-//   opacity: 0;
-//   transition: opacity 0.3s, top 0.5s 0.1s ease;
-// }
-
-// .circle .social:nth-child(4) {
-//   opacity: 0;
-//   transition: opacity 0.3s, top 0.5s 0.22s ease;
-//   margin-bottom: 0px;
-// }
-
-// .circle:hover .social:nth-child(2) {
-//   opacity: 1;
-//   top: 5px;
-// }
-
-// .circle:hover .social:nth-child(3) {
-//   opacity: 1;
-//   top: calc(5px + 60px + 5px);
-// }
-
-// .circle:hover .social:nth-child(4) {
-//   opacity: 1;
-//   top: calc(5px + 60px + 5px + 60px + 5px);
-// }
 
 .circleBackground {
   position: absolute;
@@ -223,13 +113,11 @@ $circle-radius: 80px;
   height: calc(#{$circle-radius} + 20px);
   width: calc(#{$circle-radius} + 20px);
   border-radius: calc(#{$circle-radius + 20} / 2);
-  // background-color: $backgroundColor;
 }
 
 .icon-home,
 .icon-settings {
   font-size: 29px;
-  // color: $backgroundColor;
 }
 
 /* modal창 외부화면 */
@@ -297,16 +185,11 @@ $circle-radius: 80px;
   }
 
   .new-promise-search-wrapper {
-    // width: 100%;
-    // display: flex;
-    // align-items: center;
-    // justify-self: left;
     height: 30px;
     margin: 1vw 1vw 1vh 1.3vw;
   }
 
   .new-promise-profile-wrapper {
-    // width: 90%;
     display: grid;
     height: 50px;
     margin-left: 1vw;
@@ -317,10 +200,7 @@ $circle-radius: 80px;
   .new-promise-under-wrapper {
     width: 55vw;
     display: flex;
-    // height: 100%;
-    // margin-top:50px;
     margin-left: 1vw;
-    // margin-right:1vw;
     padding-left: 1vh;
     position: absolute;
     justify-content: space-between;
@@ -341,10 +221,7 @@ $circle-radius: 80px;
       }
     }
     .new-promise-under-btn-wrapper {
-      // width: 100%;
       display: grid;
-      // margin-right:
-      // float:right;
       align-items: center;
     }
   }

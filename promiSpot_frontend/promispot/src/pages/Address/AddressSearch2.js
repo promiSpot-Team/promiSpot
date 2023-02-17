@@ -50,10 +50,6 @@ export default function AddressSearch() {
 
   const addAddress = async ({ address }) => {
     try {
-      console.log(address.address_name);
-      console.log(address.x);
-      console.log(address.y);
-      console.log(memberSeq);
       const response4 = await axios({
         url: "/address",
         method: "POST",
