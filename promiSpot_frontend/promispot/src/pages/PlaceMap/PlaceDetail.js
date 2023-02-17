@@ -197,10 +197,10 @@ export default function PlaceDetail() {
           className="place-modal-title"
           text={place.place_name ? place.place_name : place.placeName}
         />
-        <div className="place-time-btn">
+        {/* <div className="place-time-btn">
           <RiTimeFill className="place-time-btn-icon" size="20px" color="white" />
           <div className="place-time-btn-txt">소요 시간</div>
-        </div>
+        </div> */}
       </div>
       <div>
         <GetDetail place={place} />
