@@ -172,6 +172,9 @@ public class PromiseController {
 	// 출발지 리스트를 통해 중간 위치 반환 함수
 	@GetMapping("getMiddle/{promiseSeq}")
 	public ResponseEntity<?> getMiddle(@PathVariable("promiseSeq") int promiseSeq) {
+
+		System.out.println("받아오는지 확인");
+		
 		try {
 
 			List<MapDto> mapDtoList = mapService.middlePoint(promiseSeq);

@@ -29,9 +29,8 @@ export default function PromiseCalendar() {
     if (response.data !== "fail") {
       setPromiseList(response.data);
       setMark([response.data[0].promiseDate]);
-      console.log("response", response.data.promiseDate);
+
       // setMark(response.data.promiseDate);
-      console.log(response.data);
     }
   };
 
@@ -89,9 +88,7 @@ export default function PromiseCalendar() {
           // 다른 조건을 주어서 html.push 에 추가적인 html 태그를 적용할 수 있음.
           return (
             <>
-              <div className="flex justify-center items-center absoluteDiv">
-                {html}
-              </div>
+              <div className="flex justify-center items-center absoluteDiv">{html}</div>
             </>
           );
         }}

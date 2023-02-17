@@ -112,7 +112,7 @@ export default function PlaceDetail() {
       const response = await axios({
         url: "place/insert",
         method: "POST",
-        baseURL: "http://localhost:9090/api/",
+        baseURL: SERVER_URL,
         data: sendData,
       });
 
