@@ -34,10 +34,11 @@
     grid-template-columns: 6fr 4fr;
 
     .card-content-friend-div {
+      display: flex;
       .card-content-friend-img-div {
         width: 10vw;
         height: 10vw;
-        display: inline-block;
+        // display: inline-block;
         border-radius: 50%;
         overflow: hidden;
         border: 0.2rem solid white;
