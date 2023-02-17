@@ -24,14 +24,12 @@ export default function TabBar2(props) {
     setPromiseSeq(seq);
   }, []);
 
-  useEffect(() => {
-    // console.log(promiseSeq);
-  }, [promiseSeq]);
+  useEffect(() => {}, [promiseSeq]);
 
   // 채팅 버튼 클릭
   const onClickIcon = (icon) => {
-    props.catchClickIcon(icon)
-  }
+    props.catchClickIcon(icon);
+  };
 
   return (
     <>
@@ -50,49 +48,44 @@ export default function TabBar2(props) {
             </Link>
             <div className="navbar-left-2-one">
               <div className="navbar-left-2-icon">
-                {/* <Link to={`/map/${promiseSeq}/search`} className="link"> */}
-                <ImSearch 
-                  size="36" 
-                  color="#ffffff" 
-                  onClick={() => onClickIcon('search')} 
+                <ImSearch
+                  size="36"
+                  color="#ffffff"
+                  onClick={() => onClickIcon("search")}
                 />
               </div>
               <div className="navbar-left-2-icon-txt">Search</div>
             </div>
-            {/* </Link> */}
           </div>
           <div className="navbar-right-2">
             <div className="navbar-right-2-one">
               <div className="navbar-right-2-icon">
-                {/* <Link to={`/map/${promiseSeq}/recommend`} className="link"> */}
                 <MdRecommend
                   size="40"
                   color="#ffffff"
-                  onClick={() => onClickIcon('recommend')}
+                  onClick={() => onClickIcon("recommend")}
                 />
               </div>
               <div className="navbar-right-2-icon-txt">Recommend</div>
             </div>
-            {/* </Link> */}
             <div className="navbar-right-2-one">
               <div className="navbar-right-2-icon">
                 <AiFillInfoCircle
                   size="36"
                   color="#ffffff"
-                  onClick={() => onClickIcon('info')}
+                  onClick={() => onClickIcon("info")}
                 />
               </div>
               <div className="navbar-right-2-icon-txt">Info</div>
             </div>
           </div>
-          {/* <Link to={`/map/${promiseSeq}/chatting`}> */}
-            <div className="circle">
-              <BsChatLeftDotsFill size="36" color="#ffffff" 
-                // onClickChatting={onClickChatting}
-                onClick={() => onClickIcon('chat')}
-              />
-            </div>
-          {/* </Link> */}
+          <div className="circle">
+            <BsChatLeftDotsFill
+              size="36"
+              color="#ffffff"
+              onClick={() => onClickIcon("chat")}
+            />
+          </div>
         </div>
         <div className="circleBackground"></div>
       </div>

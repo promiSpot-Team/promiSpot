@@ -92,7 +92,8 @@ export default function Schedule() {
     // BeforeVotePlaceList의 데이터로 마커 찍기
     if (votePlaceList) {
       votePlaceList.forEach((votePlace) => {
-        var imageSrc = "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png";
+        var imageSrc =
+          "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png";
         var imageSize = new kakao.maps.Size(24, 35);
         var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);
 

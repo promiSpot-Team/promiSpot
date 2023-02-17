@@ -1,6 +1,10 @@
 package com.ssafy.promispotback.promise.model.service;
 
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Iterator;
 import java.util.List;
 
@@ -25,6 +29,19 @@ public class PromiseServiceImpl implements PromiseService{
 	// 약속 생성
 	@Override
 	public int createPromise(PromiseEntity promiseEntity) throws SQLException {
+		String[] day = {"", "월", "화", "수", "목", "금", "토", "일"};
+		if(promiseEntity.getPromiseDate() == null){
+			// 현재 날짜 구하기 (시스템 시계, 시스템 타임존)
+			LocalDate now = LocalDate.now();
+			SimpleDateFormat formatter = new SimpleDateFormat("hh:mm aaa");
+			String nowDate = String.format("%d년 %d월 %d일"
+					, now.getYear(), now.getMonthValue(), now.getDayOfMonth());
+
+			String f = LocalDateTime.now().format(DateTimeFormatter.ofPattern("HH:mm a"));
+			promiseEntity.setPromiseDate(nowDate);
+			promiseEntity.setPromiseTime(f);
+			promiseEntity.setPromiseDay(day[now.getDayOfWeek().getValue()] + "요일");
+		}
 		return promiseMapper.createPromise(promiseEntity);
 	}
 

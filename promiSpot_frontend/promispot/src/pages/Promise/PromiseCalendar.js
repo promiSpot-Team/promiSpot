@@ -29,7 +29,6 @@ export default function PromiseCalendar() {
     if (response.data !== "fail") {
       setPromiseList(response.data);
       setMark([response.data[0].promiseDate]);
-
       // setMark(response.data.promiseDate);
     }
   };
@@ -54,7 +53,6 @@ export default function PromiseCalendar() {
         value={startDate}
         onChange={(date) => {
           const d = new Date(date).toLocaleDateString("ko-KR");
-          console.log(d);
           setStartDate(date);
         }}
         locale={ko} // 한글로 변경

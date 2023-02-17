@@ -11,27 +11,12 @@ export default function Card2(props) {
   var arr = date?.split(/[년월일 ]/);
   var t1 = time?.substr(0, 5);
   var t2 = time?.substr(5, 6);
-
   const navigate = useNavigate();
 
   const moveToPromise = () => {
     navigate(`/map/${promiseSeq}`);
   };
 
-  // const [votePlaceList, setVotePlaceList] = useState();
-  // const searchVotePlaceList = async () => {
-  //   var path = location.pathname;
-  //   var parse = path.split("/");
-  //   var promiseSeq = parse[2];
-
-  //   const response = await axios({
-  //     method: "GET",
-  //     url: `${SERVER_URL}/vote/getVotePlaceList/${promiseSeq}`,
-  //   });
-  //   if (response.data !== "fail") {
-  //     setVotePlaceList(response.data);
-  //   }
-  // };
   const [votePlaceList, setVotePlaceList] = useState([]);
   const searchVotePlaceList = async () => {
     const response = await axios({
@@ -106,19 +91,5 @@ export default function Card2(props) {
         </div>
       </div>
     </div>
-    // <div className="card-wrapper">
-    //   <div className="card-contents-wrapper">
-    //     <div className="card-top-wrapper">
-    //       <div className="card-header-wrapper">
-    //         <div className="card-date-wrapper">{date}</div>
-    //         <div className="card-time-wrapper">{time}</div>
-    //       </div>
-    //       <div className="card-title-wrapper">{title}</div>
-    //     </div>
-    //     <div className="card-img-wrapper">{imgLink}</div>
-    //   </div>
-    //   <button onClick={moveToPromise}> 입장 </button>
-    //   <div className="card-outbtn-wrapper">나가기</div>
-    // </div>
   );
 }

@@ -15,7 +15,6 @@ export default function FriendRequestSend({ memberSeq }) {
         url: `${SERVER_URL}/friend/${memberSeq}/1`,
       });
       setFriendRequestList(response.data);
-      console.log(response.data);
     } catch (err) {
       setFriendRequestList(null);
       console.log(err);

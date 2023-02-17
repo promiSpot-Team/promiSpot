@@ -26,7 +26,7 @@ const initialState = {
     nickName: "",
     phoneNumber: "",
   },
-  info: null
+  info: null,
 };
 
 /* 리듀서 선언 */
@@ -38,20 +38,19 @@ export default function user(state = initialState, action) {
       if (action.info !== null) {
         return Object.assign({}, state, {
           info: action.info,
-          isLogin: true
+          isLogin: true,
         });
       } else {
         return Object.assign({}, state, {
           info: null,
-          isLogin: false
-        })
+          isLogin: false,
+        });
       }
     }
 
     /* 토큰 재발급 */
     case REISSUE_TOKEN: {
       const newUserInfo = { ...state.info, accessToken: action.accessToken };
-      console.log(newUserInfo);
       return Object.assign({}, state, {
         ...state,
         info: { ...newUserInfo },
@@ -74,7 +73,6 @@ export default function user(state = initialState, action) {
 
     // case EDIT_INFO: {
     //   const editUserInfo = { ...state.info, memberNick: action.memberNick };
-    //   console.log(editUserInfo);
     //   return Object.assign({}, state, {
     //     ...state,
     //     info: { ...editUserInfo },

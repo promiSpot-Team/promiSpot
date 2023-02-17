@@ -1,9 +1,9 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import "./Card1.scss";
+import "./Card.scss";
 
 export default function Card(props) {
-  const { date, time, title, imgLink, promiseSeq, participantList } = props;
+  const { date, time, title, promiseSeq, participantList } = props;
 
   const navigate = useNavigate();
 
@@ -54,28 +54,10 @@ export default function Card(props) {
             })}
         </div>
         <div className="card-content-button-div">
-          {/* <div className="card-enter-btn"> */}
           <button onClick={moveToPromise}>입장</button>
-          {/* </div> */}
-          {/* <div className="card-exit-btn"> */}
           <button>나가기</button>
-          {/* </div> */}
         </div>
       </div>
     </div>
-    // <div className="card-wrapper">
-    //   <div className="card-contents-wrapper">
-    //     <div className="card-top-wrapper">
-    //       <div className="card-header-wrapper">
-    //         <div className="card-date-wrapper">{date}</div>
-    //         <div className="card-time-wrapper">{time}</div>
-    //       </div>
-    //       <div className="card-title-wrapper">{title}</div>
-    //     </div>
-    //     <div className="card-img-wrapper">{imgLink}</div>
-    //   </div>
-    //   <button onClick={moveToPromise}> 입장 </button>
-    //   <div className="card-outbtn-wrapper">나가기</div>
-    // </div>
   );
 }

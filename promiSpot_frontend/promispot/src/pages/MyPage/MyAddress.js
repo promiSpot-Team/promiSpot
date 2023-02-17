@@ -29,12 +29,10 @@ export default function MyAddress() {
   const [openModifyModal, setOpenModifyModal] = useState(false);
 
   var nowSeq = 0;
-  // console.log("nowSeq?", nowSeq);
   const [checked, setChecked] = useState(false);
 
   function nowSeqIs(data) {
     nowSeq = data;
-    console.log(nowSeq);
   }
   const handleAgree = (event) => {
     setChecked(event.target.checked);
@@ -56,8 +54,6 @@ export default function MyAddress() {
 
   const deleteMyAddress = async (addressSeq) => {
     try {
-      console.log("delete", addressSeq);
-      // console.log(axiosMethod);
       const response2 = await axios({
         method: "DELETE",
         url: `${SERVER_URL}/address/${addressSeq}`,
@@ -70,7 +66,6 @@ export default function MyAddress() {
 
   const modifyMyAddress = async (data) => {
     try {
-      console.log(addressSeq);
       const response3 = await axios({
         method: "PUT",
         url: `${SERVER_URL}/address/${addressNum.addressSeq}`,
@@ -93,7 +88,6 @@ export default function MyAddress() {
       addressNick: modifyData.get("addressNick"),
       addressIsPrimary: checked === false ? 0 : 1,
     };
-    console.log("data is", data);
     modifyMyAddress(data);
   };
 
@@ -133,7 +127,6 @@ export default function MyAddress() {
   //     addressNick: "주소",
   //     addressIsPrimary: 0,
   //   };
-  //   console.log(addressData);
   //   addAddress(addressData);
   // };
 

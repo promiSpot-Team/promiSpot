@@ -16,8 +16,6 @@ export default function Main() {
   const [promiseList, setPromiseList] = useState(null);
   const memberSeq = useSelector((state) => state?.user?.info?.memberSeq);
 
-  const location = useLocation();
-
   const SampleNextArrow = (props) => {
     const { className, style, onClick } = props;
     return (
@@ -39,22 +37,6 @@ export default function Main() {
       />
     );
   };
-
-  // const searchVotePlaceList = async () => {
-  //   try {
-  //     const response = await axios({
-  //       method: "GET",
-  //       url: `${SERVER_URL}/vote/getVotePlaceList/${promiseSeq}`,
-  //     });
-  //     if (response.data !== "fail") {
-  //       setVotePlaceList(response.data);
-
-  //       console.log(response.data);
-  //     }
-  //   } catch (err) {
-  //     console.log(err);
-  //   }
-  // };
 
   const settings = {
     dots: true,
@@ -79,15 +61,7 @@ export default function Main() {
     });
     if (response.data !== "fail") {
       setPromiseList(response.data);
-      const promiseSeq = response.data[0].promiseSeq;
-      const response1 = await axios({
-        method: "GET",
-        url: `${SERVER_URL}/vote/getVotePlaceList/${promiseSeq}`,
-      });
-      if (response.data !== "fail") {
-        setVotePlaceList(response1.data);
-        console.log(response1.data);
-      }
+      console.log(response.data);
     }
   };
   useEffect(() => {
@@ -95,8 +69,7 @@ export default function Main() {
     // searchVotePlaceList();
   }, []);
 
-
-  console.log("promiseList", promiseList)
+  console.log("promiseList", promiseList);
   return (
     <div className="main-wrapper">
       {/* <button onClick={logOut}>로그아웃</button> */}

@@ -6,7 +6,6 @@ import "./ProfileInfoS.scss";
 
 export default function ProfileInfo(props) {
   const { imgUrl, nickName, id } = props;
-  // const imgUrl = "/images/" + imgName + ".jpg";
   const [axiosMethod, setAxiosMethod] = useState("");
   const [clearRequest, setClearRequest] = useState(false);
 
@@ -17,7 +16,6 @@ export default function ProfileInfo(props) {
         method: "DELETE",
         url: `${SERVER_URL}/friend/request/${props.friendRequestSeq}`,
       });
-      // console.log(response)
       setClearRequest(true);
     } catch (err) {
       console.log(err);

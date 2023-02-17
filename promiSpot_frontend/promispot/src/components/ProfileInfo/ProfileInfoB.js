@@ -3,7 +3,6 @@ import "./ProfileInfoB.scss";
 
 export default function ProfileInfo(props) {
   const { imgUrl, nickName, id } = props;
-  // const imgUrl = "/images/" + imgName + ".jpg";
 
   return (
     <div className="profile-info-b-wrapper">

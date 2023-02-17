@@ -43,6 +43,7 @@ export default function Chatting() {
     client.current = new StompJs.Client({
       // ws 로 서버에 올리면 보안상의 문제로 에러가 발생한다.
       // wss를 사용하면 보안이 걸려 문제가 해결될 것 이다. 라고 chatgpt가 말함
+      // wss를 사용하면 보안이 걸려 문제가 해결될 것 이다. 라고 chatgpt가 말함
       brokerURL: "wss://i8a109.p.ssafy.io/api/ws",
       // brokerURL: "ws://localhost:9090/api/ws",
       onConnect: () => {
@@ -125,12 +126,18 @@ export default function Chatting() {
               <div key={index}>
                 {one.senderName === member.memberName ? (
                   <div className="chatting-contents-one-me-wrapper">
-                    <div className="chatting-contents-me-msg">{one.message}</div>
+                    <div className="chatting-contents-me-msg">
+                      {one.message}
+                    </div>
                   </div>
                 ) : (
                   <div className="chatting-contents-one-other-wrapper">
-                    <div className="chatting-contents-other-name">{one.senderName}</div>
-                    <div className="chatting-contents-other-msg">{one.message}</div>
+                    <div className="chatting-contents-other-name">
+                      {one.senderName}
+                    </div>
+                    <div className="chatting-contents-other-msg">
+                      {one.message}
+                    </div>
                   </div>
                 )}
               </div>
@@ -138,7 +145,10 @@ export default function Chatting() {
           })}
       </div>
 
-      <form className="chatting-new-wrapper" onSubmit={(event) => handleSubmit(event, chat)}>
+      <form
+        className="chatting-new-wrapper"
+        onSubmit={(event) => handleSubmit(event, chat)}
+      >
         <div className="chatting-new-text">
           <input
             className="chatting-new-text-input"
@@ -150,7 +160,11 @@ export default function Chatting() {
           />
         </div>
         <button className="chatting-new-btn" type={"submit"}>
-          <BiSend className="chatting-new-btn-icon" size="3vh" color="#ffffff" />
+          <BiSend
+            className="chatting-new-btn-icon"
+            size="3vh"
+            color="#ffffff"
+          />
         </button>
         {/* <input type={"submit"} value={<BiSend />} /> */}
       </form>
