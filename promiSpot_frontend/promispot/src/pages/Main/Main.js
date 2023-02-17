@@ -61,7 +61,7 @@ export default function Main() {
     });
     if (response.data !== "fail") {
       setPromiseList(response.data);
-      console.log(response.data);
+      // console.log(response.data);
     }
   };
   useEffect(() => {
@@ -69,7 +69,7 @@ export default function Main() {
     // searchVotePlaceList();
   }, []);
 
-  console.log("promiseList", promiseList);
+  // console.log("promiseList", promiseList);
   return (
     <div className="main-wrapper">
       {/* <button onClick={logOut}>로그아웃</button> */}
