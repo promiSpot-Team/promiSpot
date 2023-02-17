@@ -1,17 +1,12 @@
-import React, {useState} from 'react'
-import {  Input,  InputLabel,  IconButton,  InputAdornment} from "@mui/material/";
+import React, { useState } from "react";
+import { Input, InputLabel, IconButton, InputAdornment } from "@mui/material/";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
-import './InputFormPWD.scss';
+import "./InputFormPWD.scss";
 
 export default function InputFormPWD(props) {
   const [passwordState] = useState("");
   const [showPassword, setShowPassword] = React.useState(false);
   const handleClickShowPassword = () => setShowPassword((show) => !show);
-  // const handleMouseDownPassword_1 = (
-  //   event: React.MouseEvent<HTMLButtonElement>
-  // ) => {
-  //   event.preventDefault();
-  // };
 
   return (
     <>
@@ -30,7 +25,6 @@ export default function InputFormPWD(props) {
             <IconButton
               aria-label="toggle password visibility"
               onClick={handleClickShowPassword}
-              // onMouseDown={handleMouseDownPassword}
             >
               {showPassword ? <VisibilityOff /> : <Visibility />}
             </IconButton>
@@ -38,5 +32,5 @@ export default function InputFormPWD(props) {
         }
       />
     </>
-  )
+  );
 }

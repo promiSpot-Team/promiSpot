@@ -24,9 +24,7 @@ export default function TabBar(props) {
   const [modalOpen, setModalOpen] = useState(false);
   const [nextModal, setNextModal] = useState(false);
   var d;
-  const HandleInputFocus = () => {
-    // console.log(data)
-  };
+  const HandleInputFocus = () => {};
   const changeNextModal = () => {
     setNextModal(!nextModal);
   };
@@ -93,7 +91,6 @@ export default function TabBar(props) {
 
   /* 약속 생성 axios */
   const createPromise = async () => {
-    console.log(promiseDate, promiseTitle, promiseTime, promiseDay);
     try {
       /* 약속 생성 */
       const response1 = await axios({
@@ -115,7 +112,6 @@ export default function TabBar(props) {
 
       /* 약속 친구 추가 */
       const newFriend = promiseFriendList.map((friend) => {
-        // console.log(friend.friendSeq)
         return {
           promiseSeq,
           memberSeq: friend.friendSeq,
@@ -207,21 +203,10 @@ export default function TabBar(props) {
             {!nextModal ? (
               <>
                 <div className="new-promise1-wrapper">
-                  {/* <div className='new-promise-text-wrapper'>
-                        새로운 약속 생성
-                      </div> */}
                   <div className="new-promise1-search-wrapper">
                     <SearchBar HandleInputFocus={HandleInputFocus} />
                   </div>
 
-                  {/* 임시 데이터
-                  <div className="new-promise-profile-wrapper">
-                    <ProfileInfo
-                      imgName="IU_Profile"
-                      nickName="국힙원탑"
-                      id="IU"
-                    />
-                  </div> */}
                   <div className="new-promise1-profile-list-wrapper">
                     {friendList.length > 0 &&
                       friendList.map((friend, idx) => {
@@ -283,10 +268,6 @@ export default function TabBar(props) {
                       selected={startDate}
                       value={startDate}
                       onChange={onChangeDatePicker}
-                      // showTimeSelect
-                      // timeFormat="HH:mm"
-                      // timeIntervals={15}
-                      // timeCaption="time"
                       locale={ko} // 한글로 변경
                       dateFormat="yyyy.MM.dd(eee) h:mm aa" // 시간 포맷 변경
                       showPopperArrow={false} // 화살표 변경
@@ -304,9 +285,7 @@ export default function TabBar(props) {
                     onClick={createPromise}
                     className="new-promise1-under-btn-wrapper"
                   >
-                    {/* <Link to={"/map"} className="link"> */}
                     생성
-                    {/* </Link> */}
                   </div>
                 </div>
               </>

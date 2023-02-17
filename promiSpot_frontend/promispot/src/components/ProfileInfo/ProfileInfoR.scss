@@ -3,7 +3,6 @@
   height: 5vh;
   display: flex;
   margin-bottom: 2.5vh;
-  // margin-bottom:1vh;
 
   .profile-info-r-img-wrapper {
     width: 40px;
@@ -22,7 +21,6 @@
 
   .profile-info-r-name-wrapper {
     display: grid;
-    // font-size: 15px;
 
     .profile-info-r-nickname-wrapper {
       display: grid;
@@ -39,14 +37,10 @@
     display: flex;
     margin-left: auto;
     margin-right: 20px;
-    // margin-right: 1vw;
     align-items: baseline;
     margin-top: 2%;
-    // height:100%;
     .profile-info-r-button {
       padding-right: 10%;
-      // margin-top: 5%;
-      // margin-bottom: 5%;
     }
   }
 }

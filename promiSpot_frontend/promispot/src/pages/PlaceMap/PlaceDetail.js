@@ -53,13 +53,10 @@ export default function PlaceDetail() {
   }, []);
 
   useEffect(() => {
-    console.log("checkvotePlace 확인", checkVotePlace);
     searchCheckVoteMember();
   }, [checkVotePlace]);
 
-  useEffect(() => {
-    console.log("checkVoteMember 확인", checkVoteMember);
-  }, [checkVoteMember]);
+  useEffect(() => {}, [checkVoteMember]);
 
   // 약속 장소 투표 여부 확인 끝 //
 
@@ -67,7 +64,6 @@ export default function PlaceDetail() {
   // 등록하기를 누르면 DB에 저장
   const registerPlaceToMap = async () => {
     dispatch(setPlace(place));
-    console.log(place);
     setIsRegister(false);
 
     // 약속 장소 후보 등록 함수
@@ -120,8 +116,6 @@ export default function PlaceDetail() {
         data: sendData,
       });
 
-      console.log("장소등록 후 응답보기 : ");
-      console.log(response.data.placeId);
       insertVote(response.data.placeId);
 
       // 발행
@@ -138,8 +132,6 @@ export default function PlaceDetail() {
 
   // 약속 장소 후보 삭제
   const cancleVotePlace = async () => {
-    console.log("checkVotePlace 취소 확인 : ", checkVotePlace);
-
     const response = await axios({
       method: "DELETE",
       url: `${SERVER_URL}/vote/delete/${checkVotePlace.voteSeq}`,
@@ -154,8 +146,6 @@ export default function PlaceDetail() {
 
   // 약속 장소 후보 투표
   const insertVoter = async () => {
-    console.log("약속 장소 후보 투표 작동");
-
     const sendData = {
       memberSeq: memberSeq,
       voteSeq: checkVotePlace.voteSeq,
@@ -181,7 +171,6 @@ export default function PlaceDetail() {
 
   // 약속 장소 후보 투표 삭제
   const removeVoter = async () => {
-    console.log("약속 장소 후보 투표 삭제 작동");
     try {
       const response = await axios({
         method: "DELETE",
@@ -194,14 +183,10 @@ export default function PlaceDetail() {
     removeCheckVoteMember();
     searchCheckVotePlace();
 
-    console.log("투표 취소 후 투표여부 확인 : ", checkVoteMember);
-
     // dispatch(publishVotePlace(toggle + 1));
   };
 
-  useEffect(() => {
-    console.log("checkVoteMember 확인", checkVoteMember);
-  }, [checkVoteMember]);
+  useEffect(() => {}, [checkVoteMember]);
 
   const [isRegister, setIsRegister] = React.useState(true);
 

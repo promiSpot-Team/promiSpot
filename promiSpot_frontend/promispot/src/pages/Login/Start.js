@@ -1,7 +1,6 @@
 import react, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import BasicButton from "../../components/Buttons/BasicButton";
-import Background from "../../components/Background/Background";
 // import Header from '../components/header/header';
 // import Footer from '../components/footer/footer';
 import "../scss/Start.scss";
@@ -238,18 +237,12 @@ function Start() {
         <div className="start-btn-wrapper">
           <div className="start-btn">
             <Link to={"/login"} className="link">
-              <BasicButton
-                text="로그인"
-                onClick={() => console.log("로그인!")}
-              />
+              <BasicButton text="로그인" />
             </Link>
           </div>
           <div className="start-btn">
             <Link to={"/join"} className="link">
-              <BasicButton
-                text="회원가입"
-                onClick={() => console.log("회원가입!")}
-              />
+              <BasicButton text="회원가입" />
             </Link>
           </div>
           <div className="start-btn"></div>

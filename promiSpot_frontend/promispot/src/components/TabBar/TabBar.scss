@@ -1,34 +1,17 @@
 $navbar-height: 5em;
 $circle-radius: 80px;
-// $backgroundColor: rgb(253, 192, 223);
-
-// html,
-// body {
-//   padding: 0;
-//   margin: 0;
-//   height: 100%;
-//   width: 100%;
-// }
-
-// * {
-//   box-sizing: border-box;
-// }
-
 .wrapper {
-  // height: 100%;
   width: 100%;
   display: flex;
   justify-content: center;
   align-items: flex-end;
   position: fixed;
   bottom: 0px;
-  // background-color: $backgroundColor;
 }
 
 .navbar {
   position: bottom;
   height: $navbar-height;
-  // min-width: 390px;
   width: 100vw;
   padding-left: 35px;
   padding-right: 35px;
@@ -80,18 +63,6 @@ $circle-radius: 80px;
   }
 }
 
-// .navbar:after {
-//   content: "";
-//   position: absolute;
-//   bottom: 7px;
-//   height: 4px;
-//   width: 35%;
-//   left: 50%;
-//   transform: translateX(-50%);
-//   background-color: gray;
-//   opacity: 0.3;
-// }
-
 .circle {
   position: absolute;
   left: 50%;
@@ -118,68 +89,11 @@ $circle-radius: 80px;
   }
 }
 
-// .circle:hover {
-//   height: 200px;
-//   border-radius: 50px;
-// }
-
 .circle .plus-icon {
   color: white;
   font-size: 27px;
   transition: opacity 0.3s, transform 0.2s;
 }
-
-// .circle:hover .plus-icon {
-//   transform: rotate(360deg);
-//   opacity: 0;
-// }
-
-// .circle .social {
-//   position: absolute;
-//   top: 195px;
-//   color: white;
-//   background-color: rgba(255, 212, 212, 0.308);
-//   height: 60px;
-//   width: 60px;
-//   margin-bottom: 5px;
-//   border-radius: 50%;
-//   display: flex;
-//   justify-content: center;
-//   align-items: center;
-//   font-size: 25px;
-//   cursor: pointer;
-// }
-
-// .circle .social:nth-child(2) {
-//   opacity: 0;
-//   transition: opacity 0.3s, top 0.5s ease;
-// }
-
-// .circle .social:nth-child(3) {
-//   opacity: 0;
-//   transition: opacity 0.3s, top 0.5s 0.1s ease;
-// }
-
-// .circle .social:nth-child(4) {
-//   opacity: 0;
-//   transition: opacity 0.3s, top 0.5s 0.22s ease;
-//   margin-bottom: 0px;
-// }
-
-// .circle:hover .social:nth-child(2) {
-//   opacity: 1;
-//   top: 5px;
-// }
-
-// .circle:hover .social:nth-child(3) {
-//   opacity: 1;
-//   top: calc(5px + 60px + 5px);
-// }
-
-// .circle:hover .social:nth-child(4) {
-//   opacity: 1;
-//   top: calc(5px + 60px + 5px + 60px + 5px);
-// }
 
 .circleBackground {
   position: absolute;
@@ -190,13 +104,11 @@ $circle-radius: 80px;
   height: calc(#{$circle-radius} + 20px);
   width: calc(#{$circle-radius} + 20px);
   border-radius: calc(#{$circle-radius + 20} / 2);
-  // background-color: $backgroundColor;
 }
 
 .icon-home,
 .icon-settings {
   font-size: 29px;
-  // color: $backgroundColor;
 }
 
 /* modal창 외부화면 */
@@ -276,10 +188,6 @@ $circle-radius: 80px;
   }
 
   .new-promise1-search-wrapper {
-    // width: 100%;
-    // display: flex;
-    // align-items: center;
-    // justify-self: left;
     height: 30px;
     margin: 1vw 1vw 1vh 1.3vw;
   }
@@ -290,7 +198,6 @@ $circle-radius: 80px;
     height: 75%;
   }
   .new-promise1-profile-wrapper {
-    // width: 90%;
     display: grid;
     height: 50px;
     margin-left: 1vw;
@@ -301,10 +208,7 @@ $circle-radius: 80px;
   .new-promise1-under-wrapper {
     width: 55vw;
     display: flex;
-    // height: 100%;
-    // margin-top:50px;
     margin-left: 1vw;
-    // margin-right:1vw;
     padding-left: 1vh;
     position: absolute;
     justify-content: space-between;
@@ -335,8 +239,6 @@ $circle-radius: 80px;
       background-color: white;
       font-size: 15px;
       font-weight: 600;
-      // margin-right:
-      // float:right;
       align-items: center;
     }
   }

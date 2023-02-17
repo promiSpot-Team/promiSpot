@@ -40,7 +40,6 @@ function Join() {
 
   // login 버튼 클릭 이벤트
   const onClickJoin = (e) => {
-    console.log("click join");
     //로그인 버튼을 눌렀을 때 발생하는 일들을 쓰면 됨
   };
 
@@ -48,7 +47,6 @@ function Join() {
 	// 페이지 렌더링 후 가장 처음 호출되는 함수
     useEffect(() => {
         axios.get('/member/login')
-        .then(res => console.log(res))
         .catch()
     },
     // 페이지 호출 후 처음 한번만 호출될 수 있도록 [] 추가
@@ -77,7 +75,7 @@ function Join() {
   const handleNavigate = () => {
     navigate(-1);
   };
-  
+
   const handleAgree = (event) => {
     setChecked(event.target.checked);
   };
@@ -86,11 +84,9 @@ function Join() {
     const { email, name, password } = data;
     const postData = { email, name, password };
 
-    console.log("postData", postData)
     await axios
       .post("/member", postData)
       .then(function (response) {
-        console.log(response, "성공");
         navigate("/login");
       })
       .catch(function (err) {
@@ -101,7 +97,7 @@ function Join() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    
+
     const data = new FormData(e.currentTarget);
     const joinData = {
       id: data.get("id"),
@@ -154,8 +150,7 @@ function Join() {
     // ) {
     //   onhandlePost(joinData);
     // }
-    console.log(1)
-    onhandlePost(joinData)
+    onhandlePost(joinData);
   };
 
   return (
