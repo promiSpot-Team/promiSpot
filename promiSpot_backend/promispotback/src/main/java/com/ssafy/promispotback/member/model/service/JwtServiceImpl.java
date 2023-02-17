@@ -32,7 +32,7 @@ public class JwtServiceImpl implements JwtService {
 	public static final Logger logger = LoggerFactory.getLogger(JwtServiceImpl.class);
 	
 	private static final String SALT = "promispotSecret";
-	private static final int ACCESS_TOKEN_EXPIRE_MINUTES = 30; // 분 단위
+	private static final int ACCESS_TOKEN_EXPIRE_MINUTES = 300; // 분 단위
 	private static final int REFRESH_TOKEN_EXPIRE_WEEKS = 3; // 주 단위
 
 	@Override
