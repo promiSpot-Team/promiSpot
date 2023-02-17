@@ -9,11 +9,8 @@ export default function GetDetail(props) {
   var address_name, category_name, phone, place_name, place_url, road_address_name;
 
   // const [place_url, setplace_url] = useState(null)
-  console.log("여기는 props 이다");
-  console.log(props);
 
   if (props.place.address_name) {
-    // console.log("1");
     var place = props.place;
     address_name = place.address_name;
     category_name = place.category_name;
@@ -31,12 +28,9 @@ export default function GetDetail(props) {
     // road_address_name = votePlace.placeRoadAddressName
   }
 
-  // console.log("category_name", category_name);
-  // console.log("props", props)
   /* axios 관련 처리 */
 
   const catergoryList = category_name.split(" > ");
-  // console.log("2");
   const [Img, setData] = useState(undefined);
   const [Star, setStar] = useState(undefined);
   const [error, setError] = useState("");

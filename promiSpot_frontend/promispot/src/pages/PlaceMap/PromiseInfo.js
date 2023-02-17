@@ -16,14 +16,11 @@ export default function PromiseInfo() {
     var parse = path.split("/");
     var promiseSeq = parse[2];
 
-    console.log("인포에서 promiseSeq : ", promiseSeq);
-
     const response = await axios({
       method: "GET",
       url: `${SERVER_URL}/promise/get/${promiseSeq}`,
     });
     if (response.data !== "fail") {
-      console.log("인포에서 response.data : ", response.data);
       setPromise(response.data);
       setParticipantList(response.data.participantList);
     }
@@ -34,10 +31,7 @@ export default function PromiseInfo() {
     searchPromise();
   }, []);
 
-  useEffect(() => {
-    console.log("인포에서 promise : ", promise);
-    console.log("인포에서 participantList : ", participantList);
-  }, [promise]);
+  useEffect(() => {}, [promise]);
 
   return (
     <motion.div
@@ -63,10 +57,7 @@ export default function PromiseInfo() {
 
           <div className="promise-info-participants-wrapper">
             {participantList.map((participant) => (
-              <div
-                className="promise-info-participant"
-                key={participant.memberSeq}
-              >
+              <div className="promise-info-participant" key={participant.memberSeq}>
                 {promise.promiseLeader === participant.memberSeq ? (
                   <div className="promise-info-participant-one">
                     <img
@@ -83,9 +74,7 @@ export default function PromiseInfo() {
                       className="promise-info-participant-img"
                       src={participant.memberImgPath}
                     ></img>
-                    <div className="promise-info-participant-name">
-                      {participant.memberName}
-                    </div>
+                    <div className="promise-info-participant-name">{participant.memberName}</div>
                   </div>
                 )}
               </div>

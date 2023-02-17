@@ -13,7 +13,6 @@ export default function PlaceRecommend() {
   const dispatch = useDispatch();
   /** 중심위치  */
   const { centerX, centerY } = useSelector((state) => state.map.centerXY);
-  // console.log(y, x)
   const [recommendPlaceList, setRecommendPlaceList] = useState([]);
   // const [CE7placeList, setCE7placeList] = useState([])
   // const [CT1placeList, setCT1placeList] = useState([])
@@ -67,7 +66,6 @@ export default function PlaceRecommend() {
   function moveToPlaceDetail(place) {
     // dispatch(savePlaceList(placeList));
     dispatch(setPlace(place));
-    console.log("??>???????????????????????", place);
     navigate(`/map/${promiseSeq}/${place.id}`, { state: place });
   }
 

@@ -14,8 +14,6 @@ export default function Chatting() {
   // 화면에 표시될 채팅 기록
   const [chatList, setChatList] = useState([]);
   const searchChatList = async () => {
-    console.log("초기에 채팅 리스트 받아오기");
-
     var path = location.pathname;
     var parse = path.split("/");
     var promiseSeq = parse[2];
@@ -44,11 +42,10 @@ export default function Chatting() {
   const connect = () => {
     client.current = new StompJs.Client({
       // ws 로 서버에 올리면 보안상의 문제로 에러가 발생한다.
-      // wss를 사용하면 보안이 걸려 문제가 해결될 것 이다. 라고 chatgpt가 말함 
+      // wss를 사용하면 보안이 걸려 문제가 해결될 것 이다. 라고 chatgpt가 말함
       brokerURL: "wss://i8a109.p.ssafy.io/api/ws",
       // brokerURL: "ws://localhost:9090/api/ws",
       onConnect: () => {
-        console.log("Chatting 소켓 연결에 성공했습니다.");
         subscribe();
       },
     });
@@ -73,7 +70,6 @@ export default function Chatting() {
       }),
     });
 
-    console.log("메시지 발행에 성공했습니다.");
     setChat("");
   };
 
@@ -86,7 +82,6 @@ export default function Chatting() {
     client.current.subscribe(`/sub/chatting/${promiseSeq}`, (body) => {
       const json_body = JSON.parse(body.body);
       setChatList((prev) => [...prev, json_body]);
-      console.log("구독 메시지 받아오기");
     });
   };
 
@@ -113,9 +108,10 @@ export default function Chatting() {
   }, []);
 
   return (
-    <motion.div className="chatting-wrapper"
+    <motion.div
+      className="chatting-wrapper"
       initial={{ opacity: 0, y: -15 }}
-      animate={{ opacity: 1, y:  0}}
+      animate={{ opacity: 1, y: 0 }}
       transition={{
         duration: 0.3,
         delay: 0.3,
@@ -127,20 +123,14 @@ export default function Chatting() {
           chatList.map((one, index) => {
             return (
               <div key={index}>
-                { one.senderName === member.memberName ? (
-                  <div className="chatting-contents-one-me-wrapper" >
-                    <div className="chatting-contents-me-msg">
-                      {one.message}
-                    </div>
+                {one.senderName === member.memberName ? (
+                  <div className="chatting-contents-one-me-wrapper">
+                    <div className="chatting-contents-me-msg">{one.message}</div>
                   </div>
                 ) : (
-                  <div className="chatting-contents-one-other-wrapper" >
-                    <div className="chatting-contents-other-name">
-                      {one.senderName}
-                    </div>
-                    <div className="chatting-contents-other-msg">
-                      {one.message}
-                    </div>
+                  <div className="chatting-contents-one-other-wrapper">
+                    <div className="chatting-contents-other-name">{one.senderName}</div>
+                    <div className="chatting-contents-other-msg">{one.message}</div>
                   </div>
                 )}
               </div>
@@ -148,10 +138,7 @@ export default function Chatting() {
           })}
       </div>
 
-      <form
-        className="chatting-new-wrapper"
-        onSubmit={(event) => handleSubmit(event, chat)}
-      >
+      <form className="chatting-new-wrapper" onSubmit={(event) => handleSubmit(event, chat)}>
         <div className="chatting-new-text">
           <input
             className="chatting-new-text-input"
@@ -163,11 +150,7 @@ export default function Chatting() {
           />
         </div>
         <button className="chatting-new-btn" type={"submit"}>
-          <BiSend
-            className="chatting-new-btn-icon"
-            size="3vh"
-            color="#ffffff"
-          />
+          <BiSend className="chatting-new-btn-icon" size="3vh" color="#ffffff" />
         </button>
         {/* <input type={"submit"} value={<BiSend />} /> */}
       </form>
