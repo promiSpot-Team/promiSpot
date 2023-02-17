@@ -1,6 +1,5 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import "./Card.scss";
 import "./Card1.scss";
 
 export default function Card(props) {
@@ -18,10 +17,8 @@ export default function Card(props) {
       {/* 카드 헤더 : 제목, 날짜, 시간 */}
       <div className="card-header">
         {/* 카드 제목 */}
-         <div className="card-header-title">
-          {title}
-         </div>
-         {/* 카드 날짜, 시간 */}
+        <div className="card-header-title">{title}</div>
+        {/* 카드 날짜, 시간 */}
         <div className="card-header-date-time">
           <div className="card-header-date-div">
             <p>{date}</p>
@@ -34,20 +31,34 @@ export default function Card(props) {
       {/* 카드 내용 : 친구들, 퇴장/입장 버튼 */}
       <div className="card-content">
         <div className="card-content-friend-div">
-          {participantList && participantList.map((participant, idx) => {
-            return (
-              <div key={participant.memberSeq} className="card-content-friend-img-div">
-                <img src={participant.memberImgPath} alt={participant.memberNick} />
-              </div>
-            )
-          })}
+          {participantList &&
+            participantList.map((participant, idx) => {
+              return (
+                <div className="card-content-friend-wrapper">
+                  <div
+                    key={participant.memberSeq}
+                    className="card-content-friend-img-div"
+                  >
+                    <img
+                      src={participant.memberImgPath}
+                      alt={participant.memberNick}
+                    />
+                  </div>
+                  <div className="card-content-participant-txt">
+                    <div className="card-content-participant-non-leader-txt">
+                      {participant.memberName}
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
         </div>
         <div className="card-content-button-div">
           {/* <div className="card-enter-btn"> */}
-            <button onClick={moveToPromise}>입장</button>
+          <button onClick={moveToPromise}>입장</button>
           {/* </div> */}
           {/* <div className="card-exit-btn"> */}
-            <button>나가기</button>
+          <button>나가기</button>
           {/* </div> */}
         </div>
       </div>
