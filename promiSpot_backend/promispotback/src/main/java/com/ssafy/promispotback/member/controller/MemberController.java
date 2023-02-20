@@ -143,18 +143,6 @@ public class MemberController {
 	@PostMapping("/{memberSeq}")
 	public ResponseEntity<?> modifyMember(@RequestBody MemberEntity memberEntity, @PathVariable int memberSeq) {
 
-//		FileEntity file = new FileEntity();
-//		// 이미지 파일이 있다면.
-//		if(!multipartFile.isEmpty()) {
-//			try {
-//				file = memberService.saveFile(multipartFile);
-//			} catch (Exception e) {
-//				e.printStackTrace();
-//			}
-//		}//if
-//
-//		MemberEntity memberEntity = new MemberEntity(memberSeq, memberPass, memberName, memberNick, memberPhoneNum
-//				, file.getImgPath(), file.getImgOriginName(), file.getImgServerName());
 		memberEntity.setMemberSeq(memberSeq);
 		try {
 			if(memberService.modifyMember(memberEntity)) {
@@ -257,7 +245,6 @@ public class MemberController {
 					String accessToken = jwtService.createAccessToken("memberId", memberEntity.getMemberId());
 					logger.debug("token : {}", accessToken);
 					logger.debug("정상적으로 access token 재발급");
-					memberEntity.setMember_token(accessToken);
 					memberService.modifyMember(memberEntity);
 					resultMap.put("access-token", accessToken);
 					resultMap.put("message", SUCCESS);
