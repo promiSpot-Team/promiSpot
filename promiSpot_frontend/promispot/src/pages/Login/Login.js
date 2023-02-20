@@ -22,6 +22,8 @@ function Login() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
+  const isLogin = useSelector((state) => state.user.isLogin);
+
   // 아이디, 비밀번호 설정
   const [inputId, setInputId] = useState("");
   const [inputPw, setInputPw] = useState("");
@@ -30,8 +32,6 @@ function Login() {
   const [passwordState] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const handleClickShowPassword = () => setShowPassword((show) => !show);
-
-  const isLogin = useSelector((state) => state.user.isLogin);
 
   // input data 의 변화가 있을 때마다 value 값을 변경해서 useState 해준다
   const handleInputId = (e) => {
