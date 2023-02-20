@@ -6,7 +6,6 @@ import AddressSearch2 from "./pages/Address/AddressSearch2";
 import Friend from "./pages/Friend/Friend";
 import Join from "./pages/Login/Join";
 import Login from "./pages/Login/Login";
-import Privacy from "./pages/Login/Privacy";
 import Start from "./pages/Login/Start";
 import Main from "./pages/Main/Main";
 import EditInfo from "./pages/MyPage/EditInfo";
@@ -57,7 +56,6 @@ function App() {
         <Route path="/mypage" element={<MyPage />} />
         <Route path="/myaddress" element={<MyAddress />} />
         <Route path="/editinfo" element={<EditInfo />} />
-        <Route path="/privacy" element={<Privacy />} />
         {/* <Route path="/join2" element={<Join2 />} /> */}
         <Route path="/card" element={<Card />} />
         {/* <Route path="/join2" element={<Join2 />} /> */}

@@ -25,6 +25,17 @@ export default function Join() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
+  /* 리덕스에 저장된 값 불러오기 */
+  // 주소 정보 불러오기
+  const addressInfo = useSelector((state) =>
+    state?.user?.addressInfo ? state.user.addressInfo : null
+  );
+
+  // 회원가입 정보 불러오기
+  const joinInfo = useSelector((state) =>
+    state?.user?.joinInfo ? state.user.joinInfo : null
+  );
+
   // 비밀번호 유효성 검사
   const [passwordState, setPasswordState] = useState("");
 
@@ -48,17 +59,6 @@ export default function Join() {
     phoneNumber: joinInfo.phoneNumber,
     addressIsAgree: joinInfo.addressIsArgree,
   });
-
-  /* 리덕스에 저장된 값 불러오기 */
-  // 주소 정보 불러오기
-  const addressInfo = useSelector((state) =>
-    state?.user?.addressInfo ? state.user.addressInfo : null
-  );
-
-  // 회원가입 정보 불러오기
-  const joinInfo = useSelector((state) =>
-    state?.user?.joinInfo ? state.user.joinInfo : null
-  );
 
   // 값이 입력될 때마다 변화하는 입력값 state객체에 저장
   const handleInputChange = (e) => {
