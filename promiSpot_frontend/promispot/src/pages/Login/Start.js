@@ -1,124 +1,54 @@
-import react, { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import BasicButton from "../../components/Buttons/BasicButton";
-// import Header from '../components/header/header';
-// import Footer from '../components/footer/footer';
 import "../scss/Start.scss";
 
 function Start() {
-  const [firstTitle, setFirstTitle] = useState("");
-  const [firstCount, setFirstCount] = useState(0);
-  const completionWord1 = "함께\n정하는\n약속장소";
-  // const [secondTitle, setSecondTitle] = useState("");
-  // const [secondCount, setSecondCount] = useState(0);
-  // const completionWord2 = "정하는";
-  // const [thirdTitle, setThirdTitle] = useState("");
-  // const [thirdCount, setThirdCount] = useState(0);
-  // const completionWord3 = "약속장소";
+  const [Title, setTitle] = useState("");
+  const [Count, setCount] = useState(0);
+  const completionWord = "함께\n정하는\n약속장소";
 
+  // 글씨 하이라이트
   useEffect(() => {
-    const typingInterval1 = setInterval(() => {
-      setFirstTitle((prevTitleValue1) => {
-        let result1 = prevTitleValue1
-          ? prevTitleValue1 + completionWord1[firstCount]
-          : completionWord1[0];
-        setFirstCount(firstCount + 1);
+    const typingInterval = setInterval(() => {
+      setTitle((prevTitleValue) => {
+        let result = prevTitleValue
+          ? prevTitleValue + completionWord[Count]
+          : completionWord[0];
+        setCount(Count + 1);
 
-        if (firstCount >= completionWord1.length) {
-          setFirstCount(0);
-          setFirstTitle("");
+        if (Count >= completionWord.length) {
+          setCount(0);
+          setTitle("");
         }
 
-        return result1;
+        return result;
       });
     }, 300);
 
     return () => {
-      clearInterval(typingInterval1);
+      clearInterval(typingInterval);
     };
   });
 
-  // useEffect(() => {
-  //   const typingInterval2 = setInterval(() => {
-  //     setSecondTitle((prevTitleValue2) => {
-  //       let result2 = prevTitleValue2
-  //         ? prevTitleValue2 + completionWord2[secondCount]
-  //         : completionWord2[0];
-  //       setSecondCount(secondCount + 1);
-
-  //       if (secondCount >= completionWord2.length) {
-  //         setSecondCount(0);
-  //         setSecondTitle("");
-  //       }
-
-  //       return result2;
-  //     });
-  //   }, 600);
-
-  //   return () => {
-  //     clearInterval(typingInterval2);
-  //   };
-  // });
-  // useEffect(() => {
-  //   const typingInterval3 = setInterval(() => {
-  //     setThirdTitle((prevTitleValue3) => {
-  //       let result3 = prevTitleValue3
-  //         ? prevTitleValue3 + completionWord3[thirdCount]
-  //         : completionWord3[0];
-  //       setThirdCount(thirdCount + 1);
-
-  //       if (thirdCount >= completionWord3.length) {
-  //         setThirdCount(0);
-  //         setThirdTitle("");
-  //       }
-
-  //       return result3;
-  //     });
-  //   }, 600);
-
-  //   return () => {
-  //     clearInterval(typingInterval3);
-  //   };
-  // });
   return (
     <div className="start-scroll">
       <div className="start-wrapper">
         <div className="container">
-          {/* <div className="blink-1">
-            <h1>#99</h1>
-          </div>
-          <div className="blink-2">
-            <h1>#98</h1>
-          </div>
-          <div className="blink-3">
-            <h1>#97</h1>
-          </div> */}
           <div className="main-title">
-            <div className="main-title-first-text">{firstTitle}</div>
-            {/* <div className="main-title-second-text">{secondTitle}</div> */}
-            {/* <div className="main-title-third-text">{thirdTitle}</div> */}
+            <div className="main-title-first-text">{Title}</div>
           </div>
-          {/* <div className="main-title-text">{secondTitle}</div> */}
 
-          {/* <h1 className="main-title"></h1> */}
           <span className="text first-text">함께</span>
           <span className="text second-text">정하는</span>
-          {/* <h1 className="main-title">{blogTitle}</h1> */}
           <span className="text third-text">약속장소</span>
         </div>
-        {/* <div className="start-logo-wrapper">
-          <img src={require("../../img/promispot_logo.png")} width="300px" />
-
-        </div> */}
         <div className="img-wrapper">
           <img
             className="img-wrapper"
             src={require("../../img/promispot_logo.png")}
           />
         </div>
-        {/* <div className="back-wrapper">
-            <div className="circle1"></div>
-          </div> */}
         <div className="svg-wrapper">
           <svg
             viewBox="0 0 1000 1000"
@@ -247,12 +177,6 @@ function Start() {
           </div>
           <div className="start-btn"></div>
         </div>
-        {/* <div className="start-container">
-
-  <div className="start-container-first">
-    promiSpot
-  </div>
-</div> */}
       </div>
     </div>
   );

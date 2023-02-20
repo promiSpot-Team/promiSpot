@@ -2,13 +2,10 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  // height: 100vh;
-  // width:90vw;
 
   .friend-title-wrapper {
     display: flex;
     align-items: center;
-    // height:5vh;
     font-family: "Pretendard-Bold";
     font-style: normal;
     font-weight: 800;
@@ -16,7 +13,6 @@
   }
   .friend-content-wrapper {
     width: 100%;
-    // height:90%;
   }
   .friend-search-wrapper {
     width: 85%;
@@ -26,16 +22,6 @@
 .friend-list-wrapper {
   width: 94%;
   padding-left: 5vw;
-  // width: 100%;
-  // height: 100vh;
-
-  // .friend-list-each-wrapper {
-  //   display: grid;
-  //   height: 50px;
-  //   margin-left: 1vw;
-  //   margin-right: 1vw;
-  //   padding: 1vh 1vh 1vh 1vh;
-  // }
 }
 
 .friend-search-result-wrapper {
@@ -85,7 +71,6 @@ $inner-shadow: inset 0.2em 0.2em 0.5em var(--greyLight-2),
     padding-left: 1em;
     box-shadow: $inner-shadow;
     background: none;
-    // background-color: #5b0eeb;
     font-family: "pPretendard-Bold";
     color: var(--greyDark);
 
@@ -115,12 +100,8 @@ $inner-shadow: inset 0.2em 0.2em 0.5em var(--greyLight-2),
   }
 }
 .friend-search-result-list {
-  // border: 1px solid skyblue;
   width: 100%;
   height: 6vh;
-  // position: absolute;
-  // bottom: 1vh;
-  // left: 3vw;
   color: gray;
   display: flex;
   justify-content: space-between;
@@ -144,7 +125,6 @@ $inner-shadow: inset 0.2em 0.2em 0.5em var(--greyLight-2),
     margin-top: 2vh;
     margin-left: 12vw;
     justify-content: center;
-    // margin-bottom:1vh;
 
     .friend-myfriend-profile-info-img-wrapper {
       width: 40px;
@@ -163,7 +143,6 @@ $inner-shadow: inset 0.2em 0.2em 0.5em var(--greyLight-2),
 
     .friend-myfriend-profile-info-name-wrapper {
       display: grid;
-      // font-size: 15px;
 
       .friend-myfriend-profile-info-nickname-wrapper {
         display: grid;
@@ -180,14 +159,10 @@ $inner-shadow: inset 0.2em 0.2em 0.5em var(--greyLight-2),
       display: flex;
       margin-left: auto;
       margin-right: 10px;
-      // margin-right: 1vw;
       align-items: baseline;
       margin-top: 2%;
-      // height:100%;
       .profile-info-button {
         margin-right: 5%;
-        // margin-top: 5%;
-        // margin-bottom: 5%;
       }
     }
   }

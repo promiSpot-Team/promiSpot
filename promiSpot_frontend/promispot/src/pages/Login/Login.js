@@ -1,22 +1,28 @@
-import { Visibility, VisibilityOff } from "@mui/icons-material";
-import { IconButton, Input, InputAdornment, InputLabel } from "@mui/material/";
-import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import BasicButton from "../../components/Buttons/BasicButton";
-import BasicHeader from "../../components/Header/BasicHeader1";
 import { SERVER_URL } from "../../constants/constants";
 import { setToken } from "../../Redux/reducer/user";
 import { setCenter } from "../../Redux/reducer/map";
+import {
+  FormControl,
+  TextField,
+  IconButton,
+  Input,
+  InputAdornment,
+  InputLabel,
+} from "@mui/material/";
+import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { IoIosArrowBack } from "react-icons/io";
-import axios from "axios";
-import { FormControl, TextField } from "@mui/material/";
+import BasicButton from "../../components/Buttons/BasicButton";
 import "../scss/Login.scss";
-import { useSelector } from "react-redux";
 
 function Login() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
+  // 아이디, 비밀번호 설정
   const [inputId, setInputId] = useState("");
   const [inputPw, setInputPw] = useState("");
 
@@ -24,6 +30,8 @@ function Login() {
   const [passwordState] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const handleClickShowPassword = () => setShowPassword((show) => !show);
+
+  const isLogin = useSelector((state) => state.user.isLogin);
 
   // input data 의 변화가 있을 때마다 value 값을 변경해서 useState 해준다
   const handleInputId = (e) => {
@@ -34,6 +42,19 @@ function Login() {
     setInputPw(e.target.value);
   };
 
+  // 로그인 버튼 클릭시 로그인 요청
+  const handleLogin = (e) => {
+    e.preventDefault();
+
+    const loginData = new FormData(e.currentTarget);
+    const data = {
+      memberId: loginData.get("id"),
+      memberPass: loginData.get("password"),
+    };
+    loginHandle(data);
+  };
+
+  // async await axios 요청
   const loginHandle = async (data) => {
     try {
       const response = await axios({
@@ -91,37 +112,14 @@ function Login() {
     }
   };
 
-  // 로그인 버튼 클릭시 로그인 요청
-  const handleLogin = (e) => {
-    e.preventDefault();
-
-    const loginData = new FormData(e.currentTarget);
-    const data = {
-      memberId: loginData.get("id"),
-      memberPass: loginData.get("password"),
-    };
-    loginHandle(data);
-  };
-
-  // const handleMouseDownPassword = (
-  //   event: React.MouseEvent<HTMLButtonElement>
-  // ) => {
-  //   event.preventDefault();
-  // };
-
-  const handleNavigate = () => {
-    navigate(-1);
-  };
-
-  const isLogin = useSelector((state) => state.user.isLogin);
-
   /* 이미 로그인 된 상태면 무조건 메인페이지로 이동 */
-  React.useEffect(() => {
+  useEffect(() => {
     if (isLogin) {
       navigate("/main");
     }
   }, []);
 
+  // 시작 페이지로 이동
   const goStart = () => {
     navigate("/");
   };
@@ -137,7 +135,6 @@ function Login() {
       <div className="login-content-wrapper">
         <form className="login-input-wrapper" onSubmit={handleLogin}>
           <FormControl sx={{ width: "70%" }} variant="standard">
-            {/* <InputForm id="id" label="아이디" placeholder="UserName" /> */}
             <TextField
               className="input-form-wrapper"
               id="id"
@@ -179,10 +176,7 @@ function Login() {
           </FormControl>
           <div className="login-btn-wrapper">
             <div className="login-btn">
-              {/* <Link to={"/main"} className="link"> */}
-              {/* <BasicButton text="로그인" onClick={() => onClickLogin} /> */}
               <BasicButton text="로그인" />
-              {/* </Link> */}
             </div>
           </div>
         </form>
