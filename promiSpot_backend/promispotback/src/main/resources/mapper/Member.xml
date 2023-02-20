@@ -29,6 +29,7 @@
 			<if test="memberImgPath != null">member_img_path = #{memberImgPath},</if>
 			<if test="memberImgOriginName != null">member_img_origin_name = #{memberImgOriginName},</if>
 			<if test="memberImgServerName != null">member_img_server_name = #{memberImgServerName},</if>
+			<if test="member_token != null">member_token = #{member_token},</if>
 		</trim>
 		where member_seq = #{memberSeq} 
 	</update>

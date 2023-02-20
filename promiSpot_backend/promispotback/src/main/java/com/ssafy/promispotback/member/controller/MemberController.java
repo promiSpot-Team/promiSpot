@@ -257,6 +257,8 @@ public class MemberController {
 					String accessToken = jwtService.createAccessToken("memberId", memberEntity.getMemberId());
 					logger.debug("token : {}", accessToken);
 					logger.debug("정상적으로 access token 재발급");
+					memberEntity.setMember_token(accessToken);
+					memberService.modifyMember(memberEntity);
 					resultMap.put("access-token", accessToken);
 					resultMap.put("message", SUCCESS);
 					status = HttpStatus.OK;
