@@ -5,7 +5,6 @@ import AddressSearch from "./pages/Address/AddressSearch";
 import AddressSearch2 from "./pages/Address/AddressSearch2";
 import Friend from "./pages/Friend/Friend";
 import Join from "./pages/Login/Join";
-import Join2 from "./pages/Login/Join2";
 import Login from "./pages/Login/Login";
 import Privacy from "./pages/Login/Privacy";
 import Start from "./pages/Login/Start";
@@ -31,7 +30,7 @@ function App() {
       <Route element={<PublicRoute />}>
         <Route path="/" element={<Start />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/join" element={<Join2 />} />
+        <Route path="/join" element={<Join />} />
         <Route path="/search" element={<AddressSearch />} />
       </Route>
       {/* 로그인 해야 접근 가능 */}
@@ -45,7 +44,7 @@ function App() {
           <Route path=":placeId" element={<PlaceDetail />} />
           {/* <Route path="chatting" element={<Chatting />} /> */}
         </Route>
-        <Route path="/schedule/:promiseSeq" element={<Schedule />} >
+        <Route path="/schedule/:promiseSeq" element={<Schedule />}>
           <Route path="recommend" element={<PlaceRecommend />} />
           <Route path=":placeId" element={<PlaceDetail />} />
           <Route path="chatting" element={<Chatting />} />
