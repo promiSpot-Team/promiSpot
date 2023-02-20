@@ -81,8 +81,8 @@ export default function MapContainer() {
     try {
       const response = await axios({
         method: "GET",
-        // url: `${SERVER_URL}/promise/getMiddle/${promiseSeq}`,
-        url: `http://localhost:9090/api/promise/getMiddle/${promiseSeq}`,
+        url: `${SERVER_URL}/promise/getMiddle/${promiseSeq}`,
+        // url: `http://localhost:9090/api/promise/getMiddle/${promiseSeq}`,
       });
       if (response.data !== "fail") {
         setMiddleSpotList(response.data);
