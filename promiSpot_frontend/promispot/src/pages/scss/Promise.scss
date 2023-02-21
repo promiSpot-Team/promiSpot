@@ -42,6 +42,8 @@
     margin: 0;
     border: 0;
     outline: none;
+    align-items: center;
+    display: grid;
   }
   .react-calendar button:enabled:hover {
     cursor: pointer;
@@ -128,7 +130,12 @@
   .react-calendar--selectRange .react-calendar__tile--hover {
     background-color: #e6e6e6;
   }
+  .dot-wrapper {
+    display: flex;
+    align-items: center;
+  }
   .dot {
+    position: absolute;
     height: 8px;
     width: 8px;
     background-color: #f87171;

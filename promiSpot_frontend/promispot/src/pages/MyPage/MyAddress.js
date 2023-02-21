@@ -1,13 +1,8 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { Link, useNavigate, Navigate } from "react-router-dom";
-import TabBar from "../../components/TabBar/TabBar";
+import { useNavigate } from "react-router-dom";
 import { SERVER_URL } from "../../constants/constants";
-import ProfileInfoS from "../../components/ProfileInfo/ProfileInfoS";
-import { useSelector, useDispatch } from "react-redux";
-import { reissueToken, setAddress } from "../../Redux/reducer/user";
-import "../scss/MyPage.scss";
-import BasicHeader from "../../components/Header/BasicHeader1";
+import { useSelector } from "react-redux";
 import Modal2 from "../../components/Modal/Modal2";
 import { HiPlus } from "react-icons/hi";
 import {
@@ -17,25 +12,35 @@ import {
   TextField,
 } from "@mui/material";
 import Back from "../../components/Icon/Back";
+import "../scss/MyPage.scss";
 
 export default function MyAddress() {
-  const [myAddressList, setMyAddressList] = useState([]);
-  const [axiosMethod, setAxiosMethod] = useState("");
-  const [addressNum, setAddressNum] = useState();
-  const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { memberSeq, addressSeq } = useSelector((state) => state.user.info);
-  const [openDeleteModal, setOpenDeleteModal] = useState(false);
-  const [openModifyModal, setOpenModifyModal] = useState(false);
 
-  var nowSeq = 0;
+  const { memberSeq, addressSeq } = useSelector((state) => state.user.info);
+
+  const [addressNum, setAddressNum] = useState();
+  const [myAddressList, setMyAddressList] = useState([]);
+  const [openModifyModal, setOpenModifyModal] = useState(false);
   const [checked, setChecked] = useState(false);
 
-  function nowSeqIs(data) {
-    nowSeq = data;
-  }
-  const handleAgree = (event) => {
-    setChecked(event.target.checked);
+  const handleAgree = (e) => {
+    setChecked(e.target.checked);
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const modifyData = new FormData(e.currentTarget);
+    const data = {
+      addressNick: modifyData.get("addressNick"),
+      addressIsPrimary: checked === false ? 0 : 1,
+    };
+    modifyMyAddress(data);
+  };
+
+  const handleChange_addressSeq = (e) => {
+    e.preventDefault();
+    setAddressNum(e.tagrget.value);
   };
 
   const getMyAddress = async () => {
@@ -81,86 +86,20 @@ export default function MyAddress() {
     }
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const modifyData = new FormData(e.currentTarget);
-    const data = {
-      addressNick: modifyData.get("addressNick"),
-      addressIsPrimary: checked === false ? 0 : 1,
-    };
-    modifyMyAddress(data);
-  };
-
-  // const addAddress = async (data) => {
-  //   try {
-  //     const response4 = await axios({
-  //       url: "/address",
-  //       method: "POST",
-  //       baseURL: SERVER_URL,
-  //       data: {
-  //         memberSeq,
-  //         addressAddress: data.addressAddress,
-  //         addressX: data.addressX,
-  //         addressY: data.addressY,
-  //         addressNick: data.addressNick,
-  //         addressIsPrimary: data.addressIsPrimary,
-  //       },
-  //     });
-  //     dispatch(setAddress(null));
-
-  //     navigate("/myaddress");
-  //   } catch (err) {
-  //     console.log(err);
-  //   }
-  // };
-
-  // useEffect(() => {}, [addressInfo]);
-
-  // const addressHandleSubmit = (e) => {
-  //   e.preventDefault();
-
-  //   const data = new FormData(e.currentTarget);
-  //   const addressData = {
-  //     addressAddress: addressInfo.addressAddress,
-  //     addressX: addressInfo.addressX,
-  //     addressY: addressInfo.addressY,
-  //     addressNick: "주소",
-  //     addressIsPrimary: 0,
-  //   };
-  //   addAddress(addressData);
-  // };
-
-  const handleChange_addressSeq = (e) => {
-    e.preventDefault();
-    setAddressNum(e.tagrget.value);
+  const onClickModify = async (data) => {
+    await setAddressNum(data);
+    await setOpenModifyModal(!openModifyModal);
   };
 
   useEffect(() => {
     getMyAddress();
   }, []);
 
-  // useEffect(() => {}, [myAddressList]);
-
-  // const onClick = (method) => {
-  //   setAxiosMethod(method);
-  // };
-
-  // const sendAddress = (num) => {
-  //   setAddressNum(num);
-  // };
-
-  function goMyAddress() {
-    window.location.replace("/myaddress");
-  }
-
+  // 주소 검색 페이지로 이동
   function goAddAddress() {
     window.location.replace("/address/search");
   }
 
-  const onClickModify = async (data) => {
-    await setAddressNum(data);
-    await setOpenModifyModal(!openModifyModal);
-  };
   return (
     <div>
       <div className="basic-header-1-wrapper">
@@ -185,9 +124,6 @@ export default function MyAddress() {
           <div className="mypage-new-address-txt">추가</div>
         </button>
       </div>
-      {/* <form onSubmit={addressHandleSubmit}>
-        <button></button>
-      </form> */}
       {myAddressList &&
         myAddressList.map((item, idx) => {
           return (
@@ -211,7 +147,6 @@ export default function MyAddress() {
                   <button
                     className="mypage-content-address-btn"
                     onClick={() => {
-                      // deleteMyAddress(item.addressSeq);
                       onClickModify(item);
                     }}
                     value={item.addressSeq}
@@ -223,7 +158,6 @@ export default function MyAddress() {
                       className="mypage-content-address-btn"
                       onClick={() => {
                         deleteMyAddress(item.addressSeq);
-                        // onClickDelete();
                       }}
                       value={item.addressSeq}
                     >
@@ -251,13 +185,8 @@ export default function MyAddress() {
                           multiline
                           variant="standard"
                           fontFamily="Pretendard-Bold"
-                          // defaultValue={item.memberInfo.memberNick}
                           margin="dense"
-                          // defaultValue={item.memberInfo.memberNick}
-                          // onChange={handleEditChange}
-                        >
-                          {/* <div onClick={clearText}>삭제</div> */}
-                        </TextField>
+                        ></TextField>
                       </FormControl>
                       <FormControlLabel
                         id="addressIsPrimary"
@@ -268,15 +197,8 @@ export default function MyAddress() {
                         margin="normal"
                       />
                       <div>
-                        <button
-                          onClick={() => {
-                            nowSeqIs(item.addressSeq);
-                          }}
-                        >
-                          수정
-                        </button>
+                        <button>수정</button>
                       </div>
-                      {/* <button onClick={editMyInfo}>수정</button> */}
                     </form>
                   </Modal2>
                 )}
