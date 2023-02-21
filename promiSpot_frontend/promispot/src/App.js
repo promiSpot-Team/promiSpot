@@ -8,7 +8,6 @@ import Join from "./pages/Login/Join";
 import Login from "./pages/Login/Login";
 import Start from "./pages/Login/Start";
 import Main from "./pages/Main/Main";
-import EditInfo from "./pages/MyPage/EditInfo";
 import MyAddress from "./pages/MyPage/MyAddress";
 import MyPage from "./pages/MyPage/MyPage";
 import Chatting from "./pages/PlaceMap/Chatting";
@@ -55,7 +54,6 @@ function App() {
         <Route path="/promise" element={<Promise />} />
         <Route path="/mypage" element={<MyPage />} />
         <Route path="/myaddress" element={<MyAddress />} />
-        <Route path="/editinfo" element={<EditInfo />} />
         {/* <Route path="/join2" element={<Join2 />} /> */}
         <Route path="/card" element={<Card />} />
         {/* <Route path="/join2" element={<Join2 />} /> */}

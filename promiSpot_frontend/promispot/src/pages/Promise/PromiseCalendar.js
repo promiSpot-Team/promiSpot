@@ -1,11 +1,7 @@
 import React, { useEffect, useState } from "react";
-import DatePicker from "react-datepicker";
-import "../scss/DatePicker.scss";
-import { ko } from "date-fns/esm/locale";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 import moment from "moment/moment";
-import { getMonth, getDate, getDay } from "date-fns";
 import { useSelector } from "react-redux";
 import axios from "axios";
 import { SERVER_URL } from "../../constants/constants";
@@ -27,8 +23,9 @@ export default function PromiseCalendar() {
       url: `${SERVER_URL}/promise/getList/${memberSeq}`,
     });
     if (response.data !== "fail") {
-      setPromiseList(response.data);
-      setMark([response.data[0].promiseDate]);
+      console.log(response.data[1].promiseDate);
+      setMark([response.data[0].promiseDate, response.data[1].promiseDate]);
+      console.log(mark);
       // setMark(response.data.promiseDate);
     }
   };
@@ -48,24 +45,6 @@ export default function PromiseCalendar() {
   // setMark(["2023-02-02", "2023-02-02", "2023-02-10"]);
   return (
     <div className="promise-calendar-wrapper">
-      {/* <DatePicker
-        selected={startDate}
-        value={startDate}
-        onChange={(date) => {
-          const d = new Date(date).toLocaleDateString("ko-KR");
-          setStartDate(date);
-        }}
-        locale={ko} // 한글로 변경
-        dateFormat="yyyy.MM.dd (eee)" // 시간 포맷 변경
-        showPopperArrow={false} // 화살표 변경
-        dayClassName={(d) =>
-          getDate(d) === getDate(startDate) &&
-          getMonth(d) === getMonth(startDate)
-            ? "normal-day selected-day"
-            : "normal-day"
-        }
-        inline
-      /> */}
       <Calendar
         onChange={onChange} // useState로 포커스 변경 시 현재 날짜 받아오기
         formatDay={(locale, date) => moment(date).format("DD")} // 날'일' 제외하고 숫자만 보이도록 설정
@@ -80,13 +59,13 @@ export default function PromiseCalendar() {
           // 추가할 html 태그를 변수 초기화
           let html = [];
           // 현재 날짜가 post 작성한 날짜 배열(mark)에 있다면, dot div 추가
-          if (mark.find((x) => x === moment(date).format("YYYY년 MM월 DD일"))) {
+          if (mark.find((x) => x === moment(date).format("YYYY년 M월 D일"))) {
             html.push(<div className="dot"></div>);
           }
           // 다른 조건을 주어서 html.push 에 추가적인 html 태그를 적용할 수 있음.
           return (
             <>
-              <div className="flex justify-center items-center absoluteDiv">{html}</div>
+              <div className="dot-wrapper">{html}</div>
             </>
           );
         }}
