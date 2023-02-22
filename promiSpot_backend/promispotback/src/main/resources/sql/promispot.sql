@@ -1,13 +1,4 @@
 
-DROP TABLE IF EXISTS `bookmarks`;
-
-CREATE TABLE `bookmarks` (
-                             `bookmark_seq`	BIGINT	NOT NULL ,
-                             `member_seq`	BIGINT	NOT NULL ,
-                             `place_id`	VARCHAR(20)	NOT NULL ,
-                             primary key (`bookmark_seq`, `member_seq`)
-);
-
 
 DROP TABLE IF EXISTS `members`;
 
@@ -113,19 +104,6 @@ CREATE TABLE `voters_members` (
 );
 
 
-DROP TABLE IF EXISTS `schedules`;
-
-CREATE TABLE `schedules` (
-                             `schedule_seq`	BIGINT	NOT NULL	AUTO_INCREMENT,
-                             `promise_seq`	BIGINT	NOT NULL	,
-                             `place_id`	VARCHAR(20)	NOT NULL	,
-                             `schedule_procedure`	INT	NULL	COMMENT '일정 장소 순서',
-                             `schedule_time` VARCHAR(20) NOT NULL,
-                             `schedule_place_is_finish`	TINYINT	NULL	COMMENT '0:미완료,1완료 / 내가 방문한 곳인지 체크',
-                             primary key(schedule_seq)
-);
-
-
 DROP TABLE IF EXISTS `addresses`;
 
 CREATE TABLE `addresses` (
@@ -172,20 +150,20 @@ DELIMITER ;
 
 -- 회원 더미 데이터
 insert into members values
-                        (null, "admin", "1234", "운영자", "운영자자", "admin@naver.com", "01011112222", "", "", "", 1, null),
-                        (null, "member1", "1234", "김동언", "회원닉네임1", "member1@naver.com", "01050261111", "", "", "", 1, null),
-                        (null, "member2", "1234", "김수형", "회원닉네임2", "member2@naver.com", "01054431111", "", "", "", 1, null),
-                        (null, "member3", "1234", "이민정", "회원닉네임3", "member3@naver.com", "01042371111", "", "", "", 1, null),
-                        (null, "member4", "1234", "최윤지", "회원닉네임4", "member4@naver.com", "01075771111", "", "", "", 1, null),
-                        (null, "consultant", "1234", "컨설턴트", "컨설턴트님", "consultant@naver.com", "01011112222", "", "", "", 1, null),
-                        (null, "coach", "1234", "코치", "코치", "coach@naver.com", "01050261111", "", "", "", 1, NULL);
+                        (null, "admin", "1234", "운영자", "운영자", "admin@naver.com", "01012342222", "", "", "", 1, null),
+                        (null, "member1", "1234", "김동언", "동언스", "member1@naver.com", "01050261111", "", "", "", 1, null),
+                        (null, "member2", "1234", "김수형", "수형스", "member2@naver.com", "01054431111", "", "", "", 1, null),
+                        (null, "member3", "1234", "이민정", "민정스", "member3@naver.com", "01042371111", "", "", "", 1, null),
+                        (null, "member4", "1234", "최윤지", "윤지스", "member4@naver.com", "01075771111", "", "", "", 1, null),
+                        (null, "consultant", "1234", "컨설턴트", "컨설턴트님", "consultant@naver.com", "01011111234", "", "", "", 1, null),
+                        (null, "coach", "1234", "코치", "코치님", "coach@naver.com", "01050261111", "", "", "", 1, NULL);
 
 
 -- 주소 더미 데이터
 insert into addresses values
-                          (null, 1, "서울시 강남구 강남역", "내 집", "127.027610", "37.498095", 1),
+                          (null, 1, "서울시 강남구 강남역", "자취방", "127.027610", "37.498095", 1),
                           (null, 1, "서울시 강남구 역삼역", "멀티캠퍼스", "127.02777501083", "37.50124267032",  0),
-                          (null, 1, "서울시 강남구 우장산역", "내 집2", "126.836117683731", "37.546244810291",  0);
+                          (null, 1, "서울시 강남구 우장산역", "본가", "126.836117683731", "37.546244810291",  0);
 
 
 -- 친구신청 더미데이터
@@ -222,7 +200,7 @@ insert into promises_members values
 
 -- 장소 더미데이터
 insert into places values
-                       (	1,
+                       (	"8664636",
                             "곰바위",
                             "음식점",
                             "FD6",
@@ -233,9 +211,9 @@ insert into places values
                             "127.05880695418199",
                             "37.51486885062181",
                             "http://place.map.kakao.com/8664636",
-                            ""
+                            "https://img1.kakaocdn.net/cthumb/local/R0x420/?fname=http%3A%2F%2Ft1.daumcdn.net%2Fcfile%2F01062A037898C30DE3"
                        ),
-                       (	2,
+                       (	"1770731230",
                             "팀호완 삼성점",
                             "음식점",
                             "FD6",
@@ -246,7 +224,7 @@ insert into places values
                             "127.056847505366",
                             "37.5114270736423",
                             "http://place.map.kakao.com/1770731230",
-                            ""
+                            "https://img1.kakaocdn.net/cthumb/local/R0x420/?fname=http%3A%2F%2Ft1.kakaocdn.net%2Ffiy_reboot%2Fplace%2FAE3736BDCD6F424A90EB6188FD0844B1"
                        );
 
 -- 약속장소후보 더미데이터
@@ -266,18 +244,6 @@ insert into voters_members values
 insert into schedules values
                           (null, 1, 1, 1, "01:00PM", 1),
                           (null, 1, 2, 2, "02:00PM", 1);
-
-
-
-
-
-
-
-select * from promises;
-
-
-
-
 
 
 

@@ -1,11 +1,8 @@
 package com.ssafy.promispotback.member.model.service;
 
-import java.sql.SQLException;
 import java.util.List;
 
-import com.ssafy.promispotback.member.model.entity.FileEntity;
 import com.ssafy.promispotback.member.model.entity.MemberEntity;
-import org.springframework.web.multipart.MultipartFile;
 
 public interface MemberService {
 	
@@ -42,6 +39,4 @@ public interface MemberService {
 	// id 중복 체크
 	public boolean checkId(String memberId) throws  Exception;
 
-	// 회원 프로필 이미지 저장
-	public FileEntity saveFile(MultipartFile multipartFile) throws Exception;
 }//MemberService
