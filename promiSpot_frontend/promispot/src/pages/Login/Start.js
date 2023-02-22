@@ -45,9 +45,12 @@ function Start() {
         </div>
         <div className="img-wrapper">
           <img
-            className="img-wrapper"
+            className="img-img"
             src={require("../../img/promispot_logo.png")}
           />
+          <div className="img-wrapper-circle"></div>
+          <div className="img-wrapper-circle-blur"></div>
+          <div className="img-wrapper-circle-white"></div>
         </div>
         <div className="svg-wrapper">
           <svg
