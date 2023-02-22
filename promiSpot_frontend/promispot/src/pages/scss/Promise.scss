@@ -130,10 +130,6 @@
   .react-calendar--selectRange .react-calendar__tile--hover {
     background-color: #e6e6e6;
   }
-  .dot-wrapper {
-    display: flex;
-    align-items: center;
-  }
   .dot {
     position: absolute;
     height: 8px;
@@ -141,7 +137,8 @@
     background-color: #f87171;
     border-radius: 50%;
     display: flex;
-    margin-left: 1px;
+    margin-left: 15px;
+    margin-top: 3px;
   }
 }
 

@@ -63,11 +63,7 @@ export default function PromiseCalendar() {
             html.push(<div className="dot"></div>);
           }
           // 다른 조건을 주어서 html.push 에 추가적인 html 태그를 적용할 수 있음.
-          return (
-            <>
-              <div className="dot-wrapper">{html}</div>
-            </>
-          );
+          return <div>{html}</div>;
         }}
       />
     </div>
