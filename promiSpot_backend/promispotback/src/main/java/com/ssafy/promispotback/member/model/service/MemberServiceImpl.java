@@ -16,9 +16,6 @@ public class MemberServiceImpl implements MemberService {
 	@Autowired
 	private MemberMapper memberMapper;
 
-	@Autowired
-	private FileHandler fileHandler;
-
 	/* 회원 로그인 */
 	@Override
 	public MemberEntity loginMember(MemberEntity memberEntity) throws Exception {
