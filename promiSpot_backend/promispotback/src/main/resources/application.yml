@@ -29,10 +29,10 @@ spring:
 
     # DataBase Connection
     driver-class-name: com.mysql.cj.jdbc.Driver
-    username: root
-    password: asianautoever0125.
+    username: example
+    password: example
     type: org.apache.commons.dbcp2.BasicDataSource
-    url: jdbc:mysql://i8a109.p.ssafy.io:3306/promispot?serverTimezone=UTC&useUniCode=yes&characterEncoding=UTF-8
+    url: jdbc:mysql://example:3306/example?serverTimezone=UTC&useUniCode=yes&characterEncoding=UTF-8
 
 
 
@@ -58,12 +58,12 @@ spring:
 
   data:
     mongodb:
-      host: i8a109.p.ssafy.io
+      host: example
       port: 27017
-      authentication-database: promispot
-      database: promispot
-      username: promispot
-      password: asianautoever0125.
+      authentication-database: example
+      database: example
+      username: example
+      password: example
 
 
 
@@ -79,5 +79,5 @@ mybatis:
 # kakaoMap\
 kakao:
   map:
-    apikey: 64bbe2063e9e0b314a6060be44144a26
+    apikey: example
 
