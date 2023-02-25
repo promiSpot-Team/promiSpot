@@ -251,8 +251,8 @@ export default function MapContainer() {
   const client = useRef({});
   const connect = () => {
     client.current = new StompJs.Client({
-      brokerURL: "wss://i8a109.p.ssafy.io/api/ws",
-      // brokerURL: `ws://localhost:9090/api/ws`,
+      brokerURL: "",
+      // brokerURL: ``,
       onConnect: () => {
         subscribeDeparture();
         subscribeVotePlace();

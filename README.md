@@ -1,4 +1,4 @@
-# [SSAFY 8기 2학기 공통프로젝트] promiSpot
+# promiSpot
 
 **Team**
 |역할|이름|담당

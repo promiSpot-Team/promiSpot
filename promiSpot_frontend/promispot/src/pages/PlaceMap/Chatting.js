@@ -44,8 +44,8 @@ export default function Chatting() {
       // ws 로 서버에 올리면 보안상의 문제로 에러가 발생한다.
       // wss를 사용하면 보안이 걸려 문제가 해결될 것 이다. 라고 chatgpt가 말함
       // wss를 사용하면 보안이 걸려 문제가 해결될 것 이다. 라고 chatgpt가 말함
-      brokerURL: "wss://i8a109.p.ssafy.io/api/ws",
-      // brokerURL: "ws://localhost:9090/api/ws",
+      brokerURL: "",
+      // brokerURL: "",
       onConnect: () => {
         subscribe();
       },

@@ -247,7 +247,7 @@ export default function Join() {
               className="input-form-wrapper"
               id="email"
               label="이메일"
-              placeholder="ssafy@ssafy.com"
+              placeholder="test@test.com"
               name="email"
               type="email"
               multiline
