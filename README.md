@@ -120,7 +120,7 @@
 | 김동언 | <a href="https://github.com/cladren123"><img src="https://github.com/cladren123.png" width="100"></a> | BE | <h3><b>😁 팀장 & 백엔드 팀장</b></h3><ul><li>Websocket(STOMP 방식) 활용해 실시간 기능 구현</br>   (채팅, 출발지 설정, 약속 장소 등록, 중간 지점 추천)</li><li> 지도 기능 구현 (투표 기능, 투표 현황)</li><li> API 작성 (출발지, 약속 장소, 투표 등)</li><li> 프론트와 백단 API 적용 (Axios 활용)</li><li> 화면 구성 (React Redux, UseEffect 사용)</li><li> 채팅  NoSQL(MongoDB) 사용</li><li> 출발지, 약속 장소, 투표 내용 등 RDBMS(MySQL)에 저장</li></ul> |
 | 김수형 | <a href="https://github.com/SuhyungK"><img src="https://github.com/SuhyungK.png" width="100"></a> | FE | <h3><b>😇 프론트엔드 팀장</b></h3><ul><li> 와이어프레임 설계(Figma)</li><li> Redux 관리</li><li> 카카오 지도 API 연동을 통한 지도 페이지 구현 & 장소 검색 & 장소 추천</li><li> 프론트  API 작성</li><li> React Component 설계 및 관리</li></ul> |
 | 이민정 | <a href="https://github.com/ealswjd"><img src="https://github.com/ealswjd.png" width="100"></a> | BE | <h3><b>😜 CI/CD 팀장</b></h3><ul><li> 서버 담당</li><li> API 설계 및 유지보수</li><li> Docker, Jenkins를 활용해 AWS 배포</li><li> JWT 로그인 구현</li><li> 회원, 친구 기능 담당</li></ul> |
-| 최윤지 | <a href="https://github.com/yunjichoi9151"><img src="https://github.com/yunjichoi9151.png" width="100"></a> | FE | <h3><b>😆 디자인 팀장</b></h3><ul><li> UI/UX 설계</li><li> 와이어프레임 설계(Figma)</li><li> 사용자 관점에서의 시나리오 및 플로우 정의</li><li> Component와 Page 구성 및 관리</li><li> React & Redux 작성 및 관리</li>/ul>|
+| 최윤지 | <a href="https://github.com/yunjichoi9151"><img src="https://github.com/yunjichoi9151.png" width="100"></a> | FE | <h3><b>😆 디자인 팀장</b></h3><ul><li> UI/UX 설계</li><li> 와이어프레임 설계(Figma)</li><li> 사용자 관점에서의 시나리오 및 플로우 정의</li><li> Component와 Page 구성 및 관리</li><li> React & Redux 작성 및 관리</li></ul>|
 
 Thanks to : 최희경, 정유현
 
